@@ -112,6 +112,7 @@
 \else\fi
 
 \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
+  \RequirePackage{luatexja}
   \RequirePackage{luatexja-fontspec}
   % 英文字体
   \setmainfont[Ligatures={Common,TeX}]{Arial}
@@ -119,14 +120,13 @@
   \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   % 中文字体
-  \setmainjfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
-  \setsansjfont{Adobe Kaiti Std}
-  \setmonojfont{Adobe Fangsong Std}
-  \defaultjfontfeatures{Mapping=tex-text,PunctStyle=kaiming,Scale=MatchUppercase}
+  \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
+  \setsansjfont{AdobeKaitiStd-Regular}
+  \defaultjfontfeatures{Mapping=tex-text,Scale=MatchUppercase}
 
-  \newcommand{\hei}[1]{{\jfontspec{Adobe Heiti Std} #1}}
-  \newcommand{\kai}[1]{{\jfontspec{Adobe Kaiti Std} #1}}
-  \newcommand{\fangsong}[1]{{\jfontspec{Adobe Fangsong Std} #1}}
+  \newcommand{\hei}[1]{{\jfontspec{AdobeHeitiStd-Regular} #1}}
+  \newcommand{\kai}[1]{{\jfontspec{AdobeKaitiStd-Regular} #1}}
+  \newcommand{\fangsong}[1]{{\jfontspec{AdobeFangsongStd-Regular} #1}}
 
   \RequirePackage{CJKnumb}
 \else\fi
