@@ -55,6 +55,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HUSTthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
 
+% 默认为finalformat
+\ExecuteOptions{finalformat}
+
 % draftformat 包含全部的页眉页脚，最终版本的页眉为空，页脚仅有页码
 \newif\ifHUST@finalformat
 \DeclareOption{draftformat}{\HUST@finalformatfalse}
@@ -124,6 +127,6 @@
   \newcommand{\hei}[1]{{\jfontspec{Adobe Heiti Std} #1}}
   \newcommand{\kai}[1]{{\jfontspec{Adobe Kaiti Std} #1}}
   \newcommand{\fangsong}[1]{{\jfontspec{Adobe Fangsong Std} #1}}
-  
+
   \RequirePackage{CJKnumb}
 \else\fi
