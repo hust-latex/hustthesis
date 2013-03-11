@@ -42,11 +42,26 @@
 %%
 %%********************************************************************
 %
+%  选项：
+%
+%  draftformat, finalformat
+% 
+%    提交草稿打开 draftformat 选项，提交最终版打开 finalformat 选项。
+%    草稿正文页包括页眉（“华中科技大学学位论文”），页眉修饰线（双线）。
+%    页脚（页码），页脚修饰线（单线）。
+%    最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚。
 %
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HUSTthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
 
+% draftformat 包含全部的页眉页脚，最终版本的页眉为空，页脚仅有页码
+\newif\ifHUST@finalformat
+\DeclareOption{draftformat}{\HUST@finalformatfalse}
+\DeclareOption{finalformat}{\HUST@finalformattrue}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\ProcessOptions
 \LoadClass[12pt, a4paper, openany]{book}
 
 \RequirePackage{ifthen}
@@ -62,17 +77,53 @@
       *******************************************************^^J
       * XeTeX or LuaTeX is required to compile this document.^^J
       * Sorry!^^J
-      *******************************************************}%
+      *******************************************************^^J
+      }%
     \endgroup
   \fi
 \fi
 
 % Font
 
-\ifXeTeX
+\ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体
+  % 英文字体
+  \RequirePackage{fontspec}
+  \RequirePackage{xunicode}
+  \setmainfont[Ligatures={Common,TeX}]{Arial}
+  \setsansfont{Arial}
+  \setmonofont{CMU Typewriter Text}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  % 中文字体
+  \RequirePackage[boldfont,slantfont,CJKnumber,CJKmath]{xeCJK}
+  \setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
+  \setCJKsansfont{Adobe Kaiti Std}
+  \setCJKmonofont{Adobe Fangsong Std}
+  \defaultCJKfontfeatures{Mapping=tex-text,PunctStyle=kaiming,Scale=MatchUppercase}
 
+  \newfontinstance\HEI{Adobe Heiti Std}
+  \newcommand{\hei}[1]{{\HEI #1}}
+  \newfontinstance\KAI{Adobe Kaiti Std}
+  \newcommand{\kai}[1]{{\KAI #1}}
+  \newfontinstance\FANGSONG{Adobe Fangsong Std}
+  \newcommand{\fangsong}[1]{{\FANGSONG #1}}
 \else\fi
 
-\ifLuaTeX
+\ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
+  \RequirePackage{luatexja-fontspec}
+  % 英文字体
+  \setmainfont[Ligatures={Common,TeX}]{Arial}
+  \setsansfont{Arial}
+  \setmonofont{CMU Typewriter Text}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  % 中文字体
+  \setmainjfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
+  \setsansjfont{Adobe Kaiti Std}
+  \setmonojfont{Adobe Fangsong Std}
+  \defaultjfontfeatures{Mapping=tex-text,PunctStyle=kaiming,Scale=MatchUppercase}
 
+  \newcommand{\hei}[1]{{\jfontspec{Adobe Heiti Std} #1}}
+  \newcommand{\kai}[1]{{\jfontspec{Adobe Kaiti Std} #1}}
+  \newcommand{\fangsong}[1]{{\jfontspec{Adobe Fangsong Std} #1}}
+  
+  \RequirePackage{CJKnumb}
 \else\fi

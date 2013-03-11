@@ -30,11 +30,20 @@
 %%********************************************************************
 %
 %  选项：
+%
+%  draftformat, finalformat
+% 
+%    提交草稿打开 draftformat 选项，提交最终版打开 finalformat 选项。
+%    草稿正文页包括页眉（“华中科技大学学位论文”），页眉修饰线（双线）。
+%    页脚（页码），页脚修饰线（单线）。
+%    最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚。
+%
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HUSTmasterhesis}
 [2013/03/01 Huazhong University of Science and Technology Master Thesis Template]
 
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{HUSTthesis}}
+\ProcessOptions
 \LoadClass{HUSTthesis}
-
 
