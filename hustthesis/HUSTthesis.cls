@@ -44,3 +44,33 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HUSTthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
+
+\LoadClass[12pt, a4paper, openany]{book}
+
+\RequirePackage{ifthen}
+\RequirePackage{iftex}
+
+% Check Engine. It should be XeTeX or LuaTeX
+\ifXeTeX\else
+  \ifLuaTeX\else
+    \begingroup
+      \errorcontextlines=-1\relax
+      \newlinechar=10\relax
+      \errmessage{^^J
+      *******************************************************^^J
+      * XeTeX or LuaTeX is required to compile this document.^^J
+      * Sorry!^^J
+      *******************************************************}
+    \endgroup
+  \fi
+\fi
+
+% Font
+
+\ifXeTeX
+
+\else\fi
+
+\ifLuaTeX
+
+\else\fi
