@@ -28,12 +28,12 @@
 %%********************************************************************
 %% 
 %% This template is based on the original HUSTPHDthesis.cls (2006/04/06
-%% V2.0)written by Feng Jiang (2005 V1.0) and Huikan Liu 
+%% V2.0) written by Feng Jiang (2005 V1.0) and Huikan Liu 
 %% <hkliu@mail.edu.cn> (2006 V2.0). I rewrite it to replace CJK package 
 %% to xeCJK(for xelatex) or luatex-ja(for lualatex) for better handling 
 %% Chinese character and making it more compatible with other package.
 %%
-%% Original template is is distributed under the Perl Artistic License 
+%% Original template is distributed under the Perl Artistic License 
 %% ( http://language.perl.com/misc/Artistic.html ) 
 %% and may be freely used, distributed and modified.
 %% Retain the contribution notices and credits.
