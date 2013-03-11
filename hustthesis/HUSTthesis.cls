@@ -6,9 +6,11 @@
 %%
 %% 
 %% Contributors:
-%% Xu Cheng <xucheng@me.com>
+%%   Xu Cheng <xucheng@me.com>
+%%   Chen Lei <imhijacker@gmail.com>
 %%
-%% Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
+%% Copyright (C) 2013 by Xu Cheng <xucheng@me.com>, 
+%%                       Chen Lei <imhijacker@gmail.com>
 %%
 %% This library is free software; you can redistribute it and/or
 %% modify it under the terms of the GNU Lesser General Public
@@ -60,7 +62,7 @@
       *******************************************************^^J
       * XeTeX or LuaTeX is required to compile this document.^^J
       * Sorry!^^J
-      *******************************************************}
+      *******************************************************}%
     \endgroup
   \fi
 \fi
