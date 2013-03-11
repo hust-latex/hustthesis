@@ -130,3 +130,30 @@
 
   \RequirePackage{CJKnumb}
 \else\fi
+
+% Page setting
+\RequirePackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in,twoside=true]{geometry}
+
+% 行间距
+\RequirePackage{setspace}
+\onehalfspacing % 1.5倍行距
+
+% 段首缩进
+\RequirePackage{indentfirst}
+\setlength{\parindent}{2em}
+
+% hyperref setting
+\RequirePackage[unicode]{hyperref}
+\hypersetup{
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  breaklinks=true,
+  colorlinks=true,
+  allcolors=black,
+  plainpages=false,
+  pdfpagelabels=true,
+  pdfstartview={XYZ null null 1}
+}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
