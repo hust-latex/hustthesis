@@ -1,4 +1,4 @@
 HUSTThesis
 ==========
 
-An Latex Template for HUST Thesis.
+An LaTeX Template for HUST Thesis.
