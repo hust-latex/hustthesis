@@ -97,7 +97,7 @@
   \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   % 中文字体
-  \RequirePackage[boldfont,slantfont,CJKnumber,CJKmath]{xeCJK}
+  \RequirePackage[boldfont,slantfont,CJKmath]{xeCJK}
   \setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
   \setCJKsansfont{Adobe Kaiti Std}
   \setCJKmonofont{Adobe Fangsong Std}
@@ -122,14 +122,15 @@
   % 中文字体
   \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
   \setsansjfont{AdobeKaitiStd-Regular}
-  \defaultjfontfeatures{Mapping=tex-text,Scale=MatchUppercase}
+  \defaultjfontfeatures{Mapping=tex-text,JFM=kaiming,Scale=MatchUppercase}
 
   \newcommand{\hei}[1]{{\jfontspec{AdobeHeitiStd-Regular} #1}}
   \newcommand{\kai}[1]{{\jfontspec{AdobeKaitiStd-Regular} #1}}
   \newcommand{\fangsong}[1]{{\jfontspec{AdobeFangsongStd-Regular} #1}}
-
-  \RequirePackage{CJKnumb}
 \else\fi
+
+\RequirePackage{zhnumber}
+\def\CJKnumber#1{\zhnumber{#1}} % 兼容CJKnumb
 
 % Page setting
 \RequirePackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in,twoside=true]{geometry}
