@@ -9,7 +9,7 @@ HUSTThesis
 
 当我使用 LaTeX 撰写我的毕业设计论文的时候，我发现原有的模板[`HUSTPHDthesis.cls` (2006/04/06 V2.0)](http://sourceforge.net/projects/hustthesis)已经非常古老了，并停止了维护。因为它使用古老的`CJK`宏包处理中文字体，使用它会遇到各种bug。于是我重写了这个模板，并作了如下改进：
 
-1. 使用 `xeCJK`（`XeLaTeX`中）或 `luatex-ja`（`LuaLaTeX`中）宏包出来中文字体。因为他们都使用UTF-8编码，其能更好的与其他宏包兼容。
+1. 使用 `xeCJK`（`XeLaTeX`中）或 `luatex-ja`（`LuaLaTeX`中）宏包处理中文字体。因为他们都使用UTF-8编码，其能更好的与其他宏包兼容。
 2. 将过时的旧宏包更换为新的宏包。
 3. 简化代码。
 
