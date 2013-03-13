@@ -30,7 +30,7 @@ When I use LaTeX to write my final year project thesis, I found the original [`H
 
 ## License
 
-LGPL 2.1 is chosen to be then license of the project. Use as you desire.
+LGPL 2.1 is chosen to be the license of the project. Use as you desire.
 
 ```
 Copyright (C) 2013 by Xu Cheng <xucheng@me.com>, 
