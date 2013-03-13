@@ -182,20 +182,6 @@
 \RequirePackage{array}
 \RequirePackage{booktabs}  % 支持三线表表的宏包，方便水平表格线的粗细控制
 \RequirePackage{multirow,tabularx,ltxtable}
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
-% to prevent \cline breaking page in longtable environment, use in this way:
-% ... table content \\* \nopagebreak \cline{i-j}
-\def\@cline#1-#2\@nil{%
-  \omit
-  \@multicnt#1%
-  \advance\@multispan\m@ne
-  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
-  \@multicnt#2%
-  \advance\@multicnt-#1%
-  \advance\@multispan\@ne
-  \leaders\hrule\@height\arrayrulewidth\hfill
-  \cr
-  \noalign{\nobreak\vskip-\arrayrulewidth}}
 
 % 文献引用
 \RequirePackage[numbers,super,sort&compress]{natbib}
