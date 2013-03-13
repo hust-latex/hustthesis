@@ -137,11 +137,12 @@
 
 % 行间距
 \RequirePackage{setspace}
-\onehalfspacing % 1.5倍行距
+\setstretch{1.5} % 1.5倍行距
 
 % 段首缩进
 \RequirePackage{indentfirst}
 \setlength{\parindent}{2em}
+\setlength{\parskip}{0pt plus 2pt minus 1pt} % 段落之间的竖直距离
 
 % hyperref setting
 \RequirePackage[unicode]{hyperref}
@@ -158,3 +159,127 @@
 }
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
+
+% 颜色宏包
+\RequirePackage{color}
+\RequirePackage[table]{xcolor}
+
+% 数学宏包
+\RequirePackage{amsmath,amssymb,amsfonts}            % AMSLaTeX 宏包
+\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem} % 定理环境宏包
+
+\RequirePackage{fancynum}                            % 大数断开
+\setfnumgsym{\,}
+
+\RequirePackage[all]{xy}                                             % 画图宏包
+\RequirePackage{overpic}                                             % 图形层叠
+\RequirePackage[lined,boxed,linesnumbered,ruled,vlined]{algorithm2e} % 算法环境
+
+% 图形宏包
+\RequirePackage{graphicx,caption,subcaption} % 加载图形宏包
+
+% 表格宏包
+\RequirePackage{array}
+\RequirePackage{booktabs}  % 支持三线表表的宏包，方便水平表格线的粗细控制
+\RequirePackage{multirow,tabularx,ltxtable}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+% to prevent \cline breaking page in longtable environment, use in this way:
+% ... table content \\* \nopagebreak \cline{i-j}
+\def\@cline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidth\hfill
+  \cr
+  \noalign{\nobreak\vskip-\arrayrulewidth}}
+
+% 文献引用
+\RequirePackage[numbers,super,sort&compress]{natbib}
+\RequirePackage{mcite}
+
+% 格式定制
+\RequirePackage{titlesec}
+\RequirePackage{titletoc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定制公式样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 允许长公式断行、分页
+\allowdisplaybreaks[4]
+
+% 设置公式与上下文的间距
+\abovedisplayskip=10bp plus 2bp minus 2bp
+\abovedisplayshortskip=10bp plus 2bp minus 2bp
+\belowdisplayskip=\abovedisplayskip
+\belowdisplayshortskip=\abovedisplayshortskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定制表格样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 方便在表格中插入新表格
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+% 防止 \cline 在 longtable 环境中断开页面，使用方法
+% ... 表格内容 \\* \nopagebreak \cline{i-j}
+\def\@cline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidth\hfill
+  \cr
+  \noalign{\nobreak\vskip-\arrayrulewidth}}
+
+% 表格中的字体比正文小半号，为大五号，11pt，同时表格中的行距为 1.4 倍行距
+
+% 重定义 tabular 环境
+\let\HUST@tabular\tabular
+\let\endHUST@tabular\endtabular
+\renewenvironment{tabular}{%
+  \begingroup
+  \changefont{size=11pt}
+  \begin{spacing}{1.4}
+  \HUST@tabular
+}{%
+  \endHUST@tabular
+  \end{spacing}
+  \endgroup
+}
+
+% 重定义 tabularx 环境
+\let\HUST@tabularx\tabularx
+\let\endHUST@tabularx\endtabularx
+\renewenvironment{tabularx}{%
+  \begingroup
+  \changefont{size=11pt}
+  \begin{spacing}{1.4}
+  \HUST@tabularx
+}{%
+  \endHUST@tabularx
+  \end{spacing}
+  \endgroup
+}
+
+% 重定义 longtable 环境
+\let\HUST@longtable\longtable
+\let\endHUST@longtable\endlongtable
+\renewenvironment{longtable}{%
+  \begingroup
+  \changefont{size=11pt}
+  \begin{spacing}{1.4}
+  \HUST@longtable
+}{%
+  \endHUST@longtable
+  \end{spacing}
+  \endgroup
+}
