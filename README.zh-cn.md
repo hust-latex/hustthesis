@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301 USA
 ```
 
-本项目所依据的原始的`HUSTPHDthesis.cls` (2006/04/06 V2.0)由 Feng Jiang (2005 V1.0) 和 Huikan Liu <hkliu@mail.edu.cn> (2006 V2.0)编写。 你可以在 [这里](http://sourceforge.net/projects/hustthesis)浏览原始的模板的主页。原始模板依据如下协议
+本项目所依据的原始的`HUSTPHDthesis.cls` (2006/04/06 V2.0)由 Feng Jiang (2005 V1.0) 和 Huikan Liu <hkliu@mail.edu.cn> (2006 V2.0)编写。 你可以在 [这里](http://sourceforge.net/projects/hustthesis)浏览原始的模板的主页。原始模板依据如下协议：
 ```
 Copyright (C) 2006-2007 by Huikan Liu <hkliu@mail.edu.cn>
 
