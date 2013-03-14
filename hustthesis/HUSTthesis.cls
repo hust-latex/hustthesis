@@ -241,7 +241,7 @@
 \newtheorem{example}{例}[chapter]
 
 % proof 使用 amsthm
-\def\qedsymbol{\ensuremath{\blacksquare}}
+%\def\qedsymbol{$$\blacksquare$$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 设定浮动对象
@@ -347,6 +347,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 代码环境格式设置
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{HUST@lstgreen}{rgb}{0,0.6,0}
+\definecolor{HUST@lstgray}{rgb}{0.5,0.5,0.5}
+\definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily\setstretch{1},
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{HUST@lstgreen}\itshape,
+  stringstyle=\color{HUST@lstmauve},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=left,
+  numberstyle=\tiny\color{HUST@lstgray},
+  frame=lines,
+  rulecolor=\color{black}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 段落章节标题格式设置
