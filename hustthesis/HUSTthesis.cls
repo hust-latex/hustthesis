@@ -419,5 +419,5 @@
 \def\listingscaption{代码}
 \def\proofname{\hei{证明}}
 \def\bibname{参考文献}
-\def\contentsname{目\hspace{2em}录}
+\def\contentsname{目\hspace{1em}录}
 \def\appendixname{附录}
