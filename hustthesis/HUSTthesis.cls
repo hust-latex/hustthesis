@@ -88,7 +88,7 @@
 
 % Font
 
-\ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体
+\ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体 [Currently Depressed]
   % 英文字体
   \RequirePackage{fontspec}
   \RequirePackage{xunicode}
@@ -132,12 +132,15 @@
 \RequirePackage{zhnumber}
 \def\CJKnumber#1{\zhnumber{#1}} % 兼容CJKnumb
 
-% Page setting
+% 用于设置字号
+\RequirePackage{interfaces}
+
+% 页面设置
 \RequirePackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in,twoside=true]{geometry}
 
 % 行间距
 \RequirePackage{setspace}
-\setstretch{1.5} % 1.5倍行距
+\setstretch{1.2} % 1.2倍行距 
 
 % 段首缩进
 \RequirePackage{indentfirst}
@@ -182,6 +185,9 @@
 \RequirePackage{array}
 \RequirePackage{booktabs}  % 支持三线表表的宏包，方便水平表格线的粗细控制
 \RequirePackage{multirow,tabularx,ltxtable}
+
+% 代码环境
+\RequirePackage{listings}
 
 % 文献引用
 \RequirePackage[numbers,super,sort&compress]{natbib}
@@ -269,3 +275,25 @@
   \end{spacing}
   \endgroup
 }
+
+% 图表标题变换样式
+\DeclareCaptionFont{HUST@dawu}{\changefont{size=11pt}}
+\DeclareCaptionLabelFormat{HUST@caplabel}{#1~#2}
+\captionsetup{
+  font=HUST@dawu,            % 图表标题字体比正文小半号，为大五号，11pt
+  labelformat=HUST@caplabel, % 设置标题标签的样式
+  format=hang,               % 悬挂缩进的方式
+  labelsep=quad,             % 不要图表号后面的":"
+  skip=12bp                  % 设置标题前后间距
+}
+
+\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+\renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
+
+% 中文设置
+\def\figurename{图}
+\def\tablename{表}
+\def\algorithmcfname{算法}
+\def\listingscaption{代码}
+\def\bibname{参考文献}
+\def\contentsname{目录}
