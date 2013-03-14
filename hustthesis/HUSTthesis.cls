@@ -104,15 +104,14 @@
   \defaultCJKfontfeatures{Mapping=tex-text,PunctStyle=kaiming,Scale=MatchUppercase}
 
   \newfontinstance\HEI{Adobe Heiti Std}
-  \newcommand{\hei}[1]{{\HEI #1}}
   \newfontinstance\KAI{Adobe Kaiti Std}
-  \newcommand{\kai}[1]{{\KAI #1}}
   \newfontinstance\FANGSONG{Adobe Fangsong Std}
+  \newcommand{\hei}[1]{{\HEI #1}}
+  \newcommand{\kai}[1]{{\KAI #1}}
   \newcommand{\fangsong}[1]{{\FANGSONG #1}}
 \else\fi
 
 \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
-  \RequirePackage{luatexja}
   \RequirePackage{luatexja-fontspec}
   % 英文字体
   \setmainfont[Ligatures={Common,TeX}]{Arial}
@@ -124,6 +123,9 @@
   \setsansjfont{AdobeKaitiStd-Regular}
   \defaultjfontfeatures{Mapping=tex-text,JFM=kaiming,Scale=MatchUppercase}
 
+  \newjfontfamily\HEI{AdobeHeitiStd-Regular}
+  \newjfontfamily\KAI{AdobeKaitiStd-Regular}
+  \newjfontfamily\FANGSONG{AdobeFangsongStd-Regular}
   \newcommand{\hei}[1]{{\jfontspec{AdobeHeitiStd-Regular} #1}}
   \newcommand{\kai}[1]{{\jfontspec{AdobeKaitiStd-Regular} #1}}
   \newcommand{\fangsong}[1]{{\jfontspec{AdobeFangsongStd-Regular} #1}}
@@ -168,10 +170,10 @@
 \RequirePackage[table]{xcolor}
 
 % 数学宏包
-\RequirePackage{amsmath,amssymb,amsfonts}            % AMSLaTeX 宏包
-\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem} % 定理环境宏包
+\RequirePackage{amsmath,amssymb,amsfonts}                            % AMSLaTeX 宏包
+\RequirePackage[amsmath,amsthm,thmmarks,hyperref,thref]{ntheorem}    % 定理环境宏包
 
-\RequirePackage{fancynum}                            % 大数断开
+\RequirePackage{fancynum}                                            % 大数断开
 \setfnumgsym{\,}
 
 \RequirePackage[all]{xy}                                             % 画图宏包
@@ -196,6 +198,7 @@
 % 格式定制
 \RequirePackage{titlesec}
 \RequirePackage{titletoc}
+\RequirePackage{enumitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -211,6 +214,34 @@
 \belowdisplayshortskip=\abovedisplayshortskip
 
 \numberwithin{equation}{chapter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定制定理环境
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremnumbering{arabic}
+\theoremseparator{：}
+\theorempreskip{1.2ex plus 0ex minus 1ex}
+\theorempostskip{1.2ex plus 0ex minus 1ex}
+\theoremheaderfont{\normalfont\bfseries\HEI}
+\theoremsymbol{}
+
+\theoremstyle{definition}
+\theorembodyfont{\normalfont}
+\newtheorem{definition}{定义}[chapter]
+
+\theoremstyle{plain}
+\theorembodyfont{\itshape}
+\newtheorem{proposition}{命题}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{axiom}{公理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{exercise}{练习}[chapter]
+\newtheorem{example}{例}[chapter]
+
+% proof 使用 amsthm
+\def\qedsymbol{\ensuremath{\blacksquare}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 设定浮动对象
@@ -296,7 +327,10 @@
   \endgroup
 }
 
-% 图表标题变换样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 设定图表标题样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \DeclareCaptionFont{HUST@dawu}{\changefont{size=11pt}}
 \DeclareCaptionLabelFormat{HUST@caplabel}{#1~#2}
 \captionsetup{
@@ -304,16 +338,71 @@
   labelformat=HUST@caplabel, % 设置标题标签的样式
   format=hang,               % 悬挂缩进的方式
   labelsep=quad,             % 不要图表号后面的":"
-  skip=12bp                  % 设置标题前后间距
+  skip=12pt                  % 设置标题前后间距
 }
 
 \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 段落章节标题格式设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 编号层级
+\setcounter{secnumdepth}{3}
+
+% 章节格式 
+\titleformat{\chapter}
+  {
+    \bfseries\HEI            % 黑体字
+    \centering               % 居中
+    \changefont{size=18pt}   % 字号
+  }
+  {\zhnumber{\thechapter}} 
+  {1em}                      % 章序号与章名之间空一个汉字符
+  {}
+\titlespacing*{\chapter}{0pt}{24pt}{20pt} % 章节前空24磅，段后空20磅
+
+% 一级标题格式
+% 采用黑体 16pt
+% 段前空18磅，段后空6磅。
+\titleformat*{\section}{\HEI\changefont{size=16pt}}
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+
+% 二级标题格式
+% 采用黑体 14pt
+% 段前空12磅，段后空6磅。
+\titleformat*{\subsection}{\HEI\changefont{size=14pt}}
+\titlespacing*{\subsection}{0pt}{18pt}{6pt}
+
+% 三级标题格式
+% 采用黑体 13pt
+% 段前空12磅，段后空6磅。
+\titleformat*{\subsubsection}{\HEI\changefont{size=13pt}}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 目录格式设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 目录层级
+\setcounter{tocdepth}{1}
+
+%适当增加目录项的右边距
+\contentsmargin{2.0em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 中文设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\indexname{索引}
 \def\figurename{图}
 \def\tablename{表}
+\def\listfigurename{插图索引}
+\def\listtablename{表格索引}
 \def\algorithmcfname{算法}
 \def\listingscaption{代码}
+\def\proofname{\hei{证明}}
 \def\bibname{参考文献}
-\def\contentsname{目录}
+\def\contentsname{目\hspace{1em}录}
+\def\appendixname{附录}
