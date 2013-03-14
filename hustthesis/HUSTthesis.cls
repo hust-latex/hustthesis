@@ -210,6 +210,26 @@
 \belowdisplayskip=\abovedisplayskip
 \belowdisplayshortskip=\abovedisplayshortskip
 
+\numberwithin{equation}{chapter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 设定浮动对象
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 对于 h 参数，浮动对象与前后正文间的距离
+\setlength{\intextsep}{0.7\baselineskip plus 0.1\baselineskip minus 0.1\baselineskip}
+
+% 顶部或底部的浮动对象与正文间的距离
+\setlength{\textfloatsep}{0.8\baselineskip plus 0.1\baselineskip minus 0.2\baselineskip}
+
+% 设定浮动对象的比例
+% 下面这组命令使浮动对象的缺省值稍微宽松一点，从而防止幅度
+% 对象占据过多的文本页面，也可以防止在很大空白的浮动页上放置
+% 很小的图形。
+\renewcommand{\textfraction}{0.15} 
+\renewcommand{\topfraction}{0.85} 
+\renewcommand{\bottomfraction}{0.65} 
+\renewcommand{\floatpagefraction}{0.60} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制表格样式
