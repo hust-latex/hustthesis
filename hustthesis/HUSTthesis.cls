@@ -101,11 +101,12 @@
   \setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
   \setCJKsansfont{Adobe Kaiti Std}
   \setCJKmonofont{Adobe Fangsong Std}
-  \defaultCJKfontfeatures{Mapping=tex-text,PunctStyle=kaiming,Scale=MatchUppercase}
+  \defaultCJKfontfeatures{Mapping=tex-text,Scale=MatchUppercase}
+  \xeCJKsetup{PunctStyle=kaiming}
 
-  \newfontinstance\HEI{Adobe Heiti Std}
-  \newfontinstance\KAI{Adobe Kaiti Std}
-  \newfontinstance\FANGSONG{Adobe Fangsong Std}
+  \newCJKfontfamily\HEI{Adobe Heiti Std}
+  \newCJKfontfamily\KAI{Adobe Kaiti Std}
+  \newCJKfontfamily\FANGSONG{Adobe Fangsong Std}
   \newcommand{\hei}[1]{{\HEI #1}}
   \newcommand{\kai}[1]{{\KAI #1}}
   \newcommand{\fangsong}[1]{{\FANGSONG #1}}
