@@ -44,33 +44,81 @@
 %
 %  选项：
 %
-%  draftformat, finalformat
+%  format = [final, draft]
 % 
-%    提交草稿打开 draftformat 选项，提交最终版打开 finalformat 选项。
-%    草稿正文页包括页眉（“华中科技大学学位论文”），页眉修饰线（双线）。
+%    提交草稿选择 draft 选项，提交最终版选 final 选项。
+%    草稿正文页包括页眉（“华中科技大学xx学位论文”），页眉修饰线（双线）。
 %    页脚（页码），页脚修饰线（单线）。
 %    最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚。
+%    默认设置为 final。
+%
+%  applyname = [none, fyp, bachelor , master, phd, 自定义]
+%    设置字段“xx学位论文”，各选项含义如下：
+%         none     - 字段为“学位论文”
+%         fyp      - 字段为“毕业设计论文”
+%         bachelor - 字段为“学士学位论文”
+%         master   - 字段为“硕士学位论文”
+%         phd      - 字段为“博士学位论文”
+%         自定义   - 字段为自定义内容
+%    默认设置为 none 。
 %
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HUSTthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
 
-% 默认为finalformat
-\ExecuteOptions{finalformat}
+\RequirePackage{xkeyval}
+\RequirePackage{ifthen}
 
-% draftformat 包含全部的页眉页脚，最终版本的页眉为空，页脚仅有页码
+% draft 包含全部的页眉页脚
+% final 页眉为空，页脚仅有页码
+% 默认为final
 \newif\ifHUST@finalformat
-\DeclareOption{draftformat}{\HUST@finalformatfalse}
-\DeclareOption{finalformat}{\HUST@finalformattrue}
+\DeclareOptionX{format}[final]{
+  \ifthenelse{\equal{#1}{final}}{
+    \HUST@finalformattrue
+  }{
+    \ifthenelse{\equal{#1}{draft}}{
+      \HUST@finalformatfalse
+    }{
+      \ClassError{HUSTthesis}
+      {Option format can only be 'final' or 'draft'}
+      {Try to remove option format^^J}
+    }
+  }
+}
+
+\gdef\HUST@applyname{学位论文}
+\DeclareOptionX{applyname}[none]{
+  \ifthenelse{\equal{#1}{none}}{
+    \gdef\HUST@applyname{学位论文}
+  }{
+    \ifthenelse{\equal{#1}{fyp}}{
+      \gdef\HUST@applyname{毕业设计论文}
+    }{
+      \ifthenelse{\equal{#1}{bachelor}}{
+        \gdef\HUST@applyname{学士学位论文}
+      }{
+        \ifthenelse{\equal{#1}{master}}{
+          \gdef\HUST@applyname{硕士学位论文}
+        }{
+          \ifthenelse{\equal{#1}{phd}}{
+            \gdef\HUST@applyname{博士学位论文}
+          }{
+            \gdef\HUST@applyname{#1}
+          }
+        }
+      }
+    }
+  }
+}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
-\ProcessOptions
+\ProcessOptionsX
 \LoadClass[12pt, a4paper, openany]{book}
 
-\RequirePackage{ifthen}
+% Check Engine. It should be XeTeX or LuaTeX
 \RequirePackage{iftex}
 
-% Check Engine. It should be XeTeX or LuaTeX
 \ifXeTeX\else
   \ifLuaTeX\else
     \begingroup
@@ -95,13 +143,12 @@
   \setmainfont[Ligatures={Common,TeX}]{Arial}
   \setsansfont{Arial}
   \setmonofont{CMU Typewriter Text}
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \defaultfontfeatures{Mapping=tex-text}
   % 中文字体
   \RequirePackage[boldfont,slantfont,CJKmath]{xeCJK}
   \setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
   \setCJKsansfont{Adobe Kaiti Std}
   \setCJKmonofont{Adobe Fangsong Std}
-  \defaultCJKfontfeatures{Mapping=tex-text,Scale=MatchUppercase}
   \xeCJKsetup{PunctStyle=kaiming}
 
   \newCJKfontfamily\HEI{Adobe Heiti Std}
@@ -122,7 +169,7 @@
   % 中文字体
   \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
   \setsansjfont{AdobeKaitiStd-Regular}
-  \defaultjfontfeatures{Mapping=tex-text,JFM=kaiming,Scale=MatchUppercase}
+  \defaultjfontfeatures{JFM=kaiming}
 
   \newjfontfamily\HEI{AdobeHeitiStd-Regular}
   \newjfontfamily\KAI{AdobeKaitiStd-Regular}
@@ -190,6 +237,7 @@
 \RequirePackage{multirow,tabularx,ltxtable}
 
 % 代码环境
+% 如需更多扩展，可以使用minted宏包
 \RequirePackage{listings}
 
 % 文献引用
@@ -200,6 +248,8 @@
 \RequirePackage{titlesec}
 \RequirePackage{titletoc}
 \RequirePackage{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage{afterpage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -413,6 +463,16 @@
 
 %适当增加目录项的右边距
 \contentsmargin{2.0em}
+\renewcommand{\headrulewidth}{0pt}
+\addtolength{\headheight}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 页眉页脚设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\ps@plain\ps@fancy
+\pagestyle{fancy}
+\fancyhf{} % 清空页眉页脚
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % itemize，enumerate，description环境设置
@@ -439,6 +499,7 @@
 \def\proofname{\hei{证明}}
 \def\bibname{参考文献}
 \def\contentsname{目\hspace{1em}录}
+\def\contentsnamenosapce{目录}
 \def\appendixname{附录}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -449,5 +510,25 @@
 \def\author#1{\gdef\@author{#1}\hypersetup{pdfauthor=#1}}
 \def\date#1{\gdef\@date{#1}}
 \def\keywords#1{\gdef\@keywords{#1}\hypersetup{pdfkeywords=#1}}
+\def\subject#1{\gdef\@subject{#1}\hypersetup{pdfsubject=#1}}
 
 \date{\today}
+
+\def\HUST@titlepage@zh{
+  
+}
+
+\def\HUST@titlepage@eng{
+  
+}
+
+\def\maketitle{
+  
+}
+
+\let\HUST@tableofcontents\tableofcontents
+\def\tableofcontents{
+  \clearpage
+  \pdfbookmark{\contentsnamenosapce}{\contentsnamenosapce}
+  \HUST@tableofcontents
+}
