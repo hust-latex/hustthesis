@@ -439,3 +439,14 @@
 \def\bibname{参考文献}
 \def\contentsname{目\hspace{1em}录}
 \def\appendixname{附录}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 变量
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\title#1{\gdef\@title{#1}\hypersetup{pdftitle=#1}}
+\def\author#1{\gdef\@author{#1}\hypersetup{pdfauthor=#1}}
+\def\date#1{\gdef\@date{#1}}
+\def\keywords#1{\gdef\@keywords{#1}\hypersetup{pdfkeywords=#1}}
+
+\date{\today}
