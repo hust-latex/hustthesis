@@ -463,8 +463,6 @@
 
 %适当增加目录项的右边距
 \contentsmargin{2.0em}
-\renewcommand{\headrulewidth}{0pt}
-\addtolength{\headheight}{\baselineskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 页眉页脚设置
@@ -473,6 +471,7 @@
 \let\ps@plain\ps@fancy
 \pagestyle{fancy}
 \fancyhf{} % 清空页眉页脚
+\renewcommand{\headrulewidth}{0pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % itemize，enumerate，description环境设置
@@ -531,4 +530,6 @@
   \clearpage
   \pdfbookmark{\contentsnamenosapce}{\contentsnamenosapce}
   \HUST@tableofcontents
+  \clearpage
+  \setcounter{page}{1}
 }
