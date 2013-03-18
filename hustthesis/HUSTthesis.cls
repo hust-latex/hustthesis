@@ -157,6 +157,8 @@
   \newcommand{\hei}[1]{{\HEI #1}}
   \newcommand{\kai}[1]{{\KAI #1}}
   \newcommand{\fangsong}[1]{{\FANGSONG #1}}
+
+  \newcommand\ziju[2]{{\renewcommand{\CJKglue}{\hskip #1} #2}}
 \else\fi
 
 \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
@@ -177,6 +179,8 @@
   \newcommand{\hei}[1]{{\jfontspec{AdobeHeitiStd-Regular} #1}}
   \newcommand{\kai}[1]{{\jfontspec{AdobeKaitiStd-Regular} #1}}
   \newcommand{\fangsong}[1]{{\jfontspec{AdobeFangsongStd-Regular} #1}}
+
+  \newcommand\ziju[2]{\vbox{\ltjsetparameter{kanjiskip=#1} #2}} % \vbox 是因为luatex-ja的bug，bug修复后移除
 \else\fi
 
 \RequirePackage{zhnumber}
@@ -233,7 +237,6 @@
 
 % 表格宏包
 \RequirePackage{array}
-\RequirePackage{booktabs}  % 支持三线表表的宏包，方便水平表格线的粗细控制
 \RequirePackage{multirow,tabularx,ltxtable}
 
 % 代码环境
@@ -472,6 +475,55 @@
 \pagestyle{fancy}
 \fancyhf{} % 清空页眉页脚
 \renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% 目录处页眉页脚设置
+\def\HUST@fancyhdoftoc{
+  \afterpage{
+    \fancyhf{}
+    \ifHUST@finalformat
+      \fancyfoot[C]{\uppercase\expandafter{\romannumeral\thepage}}
+    \else
+      \fancyhead[C]{
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@schoolname\HUST@applyname}}
+        \vskip -5pt
+        \vbox{
+          \hrule width \textwidth height 0.4pt
+          \vskip 1.0pt
+          \hrule width \textwidth height 0.4pt
+        }
+      }
+      \fancyfoot[C]{
+        \hrule width \textwidth height 0.4pt
+        \uppercase\expandafter{\romannumeral\thepage}
+      }
+    \fi
+  }
+}
+
+% 正文处页眉页脚设置
+\def\HUST@fancyhdoftext{
+  \afterpage{
+    \fancyhf{}
+    \ifHUST@finalformat
+      \fancyfoot[C]{\thepage}
+    \else
+      \fancyhead[C]{
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@schoolname\HUST@applyname}}
+        \vskip -5pt
+        \vbox{
+          \hrule width \textwidth height 0.4pt
+          \vskip 1.0pt
+          \hrule width \textwidth height 0.4pt
+        }
+      }
+      \fancyfoot[C]{
+        \hrule width \textwidth height 0.4pt
+        \thepage
+      }
+    \fi
+  }
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % itemize，enumerate，description环境设置
@@ -511,6 +563,8 @@
 \def\keywords#1{\gdef\@keywords{#1}\hypersetup{pdfkeywords=#1}}
 \def\subject#1{\gdef\@subject{#1}\hypersetup{pdfsubject=#1}}
 
+\def\HUST@schoolname{华中科技大学}
+
 \date{\today}
 
 \def\HUST@titlepage@zh{
@@ -532,4 +586,5 @@
   \HUST@tableofcontents
   \clearpage
   \setcounter{page}{1}
+  \HUST@fancyhdoftext
 }
