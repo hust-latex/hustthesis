@@ -449,7 +449,7 @@
 % 采用黑体 14pt
 % 段前空12磅，段后空6磅。
 \titleformat*{\subsection}{\HEI\changefont{size=14pt}}
-\titlespacing*{\subsection}{0pt}{18pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
 
 % 三级标题格式
 % 采用黑体 13pt
@@ -577,6 +577,12 @@
 
 \def\maketitle{
   
+}
+
+\def\makeabstract{
+  % TODO:
+
+  \HUST@fancyhdoftoc
 }
 
 \let\HUST@tableofcontents\tableofcontents
