@@ -187,7 +187,7 @@
 \def\CJKnumber#1{\zhnumber{#1}} % 兼容CJKnumb
 
 % 用于设置字号
-\RequirePackage{interfaces}
+\RequirePackage{interfaces-LaTeX}
 
 % 页面设置
 \RequirePackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in,twoside=true]{geometry}
