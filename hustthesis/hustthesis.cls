@@ -1,5 +1,5 @@
 %%
-%% HUSTthesis.cls 2013/03/01
+%% hustthesis.cls 2013/03/01
 %%
 %% This is the unofficial LaTeX class for Thesis Template of
 %% Huazhong University of Science and Technology 
@@ -64,7 +64,7 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{HUSTthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
+\ProvidesClass{hustthesis}[2013/03/01 Huazhong University of Science and Technology Thesis Template]
 
 \RequirePackage{xkeyval}
 \RequirePackage{ifthen}
@@ -190,7 +190,7 @@
 \RequirePackage{interfaces-LaTeX}
 
 % 页面设置
-\RequirePackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in,twoside=true]{geometry}
+\RequirePackage[top=1.2in,bottom=1.2in,left=1in,right=1in]{geometry}
 
 % 行间距
 \RequirePackage{setspace}
@@ -253,6 +253,8 @@
 \RequirePackage{enumitem}
 \RequirePackage{fancyhdr}
 \RequirePackage{afterpage}
+\RequirePackage{datenumber}
+\RequirePackage{etoolbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -340,46 +342,13 @@
 % 表格中的字体比正文小半号，为大五号，11pt，同时表格中的行距为 1.4 倍行距
 
 % 重定义 tabular 环境
-\let\HUST@tabular\tabular
-\let\endHUST@tabular\endtabular
-\renewenvironment{tabular}{%
-  \begingroup
-  \changefont{size=11pt}
-  \begin{spacing}{1.4}
-  \HUST@tabular
-}{%
-  \endHUST@tabular
-  \end{spacing}
-  \endgroup
-}
+\AtBeginEnvironment{tabular}{\changefont{size=11pt}\setstretch{1.4}}
 
 % 重定义 tabularx 环境
-\let\HUST@tabularx\tabularx
-\let\endHUST@tabularx\endtabularx
-\renewenvironment{tabularx}{%
-  \begingroup
-  \changefont{size=11pt}
-  \begin{spacing}{1.4}
-  \HUST@tabularx
-}{%
-  \endHUST@tabularx
-  \end{spacing}
-  \endgroup
-}
+\AtBeginEnvironment{tabularx}{\changefont{size=11pt}\setstretch{1.4}}
 
 % 重定义 longtable 环境
-\let\HUST@longtable\longtable
-\let\endHUST@longtable\endlongtable
-\renewenvironment{longtable}{%
-  \begingroup
-  \changefont{size=11pt}
-  \begin{spacing}{1.4}
-  \HUST@longtable
-}{%
-  \endHUST@longtable
-  \end{spacing}
-  \endgroup
-}
+\AtBeginEnvironment{longtable}{\changefont{size=11pt}\setstretch{1.4}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 设定图表标题样式
@@ -477,15 +446,20 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
+% 设置空白页眉页脚
+\def\HUST@fancyhfempty{
+  \afterpage{\fancyhf{}}
+}
+
 % 目录处页眉页脚设置
-\def\HUST@fancyhdoftoc{
+\def\HUST@fancyhftoc{
   \afterpage{
     \fancyhf{}
     \ifHUST@finalformat
       \fancyfoot[C]{\uppercase\expandafter{\romannumeral\thepage}}
     \else
       \fancyhead[C]{
-        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@schoolname\HUST@applyname}}
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@applyname}}
         \vskip -5pt
         \vbox{
           \hrule width \textwidth height 0.4pt
@@ -502,14 +476,14 @@
 }
 
 % 正文处页眉页脚设置
-\def\HUST@fancyhdoftext{
+\def\HUST@fancyhftext{
   \afterpage{
     \fancyhf{}
     \ifHUST@finalformat
       \fancyfoot[C]{\thepage}
     \else
       \fancyhead[C]{
-        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@schoolname\HUST@applyname}}
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@applyname}}
         \vskip -5pt
         \vbox{
           \hrule width \textwidth height 0.4pt
@@ -554,43 +528,104 @@
 \def\appendixname{附录}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 变量
+% 变量设置
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\title#1{\gdef\@title{#1}\hypersetup{pdftitle=#1}}
-\def\author#1{\gdef\@author{#1}\hypersetup{pdfauthor=#1}}
-\def\date#1{\gdef\@date{#1}}
-\def\keywords#1{\gdef\@keywords{#1}\hypersetup{pdfkeywords=#1}}
-\def\subject#1{\gdef\@subject{#1}\hypersetup{pdfsubject=#1}}
+\def\zhtitle#1{\gdef\HUST@zhtitle{#1}\hypersetup{pdftitle=#1}}
+\def\entitle#1{\gdef\HUST@entitle{#1}}
+\def\title#1#2{\zhtitle{#1}\entitle{#2}}\title{}{}
 
-\def\HUST@schoolname{华中科技大学}
+\def\zhauthor#1{\gdef\HUST@zhauthor{#1}\hypersetup{pdfauthor=#1}}
+\def\enauthor#1{\gdef\HUST@enauthor{#1}}
+\def\author#1#2{\zhauthor{#1}\enauthor{#2}}\author{}{}
 
-\date{\today}
+\def\date#1#2#3{
+  \setdate{#1}{#2}{#3}
+}
+\setdatetoday
 
-\def\HUST@titlepage@zh{
-  
+\def\zhschoolname#1{\gdef\HUST@zhschoolname{#1}}
+\def\enschoolname#1{\gdef\HUST@enschoolname{#1}}
+\def\schoolname#1#2{\zhschoolname{#1}\enschoolname{#2}}
+
+\def\schoolcode#1{\gdef\HUST@schoolcode{#1}}\schoolcode{}
+\def\stuno#1{\gdef\HUST@stuno{#1}}\stuno{}
+\def\classno#1{\gdef\HUST@classno{#1}}\classno{} % 分类号
+\def\secrettile#1{\gdef\HUST@secrettile{#1}}\secrettile{} % 密级
+
+\def\keywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords=#1}}
+\def\subject#1{\gdef\HUST@zhsubject{#1}\hypersetup{pdfsubject=#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 导入变量
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{hust-thesis-var.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 特殊页面
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 中文封面
+\def\HUST@zhtitlepage{
+  \begin{center}
+  \vspace*{-1.0cm}
+  \parbox[t][2.2cm][t]{\textwidth}{
+    \begin{center}
+      \setlength{\tabcolsep}{0pt}
+      \setlength{\extrarowheight}{12pt}
+      \begin{tabularx}{\textwidth}{p{4em}p{5em}Xp{2em}p{12em}}
+      \changefont{size=14pt}\setstretch{1.2}
+        {分}\hfill{类}\hfill{号} & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
+        学号                     & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
+        学校代码                 & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@schoolcode}\hfill} & &
+        密级                     & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@secrettile}\hfill}
+      \end{tabularx}
+    \end{center}
+    }
+  \parbox[t][6cm][t]{\textwidth}{
+    \vspace{1.0cm}
+    \begin{center}
+    \includegraphics[scale=1.1]{hust-title.eps}\\[0.8cm]
+    \ziju{10bp}{\changefont{size=42pt}\setstretch{1}\HUST@applyname}
+    \end{center}
+  }
+  \end{center}
 }
 
-\def\HUST@titlepage@eng{
+% 英文封面
+\def\HUST@entitlepage{
+
+}
+
+% 版权页面
+\def\HUST@authorization{
   
 }
 
 \def\maketitle{
-  
+  \HUST@fancyhfempty
+  \begin{titlepage}
+    \HUST@zhtitlepage
+    \clearpage
+    \HUST@entitlepage 
+  \end{titlepage}
+  \HUST@authorization
+  \clearpage
+  \HUST@fancyhftoc
 }
 
 \def\makeabstract{
-  % TODO:
-
-  \HUST@fancyhdoftoc
+  \clearpage
+  \HUST@fancyhftoc
 }
 
 \let\HUST@tableofcontents\tableofcontents
 \def\tableofcontents{
-  \clearpage
+  \HUST@fancyhftoc
   \pdfbookmark{\contentsnamenosapce}{\contentsnamenosapce}
   \HUST@tableofcontents
   \clearpage
   \setcounter{page}{1}
-  \HUST@fancyhdoftext
+  \HUST@fancyhftext
 }
