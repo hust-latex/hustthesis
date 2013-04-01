@@ -52,15 +52,14 @@
 %    最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚。
 %    默认设置为 final。
 %
-%  applyname = [none, fyp, bachelor , master, phd, 自定义]
-%    设置字段“xx学位论文”，各选项含义如下：
-%         none     - 字段为“学位论文”
-%         fyp      - 字段为“毕业设计论文”
-%         bachelor - 字段为“学士学位论文”
-%         master   - 字段为“硕士学位论文”
-%         phd      - 字段为“博士学位论文”
-%         自定义   - 字段为自定义内容
-%    默认设置为 none 。
+%  degree = [none, fyp, bachelor, master, phd]
+%    设置学位，各选项含义如下：
+%         none     - 空
+%         fyp      - 毕业设计
+%         bachelor - 学士学位
+%         master   - 硕士学位
+%         phd      - 博士学位
+%    默认设置为 none。
 %
 
 \NeedsTeXFormat{LaTeX2e}
@@ -80,35 +79,20 @@
     \ifthenelse{\equal{#1}{draft}}{
       \HUST@finalformatfalse
     }{
-      \ClassError{HUSTthesis}
+      \ClassError{hustthesis}
       {Option format can only be 'final' or 'draft'}
       {Try to remove option format^^J}
     }
   }
 }
 
-\gdef\HUST@applyname{学位论文}
-\DeclareOptionX{applyname}[none]{
-  \ifthenelse{\equal{#1}{none}}{
-    \gdef\HUST@applyname{学位论文}
+\DeclareOptionX{degree}[none]{
+  \ifthenelse{\equal{#1}{none} \OR \equal{#1}{fyp} \OR \equal{#1}{bachelor} \OR \equal{#1}{master} \OR \equal{#1}{phd}}{
+    \gdef\HUST@degree{#1}
   }{
-    \ifthenelse{\equal{#1}{fyp}}{
-      \gdef\HUST@applyname{毕业设计论文}
-    }{
-      \ifthenelse{\equal{#1}{bachelor}}{
-        \gdef\HUST@applyname{学士学位论文}
-      }{
-        \ifthenelse{\equal{#1}{master}}{
-          \gdef\HUST@applyname{硕士学位论文}
-        }{
-          \ifthenelse{\equal{#1}{phd}}{
-            \gdef\HUST@applyname{博士学位论文}
-          }{
-            \gdef\HUST@applyname{#1}
-          }
-        }
-      }
-    }
+     \ClassError{hustthesis}
+      {Option degree can only be 'none', 'fyp', 'bachelor', 'master' or 'phd'}
+      {Try to remove option degree^^J}
   }
 }
 
@@ -140,7 +124,7 @@
   % 英文字体
   \RequirePackage{fontspec}
   \RequirePackage{xunicode}
-  \setmainfont[Ligatures={Common,TeX}]{Arial}
+  \setmainfont[Ligatures={Common,TeX}]{Times New Roman}
   \setsansfont{Arial}
   \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text}
@@ -164,7 +148,7 @@
 \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
   \RequirePackage{luatexja-fontspec}
   % 英文字体
-  \setmainfont[Ligatures={Common,TeX}]{Arial}
+  \setmainfont[Ligatures={Common,TeX}]{Times New Roman}
   \setsansfont{Arial}
   \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
@@ -186,15 +170,12 @@
 \RequirePackage{zhnumber}
 \def\CJKnumber#1{\zhnumber{#1}} % 兼容CJKnumb
 
-% 用于设置字号
+% 用于设置字号,行间距
 \RequirePackage{interfaces-LaTeX}
+\changefont{spread=1.2} % 1.2倍行距 
 
 % 页面设置
 \RequirePackage[top=1.2in,bottom=1.2in,left=1in,right=1in]{geometry}
-
-% 行间距
-\RequirePackage{setspace}
-\setstretch{1.2} % 1.2倍行距 
 
 % 段首缩进
 \RequirePackage{indentfirst}
@@ -341,14 +322,33 @@
 
 % 表格中的字体比正文小半号，为大五号，11pt，同时表格中的行距为 1.4 倍行距
 
+% 是否使用原始的表格环境
+\newif\ifHUST@useoldtabular
+\HUST@useoldtabularfalse
+
+\def\TurnOffTabFontSetting{\HUST@useoldtabulartrue}
+\def\TurnOnTabFontSetting{\HUST@useoldtabularfalse}
+
 % 重定义 tabular 环境
-\AtBeginEnvironment{tabular}{\changefont{size=11pt}\setstretch{1.4}}
+\AtBeginEnvironment{tabular}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,spread=1.4}
+  \fi
+}
 
 % 重定义 tabularx 环境
-\AtBeginEnvironment{tabularx}{\changefont{size=11pt}\setstretch{1.4}}
+\AtBeginEnvironment{tabularx}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,spread=1.4}
+  \fi
+}
 
 % 重定义 longtable 环境
-\AtBeginEnvironment{longtable}{\changefont{size=11pt}\setstretch{1.4}}
+\AtBeginEnvironment{longtable}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,spread=1.4}
+  \fi
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 设定图表标题样式
@@ -376,7 +376,7 @@
 \definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily\setstretch{1},
+  basicstyle=\footnotesize\ttfamily\changefont{spread=1},
   keywordstyle=\color{blue}\bfseries,
   commentstyle=\color{HUST@lstgreen}\itshape,
   stringstyle=\color{HUST@lstmauve},
@@ -459,7 +459,7 @@
       \fancyfoot[C]{\uppercase\expandafter{\romannumeral\thepage}}
     \else
       \fancyhead[C]{
-        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@applyname}}
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
         \vskip -5pt
         \vbox{
           \hrule width \textwidth height 0.4pt
@@ -483,7 +483,7 @@
       \fancyfoot[C]{\thepage}
     \else
       \fancyhead[C]{
-        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@applyname}}
+        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
         \vskip -5pt
         \vbox{
           \hrule width \textwidth height 0.4pt
@@ -528,30 +528,70 @@
 \def\appendixname{附录}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 变量设置
+% 变量设置命令
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% 中英文标题
 \def\zhtitle#1{\gdef\HUST@zhtitle{#1}\hypersetup{pdftitle=#1}}
 \def\entitle#1{\gdef\HUST@entitle{#1}}
-\def\title#1#2{\zhtitle{#1}\entitle{#2}}\title{}{}
+\def\title#1#2{\zhtitle{#1}\entitle{#2}}
+\title{}{}
 
+% 中英文作者名
 \def\zhauthor#1{\gdef\HUST@zhauthor{#1}\hypersetup{pdfauthor=#1}}
 \def\enauthor#1{\gdef\HUST@enauthor{#1}}
-\def\author#1#2{\zhauthor{#1}\enauthor{#2}}\author{}{}
+\def\author#1#2{\zhauthor{#1}\enauthor{#2}}
+\author{}{}
 
+% 日期（年-月-日）
 \def\date#1#2#3{
   \setdate{#1}{#2}{#3}
 }
 \setdatetoday
+\def\HUST@zhdateformat{~\the\year~年~\the\month~月~\the\day~日}
+\def\HUST@endateformat{\datedate}
 
+% 中英文学校名
 \def\zhschoolname#1{\gdef\HUST@zhschoolname{#1}}
 \def\enschoolname#1{\gdef\HUST@enschoolname{#1}}
 \def\schoolname#1#2{\zhschoolname{#1}\enschoolname{#2}}
 
-\def\schoolcode#1{\gdef\HUST@schoolcode{#1}}\schoolcode{}
-\def\stuno#1{\gdef\HUST@stuno{#1}}\stuno{}
-\def\classno#1{\gdef\HUST@classno{#1}}\classno{} % 分类号
-\def\secrettile#1{\gdef\HUST@secrettile{#1}}\secrettile{} % 密级
+% 中英文学校地址
+\def\zhaddress#1{\gdef\HUST@zhaddress{#1}}
+\def\enaddress#1{\gdef\HUST@enaddress{#1}}
+\def\address#1#2{\zhaddress{#1}\enaddress{#2}}
+\address{}{}
+
+% 中英文专业名
+\def\zhmajor#1{\gdef\HUST@zhmajor{#1}}
+\def\enmajor#1{\gdef\HUST@enmajor{#1}}
+\def\major#1#2{\zhmajor{#1}\enmajor{#2}}
+\major{}{}
+
+% 中英文指导老师名(含职称)
+\def\zhsupervisor#1{\gdef\HUST@zhsupervisor{#1}}
+\def\ensupervisor#1{\gdef\HUST@ensupervisor{#1}}
+\def\supervisor#1#2{\zhsupervisor{#1}\ensupervisor{#2}}
+\supervisor{}{}
+
+% 中英文副指导老师名(含职称) [可选]
+\def\zhasssupervisor#1{\gdef\HUST@zhasssupervisor{#1}}
+\def\enasssupervisor#1{\gdef\HUST@enasssupervisor{#1}}
+\def\asssupervisor#1#2{\zhasssupervisor{#1}\enasssupervisor{#2}}
+\asssupervisor{}{}
+
+% 学校编号
+\def\schoolcode#1{\gdef\HUST@schoolcode{#1}}
+\schoolcode{}
+% 学号
+\def\stuno#1{\gdef\HUST@stuno{#1}}
+\stuno{}
+% 分类号
+\def\classno#1{\gdef\HUST@classno{#1}}
+\classno{}
+% 密级
+\def\secretlevel#1{\gdef\HUST@secretlevel{#1}}
+\secretlevel{}
 
 \def\keywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords=#1}}
 \def\subject#1{\gdef\HUST@zhsubject{#1}\hypersetup{pdfsubject=#1}}
@@ -574,20 +614,46 @@
     \begin{center}
       \setlength{\tabcolsep}{0pt}
       \setlength{\extrarowheight}{12pt}
+      \TurnOffTabFontSetting
+      \changefont{size=14pt,spread=1.2}
       \begin{tabularx}{\textwidth}{p{4em}p{5em}Xp{2em}p{12em}}
-      \changefont{size=14pt}\setstretch{1.2}
-        {分}\hfill{类}\hfill{号} & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
-        学号                     & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
-        学校代码                 & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@schoolcode}\hfill} & &
-        密级                     & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@secrettile}\hfill}
+        \HUST@classnotitle    & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
+        \HUST@stunotitle      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
+        \HUST@schoolcodetitle & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@schoolcode}\hfill} & &
+        \HUST@secrettile      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@secretlevel}\hfill}
       \end{tabularx}
+      \TurnOnTabFontSetting
     \end{center}
     }
   \parbox[t][6cm][t]{\textwidth}{
     \vspace{1.0cm}
     \begin{center}
     \includegraphics[scale=1.1]{hust-title.eps}\\[0.8cm]
-    \ziju{10bp}{\changefont{size=42pt}\setstretch{1}\HUST@applyname}
+    \ziju{10bp}{\changefont{size=42pt}\HUST@zhapplyname}
+    \end{center}
+  }
+  \parbox[t][4.8cm][t]{.8\textwidth}{
+    \vspace{1.4cm}
+    \begin{center}
+    \changefont{size=22pt,spread=1.6}\hei{\HUST@zhtitle}
+    \end{center}
+  }
+  \parbox[t][7.4cm][t]{\textwidth}{
+    \vspace{1.2cm}
+    \begin{center}
+    \changefont{size=18pt,spread=1.5}
+    \setlength{\extrarowheight}{0pt}
+    \TurnOffTabFontSetting
+    \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
+    \HUST@zhauthortitle       & {\HUST@zhauthor} \\
+    \HUST@zhmajortitle      & {\HUST@zhmajor} \\
+    \HUST@zhsupervisortitle & {\HUST@zhsupervisor} \\
+    \ifthenelse{\equal{\HUST@zhasssupervisor}{}}{}{
+      \HUST@zhasssupervisortitle & {\HUST@zhasssupervisor} \\
+    }
+    \HUST@zhdatetitle & \HUST@zhdateformat
+    \end{tabular}
+    \TurnOnTabFontSetting
     \end{center}
   }
   \end{center}
@@ -595,7 +661,44 @@
 
 % 英文封面
 \def\HUST@entitlepage{
-
+  \begin{center}
+    \parbox[t][4.5cm][t]{\textwidth}{
+      \begin{center}
+        \changefont{size=16pt,spread=1.1}
+        \HUST@enapplyname
+      \end{center}
+    }
+    \parbox[t][5.7cm][t]{\textwidth}{
+      \begin{center}
+        \changefont{size=18pt,spread=1.3}
+        \textbf{\HUST@entitle}
+      \end{center}
+    }
+    \parbox[t][5cm][t]{.8\textwidth}{
+      \begin{center}
+      \setlength{\extrarowheight}{5pt}
+      \changefont{size=16pt,spread=1.5}
+      \TurnOffTabFontSetting
+      \begin{tabular}{l@{~:~}p{18em}}
+        \HUST@enauthortitle     & {\HUST@enauthor} \\
+        \HUST@enmajortitle      & {\HUST@enmajor} \\
+        \HUST@ensupervisortitle & {\HUST@ensupervisor}
+        \ifthenelse{\equal{\HUST@enasssupervisor}{}}{}{
+          \\ \HUST@enasssupervisortitle & {\HUST@enasssupervisor}
+        }
+      \end{tabular}
+      \TurnOnTabFontSetting
+      \end{center}
+    }
+    \parbox[t][7cm][b]{\paperwidth-7.2cm}{\bfseries
+      \begin{center}
+      \changefont{size=14pt,spread=2.0}
+      \enschoolname \\
+      \enaddress \\
+      \HUST@endateformat
+    \end{center}
+    }
+  \end{center}
 }
 
 % 版权页面

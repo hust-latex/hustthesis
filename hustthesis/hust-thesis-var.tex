@@ -33,4 +33,57 @@
 %%
 %%*********************************************************************
 
-\schoolname{华中科技大学}{Huazhong Univ. of Sci. \& Tech.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 固定字段
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\HUST@classnotitle{{分}\hfill{类}\hfill{号}}
+\def\HUST@stunotitle{学号}
+\def\HUST@schoolcodetitle{学校代码}
+\def\HUST@secrettile{密级}
+\def\HUST@zhauthortitle{{学}\hfill{位}\hfill{申}\hfill{请}\hfill{人}}
+\def\HUST@zhmajortitle{{学}\hfill{科}\hfill{专}\hfill{业}}
+\def\HUST@zhsupervisortitle{{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhasssupervisortitle{{副}\hfill{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhdatetitle{{答}\hfill{辩}\hfill{日}\hfill{期}}
+
+\def\HUST@enauthortitle{Student}
+\def\HUST@enmajortitle{Major}
+\def\HUST@ensupervisortitle{Supervisor}
+\def\HUST@enasssupervisortitle{Co-Supervisor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 特殊字段
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\equal{\HUST@degree}{none}}{
+  \def\HUST@zhapplyname{学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{fyp}}{
+  \def\HUST@zhapplyname{毕业论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{bachelor}}{
+  \def\HUST@zhapplyname{学士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{master}}{
+  \def\HUST@zhapplyname{硕士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{phd}}{
+  \def\HUST@zhapplyname{博士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 可变字段
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\schoolname{华中科技大学}{Huazhong University of Science \& Technology}
+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}
