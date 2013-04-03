@@ -690,11 +690,12 @@
       \TurnOnTabFontSetting
       \end{center}
     }
-    \parbox[t][7cm][b]{\paperwidth-7.2cm}{\bfseries
+    \parbox[t][7cm][b]{.8\textwidth}{
       \begin{center}
+      \bfseries
       \changefont{size=14pt,spread=2.0}
-      \enschoolname \\
-      \enaddress \\
+      \HUST@enschoolname \\
+      \HUST@enaddress \\
       \HUST@endateformat
     \end{center}
     }
