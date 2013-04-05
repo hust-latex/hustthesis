@@ -124,9 +124,9 @@
   % 英文字体
   \RequirePackage{fontspec}
   \RequirePackage{xunicode}
-  \setmainfont[Ligatures={Common,TeX}]{Times New Roman}
-  \setsansfont{Arial}
-  \setmonofont{CMU Typewriter Text}
+  \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
+  \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+  \setmonofont[Ligatures={Common,TeX}]{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text}
   % 中文字体
   \RequirePackage[boldfont,slantfont,CJKmath]{xeCJK}
@@ -148,9 +148,9 @@
 \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
   \RequirePackage{luatexja-fontspec}
   % 英文字体
-  \setmainfont[Ligatures={Common,TeX}]{Times New Roman}
-  \setsansfont{Arial}
-  \setmonofont{CMU Typewriter Text}
+  \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
+  \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+  \setmonofont[Ligatures={Common,TeX}]{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   % 中文字体
   \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
@@ -172,7 +172,7 @@
 
 % 用于设置字号,行间距
 \RequirePackage{interfaces-LaTeX}
-\changefont{spread=1.2} % 1.2倍行距 
+\changefont{linespread=1.2} % 1.2倍行距 
 
 % 页面设置
 \RequirePackage[top=1.2in,bottom=1.2in,left=1in,right=1in]{geometry}
@@ -187,7 +187,7 @@
 \hypersetup{
   bookmarksnumbered=true,
   bookmarksopen=true,
-  bookmarksopenlevel=1,
+  bookmarksopenlevel=0,
   breaklinks=true,
   colorlinks=true,
   allcolors=black,
@@ -225,17 +225,18 @@
 \RequirePackage{listings}
 
 % 文献引用
-\RequirePackage[numbers,super,sort&compress]{natbib}
-\RequirePackage{mcite}
+\RequirePackage[numbers,square,comma,sort&compress]{natbib}
 
 % 格式定制
 \RequirePackage{titlesec}
 \RequirePackage{titletoc}
-\RequirePackage{enumitem}
+\RequirePackage{tocvsec2}
+\RequirePackage[inline]{enumitem}
 \RequirePackage{fancyhdr}
 \RequirePackage{afterpage}
 \RequirePackage{datenumber}
 \RequirePackage{etoolbox}
+\RequirePackage{appendix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -332,21 +333,21 @@
 % 重定义 tabular 环境
 \AtBeginEnvironment{tabular}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,spread=1.4}
+    \changefont{size=11pt,linespread=1.4}
   \fi
 }
 
 % 重定义 tabularx 环境
 \AtBeginEnvironment{tabularx}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,spread=1.4}
+    \changefont{size=11pt,linespread=1.4}
   \fi
 }
 
 % 重定义 longtable 环境
 \AtBeginEnvironment{longtable}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,spread=1.4}
+    \changefont{size=11pt,linespread=1.4}
   \fi
 }
 
@@ -376,7 +377,7 @@
 \definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily\changefont{spread=1},
+  basicstyle=\footnotesize\ttfamily\changefont{linespread=1},
   keywordstyle=\color{blue}\bfseries,
   commentstyle=\color{HUST@lstgreen}\itshape,
   stringstyle=\color{HUST@lstmauve},
@@ -451,32 +452,8 @@
   \afterpage{\fancyhf{}}
 }
 
-% 目录处页眉页脚设置
-\def\HUST@fancyhftoc{
-  \afterpage{
-    \fancyhf{}
-    \ifHUST@finalformat
-      \fancyfoot[C]{\uppercase\expandafter{\romannumeral\thepage}}
-    \else
-      \fancyhead[C]{
-        \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
-        \vskip -5pt
-        \vbox{
-          \hrule width \textwidth height 0.4pt
-          \vskip 1.0pt
-          \hrule width \textwidth height 0.4pt
-        }
-      }
-      \fancyfoot[C]{
-        \hrule width \textwidth height 0.4pt
-        \uppercase\expandafter{\romannumeral\thepage}
-      }
-    \fi
-  }
-}
-
-% 正文处页眉页脚设置
-\def\HUST@fancyhftext{
+% 页眉页脚设置
+\def\HUST@fancyhfstyle{
   \afterpage{
     \fancyhf{}
     \ifHUST@finalformat
@@ -517,14 +494,16 @@
 \def\indexname{索引}
 \def\figurename{图}
 \def\tablename{表}
-\def\listfigurename{插图索引}
-\def\listtablename{表格索引}
+\def\HUST@listfigurename{插图索引}
+\def\listfigurename{\HUST@listfigurename}
+\def\HUST@listtablename{表格索引}
+\def\listtablename{\HUST@listtablename}
 \def\algorithmcfname{算法}
 \def\listingscaption{代码}
 \def\proofname{\hei{证明}}
 \def\bibname{参考文献}
 \def\contentsname{目\hspace{1em}录}
-\def\contentsnamenosapce{目录}
+\def\contentsnamenospace{目录}
 \def\appendixname{附录}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -593,8 +572,17 @@
 \def\secretlevel#1{\gdef\HUST@secretlevel{#1}}
 \secretlevel{}
 
-\def\keywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords=#1}}
-\def\subject#1{\gdef\HUST@zhsubject{#1}\hypersetup{pdfsubject=#1}}
+% 中英文摘要
+\long\def\zhabstract#1{\long\gdef\HUST@zhabstract{#1}}
+\long\def\enabstract#1{\long\gdef\HUST@enabstract{#1}}
+\long\def\abstract#1#2{\zhabstract{#1}\enabstract{#2}}
+\abstract{}{}
+
+% 中英文关键词
+\def\zhkeywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords=#1}}
+\def\enkeywords#1{\gdef\HUST@enkeywords{#1}}
+\def\keywords#1#2{\zhkeywords{#1}\enkeywords{#2}}
+\keywords{}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 导入变量
@@ -606,6 +594,24 @@
 % 特殊页面
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\frontmatter{
+  \clearpage
+  \@mainmatterfalse
+  \pagenumbering{Roman}
+  \HUST@fancyhfstyle
+}
+\def\mainmatter{
+  \clearpage
+  \@mainmattertrue
+  \pagenumbering{arabic}
+  \HUST@fancyhfstyle
+}
+\def\backmatter{
+  \clearpage
+  \@mainmatterfalse
+  \HUST@fancyhfstyle
+}
+
 % 中文封面
 \def\HUST@zhtitlepage{
   \begin{center}
@@ -615,7 +621,7 @@
       \setlength{\tabcolsep}{0pt}
       \setlength{\extrarowheight}{12pt}
       \TurnOffTabFontSetting
-      \changefont{size=14pt,spread=1.2}
+      \changefont{size=14pt,linespread=1.2}
       \begin{tabularx}{\textwidth}{p{4em}p{5em}Xp{2em}p{12em}}
         \HUST@classnotitle    & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
         \HUST@stunotitle      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
@@ -628,20 +634,20 @@
   \parbox[t][6cm][t]{\textwidth}{
     \vspace{1.0cm}
     \begin{center}
-    \includegraphics[scale=1.1]{hust-title.eps}\\[0.8cm]
+    \includegraphics[scale=1.1]{hust-title.pdf}\\[0.8cm]
     \ziju{10bp}{\changefont{size=42pt}\HUST@zhapplyname}
     \end{center}
   }
   \parbox[t][4.8cm][t]{.8\textwidth}{
     \vspace{1.4cm}
     \begin{center}
-    \changefont{size=22pt,spread=1.6}\hei{\HUST@zhtitle}
+    \changefont{size=22pt,linespread=1.6}\hei{\HUST@zhtitle}
     \end{center}
   }
   \parbox[t][7.4cm][t]{\textwidth}{
     \vspace{1.2cm}
     \begin{center}
-    \changefont{size=18pt,spread=1.5}
+    \changefont{size=18pt,linespread=1.5}
     \setlength{\extrarowheight}{0pt}
     \TurnOffTabFontSetting
     \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
@@ -662,22 +668,22 @@
 % 英文封面
 \def\HUST@entitlepage{
   \begin{center}
-    \parbox[t][4.5cm][t]{\textwidth}{
+    \parbox[t][4.5cm][t]{.9\textwidth}{
       \begin{center}
-        \changefont{size=16pt,spread=1.1}
+        \changefont{size=16pt,linespread=1.1}
         \HUST@enapplyname
       \end{center}
     }
     \parbox[t][5.7cm][t]{\textwidth}{
       \begin{center}
-        \changefont{size=18pt,spread=1.3}
-        \textbf{\HUST@entitle}
+        \changefont{size=18pt,linespread=1.3}
+        \textbf{\textsf{\HUST@entitle}}
       \end{center}
     }
     \parbox[t][5cm][t]{.8\textwidth}{
       \begin{center}
       \setlength{\extrarowheight}{5pt}
-      \changefont{size=16pt,spread=1.5}
+      \changefont{size=16pt,linespread=1.5}
       \TurnOffTabFontSetting
       \begin{tabular}{l@{~:~}p{18em}}
         \HUST@enauthortitle     & {\HUST@enauthor} \\
@@ -693,7 +699,7 @@
     \parbox[t][7cm][b]{.8\textwidth}{
       \begin{center}
       \bfseries
-      \changefont{size=14pt,spread=2.0}
+      \changefont{size=14pt,linespread=2.0}
       \HUST@enschoolname \\
       \HUST@enaddress \\
       \HUST@endateformat
@@ -704,32 +710,207 @@
 
 % 版权页面
 \def\HUST@authorization{
-  
+  \centerline{\changefont{size=16pt} \HEI \HUST@originaldeclare}
+  \vspace{1cm}
+  {
+    \changefont{size=12pt,linespread=2.0}
+    \indent\HUST@originaldeclaretext
+  }
+  \\[1.9cm]
+  \parbox[t]{\textwidth}{
+    \changefont{size=12pt,linespread=1.5}
+    \TurnOffTabFontSetting
+    \hfill\begin{tabular}{ll}
+        \HUST@zhauthorsig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \TurnOnTabFontSetting
+  }
+  \\[1.9cm]
+  \centerline{\changefont{size=16pt} \HEI \HUST@authtitle}
+  \\[1cm]
+  {
+    \changefont{size=12pt,linespread=2.0}
+    \indent\HUST@authorizationtext \\
+    \indent\HUST@authorizationaddon \\
+    \indent\HUST@authorizationcheck
+  }
+  \\[1.9cm]
+  \hspace{2em}\parbox[t]{.9\textwidth}{
+    \changefont{size=12pt,linespread=1.5}
+    \TurnOffTabFontSetting
+    \begin{tabular}{ll}
+        \HUST@zhauthorsig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \hfill
+    \begin{tabular}{ll}
+        \HUST@zhteachersig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \TurnOnTabFontSetting
+  }
+  \vfill
 }
 
+% 生成封面命令
 \def\maketitle{
   \HUST@fancyhfempty
+  \let\HUST@oldthepage\thepage
+  \def\thepage{封面}
   \begin{titlepage}
     \HUST@zhtitlepage
     \clearpage
     \HUST@entitlepage 
   \end{titlepage}
+  \def\thepage{版权页}
   \HUST@authorization
   \clearpage
-  \HUST@fancyhftoc
+  \let\thepage\HUST@oldthepage
+  \setcounter{page}{1}
+  \HUST@fancyhfstyle
+}
+\def\makecover{\maketitle}
+
+% 中文摘要
+\def\HUST@zhabstractpage{
+  \chapter*{\HUST@zhabstractname}
+  \HUST@zhabstract
+  \\[1.2ex]
+  \noindent\hei{\HUST@zhkeywordstitle}\hspace{.8em} \HUST@zhkeywords
 }
 
+% 英文摘要
+\def\HUST@enabstractpage{
+  \chapter*{\textsf{\HUST@enabstractname}}
+  \HUST@enabstract
+  \\[1.2ex]
+  \noindent\textbf{\HUST@enkeywordstitle}\hspace{.8em} \HUST@enkeywords
+}
+
+% 生成摘要命令
 \def\makeabstract{
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\HUST@zhabstractnamenospace}
+  \HUST@zhabstractpage
   \clearpage
-  \HUST@fancyhftoc
+  \HUST@enabstractpage
+  \clearpage
 }
 
+% 设置生成目录命令
 \let\HUST@tableofcontents\tableofcontents
 \def\tableofcontents{
-  \HUST@fancyhftoc
-  \pdfbookmark{\contentsnamenosapce}{\contentsnamenosapce}
+  \pdfbookmark{\contentsnamenospace}{\contentsnamenospace}
   \HUST@tableofcontents
   \clearpage
-  \setcounter{page}{1}
-  \HUST@fancyhftext
+}
+
+% 设置致谢页面
+\newenvironment{ack}{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\HUST@acknamenospace}
+  \chapter*{\HUST@ackname}
+  \normalsize
+}{}
+
+% 设置攻读学位期间发表论文目录页面
+\newenvironment{publications}{
+  \clearpage
+  \ifHUST@inappendix
+    \chapter{\HUST@publicationtitle}
+  \else
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\HUST@publicationtitle}
+    \chapter*{\HUST@publicationtitle}
+  \fi
+  \begin{enumerate}[labelindent=0pt,label={[\arabic*]}]
+}{
+  \end{enumerate}
+}
+
+% 设置参考文献页面
+\bibliographystyle{hustthesis}
+\let\HUST@bibliography\bibliography
+\def\bibliography#1{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\bibname}
+  \HUST@bibliography{#1}
+}
+
+% 设置附录环境
+\newif\ifHUST@inappendix
+\HUST@inappendixfalse
+\newif\ifHUST@appendix@resetmainmatter
+\HUST@appendix@resetmainmatterfalse
+\renewenvironment{appendix}{
+  \if@mainmatter
+    \HUST@appendix@resetmainmatterfalse
+  \else
+    \HUST@appendix@resetmainmattertrue
+    \@mainmattertrue
+  \fi
+  \appendixtitletocon
+  \appendices
+  \settocdepth{chapter}
+  \hypersetup{bookmarksopenlevel=0}
+  \titleformat{\chapter}
+  {
+    \bfseries\HEI            % 黑体字
+    \centering               % 居中
+    \changefont{size=18pt}   % 字号
+  }
+  {\appendixname\,\thechapter} 
+  {1em}                      % 章序号与章名之间空一个汉字符
+  {}
+  \HUST@inappendixtrue
+}{
+  \endappendices
+  \HUST@inappendixfalse
+  \ifHUST@appendix@resetmainmatter
+    \HUST@appendix@resetmainmatterfalse
+    \@mainmatterfalse
+  \else\fi
+}
+
+% 设置插图索引
+\let\HUST@listoffigures\listoffigures
+\def\listoffigures{
+  \clearpage
+  \ifHUST@inappendix
+    \addtocounter{chapter}{1}
+    \def\listfigurename{\appendixname\,\thechapter\hspace{1em}\HUST@listfigurename}
+  \else
+    \def\listfigurename{\HUST@listfigurename}
+  \fi
+  \phantomsection
+  \ifHUST@inappendix
+    \addcontentsline{toc}{chapter}{\thechapter\hspace{1em}\HUST@listfigurename}
+  \else
+    \addcontentsline{toc}{chapter}{\listfigurename}
+  \fi
+  \HUST@listoffigures
+  \def\listfigurename{\HUST@listfigurename}
+}
+
+% 设置表格索引
+\let\HUST@listoftables\listoftables
+\def\listoftables{
+  \clearpage
+  \ifHUST@inappendix
+    \addtocounter{chapter}{1}
+    \def\listtablename{\appendixname\,\thechapter\hspace{1em}\HUST@listtablename}
+  \else
+    \def\listtablename{\HUST@listtablename}
+  \fi
+  \phantomsection
+  \ifHUST@inappendix
+    \addcontentsline{toc}{chapter}{\thechapter\hspace{1em}\HUST@listtablename}
+  \else
+    \addcontentsline{toc}{chapter}{\listtablename}
+  \fi
+  \HUST@listoftables
+  \def\listtablename{\HUST@listtablename}
 }
