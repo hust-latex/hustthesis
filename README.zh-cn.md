@@ -26,8 +26,8 @@ HUSTThesis
       * `AdobeKaitiStd-Regular`
       * `AdobeHeitiStd-Regular`
       * `AdobeFangsongStd-Regular`
-* 说明文档: 见 [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/blob/master/doc/hustthesis-doc.pdf)。
-* 示例文档: 见 [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/blob/master/example/hustthesis-example.pdf)。
+* 说明文档: 见 [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/raw/master/doc/hustthesis-doc.pdf)。
+* 示例文档: 见 [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/raw/master/example/hustthesis-example.pdf)。
 
 ## 开源协议
 

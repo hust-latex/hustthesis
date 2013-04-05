@@ -26,8 +26,8 @@ When I use LaTeX to write my final year project thesis, I found the original [`H
       * `AdobeKaitiStd-Regular`
       * `AdobeHeitiStd-Regular`
       * `AdobeFangsongStd-Regular`
-* Manual: See [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/blob/master/doc/hustthesis-doc.pdf).
-* Example: See [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/blob/master/example/hustthesis-example.pdf).
+* Manual: See [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/raw/master/doc/hustthesis-doc.pdf).
+* Example: See [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/raw/master/example/hustthesis-example.pdf).
 
 ## License
 
