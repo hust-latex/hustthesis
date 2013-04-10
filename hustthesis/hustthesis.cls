@@ -812,8 +812,11 @@
   \phantomsection
   \addcontentsline{toc}{chapter}{\HUST@acknamenospace}
   \chapter*{\HUST@ackname}
+  \begingroup
   \normalsize
-}{}
+}{
+  \endgroup
+}
 
 % 设置攻读学位期间发表论文目录页面
 \newenvironment{publications}{
