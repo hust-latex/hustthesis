@@ -187,7 +187,7 @@
 \hypersetup{
   bookmarksnumbered=true,
   bookmarksopen=true,
-  bookmarksopenlevel=0,
+  bookmarksopenlevel=1,
   breaklinks=true,
   colorlinks=true,
   allcolors=black,
@@ -527,13 +527,14 @@
   \setdate{#1}{#2}{#3}
 }
 \setdatetoday
-\def\HUST@zhdateformat{~\the\year~年~\the\month~月~\the\day~日}
+\def\HUST@zhdateformat{~\thedateyear~年~\thedatemonth~月~\thedateday~日}
 \def\HUST@endateformat{\datedate}
 
 % 中英文学校名
 \def\zhschoolname#1{\gdef\HUST@zhschoolname{#1}}
 \def\enschoolname#1{\gdef\HUST@enschoolname{#1}}
 \def\schoolname#1#2{\zhschoolname{#1}\enschoolname{#2}}
+\schoolname{}{}
 
 % 中英文学校地址
 \def\zhaddress#1{\gdef\HUST@zhaddress{#1}}
@@ -610,6 +611,8 @@
   \clearpage
   \@mainmatterfalse
   \HUST@fancyhfstyle
+  \settocdepth{chapter}
+  \hypersetup{bookmarksopenlevel=0}
 }
 
 % 中文封面
@@ -857,8 +860,6 @@
   \fi
   \appendixtitletocon
   \appendices
-  \settocdepth{chapter}
-  \hypersetup{bookmarksopenlevel=0}
   \titleformat{\chapter}
   {
     \bfseries\HEI            % 黑体字
