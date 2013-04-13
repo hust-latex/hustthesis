@@ -11,7 +11,7 @@ if /i "%1" == "example"      goto :example
 if /i "%1" == "doc"          goto :doc
 if /i "%1" == "clean"        goto :clean
 if /i "%1" == "all"          goto :all
-goto help
+goto :help
 
 :help
 echo Usage:
