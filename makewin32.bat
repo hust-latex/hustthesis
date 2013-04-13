@@ -33,18 +33,18 @@ goto :exit
 
 :example
 pushd example
-lualatex -shell-escape -8bit hustthesis-example && \
-bibtex hustthesis-example && \
-lualatex -shell-escape -8bit hustthesis-example && \
+lualatex -shell-escape -8bit hustthesis-example
+bibtex hustthesis-example
+lualatex -shell-escape -8bit hustthesis-example
 lualatex -shell-escape -8bit hustthesis-example
 popd
 goto :exit
 
 :doc
 pushd doc
-lualatex -shell-escape -8bit hustthesis-doc && \
-makeindex -q -s l3doc.ist hustthesis-doc && \
-lualatex -shell-escape -8bit hustthesis-doc && \
+lualatex -shell-escape -8bit hustthesis-doc
+makeindex -q -s l3doc.ist hustthesis-doc
+lualatex -shell-escape -8bit hustthesis-doc
 lualatex -shell-escape -8bit hustthesis-doc
 popd
 goto :exit
