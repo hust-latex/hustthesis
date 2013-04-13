@@ -10,6 +10,8 @@
 \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
 \setsansjfont{AdobeKaitiStd-Regular}
 \defaultjfontfeatures{JFM=kaiming}
+\newjfontfamily\KAI{AdobeKaitiStd-Regular}
+\newjfontfamily\FANGSONG{AdobeFangsongStd-Regular}
 
 \linespread{1.1}
 
@@ -53,9 +55,9 @@
 \definecolor{lstgray}{rgb}{0.5,0.5,0.5}
 \definecolor{lstmauve}{rgb}{0.58,0,0.82}
 \lstset{
-  basicstyle=\footnotesize\ttfamily,
+  basicstyle=\footnotesize\ttfamily\FANGSONG,
   keywordstyle=\color{blue}\bfseries,
-  commentstyle=\color{lstgreen}\itshape,
+  commentstyle=\color{lstgreen}\itshape\KAI,
   stringstyle=\color{lstmauve},
   showspaces=false,
   showstringspaces=false,
@@ -63,7 +65,8 @@
   numbers=left,
   numberstyle=\tiny\color{lstgray},
   frame=lines,
-  rulecolor=\color{black}
+  rulecolor=\color{black},
+  breaklines=true
 }
 
 \usepackage{metalogo}
@@ -475,7 +478,7 @@
 \subsection{内部字段设置}
 
 本模板定义了很多内部字段，其实现都位于\verb+hust-thesis-var.tex+中。其具体内容如下：
-\lstinputlisting[language={[LaTeX]TeX},breaklines=true,firstline=35]{../hustthesis/hust-thesis-var.tex}
+\lstinputlisting[language={[LaTeX]TeX},firstline=35]{../hustthesis/hust-thesis-var.tex}
 
 通过更改这些字段，可以对论文格式进行自定义。
 

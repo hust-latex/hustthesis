@@ -377,9 +377,9 @@
 \definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily\changefont{linespread=1},
+  basicstyle=\footnotesize\ttfamily\FANGSONG\changefont{linespread=1},
   keywordstyle=\color{blue}\bfseries,
-  commentstyle=\color{HUST@lstgreen}\itshape,
+  commentstyle=\color{HUST@lstgreen}\itshape\KAI,
   stringstyle=\color{HUST@lstmauve},
   showspaces=false,
   showstringspaces=false,
@@ -387,7 +387,8 @@
   numbers=left,
   numberstyle=\tiny\color{HUST@lstgray},
   frame=lines,
-  rulecolor=\color{black}
+  rulecolor=\color{black},
+  breaklines=true
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
