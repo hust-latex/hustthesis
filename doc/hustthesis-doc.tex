@@ -1,0 +1,534 @@
+\documentclass[12pt,a4paper,numbered,full]{l3doc}
+
+\usepackage{luatexja-fontspec}
+% 英文字体
+\setmainfont[Ligatures={Common,TeX}]{Tex Gyre Pagella}
+\setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+\setmonofont[Ligatures={Common,TeX}]{CMU Typewriter Text}
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+% 中文字体
+\setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
+\setsansjfont{AdobeKaitiStd-Regular}
+\defaultjfontfeatures{JFM=kaiming}
+
+\linespread{1.1}
+
+\usepackage[top=1.2in,bottom=1.2in,left=1.5in,right=1in]{geometry}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\hypersetup{
+  unicode,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=2,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=blue,
+  plainpages=false,
+  pdfpagelabels=true,
+  pdfstartview={XYZ null null 1}
+}
+\EnableCrossrefs
+
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+\usepackage{color}
+\usepackage[table]{xcolor}
+
+\usepackage{titlesec}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\usepackage{enumitem}
+\setlist{noitemsep,partopsep=0pt,topsep=.8ex}
+\setlist[1]{labelindent=\parindent}
+\setlist[enumerate,1]{label=\arabic*.}
+\setlist[enumerate,2]{label*=\arabic*}
+\setlist[enumerate,3]{label=\emph{\alph*})}
+
+\usepackage{listings}
+\definecolor{lstgreen}{rgb}{0,0.6,0}
+\definecolor{lstgray}{rgb}{0.5,0.5,0.5}
+\definecolor{lstmauve}{rgb}{0.58,0,0.82}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{lstgreen}\itshape,
+  stringstyle=\color{lstmauve},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=left,
+  numberstyle=\tiny\color{lstgray},
+  frame=lines,
+  rulecolor=\color{black}
+}
+
+\usepackage{metalogo}
+\usepackage{notes}
+\usepackage{tabularx}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\contentsname{目录}
+\def\tablename{表}
+\def\indexname{索引}
+\def\orvar{\textnormal{|}}
+\IndexPrologue{
+  \section{\indexname}
+}
+
+\begin{document}
+
+\title{华科学术论文\LaTeX{}模板：hustthesis.cls 说明文档}
+\author{许铖~~陈雷}
+\date{2013-4-1}
+
+\maketitle
+
+\tableofcontents
+
+\section{简介}
+
+本模板为华中科技大学\textbf{非官方}学术论文模板。希望能够帮助正忙于撰写毕业论文和学术论文的华科学子。并且我们希望借助这个模板在学校内推广\LaTeX{}的使用。
+
+对于中文用户来说，在使用\LaTeX{}处理文档时，一个非常常见的问题即是对汉字的处理。以往常见的方法是使用\verb+CJK+宏包。但这个宏包早已停止开发，存在很多已知bug，并与很多宏包不兼容。\XeTeX{}和\LuaTeX{}的出现则很好的解决了这个问题。他们都规定以UTF-8这个通用编码方式来处理文档。并且在这两种引擎下都有相应宏包来处理中文。在\XeLaTeX{}下，有\href{http://mirrors.ctan.org/help/Catalogue/entries/xecjk.html}{\texttt{xeCJK}}；在\LuaLaTeX{}下，有\href{http://mirrors.ctan.org/help/Catalogue/entries/luatexja.html}{\texttt{luatex-ja}}。这两个宏包当前的开发状态都保持活跃。本模板同时支持这两种宏包来处理中文，并会根据编译所用的引擎自动选择。
+
+本模板基于原有的\href{http://sourceforge.net/projects/hustthesis}{\texttt{HUSTPHDthesis.cls}  (2006/04/06 V2.0)}重写而成，并以LGPL v2.1为协议发布于\href{https://github.com/michael911009/HUSTThesis}{GitHub}上。
+
+\section{使用必要条件}
+
+\begin{enumerate}
+    \item 安装最新版本的\href{http://www.tug.org/texlive/}{\texttt{Texlive}}（推荐）或\href{http://miktex.org/}{\texttt{MiKTex}}。因为未及时更新的宏包可能存在未修复的bug，请确保所有宏包都更新至最新。
+    \item 安装如下中文字体\footnote{本模板所用到的英文字体\texttt{Tex Gyre Termes}，\texttt{Droid Sans}和\texttt{CMU Typewriter Text}均默认安装于\texttt{Texlive}和\texttt{MiKTex}中。}：
+    \begin{enumerate}[label=\emph{\alph*})]
+        \item \verb+AdobeSongStd-Light+
+        \item \verb+AdobeKaitiStd-Regular+
+        \item \verb+AdobeHeitiStd-Regular+
+        \item \verb+AdobeFangsongStd-Regular+
+    \end{enumerate}
+    \begin{informationnote}
+    如果使用\textnormal{\LuaTeX}，安装字体之后需运行命令\verb+mkluatexfontdb+生成字体索引。
+    \end{informationnote}
+\end{enumerate}
+
+\section{安装}
+
+\subsection{安装到本地}
+
+% TODO:
+
+\subsection{免安装使用}
+
+如果你希望临时使用本模板，而非安装到本地供长期使用。将\verb+hustthesis+目录下的如下文件拷贝到你\TeX{}工程根目录下即可：
+\begin{enumerate}
+    \item \verb+hustthesis.bst+
+    \item \verb+hustthesis.cls+
+    \item \verb+hust-thesis-var.tex+
+    \item \verb+hust-title.eps+
+    \item \verb+hust-title.pdf+
+\end{enumerate}
+
+\section{基本用法}
+
+\begin{importantnote}
+本文档只能使用\textnormal{\XeLaTeX}或\textnormal{\LuaLaTeX}（推荐）编译。
+\end{importantnote}
+
+在源文件开头处选择加载本文档类型，即可使用本模板，如下所示：
+\begin{verbatim}
+    \documentclass{hustthesis}
+\end{verbatim}
+
+\subsection{文档类型选项}
+
+加载本文档类型时，有两个选项提供选择。
+
+\begin{function}{format}
+    \begin{syntax}
+        format = \meta{draft\orvar{}\textbf{final}}
+    \end{syntax}
+    提交草稿选择\verb+draft+选项，提交最终版选\verb+final+选项。其中草稿正文页包括页眉（“华中科技大学\verb+xx+学位论文”）、页眉修饰线（双线）、页脚（页码）和页脚修饰线（单线）。而最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚（页码）。如果不指定，默认设置为\verb+final+。
+\end{function}
+
+\begin{function}{degree}
+    \begin{syntax}
+        degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
+    \end{syntax}
+    指定论文种类，它将通过设置字段\verb+\HUST@zhapplyname+和\verb+\HUST@enapplyname+来影响中英文封面除的标题和正文处的页眉（如果\verb+format+设为\verb+draft+）。各个不同的选项产生的效果见表\ref{tab:optdegree}。如果不指定，默认设置为\verb+none+。
+\end{function}
+
+\begin{table}[ht]
+    \centering
+    \caption{\texttt{degree}选项的作用}\label{tab:optdegree}
+    \begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{选项} & \tabincell{c}{\textbf{中文标题}\\（字段\verb+\HUST+\verb+@zhapplyname+）} & \tabincell{c}{\textbf{英文标题}\\（字段\verb+\HUST+\verb+@enapplyname+）} \\
+    \hline
+    \verb+none+ & 学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree \\ \hline
+    \verb+fyp+ & 毕业论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
+    \verb+bachelor+ & 学士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
+    \verb+master+ & 硕士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
+    \verb+phd+ & 博士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{基本字段设置}
+
+模板中定义一些命令用于设置论文中的字段。其中一部分命令是以\verb+\zhX{<Chinese var>}+，\verb+\enX{<English var>}+和\verb+\X{<Chinese var>}{<English var>}+的形式出现，他们分别意味着设置字段\verb+X+的中文部分，英文部分及一同设定。
+
+\begin{function}{\zhtitle,\entitle,\title}
+    \begin{syntax}
+    \cs{zhtitle}\Arg{Chinese title}
+    \cs{entitle}\Arg{English title}
+    \cs{title}\Arg{Chinese title}\Arg{English title}
+    \end{syntax}
+    这一组命令用于设定论文的中英文标题。
+\end{function}
+
+\begin{function}{\zhauthor,\enauthor,\author}
+    \begin{syntax}
+    \cs{zhauthor}\Arg{Chinese author}
+    \cs{enauthor}\Arg{English author}
+    \cs{author}\Arg{Chinese author}\Arg{English author}
+    \end{syntax}
+    这一组命令用于设定论文的中英文作者名。
+\end{function}
+
+\begin{function}{\date}
+    \begin{syntax}
+    \cs{date}\Arg{Year}\Arg{Month}\Arg{Day}
+    \end{syntax}
+    该命令用于设定论文的答辩日期。如果不设定，则会选择当前编译日期作为答辩日期。
+\end{function}
+
+\begin{function}{\zhschoolname,\enschoolname,\schoolname}
+    \begin{syntax}
+    \cs{zhschoolname}\Arg{Chinese schoolname}
+    \cs{enschoolname}\Arg{English schoolname}
+    \cs{schoolname}\Arg{Chinese schoolname}\Arg{English schoolname}
+    \end{syntax}
+    这一组命令用于设定论文的中英文学校名。该字段在模板中已默认设置为\verb+\schoolname{华中科技大学}{Huazhong University of Science \& Technology}+。所以除非需更改学校名，无需使用该命令。
+\end{function}
+
+\begin{function}{\zhaddress,\enaddress,\address}
+    \begin{syntax}
+    \cs{zhaddress}\Arg{Chinese address}
+    \cs{enaddress}\Arg{English address}
+    \cs{address}\Arg{Chinese address}\Arg{English address}
+    \end{syntax}
+    这一组命令用于设定论文的中英文学校地址。该字段在模板中已默认设置为\verb+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}+。所以除非需更改学校地址，无需使用该命令。
+\end{function}
+
+\begin{function}{\zhmajor,\enmajor,\major}
+    \begin{syntax}
+    \cs{zhmajor}\Arg{Chinese major}
+    \cs{enmajor}\Arg{English major}
+    \cs{major}\Arg{Chinese major}\Arg{English major}
+    \end{syntax}
+    这一组命令用于设定论文的中英文专业名。
+\end{function}
+
+\begin{function}{\zhsupervisor,\ensupervisor,\supervisor}
+    \begin{syntax}
+    \cs{zhsupervisor}\Arg{Chinese supervisor}
+    \cs{ensupervisor}\Arg{English supervisor}
+    \cs{supervisor}\Arg{Chinese supervisor}\Arg{English supervisor}
+    \end{syntax}
+    这一组命令用于设定论文的中英文指导老师名（含职称）。
+\end{function}
+
+\begin{function}{\zhasssupervisor,\enasssupervisor,\asssupervisor}
+    \begin{syntax}
+    \cs{zhasssupervisor}\Arg{Chinese asssupervisor}
+    \cs{enasssupervisor}\Arg{English asssupervisor}
+    \cs{asssupervisor}\Arg{Chinese asssupervisor}\Arg{English asssupervisor}
+    \end{syntax}
+    这一组命令用于设定论文的中英文副指导老师名（含职称）。该命令是可选的，如果不加以设定，封面处不会显示相应项。
+\end{function}
+
+\begin{function}{\schoolcode}
+    \begin{syntax}
+    \cs{schoolcode}\Arg{school code}
+    \end{syntax}
+    用于设置学校代码。
+\end{function}
+
+\begin{function}{\stuno}
+    \begin{syntax}
+    \cs{stuno}\Arg{student number}
+    \end{syntax}
+    用于设置学号。
+\end{function}
+
+\begin{function}{\classno}
+    \begin{syntax}
+    \cs{classno}\Arg{classify number}
+    \end{syntax}
+    用于设置分类号。
+\end{function}
+
+\begin{function}{\secretlevel}
+    \begin{syntax}
+    \cs{secretlevel}\Arg{secret level}
+    \end{syntax}
+    用于设置密级。
+\end{function}
+
+\begin{function}{\zhabstract,\enabstract,\abstract}
+    \begin{syntax}
+    \cs{zhabstract}\Arg{Chinese abstract}
+    \cs{enabstract}\Arg{English abstract}
+    \cs{abstract}\Arg{Chinese abstract}\Arg{English abstract}
+    \end{syntax}
+    这一组命令用于设定论文的中英文摘要。
+\end{function}
+
+\begin{function}{\zhkeywords,\enkeywords,\keywords}
+    \begin{syntax}
+    \cs{zhkeywords}\Arg{Chinese keywords}
+    \cs{enkeywords}\Arg{English keywords}
+    \cs{keywords}\Arg{Chinese keywords}\Arg{English keywords}
+    \end{syntax}
+    这一组命令用于设定论文的中英文关键字。
+\end{function}
+
+\subsection{其它基本命令}
+
+下面来介绍其它基本命令。
+
+\begin{function}{\frontmatter,\mainmatter,\backmatter}
+    这一组命令用于设定论文的状态、改变样式，其具体使用见\nameref{subsec:简单示例}。\verb+\frontmatter+用在文档最开始，表明文档的前言部分（如封面，摘要，目录等）的开始。\verb+\mainmatter+表示论文正文的开始。\verb+\backmatter+表示论文正文的结束。
+\end{function}
+
+\begin{function}{\maketitle,\makecover}
+    \verb+\maketitle+和\verb+\makecover+作用相同，用于生成封面和版权页面。
+\end{function}
+
+\begin{function}{\makeabstract}
+    用于生成中英文摘要页面。
+\end{function}
+
+\begin{function}{\tableofcontents}
+    用于生成目录。
+\end{function}
+
+\begin{function}{ack}
+    \begin{syntax}
+    \verb+\begin{ack}+
+    \hspace{2em}\meta{content}
+    \verb+\end{ack}+
+    \end{syntax}
+    \verb+ack+环境用于致谢页面。
+\end{function}
+
+\begin{function}{\bibliography}
+    \begin{syntax}
+    \cs{bibliography}\Arg{.bib file}
+    \end{syntax}
+    用于生成参考文献。
+\end{function}
+
+\begin{function}{appendix}
+    \verb+appendix+环境用于附录环境。你可以将附录置于\verb+appendix+环境中，如：
+    \begin{verbatim}
+    \begin{appendix}
+        <content>
+    \end{appendix}
+    \end{verbatim}
+    或者使用\verb+\appendix+代表后文均为附录，如：
+    \begin{verbatim}
+    \appendix
+    <content>
+    \end{verbatim}
+\end{function}
+
+\begin{function}{\listoffigures,\listoftables}
+    这两个命令分别用于生成图片和表格索引，可以根据要求在论文前言中使用或附录中使用。
+\end{function}
+
+\begin{function}{publications}
+    \begin{syntax}
+    \verb+\begin{publications}+
+    \hspace{2em}\cs{item} \meta{thesis}
+    \hspace{2em}\meta{$\cdots$}
+    \verb+\end{publications}+
+    \end{syntax}
+    \verb+publications+环境用于已发表论文页面。一般用于附录中。使用上同\verb+enumerate+环境。
+\end{function}
+
+\begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
+    因为模板中设定了表格的行距和字号，使得使用中无法临时自定义表格的行距和字号。故提供两个命令用于关闭和开启默认表格的行距和字号设置。比如你如果需要输出一个自己定义字号的表格，可以使用如下示例：
+    \begin{verbatim}
+    \begingroup
+    \TurnOffTabFontSetting
+    \footnotesize % 设置字号
+    \begin{tabular}{...}
+        <content>
+    \end{tabular}
+    \TurnOnTabFontSetting
+    \endgroup
+    \end{verbatim}
+\end{function}
+
+\subsection{简单示例}\label{subsec:简单示例}
+如下为一个使用本模板的简单示例。更完整的例子请见\href{https://github.com/michael911009/HUSTThesis/blob/master/example/hustthesis-example.tex}{\texttt{hustthesis-example.tex}}，其效果见\href{https://github.com/michael911009/HUSTThesis/raw/master/example/hustthesis-example.pdf}{\texttt{hustthesis-example.pdf}}。
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass[degree=phd]{hustthesis}
+
+\stuno{你的学号}
+\schoolcode{10487}
+\title{中文标题}{英文标题}
+\author{作者名}{作者名拼音}
+\major{专业中文}{专业英文}
+\supervisor{指导老师中文}{指导老师英文}
+\date{2013}{4}{1} % 答辩日期
+
+\zhabstract{中文摘要}
+\zhkeywords{中文关键字}
+\enabstract{英文摘要}
+\enkeywords{英文关键字}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\makeabstract
+\tableofcontents
+\mainmatter
+
+%% 正文
+
+\backmatter
+
+\begin{ack}
+%% 致谢
+\end{ack}
+\bibliography{参考文献.bib文件}
+
+\appendix
+
+\listoffigures
+\listoftables
+
+\begin{publications}
+%% 发表过的论文列表
+\end{publications}
+
+%% 附录剩余部分
+
+\end{document}
+\end{lstlisting}
+
+\section{预设宏包介绍}
+
+本模板中预设了一些宏包，下面对其进行简单介绍。
+
+\begin{itemize}
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/algorithm2e.html}{\texttt{algorithm2e}} 算法环境。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/enumitem.html}{\texttt{enumitem}} 自定义列表环境的式样。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/fancynum.html}{\texttt{fancynum}} 用于将大数每三位断开。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/listings.html}{\texttt{listings}} 代码环境。如需更好的代码高亮可以使用\href{http://mirrors.ctan.org/help/Catalogue/entries/minted.html}{\texttt{minted}}宏包。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/longtable.html}{\texttt{longtable}} 跨页的超长表格环境。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/ltxtable.html}{\texttt{ltxtable}} \texttt{longtable}环境和\texttt{tabularx}环境的合并。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/multirow.html}{\texttt{multirow}} 用于表格中合并行。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/overpic.html}{\texttt{overpic}} 用于在图片上层叠其他内容。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/tabularx.html}{\texttt{tabularx}} 扩展到表格环境。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/xy.html}{\texttt{xy}} 用于绘制简单图形。如需更高级功能可以使用\href{http://mirrors.ctan.org/help/Catalogue/entries/tikz.html}{\texttt{tikz}}宏包。
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/zhnumber.html}{\texttt{zhnumber}} 用于生成中文数字。
+\end{itemize}
+
+\section{高级设置}
+
+\subsection{切换字体}
+
+模板正文字体为宋体（AdobeSongStd-Light），同时我们提供如下命令切换中文字体：
+
+\begin{function}{\HEI,\hei}
+    \begin{syntax}
+    \{\cs{HEI} \meta{content}\}
+    \cs{hei}\Arg{content}
+    \end{syntax}
+    切换字体为黑体（\verb+AdobeHeitiStd-Regular+）。
+\end{function}
+
+\begin{function}{\KAI,\kai}
+    \begin{syntax}
+    \{\cs{KAI} \meta{content}\}
+    \cs{kai}\Arg{content}
+    \end{syntax}
+    切换字体为楷体（\verb+AdobeKaitiStd-Regular+）。
+\end{function}
+
+\begin{function}{\FANGSONG,\fangsong}
+    \begin{syntax}
+    \{\cs{FANGSONG} \meta{content}\}
+    \cs{fangsong}\Arg{content}
+    \end{syntax}
+    切换字体为仿宋（\verb+AdobeFangsongStd-Regular+）。
+\end{function}
+
+如果需要加载其他字体，请参阅宏包\href{http://mirrors.ctan.org/help/Catalogue/entries/fontspec.html}{\texttt{fontspec}}，宏包\href{http://mirrors.ctan.org/help/Catalogue/entries/xecjk.html}{\texttt{xeCJK}}（对于\XeLaTeX{}）和宏包\href{http://mirrors.ctan.org/help/Catalogue/entries/luatexja.html}{\texttt{luatex-ja}}（对于\LuaLaTeX{}）的文档。
+
+\subsection{内部字段设置}
+
+本模板定义了很多内部字段，其实现都位于\verb+hust-thesis-var.tex+中。其具体内容如下：
+\begin{lstlisting}[language={[LaTeX]TeX},breaklines=true]
+\def\HUST@classnotitle{{分}\hfill{类}\hfill{号}}
+\def\HUST@stunotitle{学号}
+\def\HUST@schoolcodetitle{学校代码}
+\def\HUST@secrettile{密级}
+\def\HUST@zhauthortitle{{学}\hfill{位}\hfill{申}\hfill{请}\hfill{人}}
+\def\HUST@zhmajortitle{{学}\hfill{科}\hfill{专}\hfill{业}}
+\def\HUST@zhsupervisortitle{{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhasssupervisortitle{{副}\hfill{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhdatetitle{{答}\hfill{辩}\hfill{日}\hfill{期}}
+
+\def\HUST@enauthortitle{Student}
+\def\HUST@enmajortitle{Major}
+\def\HUST@ensupervisortitle{Supervisor}
+\def\HUST@enasssupervisortitle{Co-Supervisor}
+
+\def\HUST@originaldeclare{独创性声明}
+\long\def\HUST@originaldeclaretext{
+  本人声明所呈交的学位论文是我个人在导师的指导下进行的研究工作及取得的研究成果。尽我所知，除文中已标明引用的内容外，本论文不包含任何其他人或集体已经发表或撰写过的研究成果。对本文的研究做出贡献的个人和集体，均已在文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
+}
+\def\HUST@zhauthorsig{学位论文作者签名：}
+\def\HUST@zhdatefield{日期：\hspace{2em}年\hspace{2em}月\hspace{2em}日}
+
+\def\HUST@authtitle{学位论文版权使用授权书}
+\long\def\HUST@authorizationtext{
+  本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+}
+\long\def\HUST@authorizationaddon{
+ 本论文属于 
+ \tabincell{l}{
+  保密$\square$，在~\makebox[2em]{\hrulefill} 年解密后适用本授权书。\\ 
+  不保密~$\square$。
+ } 
+}
+\def\HUST@authorizationcheck{（请在以上方框内打“$\surd$”）} 
+\def\HUST@zhteachersig{指导教师签名：}   
+
+\def\HUST@zhabstractname{摘\hspace{1em}要}
+\def\HUST@zhabstractnamenospace{摘要}
+\def\HUST@zhkeywordstitle{关键词：}
+\def\HUST@enabstractname{Abstract}
+\def\HUST@enkeywordstitle{Key words:}
+
+\def\HUST@ackname{致\hspace{1em}谢}
+\def\HUST@acknamenospace{致谢}
+
+\def\HUST@publicationtitle{攻读学位期间发表的学术论文}
+\end{lstlisting}
+
+通过更改这些字段，可以对论文格式进行自定义。
+
+\begingroup
+\hypersetup{bookmarksopenlevel=0}
+\PrintIndex
+\endgroup
+
+\end{document}
