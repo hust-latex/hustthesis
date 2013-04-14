@@ -24,7 +24,7 @@ echo Even this file behaves much like Makefile,
 echo I still recommend you install Make into your Windows.
 echo You can download it from http://gnuwin32.sourceforge.net/packages/make.htm
 echo.
-goto exit
+goto :exit
 
 :all
 call :example
