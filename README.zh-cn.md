@@ -39,11 +39,11 @@ makewin32.bat uninstall
 ### 免安装使用
 
 如果你希望临时使用本模板，而非安装到本地供长期使用。将`hustthesis`目录下的如下文件拷贝到你TeX工程根目录下即可：
-1. `hustthesis.bst`
-2. `hustthesis.cls`
-3. `hust-thesis-var.tex`
-4. `hust-title.eps`
-5. `hust-title.pdf`
+* `hustthesis.bst`
+* `hustthesis.cls`
+* `hust-thesis-var.tex`
+* `hust-title.eps`
+* `hust-title.pdf`
 
 ## 使用
 

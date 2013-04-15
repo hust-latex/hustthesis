@@ -39,11 +39,11 @@ Although `makewin32.bat` behaves much like `Makefile`, I still recommend you ins
 ### Use without installation
 
 If you want to use this template temporary rather than installing it into local for long term use. Copy the files listed below from directory `hustthesis` into your TeX project root directory:
-1. `hustthesis.bst`
-2. `hustthesis.cls`
-3. `hust-thesis-var.tex`
-4. `hust-title.eps`
-5. `hust-title.pdf`
+* `hustthesis.bst`
+* `hustthesis.cls`
+* `hust-thesis-var.tex`
+* `hust-title.eps`
+* `hust-title.pdf`
 
 
 ## Usage
