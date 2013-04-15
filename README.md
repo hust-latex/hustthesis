@@ -15,6 +15,37 @@ When I use LaTeX to write my final year project thesis, I found the original [`H
 
 ## Installation
 
+### Install into local
+
+Use the command below to install this template into local.
+``` bash
+make install
+```
+If you need uninstall it, use the command below.
+``` bash
+make uninstall
+```
+
+For Windows User who don't install `Make`, use the command below to install.
+```
+makewin32.bat install
+```
+If you need uninstall it, use the command below.
+```
+makewin32.bat uninstall
+```
+Although `makewin32.bat` behaves much like `Makefile`, I still recommend you install `Make` into your Windows. You can download it from [here](http://gnuwin32.sourceforge.net/packages/make.htm).
+
+### Use without installation
+
+If you want to use this template temporary rather than installing it into local for long term use. Copy the files listed below from directory `hustthesis` into your TeX project root directory:
+1. `hustthesis.bst`
+2. `hustthesis.cls`
+3. `hust-thesis-var.tex`
+4. `hust-title.eps`
+5. `hust-title.pdf`
+
+
 ## Usage
 
 **Important : This template can only be compiled by <del>XeTeX</del>[Currently Depressed] or LuaTeX.**

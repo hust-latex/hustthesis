@@ -120,7 +120,24 @@
 
 \subsection{安装到本地}
 
-% TODO:
+使用如下命令即可安装本模板到本地：
+\begin{verbatim}
+    make install
+\end{verbatim}
+如需卸载，则使用如下命令：
+\begin{verbatim}
+    make uninstall
+\end{verbatim}
+
+对于没有安装\verb+Make+的Windows系统用户，可以使用如下命令安装：
+\begin{verbatim}
+    makewin32.bat install
+\end{verbatim}
+如需卸载，则使用如下命令：
+\begin{verbatim}
+    makewin32.bat uninstall
+\end{verbatim}
+虽然\verb+makewin32.bat+表现与\verb+Makefile+极其相似，但是还是强烈建议你安装\verb+Make+，对于Windows用户可以在\href{http://gnuwin32.sourceforge.net/packages/make.htm}{这里}下载。
 
 \subsection{免安装使用}
 

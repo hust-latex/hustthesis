@@ -15,6 +15,36 @@ HUSTThesis
 
 ## 安装
 
+### 安装到本地
+
+使用如下命令即可安装本模板到本地：
+``` bash
+make install
+```
+如需卸载，则使用如下命令：
+``` bash
+make uninstall
+```
+
+对于没有安装`Make`的Windows系统用户，可以使用如下命令安装：
+```
+makewin32.bat install
+```
+如需卸载，则使用如下命令：
+```
+makewin32.bat uninstall
+```
+虽然`makewin32.bat`表现与`Makefile`极其相似，但是还是强烈建议你安装`Make`，对于Windows用户可以在[这里](http://gnuwin32.sourceforge.net/packages/make.htm)下载。
+
+### 免安装使用
+
+如果你希望临时使用本模板，而非安装到本地供长期使用。将`hustthesis`目录下的如下文件拷贝到你TeX工程根目录下即可：
+1. `hustthesis.bst`
+2. `hustthesis.cls`
+3. `hust-thesis-var.tex`
+4. `hust-title.eps`
+5. `hust-title.pdf`
+
 ## 使用
 
 **重要 : 该模板只能使用 <del>XeTeX</del>[当前不建议使用] 或 LuaTeX 编译。**
