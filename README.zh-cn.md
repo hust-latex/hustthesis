@@ -18,11 +18,11 @@ HUSTThesis
 ### 安装到本地
 
 使用如下命令即可安装本模板到本地：
-``` bash
+```
 make install
 ```
 如需卸载，则使用如下命令：
-``` bash
+```
 make uninstall
 ```
 
