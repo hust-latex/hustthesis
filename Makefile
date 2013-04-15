@@ -25,7 +25,7 @@ reallyclean:
 	make -C ./example reallyclean
 	make -C ./doc reallyclean
 
-install:example all
+install:example doc
 ifeq ($(OS_TYPE),Windows)
 	./install/win32.bat install
 else
