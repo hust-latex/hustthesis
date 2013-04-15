@@ -18,11 +18,11 @@ When I use LaTeX to write my final year project thesis, I found the original [`H
 ### Install into local
 
 Use the command below to install this template into local.
-``` bash
+```
 make install
 ```
 If you need uninstall it, use the command below.
-``` bash
+```
 make uninstall
 ```
 
