@@ -27,26 +27,26 @@ endif
 # OS detected
 ifeq ($(OS),Windows_NT)
 	ifneq ($(findstring .exe,$(SHELL)),)
-    OS := Windows
+    OS_TYPE := Windows
 	else
-    OS := Cygwin
+    OS_TYPE := Cygwin
 	endif
 else
-    OS := $(shell uname -s)
+    OS_TYPE := $(shell uname -s)
 endif
 
 # Program Defintions
 TEX    = lualatex -shell-escape -8bit 
 BIBTEX = bibtex
-RM     = $(if $(filter $(OS),Windows),del /f /q ,rm -f )
+RM     = $(if $(filter $(OS_TYPE),Windows),del /f /q ,rm -f )
 
 # PATH Config
-ifeq ($(OS),Windows)
+ifeq ($(OS_TYPE),Windows)
 	export PATH      := .;../hustthesis;${PATH}
 	export TEXINPUTS := .;../hustthesis;${TEXINPUTS}
 	export BSTINPUTS := .;../hustthesis;${BSTINPUTS}
 else
-ifeq ($(OS),Cygwin)
+ifeq ($(OS_TYPE),Cygwin)
 	export PATH      := .:../hustthesis:${PATH}
 	export TEXINPUTS := .;../hustthesis;${TEXINPUTS}
 	export BSTINPUTS := .;../hustthesis;${BSTINPUTS}
@@ -82,10 +82,10 @@ reallyclean:
 
 open:
 	-@echo "Open $(TARGET).pdf"
-ifeq ($(OS),Windows)
+ifeq ($(OS_TYPE),Windows)
 	-@start /b cmd /c "$(TARGET).pdf"
 else
-ifeq ($(OS),Cygwin)
+ifeq ($(OS_TYPE),Cygwin)
 	-@cygstart $(TARGET).pdf
 else
 	-$(TARGET).pdf &

@@ -5,19 +5,19 @@ INDEX_IST = l3doc.ist
 # OS detected
 ifeq ($(OS),Windows_NT)
 	ifneq ($(findstring .exe,$(SHELL)),)
-    OS := Windows
+    OS_TYPE := Windows
 	else
-    OS := Cygwin
+    OS_TYPE := Cygwin
 	endif
 else
-    OS := $(shell uname -s)
+    OS_TYPE := $(shell uname -s)
 endif
 
 # Program Defintions
 TEX    = lualatex -shell-escape -8bit 
 BIBTEX = bibtex
 INDEX  = makeindex -q -s $(INDEX_IST)
-RM     = $(if $(filter $(OS),Windows),del /f /q ,rm -f )
+RM     = $(if $(filter $(OS_TYPE),Windows),del /f /q ,rm -f )
 
 default all : $(TARGET).pdf
 

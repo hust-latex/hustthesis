@@ -11,6 +11,8 @@ if /i "%1" == "example"      goto :example
 if /i "%1" == "doc"          goto :doc
 if /i "%1" == "clean"        goto :clean
 if /i "%1" == "all"          goto :all
+if /i "%1" == "install"      goto :install
+if /i "%1" == "uninstall"    goto :uninstall
 goto :help
 
 :help
@@ -18,7 +20,9 @@ echo Usage:
 echo. makewin32 example          - build example
 echo. makewin32 doc              - build document
 echo. makewin32 all              - build example and document
-echo. makewin32 clean            - delete temporary file.
+echo. makewin32 clean            - delete temporary file
+echo. makewin32 install          - install into local
+echo. makewin32 uninstall        - uninstall
 echo.
 echo Even this file behaves much like Makefile, 
 echo I still recommend you install Make into your Windows.
@@ -50,6 +54,13 @@ popd
 goto :exit
 
 :install
+if not exist .\example\hustthesis-example.pdf call :example
+if not exist .\doc\hustthesis-doc.pdf call :doc
+call .\install\win32.bat install
+goto :exit
+
+:uninstall
+call .\install\win32.bat uninstall
 goto :exit
 
 :clean
