@@ -193,7 +193,8 @@
   allcolors=black,
   plainpages=false,
   pdfpagelabels=true,
-  pdfstartview={XYZ null null 1}
+  pdfstartview={XYZ null null 1},
+  pdfinfo={Template.Info={hustthesis.cls 2013/03/01, Copyright (C) 2013 by Xu Cheng and Chen Lei, https://github.com/michael911009/HUSTThesis}}
 }
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
