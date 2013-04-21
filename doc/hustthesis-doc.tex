@@ -69,6 +69,8 @@
   breaklines=true
 }
 
+\AtBeginEnvironment{verbatim}{\small}
+
 \usepackage{metalogo}
 \usepackage{notes}
 \usepackage{tabularx}
@@ -84,7 +86,7 @@
 
 \begin{document}
 
-\title{华科学术论文\LaTeX{}模板：hustthesis.cls 说明文档}
+\title{华中科技大学学术论文\LaTeX{}模板：hustthesis.cls 说明文档}
 \author{许铖~~陈雷}
 \date{2013-4-1}
 
@@ -334,14 +336,14 @@
     用于生成目录。
 \end{function}
 
-\begin{function}{ack}
-    \begin{syntax}
-    \verb+\begin{ack}+
-    \hspace{2em}\meta{content}
-    \verb+\end{ack}+
-    \end{syntax}
+\begin{environment}{ack}
+    \begin{verbatim}
+    \begin{ack}
+        <content>
+    \end{ack}
+    \end{verbatim}
     \verb+ack+环境用于致谢页面。
-\end{function}
+\end{environment}
 
 \begin{function}{\bibliography}
     \begin{syntax}
@@ -350,33 +352,35 @@
     用于生成参考文献。
 \end{function}
 
-\begin{function}{appendix}
+\begin{environment}{appendix}
     \verb+appendix+环境用于附录环境。你可以将附录置于\verb+appendix+环境中，如：
     \begin{verbatim}
     \begin{appendix}
         <content>
     \end{appendix}
     \end{verbatim}
+\begin{function}{\appendix}
     或者使用\verb+\appendix+代表后文均为附录，如：
     \begin{verbatim}
     \appendix
     <content>
     \end{verbatim}
 \end{function}
+\end{environment}
 
 \begin{function}{\listoffigures,\listoftables}
     这两个命令分别用于生成图片和表格索引，可以根据要求在论文前言中使用或附录中使用。
 \end{function}
 
-\begin{function}{publications}
-    \begin{syntax}
-    \verb+\begin{publications}+
-    \hspace{2em}\cs{item} \meta{thesis}
-    \hspace{2em}\meta{$\cdots$}
-    \verb+\end{publications}+
-    \end{syntax}
+\begin{environment}{publications}
+    \begin{verbatim}
+    \begin{publications}
+        \item <thesis>
+        <...>
+    \end{publications}
+    \end{verbatim}
     \verb+publications+环境用于已发表论文页面。一般用于附录中。使用上同\verb+enumerate+环境。
-\end{function}
+\end{environment}
 
 \begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
     因为模板中设定了表格的行距和字号，使得使用中无法临时自定义表格的行距和字号。故提供两个命令用于关闭和开启默认表格的行距和字号设置。比如你如果需要输出一个自己定义字号的表格，可以使用如下示例：
