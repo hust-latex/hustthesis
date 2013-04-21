@@ -11,10 +11,10 @@ endif
 
 all:example doc
 
-example:
+example ./example/hustthesis-example.pdf:
 	make -C ./example
 
-doc:
+doc ./doc/hustthesis-doc.pdf:
 	make -C ./doc
 
 clean:
@@ -25,7 +25,7 @@ reallyclean:
 	make -C ./example reallyclean
 	make -C ./doc reallyclean
 
-install:example doc
+install:./example/hustthesis-example.pdf ./doc/hustthesis-doc.pdf
 ifeq ($(OS_TYPE),Windows)
 	./install/win32.bat install
 else
