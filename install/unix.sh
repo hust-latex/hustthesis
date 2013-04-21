@@ -5,7 +5,7 @@
 SCRIPT_PATH=$(realpath $(cd $(dirname $0);pwd))
 cd $SCRIPT_PATH/..
 
-TEXMFLOCAL=`kpsewhich --var-value=TEXMFLOCAL | awk '{print $1}' `
+TEXMFLOCAL=`kpsewhich --var-value=TEXMFLOCAL | awk 'BEGIN {RS = ""; FS = "[\r\n]"} {print $1}' `
 
 install(){
 echo "Install hustthesis.cls template into local."
