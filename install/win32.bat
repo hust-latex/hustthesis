@@ -15,28 +15,28 @@ goto :help
 
 :install
 echo. Install hustthesis.cls template into local.
-mkdir "%TEXMFLOCAL%\tex\generic\hustthesis\"
-xcopy /q /y .\hustthesis\hust-thesis-var.tex "%TEXMFLOCAL%\tex\generic\hustthesis\" > nul
-xcopy /q /y .\hustthesis\hust-title.eps "%TEXMFLOCAL%\tex\generic\hustthesis\" > nul
-xcopy /q /y .\hustthesis\hust-title.pdf "%TEXMFLOCAL%\tex\generic\hustthesis\" > nul
-xcopy /q /y .\hustthesis\hustthesis.cls "%TEXMFLOCAL%\tex\generic\hustthesis\" > nul
+mkdir "%TEXMFLOCAL%\tex\latex\hustthesis\"
+xcopy /q /y .\hustthesis\hust-thesis-var.tex "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
+xcopy /q /y .\hustthesis\hust-title.eps "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
+xcopy /q /y .\hustthesis\hust-title.pdf "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
+xcopy /q /y .\hustthesis\hustthesis.cls "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
 mkdir "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
 xcopy /q /y .\hustthesis\hustthesis.bst "%TEXMFLOCAL%\bibtex\bst\hustthesis\" > nul
-mkdir "%TEXMFLOCAL%\doc\generic\hustthesis\"
-xcopy /q /y .\doc\hustthesis-doc.pdf "%TEXMFLOCAL%\doc\generic\hustthesis\" > nul
-xcopy /q /y .\doc\hustthesis-doc.tex "%TEXMFLOCAL%\doc\generic\hustthesis\" > nul
-mkdir "%TEXMFLOCAL%\doc\generic\hustthesis\example\"
-xcopy /q /y .\example\hustthesis-example.pdf "%TEXMFLOCAL%\doc\generic\hustthesis\example\" > nul
-xcopy /q /y .\example\hustthesis-example.tex "%TEXMFLOCAL%\doc\generic\hustthesis\example\" > nul
-xcopy /q /y .\example\fig-example.pdf "%TEXMFLOCAL%\doc\generic\hustthesis\example\" > nul
-xcopy /q /y .\example\ref-example.bib "%TEXMFLOCAL%\doc\generic\hustthesis\example\" > nul
+mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\"
+xcopy /q /y .\doc\hustthesis-doc.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\" > nul
+xcopy /q /y .\doc\hustthesis-doc.tex "%TEXMFLOCAL%\doc\latex\hustthesis\" > nul
+mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\example\"
+xcopy /q /y .\example\hustthesis-example.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
+xcopy /q /y .\example\hustthesis-example.tex "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
+xcopy /q /y .\example\fig-example.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
+xcopy /q /y .\example\ref-example.bib "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
 goto :hash
 
 :uninstall
 echo. Uninstall hustthesis.cls template.
-rd /q /s "%TEXMFLOCAL%\tex\generic\hustthesis\"
+rd /q /s "%TEXMFLOCAL%\tex\latex\hustthesis\"
 rd /q /s "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
-rd /q /s "%TEXMFLOCAL%\doc\generic\hustthesis\"
+rd /q /s "%TEXMFLOCAL%\doc\latex\hustthesis\"
 goto :hash
 
 :hash
