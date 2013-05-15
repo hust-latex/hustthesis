@@ -7,10 +7,8 @@
 %% 
 %% Contributors:
 %%   Xu Cheng <xucheng@me.com>
-%%   Chen Lei <imhijacker@gmail.com>
 %%
-%% Copyright (C) 2013 by Xu Cheng <xucheng@me.com>, 
-%%                       Chen Lei <imhijacker@gmail.com>
+%% Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
 %%
 %% This library is free software; you can redistribute it and/or
 %% modify it under the terms of the GNU Lesser General Public
@@ -194,7 +192,7 @@
   plainpages=false,
   pdfpagelabels=true,
   pdfstartview={XYZ null null 1},
-  pdfinfo={Template.Info={hustthesis.cls 2013/03/01, Copyright (C) 2013 by Xu Cheng and Chen Lei, https://github.com/michael911009/HUSTThesis}}
+  pdfinfo={Template.Info={hustthesis.cls 2013/03/01, Copyright (C) 2013 by Xu Cheng, https://github.com/michael911009/HUSTThesis}}
 }
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
