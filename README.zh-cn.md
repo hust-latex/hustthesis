@@ -64,8 +64,7 @@ makewin32.bat uninstall
 本项目使用LGPL 2.1协议，请任意使用。
 
 ```
-Copyright (C) 2013 by Xu Cheng <xucheng@me.com>, 
-                      Chen Lei <imhijacker@gmail.com>
+Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
