@@ -65,8 +65,7 @@ If you want to use this template temporary rather than installing it into local 
 LGPL 2.1 is chosen to be the license of the project. Use as you desire.
 
 ```
-Copyright (C) 2013 by Xu Cheng <xucheng@me.com>, 
-                      Chen Lei <imhijacker@gmail.com>
+Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
