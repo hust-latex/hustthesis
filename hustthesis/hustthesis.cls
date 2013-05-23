@@ -124,7 +124,7 @@
   \RequirePackage{xunicode}
   \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
   \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
-  \setmonofont[Ligatures={Common,TeX}]{CMU Typewriter Text}
+  \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text}
   % 中文字体
   \RequirePackage[boldfont,slantfont,CJKmath]{xeCJK}
@@ -148,7 +148,7 @@
   % 英文字体
   \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
   \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
-  \setmonofont[Ligatures={Common,TeX}]{CMU Typewriter Text}
+  \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   % 中文字体
   \setmainjfont[BoldFont={AdobeHeitiStd-Regular},ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
