@@ -70,6 +70,7 @@
 % final 页眉为空，页脚仅有页码
 % 默认为final
 \newif\ifHUST@finalformat
+\HUST@finalformattrue
 \DeclareOptionX{format}[final]{
   \ifthenelse{\equal{#1}{final}}{
     \HUST@finalformattrue
@@ -173,7 +174,17 @@
 \changefont{linespread=1.2} % 1.2倍行距 
 
 % 页面设置
-\RequirePackage[top=1.2in,bottom=1.2in,left=1in,right=1in]{geometry}
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top=1.2in,
+  bottom=1.2in,
+  left=1in,
+  right=1in
+}
+\ifHUST@finalformat\else
+  \geometry{nofoot}
+\fi
 
 % 段首缩进
 \RequirePackage{indentfirst}
@@ -407,7 +418,7 @@
   {\zhnumber{\thechapter}} 
   {1em}                      % 章序号与章名之间空一个汉字符
   {}
-\titlespacing*{\chapter}{0pt}{24pt}{20pt} % 章节前空24磅，段后空20磅
+\titlespacing*{\chapter}{0pt}{0pt}{20pt} % 章节前空0磅，段后空20磅
 
 % 一级标题格式
 % 采用黑体 16pt
@@ -470,6 +481,7 @@
       }
       \fancyfoot[C]{
         \hrule width \textwidth height 0.4pt
+        \vskip 0.3\normalbaselineskip
         \thepage
       }
     \fi
