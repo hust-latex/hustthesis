@@ -123,12 +123,18 @@
   % 英文字体
   \RequirePackage{fontspec}
   \RequirePackage{xunicode}
-  \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
+  \setmainfont[
+    Ligatures={Common,TeX},
+    Extension=.otf,
+    UprightFont= *-regular,
+    BoldFont=*-bold,
+    ItalicFont=*-italic,
+    BoldItalicFont=*-bolditalic]{texgyretermes}
   \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
   \setmonofont{CMU Typewriter Text}
   \defaultfontfeatures{Mapping=tex-text}
   % 中文字体
-  \RequirePackage[boldfont,slantfont,CJKmath]{xeCJK}
+  \RequirePackage[CJKmath]{xeCJK}
   \setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
   \setCJKsansfont{Adobe Kaiti Std}
   \setCJKmonofont{Adobe Fangsong Std}
