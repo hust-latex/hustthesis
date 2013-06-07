@@ -796,7 +796,7 @@
 % 中文摘要
 \def\HUST@zhabstractpage{
   \chapter*{\HUST@zhabstractname}
-  \HUST@zhabstract
+  \HUST@zhabstract \hfill
   \\[1.2ex]
   \noindent\hei{\HUST@zhkeywordstitle}\hspace{.8em} \HUST@zhkeywords
 }
@@ -804,7 +804,7 @@
 % 英文摘要
 \def\HUST@enabstractpage{
   \chapter*{\textsf{\HUST@enabstractname}}
-  \HUST@enabstract
+  \HUST@enabstract \hfill
   \\[1.2ex]
   \noindent\textbf{\HUST@enkeywordstitle}\hspace{.8em} \HUST@enkeywords
 }
