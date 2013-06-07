@@ -9,7 +9,7 @@ A LaTeX Template for HUST Thesis.
 
 When I use LaTeX to write my final year project thesis, I found the original [`HUSTPHDthesis.cls` (2006/04/06 V2.0)](http://sourceforge.net/projects/hustthesis) is very old. And it's too old that its development has been stopped. Since it uses package `CJK` to handle Chinese character, it's very buggy. I rewrite it to make several improvement:
 
-1. Use <del>`xeCJK`(for `XeLaTeX`)</del>[Currently Depressed] or `luatex-ja`(for `LuaLaTeX`) to better handle Chinese character. Since it use UTF-8 as only means of encoding, it has more comparability with other package.
+1. Use `xeCJK`(for `XeLaTeX`) or `luatex-ja`(for `LuaLaTeX`)[Recommend] to better handle Chinese character. Since it use UTF-8 as only means of encoding, it has more comparability with other package.
 2. Replace overdue package to new one.
 3. Simplify the code.
 
@@ -48,7 +48,7 @@ If you want to use this template temporary rather than installing it into local 
 
 ## Usage
 
-**Important : This template can only be compiled by <del>XeTeX</del>[Currently Depressed] or LuaTeX.**
+**Important : This template can only be compiled by XeTeX or LuaTeX[Recommend].**
 
 * Requirement:
   1. Install the latest version of [Texlive](http://www.tug.org/texlive/)(Recommend) or [MiKTex](http://miktex.org/). Please ensure that all the packages are up-to-date.

@@ -119,7 +119,7 @@
 
 % Font
 
-\ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体 [Currently Depressed]
+\ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体
   % 英文字体
   \RequirePackage{fontspec}
   \RequirePackage{xunicode}
@@ -150,7 +150,7 @@
   \newcommand\ziju[2]{{\renewcommand{\CJKglue}{\hskip #1} #2}}
 \else\fi
 
-\ifLuaTeX  % LuaTeX下使用luatex-ja处理字体
+\ifLuaTeX  % LuaTeX下使用luatex-ja处理字体 [推荐]
   \RequirePackage{luatexja-fontspec}
   % 英文字体
   \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
