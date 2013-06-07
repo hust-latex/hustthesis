@@ -429,19 +429,19 @@
 % 一级标题格式
 % 采用黑体 16pt
 % 段前空18磅，段后空6磅。
-\titleformat*{\section}{\HEI\changefont{size=16pt}}
+\titleformat*{\section}{\bfseries\HEI\changefont{size=16pt}}
 \titlespacing*{\section}{0pt}{18pt}{6pt}
 
 % 二级标题格式
 % 采用黑体 14pt
 % 段前空12磅，段后空6磅。
-\titleformat*{\subsection}{\HEI\changefont{size=14pt}}
+\titleformat*{\subsection}{\bfseries\HEI\changefont{size=14pt}}
 \titlespacing*{\subsection}{0pt}{12pt}{6pt}
 
 % 三级标题格式
 % 采用黑体 13pt
 % 段前空12磅，段后空6磅。
-\titleformat*{\subsubsection}{\HEI\changefont{size=13pt}}
+\titleformat*{\subsubsection}{\bfseries\HEI\changefont{size=13pt}}
 \titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -503,7 +503,7 @@
 \setlist[enumerate,1]{label=\arabic*.}
 \setlist[enumerate,2]{label*=\arabic*}
 \setlist[enumerate,3]{label=\emph{\alph*})}
-\setlist[description]{font=\HEI}
+\setlist[description]{font=\bfseries\HEI}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 中文设置
