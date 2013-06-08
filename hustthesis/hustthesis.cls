@@ -529,13 +529,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 中英文标题
-\def\zhtitle#1{\gdef\HUST@zhtitle{#1}\hypersetup{pdftitle=#1}}
+\def\zhtitle#1{\gdef\HUST@zhtitle{#1}\hypersetup{pdftitle={#1}}}
 \def\entitle#1{\gdef\HUST@entitle{#1}}
 \def\title#1#2{\zhtitle{#1}\entitle{#2}}
 \title{}{}
 
 % 中英文作者名
-\def\zhauthor#1{\gdef\HUST@zhauthor{#1}\hypersetup{pdfauthor=#1}}
+\def\zhauthor#1{\gdef\HUST@zhauthor{#1}\hypersetup{pdfauthor={#1}}}
 \def\enauthor#1{\gdef\HUST@enauthor{#1}}
 \def\author#1#2{\zhauthor{#1}\enauthor{#2}}
 \author{}{}
@@ -598,7 +598,7 @@
 \abstract{}{}
 
 % 中英文关键词
-\def\zhkeywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords=#1}}
+\def\zhkeywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords={#1}}}
 \def\enkeywords#1{\gdef\HUST@enkeywords{#1}}
 \def\keywords#1#2{\zhkeywords{#1}\enkeywords{#2}}
 \keywords{}{}
