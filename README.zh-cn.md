@@ -3,7 +3,7 @@ HUSTThesis
 
 >   To see English version, [click me](https://github.com/michael911009/HUSTThesis/blob/master/README.md).
 
-华科学术论文LaTeX模板。
+华中科技大学学术论文LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/HUSTThesis-en)。
 
 ## 起源
 
