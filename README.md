@@ -28,13 +28,13 @@ Although `makewin32.bat` behaves much like `Makefile`, I still recommend you ins
 
 ### Use without installation
 
-**Important : This template can only be compiled by XeTeX or LuaTeX[Recommend].**
-
 If you want to use this template temporary rather than installing it into local for long term use. Copy the files listed below from directory `hustthesis-en` into your TeX project root directory:
 * `hustthesis-en.cls`
 * `hust-thesis-var-en.tex`
 
 ## Usage
+
+**Important : This template can only be compiled by XeTeX or LuaTeX[Recommend].**
 
 Please install the latest version of [Texlive](http://www.tug.org/texlive/)(Recommend) or [MiKTex](http://miktex.org/). Please ensure that all the packages are up-to-date.
 
