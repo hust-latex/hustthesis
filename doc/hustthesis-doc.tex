@@ -96,11 +96,11 @@
 
 \section{简介}
 
-本模板为华中科技大学\textbf{非官方}学术论文模板。希望能够帮助正忙于撰写毕业论文和学术论文的华科学子。并且我们希望借助这个模板在学校内推广\LaTeX{}的使用。
+本模板为华中科技大学\textbf{非官方}学术论文模板。希望能够帮助正忙于撰写毕业论文和学术论文的华科学子。并且我们希望借助这个模板在学校内推广\LaTeX{}的使用。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
 
 对于中文用户来说，在使用\LaTeX{}处理文档时，一个非常常见的问题即是对汉字的处理。以往常见的方法是使用\verb+CJK+宏包。但这个宏包早已停止开发，存在很多已知bug，并与很多宏包不兼容。\XeTeX{}和\LuaTeX{}的出现则很好的解决了这个问题。他们都规定以UTF-8这个通用编码方式来处理文档。并且在这两种引擎下都有相应宏包来处理中文。在\XeLaTeX{}下，有\href{http://mirrors.ctan.org/help/Catalogue/entries/xecjk.html}{\texttt{xeCJK}}；在\LuaLaTeX{}下，有\href{http://mirrors.ctan.org/help/Catalogue/entries/luatexja.html}{\texttt{luatex-ja}}。这两个宏包当前的开发状态都保持活跃。本模板同时支持这两种宏包来处理中文，并会根据编译所用的引擎自动选择。
 
-本模板基于原有的\href{http://sourceforge.net/projects/hustthesis}{\texttt{HUSTPHDthesis.cls}  (2006/04/06 V2.0)}重写而成，并以LGPL v2.1为协议发布于\href{https://github.com/michael911009/HUSTThesis}{GitHub}上。
+本模板基于原有的\href{http://sourceforge.net/projects/hustthesis}{\texttt{HUSTPHDthesis.cls}  (2006/04/06 V2.0)}重写而成，并以LPPL v1.3为协议发布于\href{https://github.com/michael911009/HUSTThesis}{GitHub}上。
 
 \section{使用必要条件}
 
@@ -421,6 +421,8 @@
 \maketitle
 \makeabstract
 \tableofcontents
+\listoffigures
+\listoftables
 \mainmatter
 
 %% 正文
@@ -431,9 +433,6 @@
 %% 致谢
 \end{ack}
 \bibliography{参考文献.bib文件}
-
-\listoffigures
-\listoftables
 
 \appendix
 
@@ -499,7 +498,7 @@
 \subsection{内部字段设置}
 
 本模板定义了很多内部字段，其实现都位于\verb+hust-thesis-var.tex+中。其具体内容如下：
-\lstinputlisting[language={[LaTeX]TeX},firstline=33]{../hustthesis/hust-thesis-var.tex}
+\lstinputlisting[language={[LaTeX]TeX},firstline=34]{../hustthesis/hust-thesis-var.tex}
 
 通过更改这些字段，可以对论文格式进行自定义。
 

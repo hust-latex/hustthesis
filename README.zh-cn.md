@@ -3,7 +3,7 @@ HUSTThesis
 
 >   To see English version, [click me](https://github.com/michael911009/HUSTThesis/blob/master/README.md).
 
-华中科技大学学术论文LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/HUSTThesis-en)。
+华中科技大学学术论文**非官方**LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/HUSTThesis-en)。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
 
 ## 起源
 
@@ -61,25 +61,26 @@ makewin32.bat uninstall
 
 ## 开源协议
 
-本项目使用LGPL 2.1协议，请任意使用。
+本项目使用LPPL v1.3协议，请任意使用。
 
 ```
 Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
 
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
 
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
+This work has the LPPL maintenance status `maintained'.
  
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
-MA 02110-1301 USA
+The Current Maintainer of this work is Xu Cheng.
+
+This work consists of the files hustthesis.bst, hustthesis.cls, 
+hust-thesis-var.tex, hust-title.eps, hust-title.pdf and 
+along with its documnet and example files.
 ```
 
 本项目所依据的原始的`HUSTPHDthesis.cls` (2006/04/06 V2.0)由 Feng Jiang (2005 V1.0) 和 Huikan Liu <hkliu@mail.edu.cn> (2006 V2.0)编写。 你可以在[这里](http://sourceforge.net/projects/hustthesis)浏览原始的模板的主页。原始模板依据如下协议：
