@@ -166,6 +166,7 @@
 \RequirePackage{datenumber}
 \RequirePackage{etoolbox}
 \RequirePackage{appendix}
+\RequirePackage[titles]{tocloft}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Equation Format
@@ -344,6 +345,14 @@
 \setcounter{tocdepth}{1}
 
 \contentsmargin{2.0em}
+
+% Ref:http://tex.stackexchange.com/questions/89103/remove-vertical-space-between-two-chapters-in-table-of-contents-in-latex
+\newskip\HUST@oldcftbeforechapskip
+\HUST@oldcftbeforechapskip=\cftbeforechapskip
+\let\HUST@oldl@chapter\l@chapter
+\let\HUST@oldl@section\l@section
+\def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
+\def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Head&Foot Format
