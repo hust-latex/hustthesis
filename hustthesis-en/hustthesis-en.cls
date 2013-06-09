@@ -104,7 +104,8 @@
   top=1.2in,
   bottom=1.2in,
   left=1in,
-  right=1in
+  right=1in,
+  includefoot
 }
 
 \RequirePackage{indentfirst}
