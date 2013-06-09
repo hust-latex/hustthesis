@@ -1,0 +1,74 @@
+@echo off
+rem simulate Makefile for Windows
+rem Author: Xu Cheng
+
+cd /d "%~dp0"
+set PATH=%~dp0\hustthesis-en;%PATH%
+set TEXINPUTS=.;%~dp0\hustthesis-en;%TEXINPUTS%
+
+if /i "%1" == "example"      goto :example
+if /i "%1" == "doc"          goto :doc
+if /i "%1" == "clean"        goto :clean
+if /i "%1" == "all"          goto :all
+if /i "%1" == "install"      goto :install
+if /i "%1" == "uninstall"    goto :uninstall
+goto :help
+
+:help
+echo Usage:
+echo. makewin32 example          - build example
+echo. makewin32 doc              - build document
+echo. makewin32 all              - build example and document
+echo. makewin32 clean            - delete temporary file
+echo. makewin32 install          - install into local
+echo. makewin32 uninstall        - uninstall
+echo.
+echo Even this file behaves much like Makefile, 
+echo I still recommend you install Make into your Windows.
+echo You can download it from http://gnuwin32.sourceforge.net/packages/make.htm
+echo.
+goto :exit
+
+:all
+call :example
+call :doc
+goto :exit
+
+:example
+pushd example
+lualatex -shell-escape -8bit hustthesis-en-example
+bibtex hustthesis-en-example
+lualatex -shell-escape -8bit hustthesis-en-example
+lualatex -shell-escape -8bit hustthesis-en-example
+popd
+goto :exit
+
+:doc
+pushd doc
+lualatex -shell-escape -8bit hustthesis-en-doc
+makeindex -q -s l3doc.ist hustthesis-en-doc
+lualatex -shell-escape -8bit hustthesis-en-doc
+lualatex -shell-escape -8bit hustthesis-en-doc
+popd
+goto :exit
+
+:install
+if not exist .\example\hustthesis-en-example.pdf call :example
+if not exist .\doc\hustthesis-en-doc.pdf call :doc
+call .\install\win32.bat install
+goto :exit
+
+:uninstall
+call .\install\win32.bat uninstall
+goto :exit
+
+:clean
+pushd example
+del /f /q *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.fdb_latexmk *.glg *.glo *.gls *.idx *.ilg *.ind *.ist *.lof *.log *.lot *.maf *.mtc *.mtc0 *.nav *.nlo *.out *.pdfsync *.pyg *.snm *.synctex.gz *.thm *.toc *.vrb *.xdy *.tdo *.hd
+popd
+pushd doc
+del /f /q *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.fdb_latexmk *.glg *.glo *.gls *.idx *.ilg *.ind *.ist *.lof *.log *.lot *.maf *.mtc *.mtc0 *.nav *.nlo *.out *.pdfsync *.pyg *.snm *.synctex.gz *.thm *.toc *.vrb *.xdy *.tdo *.hd
+popd
+goto :exit
+
+:exit
