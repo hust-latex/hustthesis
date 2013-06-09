@@ -187,11 +187,9 @@
   top=1.2in,
   bottom=1.2in,
   left=1in,
-  right=1in
+  right=1in,
+  includefoot
 }
-\ifHUST@finalformat\else
-  \geometry{nofoot}
-\fi
 
 % 段首缩进
 \RequirePackage{indentfirst}
