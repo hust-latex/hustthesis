@@ -254,6 +254,7 @@
 \RequirePackage{datenumber}
 \RequirePackage{etoolbox}
 \RequirePackage{appendix}
+\RequirePackage[titles]{tocloft}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -452,8 +453,17 @@
 % 目录层级
 \setcounter{tocdepth}{1}
 
-%适当增加目录项的右边距
+% 适当增加目录项的右边距
 \contentsmargin{2.0em}
+
+% 减少目录中章节项间距离
+% Ref:http://tex.stackexchange.com/questions/89103/remove-vertical-space-between-two-chapters-in-table-of-contents-in-latex
+\newskip\HUST@oldcftbeforechapskip
+\HUST@oldcftbeforechapskip=\cftbeforechapskip
+\let\HUST@oldl@chapter\l@chapter
+\let\HUST@oldl@section\l@section
+\def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
+\def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 页眉页脚设置
