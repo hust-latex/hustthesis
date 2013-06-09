@@ -354,6 +354,11 @@
 \def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
 \def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip}
 
+\let\HUST@oldl@figure\l@figure
+\let\HUST@oldl@table\l@table
+\def\l@figure#1#2{\HUST@oldl@figure{\figurename~#1}{#2}}
+\def\l@table#1#2{\HUST@oldl@table{\tablename~#1}{#2}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Head&Foot Format
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
