@@ -1,7 +1,7 @@
 HUSTThesis-en
 ==========
 
-A English Version LaTeX Template for HUST Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/HUSTThesis).
+A English Version Unofficial LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/HUSTThesis). This Template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## Installation
 
@@ -43,7 +43,7 @@ Please install the latest version of [Texlive](http://www.tug.org/texlive/)(Reco
 
 ## License
 
-LGPL 2.1 is chosen to be the license of the project. Use as you desire.
+LPPL v1.3 is chosen to be the license of the project. Use as you desire.
 
 ```
 Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
