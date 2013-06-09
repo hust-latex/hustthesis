@@ -1,7 +1,7 @@
 HUSTThesis-en
 ==========
 
-A English Version Unofficial LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/HUSTThesis). This Template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+A English Version **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/HUSTThesis). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## Installation
 
@@ -48,18 +48,18 @@ LPPL v1.3 is chosen to be the license of the project. Use as you desire.
 ```
 Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
 
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
 
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
+This work has the LPPL maintenance status `maintained'.
  
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
-MA 02110-1301 USA
+The Current Maintainer of this work is Xu Cheng.
+
+This work consists of the files hustthesis-en.cls, hust-thesis-var-en.tex
+and along with its documnet and example files.
 ```
