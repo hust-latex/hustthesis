@@ -295,7 +295,6 @@
 \newtheorem{example}{例}[chapter]
 
 % proof 使用 amsthm
-%\def\qedsymbol{$$\blacksquare$$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 设定浮动对象
