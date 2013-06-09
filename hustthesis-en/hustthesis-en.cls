@@ -208,7 +208,6 @@
 \newtheorem{example}{Example}[chapter]
 
 % proof env use amsthm
-%\def\qedsymbol{$$\blacksquare$$}
 \def\proofname{\textbf{Proof}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
