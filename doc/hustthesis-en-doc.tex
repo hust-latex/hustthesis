@@ -1,0 +1,388 @@
+\documentclass[12pt,a4paper,numbered,full]{l3doc}
+
+\usepackage{fontspec}
+\setmainfont[Ligatures={Common,TeX}]{Tex Gyre Pagella}
+\setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+\setmonofont{CMU Typewriter Text}
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+
+\linespread{1.1}
+
+\usepackage[top=1.2in,bottom=1.2in,left=1.5in,right=1in]{geometry}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\hypersetup{
+  unicode,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=2,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=blue,
+  plainpages=false,
+  pdfpagelabels=true,
+  pdfstartview={XYZ null null 1}
+}
+\EnableCrossrefs
+
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+\usepackage{color}
+\usepackage[table]{xcolor}
+
+\usepackage{titlesec}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\usepackage{enumitem}
+\setlist{noitemsep,partopsep=0pt,topsep=.8ex}
+\setlist[1]{labelindent=\parindent}
+\setlist[enumerate,1]{label=\arabic*.}
+\setlist[enumerate,2]{label*=\arabic*}
+\setlist[enumerate,3]{label=\emph{\alph*})}
+
+\usepackage{listings}
+\definecolor{lstgreen}{rgb}{0,0.6,0}
+\definecolor{lstgray}{rgb}{0.5,0.5,0.5}
+\definecolor{lstmauve}{rgb}{0.58,0,0.82}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{lstgreen}\itshape,
+  stringstyle=\color{lstmauve},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=left,
+  numberstyle=\tiny\color{lstgray},
+  frame=lines,
+  rulecolor=\color{black},
+  breaklines=true
+}
+
+\AtBeginEnvironment{verbatim}{\small}
+
+\usepackage{metalogo}
+\usepackage{notes}
+\usepackage{tabularx}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\def\orvar{\textnormal{|}}
+\IndexPrologue{
+  \section{\indexname}
+}
+
+\begin{document}
+
+\title{A English Version \LaTeX{} Template for Huazhong Uni. of Sci. \& Tech. Thesis}
+\author{Xu Cheng}
+\date{2013-6-1}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+This is a English version \textbf{unofficial} LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use \href{https://github.com/michael911009/HUSTThesis}{Chinese Version Template}. This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+The whole project is published under LPPL v1.3 License at \href{https://github.com/michael911009/HUSTThesis-en}{GitHub}.
+
+\section{Install}
+
+Please install the latest version of \href{http://www.tug.org/texlive/}{Texlive}(Recommend) or \href{http://miktex.org/}{MiKTex}. Please ensure that all the packages are up-to-date.
+
+\subsection{Install into local}
+
+Use the command below to install this template into local.
+\begin{verbatim}
+    make install
+\end{verbatim}
+If you need uninstall it, use the command below.
+\begin{verbatim}
+    make uninstall
+\end{verbatim}
+
+For Windows User who don't install \texttt{Make}, use the command below
+to install. 
+\begin{verbatim}
+    makewin32.bat install
+\end{verbatim}
+If you need uninstall it, use the command below.
+\begin{verbatim}
+    makewin32.bat uninstall
+\end{verbatim}
+Although \texttt{makewin32.bat} behaves much like \texttt{Makefile}, I still
+recommend you install \texttt{Make} into your Windows. You can download
+it from \href{http://gnuwin32.sourceforge.net/packages/make.htm}{here}.
+
+\subsection{Use without installation}
+
+If you want to use this template temporary rather than installing it
+into local for long term use. Copy the files listed below from directory
+\texttt{hustthesis-en} into your \TeX{} project root directory: 
+\begin{itemize}
+    \item \verb+hustthesis-en.cls+
+    \item \verb+hust-thesis-var-en.tex+
+\end{itemize}
+
+\section{Usage}
+
+\begin{importantnote}
+This template can only be compiled by \\
+\hskip 10pt \textnormal{\XeLaTeX} or\textnormal{\LuaLaTeX}(Recommend).
+\end{importantnote}
+
+Insert below code in the top of source code to use this template:
+\begin{verbatim}
+    \documentclass{hustthesis-en}
+\end{verbatim}
+
+\subsection{Option}
+
+There's one option when use this template.
+
+\begin{function}{degree}
+    \begin{syntax}
+        degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
+    \end{syntax}
+    Set the category of thesis. It will influence the title of document, see Table~\ref{tab:optdegree}. The default value is \verb+none+.
+\end{function}
+
+\begin{table}[ht]
+    \centering
+    \caption{Title under different \texttt{degree}}\label{tab:optdegree}
+    \begin{tabularx}{\textwidth}{|c|X|}
+    \hline
+    \textbf{Option} & \textbf{Title}\\
+    \hline
+    \verb+none+  & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree \\ \hline
+    \verb+fyp+ & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
+    \verb+bachelor+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
+    \verb+master+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
+    \verb+phd+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Variables setting}
+
+There're some commands which are used to set the variables for the thesis.
+
+\begin{function}{\title}
+    \begin{syntax}
+    \cs{title}\Arg{title}
+    \end{syntax}
+    Set title.
+\end{function}
+
+\begin{function}{\author}
+    \begin{syntax}
+    \cs{author}\Arg{author}
+    \end{syntax}
+    Set author.
+\end{function}
+
+\begin{function}{\date}
+    \begin{syntax}
+    \cs{date}\Arg{Year}\Arg{Month}\Arg{Day}
+    \end{syntax}
+    Set date. If you don't set it, template will use current date.
+\end{function}
+
+\begin{function}{\schoolname}
+    \begin{syntax}
+    \cs{schoolname}\Arg{school name}
+    \end{syntax}
+    Set the name of school which has been set as \\*\hbox{\verb+\schoolname{Huazhong University of Science \& Technology}+} by default. So unless you want to change the name, you don't need to use this command.
+\end{function}
+
+\begin{function}{\address}
+    \begin{syntax}
+    \cs{address}\Arg{address}
+    \end{syntax}
+    Set the address of school which has been set as \\*\hbox{\verb+\address{Wuhan~430074, P.~R.~China}+} by default. So unless you want to change the address, you don't need to use this command.
+\end{function}
+
+\begin{function}{\major}
+    \begin{syntax}
+    \cs{major}\Arg{major}
+    \end{syntax}
+    Set your major.
+\end{function}
+
+\begin{function}{\supervisor}
+    \begin{syntax}
+    \cs{supervisor}\Arg{supervisor}
+    \end{syntax}
+    Set your supervisor.
+\end{function}
+
+\begin{function}{\asssupervisor}
+    \begin{syntax}
+    \cs{asssupervisor}\Arg{ass-supervisor}
+    \end{syntax}
+    Set your ass-supervisor if you have.
+\end{function}
+
+\begin{function}{\abstract}
+    \begin{syntax}
+    \cs{abstract}\Arg{abstract}
+    \end{syntax}
+    Put your abstract.
+\end{function}
+
+\begin{function}{\keywords}
+    \begin{syntax}
+    \cs{keywords}\Arg{keywords}
+    \end{syntax}
+    Put your keywords.
+\end{function}
+
+\subsection{Other commands}
+
+\begin{function}{\frontmatter,\mainmatter,\backmatter}
+    Used to determine the different part of document. You can see the example at Section~\ref{subsec:simple-example}.
+\end{function}
+
+\begin{function}{\maketitle,\makecover}
+    \verb+\maketitle+ and \verb+\makecover+ are the same. Used to create the title page.
+\end{function}
+
+\begin{function}{\makeabstract}
+    Used to create abstract page.
+\end{function}
+
+\begin{function}{\tableofcontents}
+    Used to create table of contents.
+\end{function}
+
+\begin{environment}{ack}
+    \begin{verbatim}
+    \begin{ack}
+        <content>
+    \end{ack}
+    \end{verbatim}
+    The \verb+ack+ environment is used to create acknowledge page.
+\end{environment}
+
+\begin{function}{\bibliography}
+    \begin{syntax}
+    \cs{bibliography}\Arg{.bib file}
+    \end{syntax}
+    Used to create bibliography page.
+\end{function}
+
+\begin{environment}{appendix}
+    The \verb+appendix+ environment is for appendix of course. Used like this:
+    \begin{verbatim}
+    \begin{appendix}
+        <content>
+    \end{appendix}
+    \end{verbatim}
+\begin{function}{\appendix}
+    Or simple use \verb+\appendix+ to indicate that the rest of document are all in appendix, like this:
+    \begin{verbatim}
+    \appendix
+    <content>
+    \end{verbatim}
+\end{function}
+\end{environment}
+
+\begin{function}{\listoffigures,\listoftables}
+    Create the index for all the figures and tables separately.
+\end{function}
+
+\begin{environment}{publications}
+    \begin{verbatim}
+    \begin{publications}
+        \item <thesis>
+        <...>
+    \end{publications}
+    \end{verbatim}
+    The \verb+publications+ environment is where you list all of your published thesises. It's usually putted in appendix. 
+\end{environment}
+
+\begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
+    This template has set the font size and line spread for all the tables which makes it's impossible to change font format temporary in one table.  So it provides these to command to temporary disable or enable default font setting in table. For example, if you want to change table font size, you can use the code like this:
+    \begin{verbatim}
+    \begingroup
+    \TurnOffTabFontSetting
+    \footnotesize % Set your font format as you like.
+    \begin{tabular}{...}
+        <content>
+    \end{tabular}
+    \TurnOnTabFontSetting
+    \endgroup
+    \end{verbatim}
+\end{function}
+
+\subsection{Simple example}\label{subsec:simple-example}
+Below is a simple example of using this template. For a complete example see \href{https://github.com/michael911009/HUSTThesis-en/blob/master/example/hustthesis-en-example.tex}{\texttt{hustthesis-example.tex}} which will generate \href{https://github.com/michael911009/HUSTThesis-en/raw/master/example/hustthesis-en-example.pdf}{\texttt{hustthesis-example.pdf}}.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass[degree=phd]{hustthesis-en}
+
+\title{your title}
+\author{your name}
+\major{your major}
+\supervisor{your supervisor}
+\date{2013}{6}{1} 
+
+\abstract{the abstract}
+\keywords{the keywords}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\makeabstract
+\tableofcontents
+\listoffigures
+\listoftables
+\mainmatter
+
+%% main body
+
+\backmatter
+
+\begin{ack}
+%% acknowledge
+\end{ack}
+\bibliography{.bib file}
+
+\appendix
+
+\begin{publications}
+%% your publications
+\end{publications}
+
+%% rest of appendix
+
+\end{document}
+\end{lstlisting}
+
+\section{Introduction to some packages used in the template}
+
+Here's a list of some packages used in the template.
+
+\begin{itemize}
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/algorithm2e.html}{\texttt{algorithm2e}} For display algorithm.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/enumitem.html}{\texttt{enumitem}} For set the style of enumerate, itemize and description environment.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/fancynum.html}{\texttt{fancynum}} Display the really big number.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/listings.html}{\texttt{listings}} For display the highlighted code. If you need better quality, use the package \href{http://mirrors.ctan.org/help/Catalogue/entries/minted.html}{\texttt{minted}}.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/longtable.html}{\texttt{longtable}} Create a very long table.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/ltxtable.html}{\texttt{ltxtable}} Combine the features of \texttt{longtable} anb \texttt{tabularx}.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/multirow.html}{\texttt{multirow}} Combine multi-rows in table.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/overpic.html}{\texttt{overpic}} Put something over a picture,
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/tabularx.html}{\texttt{tabularx}} A better table environment.
+    \item \href{http://mirrors.ctan.org/help/Catalogue/entries/xypic.html}{\texttt{xy-pic}} To draw some picture. If you need more advanced features, use the package \href{http://mirrors.ctan.org/help/Catalogue/entries/pgf.html}{\texttt{tikz}}.
+\end{itemize}
+
+\begingroup
+\hypersetup{bookmarksopenlevel=0}
+\PrintIndex
+\endgroup
+
+\end{document}
