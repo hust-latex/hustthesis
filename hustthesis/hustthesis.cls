@@ -253,6 +253,54 @@
 \RequirePackage{etoolbox}
 \RequirePackage{appendix}
 \RequirePackage[titles]{tocloft}
+\RequirePackage{perpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 中文设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\indexname{索引}
+\def\figurename{图}
+\def\tablename{表}
+\def\HUST@listfigurename{插图索引}
+\def\listfigurename{\HUST@listfigurename}
+\def\HUST@listtablename{表格索引}
+\def\listtablename{\HUST@listtablename}
+\def\algorithmcfname{算法}
+\def\listingscaption{代码}
+\def\proofname{\hei{证明}}
+\def\bibname{参考文献}
+\def\contentsname{目\hspace{1em}录}
+\def\contentsnamenospace{目录}
+\def\appendixname{附录}
+
+\def\equationautorefname{公式}
+\def\footnoteautorefname{脚注}
+\def\itemautorefname~#1\null{第~#1~项\null}
+\def\figureautorefname{图}
+\def\tableautorefname{表}
+\def\appendixautorefname{附录}
+\expandafter\def\csname\appendixname autorefname\endcsname{\appendixname}
+\def\chapterautorefname~#1\null{第\zhnumber{#1}章\null}
+\def\sectionautorefname~#1\null{#1~小节\null}
+\def\subsectionautorefname~#1\null{#1~小节\null}
+\def\subsubsectionautorefname~#1\null{#1~小节\null}
+\def\FancyVerbLineautorefname~#1\null{第~#1~行\null}
+\def\pageautorefname~#1\null{第~#1~页\null}
+\def\lstlistingautorefname{代码}
+\def\definitionautorefname{定义}
+\def\propositionautorefname{命题}
+\def\lemmaautorefname{引理}
+\def\theoremautorefname{定理}
+\def\axiomautorefname{公理}
+\def\corollaryautorefname{推论}
+\def\exerciseautorefname{练习}
+\def\exampleautorefname{例}
+\def\proofautorefname{证明}
+\SetAlgorithmName{算法}{算法}{算法索引}
+\SetAlgoProcName{过程}{过程}
+\SetAlgoFuncName{函数}{函数}
+\def\AlgoLineautorefname~#1\null{第~#1~行\null}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 定制公式样式
@@ -462,10 +510,16 @@
 \def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
 \def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip}
 
-\let\HUST@oldl@figure\l@figure
-\let\HUST@oldl@table\l@table
-\def\l@figure#1#2{\HUST@oldl@figure{\figurename~#1}{#2}}
-\def\l@table#1#2{\HUST@oldl@table{\tablename~#1}{#2}}
+\renewcommand*\cftfigpresnum{\figurename~}
+\newlength{\HUST@cftfignumwidth@tmp}
+\settowidth{\HUST@cftfignumwidth@tmp}{\cftfigpresnum}
+\addtolength{\cftfignumwidth}{\HUST@cftfignumwidth@tmp}
+\renewcommand{\cftfigaftersnumb}{\quad~}
+\renewcommand*\cfttabpresnum{\tablename~}
+\newlength{\HUST@cfttabnumwidth@tmp}
+\settowidth{\HUST@cfttabnumwidth@tmp}{\cfttabpresnum}
+\addtolength{\cfttabnumwidth}{\HUST@cfttabnumwidth@tmp}
+\renewcommand{\cfttabaftersnumb}{\quad~}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 页眉页脚设置
@@ -513,29 +567,16 @@
 
 \setlist{noitemsep,partopsep=0pt,topsep=.8ex}
 \setlist[1]{labelindent=\parindent}
-\setlist[enumerate,1]{label=\arabic*.}
-\setlist[enumerate,2]{label*=\arabic*}
-\setlist[enumerate,3]{label=\emph{\alph*})}
+\setlist[enumerate,1]{label=\arabic*.,ref=\arabic*}
+\setlist[enumerate,2]{label*=\arabic*,ref=\theenumi.\arabic*}
+\setlist[enumerate,3]{label=\emph{\alph*}),ref=\theenumii\emph{\alph*}}
 \setlist[description]{font=\bfseries\HEI}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 中文设置
+% 脚注设置
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\indexname{索引}
-\def\figurename{图}
-\def\tablename{表}
-\def\HUST@listfigurename{插图索引}
-\def\listfigurename{\HUST@listfigurename}
-\def\HUST@listtablename{表格索引}
-\def\listtablename{\HUST@listtablename}
-\def\algorithmcfname{算法}
-\def\listingscaption{代码}
-\def\proofname{\hei{证明}}
-\def\bibname{参考文献}
-\def\contentsname{目\hspace{1em}录}
-\def\contentsnamenospace{目录}
-\def\appendixname{附录}
+\MakePerPage{footnote}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 变量设置命令
