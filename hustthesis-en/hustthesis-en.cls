@@ -168,6 +168,44 @@
 \RequirePackage{etoolbox}
 \RequirePackage{appendix}
 \RequirePackage[titles]{tocloft}
+\RequirePackage{perpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Localization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\HUST@listfigurename{List of Figures}
+\def\listfigurename{\HUST@listfigurename}
+\def\HUST@listtablename{List of Tables}
+\def\listtablename{\HUST@listtablename}
+
+\def\equationautorefname{Equation}
+\def\footnoteautorefname{Footnote}
+\def\itemautorefname{Item}
+\def\figureautorefname{Figure}
+\def\tableautorefname{Table}
+\def\appendixautorefname{Appendix}
+\expandafter\def\csname\appendixname autorefname\endcsname{\appendixname}
+\def\chapterautorefname{Chapter}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+\def\subsubsectionautorefname{Sub-subsection}
+\def\FancyVerbLineautorefname{Line}
+\def\pageautorefname{Page}
+\def\lstlistingautorefname{Code Fragment}
+\def\definitionautorefname{Definition}
+\def\propositionautorefname{Proposition}
+\def\lemmaautorefname{Lemma}
+\def\theoremautorefname{Theorem}
+\def\axiomautorefname{Axiom}
+\def\corollaryautorefname{Corollary}
+\def\exerciseautorefname{Exercise}
+\def\exampleautorefname{Example}
+\def\proofautorefname{Proof}
+\SetAlgorithmName{Algorithm}{Algorithm}{List of Algorithms}
+\SetAlgoProcName{Procedure}{Procedure}
+\SetAlgoFuncName{Function}{Function}
+\def\AlgoLineautorefname{Line}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Equation Format
@@ -354,10 +392,16 @@
 \def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
 \def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip}
 
-\let\HUST@oldl@figure\l@figure
-\let\HUST@oldl@table\l@table
-\def\l@figure#1#2{\HUST@oldl@figure{\figurename~#1}{#2}}
-\def\l@table#1#2{\HUST@oldl@table{\tablename~#1}{#2}}
+\renewcommand*\cftfigpresnum{\figurename~}
+\newlength{\HUST@cftfignumwidth@tmp}
+\settowidth{\HUST@cftfignumwidth@tmp}{\cftfigpresnum}
+\addtolength{\cftfignumwidth}{\HUST@cftfignumwidth@tmp}
+\renewcommand{\cftfigaftersnumb}{\quad~}
+\renewcommand*\cfttabpresnum{\tablename~}
+\newlength{\HUST@cfttabnumwidth@tmp}
+\settowidth{\HUST@cfttabnumwidth@tmp}{\cfttabpresnum}
+\addtolength{\cfttabnumwidth}{\HUST@cfttabnumwidth@tmp}
+\renewcommand{\cfttabaftersnumb}{\quad~}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Head&Foot Format
@@ -386,19 +430,20 @@
 
 \setlist{noitemsep,partopsep=0pt,topsep=.8ex}
 \setlist[1]{labelindent=\parindent}
-\setlist[enumerate,1]{label=\arabic*.}
-\setlist[enumerate,2]{label*=\arabic*}
-\setlist[enumerate,3]{label=\emph{\alph*})}
+\setlist[enumerate,1]{label=\arabic*.,ref=\arabic*}
+\setlist[enumerate,2]{label*=\arabic*,ref=\theenumi.\arabic*}
+\setlist[enumerate,3]{label=\emph{\alph*}),ref=\theenumii\emph{\alph*}}
 \setlist[description]{font=\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Footnote Format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MakePerPage{footnote}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\HUST@listfigurename{List of Figures}
-\def\listfigurename{\HUST@listfigurename}
-\def\HUST@listtablename{List of Tables}
-\def\listtablename{\HUST@listtablename}
 
 % Title
 \def\title#1{\gdef\HUST@title{#1}\hypersetup{pdftitle={#1}}}
