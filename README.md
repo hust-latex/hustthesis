@@ -1,7 +1,7 @@
 HUSTThesis-en
 ==========
 
-A English Version **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/HUSTThesis). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+A English Version **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/hustthesis/tree/hustthesis-oldversionarchive). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## Installation
 
@@ -38,8 +38,8 @@ If you want to use this template temporary rather than installing it into local 
 
 Please install the latest version of [Texlive](http://www.tug.org/texlive/)(Recommend) or [MiKTex](http://miktex.org/). Please ensure that all the packages are up-to-date.
 
-* Manual: See [hustthesis-en-doc.pdf](https://github.com/michael911009/HUSTThesis-en/raw/master/doc/hustthesis-en-doc.pdf).
-* Example: See [hustthesis-en-example.pdf](https://github.com/michael911009/HUSTThesis-en/raw/master/example/hustthesis-en-example.pdf).
+* Manual: See [hustthesis-en-doc.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-en-oldversionarchive/doc/hustthesis-en-doc.pdf).
+* Example: See [hustthesis-en-example.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-en-oldversionarchive/example/hustthesis-en-example.pdf).
 
 ## License
 
