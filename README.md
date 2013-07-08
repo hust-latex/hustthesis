@@ -1,9 +1,9 @@
 HUSTThesis
 ==========
 
->   中文版[点击这里](https://github.com/michael911009/HUSTThesis/blob/master/README.zh-cn.md)。
+>   中文版[点击这里](https://github.com/michael911009/hustthesis/blob/hustthesis-oldversionarchive/README.zh-cn.md)。
 
-An **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in English, checkout the [English Version Template](https://github.com/michael911009/HUSTThesis-en). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+An **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in English, checkout the [English Version Template](https://github.com/michael911009/hustthesis/tree/hustthesis-en-oldversionarchive). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## Motivation
 
@@ -57,8 +57,8 @@ If you want to use this template temporary rather than installing it into local 
       * `AdobeKaitiStd-Regular`
       * `AdobeHeitiStd-Regular`
       * `AdobeFangsongStd-Regular`
-* Manual: See [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/raw/master/doc/hustthesis-doc.pdf).
-* Example: See [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/raw/master/example/hustthesis-example.pdf).
+* Manual: See [hustthesis-doc.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-oldversionarchive/doc/hustthesis-doc.pdf).
+* Example: See [hustthesis-example.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-oldversionarchive/example/hustthesis-example.pdf).
 
 ## License
 
