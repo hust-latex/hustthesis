@@ -1,9 +1,9 @@
 HUSTThesis
 ==========
 
->   To see English version, [click me](https://github.com/michael911009/HUSTThesis/blob/master/README.md).
+>   To see English version, [click me](https://github.com/michael911009/hustthesis/blob/hustthesis-oldversionarchive/README.md).
 
-华中科技大学学术论文 **非官方** LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/HUSTThesis-en)。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
+华中科技大学学术论文 **非官方** LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/hustthesis/tree/hustthesis-en-oldversionarchive)。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
 
 ## 起源
 
@@ -56,8 +56,8 @@ makewin32.bat uninstall
       * `AdobeKaitiStd-Regular`
       * `AdobeHeitiStd-Regular`
       * `AdobeFangsongStd-Regular`
-* 说明文档: 见 [hustthesis-doc.pdf](https://github.com/michael911009/HUSTThesis/raw/master/doc/hustthesis-doc.pdf)。
-* 示例文档: 见 [hustthesis-example.pdf](https://github.com/michael911009/HUSTThesis/raw/master/example/hustthesis-example.pdf)。
+* 说明文档: 见 [hustthesis-doc.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-oldversionarchive/doc/hustthesis-doc.pdf)。
+* 示例文档: 见 [hustthesis-example.pdf](https://github.com/michael911009/hustthesis/raw/hustthesis-oldversionarchive/example/hustthesis-example.pdf)。
 
 ## 开源协议
 
