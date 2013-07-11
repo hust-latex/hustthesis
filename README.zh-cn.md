@@ -1,6 +1,8 @@
 HUSTThesis
 ==========
 
+**已过时: 这里是老版本的存档，新版本见[这里](https://github.com/michael911009/hustthesis/tree/master)。**
+
 >   To see English version, [click me](https://github.com/michael911009/hustthesis/blob/hustthesis-oldversionarchive/README.md).
 
 华中科技大学学术论文 **非官方** LaTeX模板。 如果你使用英文撰写论文，请使用[英文版本模板](https://github.com/michael911009/hustthesis/tree/hustthesis-en-oldversionarchive)。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
