@@ -190,6 +190,8 @@
 }
 \ExplSyntaxOff
 
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
 \begin{document}
 \DocInput{hustthesis.dtx}
 \end{document}
@@ -247,9 +249,780 @@
 %
 % \part{Introduction}
 %
+% This is a thesis template for \href{http://www.hust.edu.cn/}{Huazhong University of Science \& Technology}. This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+%
+% The whole project is published under LPPL v1.3 License at \href{https://github.com/michael911009/hustthesis}{GitHub}.
+%
+% 中文使用说明见\autoref{part:中文使用说明}。
+%
+% English version instruction is in \autoref{part:English Version Instruction}.
+%
 % \part{中文使用说明}\label{part:中文使用说明}
 %
+% \section{使用必要条件}
+%
+% \begin{enumerate}
+%     \item 安装最新版本的\href{http://www.tug.org/texlive/}{\texttt{TeXLive}}（推荐）或\href{http://miktex.org/}{\texttt{MiKTeX}}。因为未及时更新的宏包可能存在未修复的bug，请确保所有宏包都更新至最新。
+%     \item 安装如下中文字体\footnote{本模板所用到的英文字体\textsf{Tex Gyre Termes}，\textsf{Droid Sans}和\textsf{CMU Typewriter Text}均默认安装于\textsf{TeXLive}和\textsf{MiKTeX}中。}：
+%     \begin{enumerate}[label=\emph{\alph*})]
+%         \item \textsf{AdobeSongStd-Light}
+%         \item \textsf{AdobeKaitiStd-Regular}
+%         \item \textsf{AdobeHeitiStd-Regular}
+%         \item \textsf{AdobeFangsongStd-Regular}
+%     \end{enumerate}
+%     \begin{informationnote}
+%     如果使用\textnormal{\LuaTeX}，安装字体之后需运行命令\verb+mkluatexfontdb+生成字体索引。
+%     \end{informationnote}
+% \end{enumerate}
+%
+% \section{安装}
+%
+% \subsection{安装到本地}
+%
+% 使用如下命令即可安装本模板到本地：
+% \begin{verbatim}
+%     make install
+% \end{verbatim}
+% 如需卸载，则使用如下命令：
+% \begin{verbatim}
+%     make uninstall
+% \end{verbatim}
+%
+% 对于没有安装\verb+Make+的Windows系统用户，可以使用如下命令安装：
+% \begin{verbatim}
+%     makewin32.bat install
+% \end{verbatim}
+% 如需卸载，则使用如下命令：
+% \begin{verbatim}
+%     makewin32.bat uninstall
+% \end{verbatim}
+% 虽然\verb+makewin32.bat+表现与\verb+Makefile+极其相似，但是还是强烈建议你安装\verb+Make+，对于Windows用户可以在\href{http://gnuwin32.sourceforge.net/packages/make.htm}{这里}下载。
+%
+% \subsection{免安装使用}
+%
+% 如果你希望临时使用本模板，而非安装到本地供长期使用。使用如下命令解压模板文件：
+% \begin{verbatim}
+%     make unpack
+% \end{verbatim}
+% 对于没有安装\verb+Make+的Windows系统用户，则使用如下命令解压：
+% \begin{verbatim}
+%     makewin32.bat unpack
+% \end{verbatim}
+%
+% 再将\verb+hustthesis+目录下的如下文件拷贝到你\TeX{}工程根目录下即可：
+% \begin{itemize}
+%     \item \verb+hustthesis.bst+
+%     \item \verb+hustthesis.cls+
+%     \item \verb+hust-title.eps+
+%     \item \verb+hust-title.pdf+
+% \end{itemize}
+%
+% \section{基本用法}
+%
+% \begin{importantnote}
+% 本文档只能使用\textnormal{\XeLaTeX}或\textnormal{\LuaLaTeX}（推荐）编译。
+% \end{importantnote}
+%
+% 在源文件开头处选择加载本文档类型，即可使用本模板，如下所示：
+% \begin{verbatim}
+%     \documentclass{hustthesis}
+% \end{verbatim}
+%
+% \subsection{文档类型选项}
+%
+% 加载本文档类型时，有如下三个选项提供选择。
+%
+% \begin{function}{format}
+%     \begin{syntax}
+%         format = \meta{draft\orvar{}\textbf{final}}
+%     \end{syntax}
+%     提交草稿选择\verb+draft+选项，提交最终版选\verb+final+选项。其中草稿正文页包括页眉（“华中科技大学\verb+xx+学位论文”）、页眉修饰线（双线）、页脚（页码）和页脚修饰线（单线）。而最终版正文页不包括页眉、页眉修饰线和页脚修饰线，仅包含页脚（页码）。如果不指定，默认设置为\verb+final+。
+% \end{function}
+%
+% \begin{function}{degree}
+%     \begin{syntax}
+%         degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
+%     \end{syntax}
+%     指定论文种类，它将通过设置字段\verb+\HUST@zhapplyname+和\verb+\HUST@enapplyname+来影响中英文封面除的标题和正文处的页眉（如果\verb+format+设为\verb+draft+）。各个不同的选项产生的效果见表\ref{tab:optdegree-zh}。如果不指定，默认设置为\verb+none+。
+% \end{function}
+%
+% \begin{function}[updated=2013-07-01]{language}
+%     \begin{syntax}
+%         language = \meta{\textbf{chinese}\orvar{}english\orvar{}english-draft}
+%     \end{syntax}
+%     指定论文语言。特别的，如果设定为\verb+english-draft+，将会剔除论文中的所有中文内容，这有利于在未安装中文字体的环境中使用。如果不指定，默认设置为\verb+chinese+。
+% \end{function}
+%
+% \begin{table}[ht]
+%     \centering
+%     \caption{\texttt{degree}选项的作用}\label{tab:optdegree-zh}
+%     \begin{tabularx}{\textwidth}{|c|X|X|}
+%     \hline
+%     \textbf{选项} & \tabincell{c}{\textbf{中文标题}\\（字段\verb+\HUST+\verb+@zhapplyname+）} & \tabincell{c}{\textbf{英文标题}\\（字段\verb+\HUST+\verb+@enapplyname+）} \\
+%     \hline
+%     \verb+none+ & 学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree \\ \hline
+%     \verb+fyp+ & 毕业论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
+%     \verb+bachelor+ & 学士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
+%     \verb+master+ & 硕士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
+%     \verb+phd+ & 博士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+%     \end{tabularx}
+% \end{table} 
+%
+% \subsection{基本字段设置}
+%
+% 模板中定义一些命令用于设置文档中的字段。其中一部分命令是以\verb+\zhX{<Chinese var>}+，\verb+\enX{<English var>}+和\verb+\X{<Chinese var>}{<English var>}+的形式出现，他们分别意味着设置字段\verb+X+的中文部分，英文部分及一同设定。
+%
+% \begin{function}{\zhtitle,\entitle,\title}
+%     \begin{syntax}
+%     \cs{zhtitle}\Arg{Chinese title}
+%     \cs{entitle}\Arg{English title}
+%     \cs{title}\Arg{Chinese title}\Arg{English title}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文标题。
+% \end{function}
+% 
+% \begin{function}{\zhauthor,\enauthor,\author}
+%     \begin{syntax}
+%     \cs{zhauthor}\Arg{Chinese author}
+%     \cs{enauthor}\Arg{English author}
+%     \cs{author}\Arg{Chinese author}\Arg{English author}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文作者名。
+% \end{function}
+% 
+% \begin{function}{\date}
+%     \begin{syntax}
+%     \cs{date}\Arg{Year}\Arg{Month}\Arg{Day}
+%     \end{syntax}
+%     该命令用于设定论文的答辩日期。如果不设定，则会选择当前编译日期作为答辩日期。
+% \end{function}
+% 
+% \begin{function}{\zhschoolname,\enschoolname,\schoolname}
+%     \begin{syntax}
+%     \cs{zhschoolname}\Arg{Chinese schoolname}
+%     \cs{enschoolname}\Arg{English schoolname}
+%     \cs{schoolname}\Arg{Chinese schoolname}\Arg{English schoolname}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文学校名。该字段在模板中已默认设置为\verb+\schoolname{华中科技大学}{Huazhong University of Science \& Technology}+。所以除非需更改学校名，无需使用该命令。
+% \end{function}
+% 
+% \begin{function}{\zhaddress,\enaddress,\address}
+%     \begin{syntax}
+%     \cs{zhaddress}\Arg{Chinese address}
+%     \cs{enaddress}\Arg{English address}
+%     \cs{address}\Arg{Chinese address}\Arg{English address}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文学校地址。该字段在模板中已默认设置为\verb+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}+。所以除非需更改学校地址，无需使用该命令。
+% \end{function}
+% 
+% \begin{function}{\zhmajor,\enmajor,\major}
+%     \begin{syntax}
+%     \cs{zhmajor}\Arg{Chinese major}
+%     \cs{enmajor}\Arg{English major}
+%     \cs{major}\Arg{Chinese major}\Arg{English major}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文专业名。
+% \end{function}
+% 
+% \begin{function}{\zhsupervisor,\ensupervisor,\supervisor}
+%     \begin{syntax}
+%     \cs{zhsupervisor}\Arg{Chinese supervisor}
+%     \cs{ensupervisor}\Arg{English supervisor}
+%     \cs{supervisor}\Arg{Chinese supervisor}\Arg{English supervisor}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文指导老师名（含职称）。
+% \end{function}
+% 
+% \begin{function}{\zhasssupervisor,\enasssupervisor,\asssupervisor}
+%     \begin{syntax}
+%     \cs{zhasssupervisor}\Arg{Chinese asssupervisor}
+%     \cs{enasssupervisor}\Arg{English asssupervisor}
+%     \cs{asssupervisor}\Arg{Chinese asssupervisor}\Arg{English asssupervisor}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文副指导老师名（含职称）。该命令是可选的，如果不加以设定，封面处不会显示相应项。
+% \end{function}
+% 
+% \begin{function}{\schoolcode}
+%     \begin{syntax}
+%     \cs{schoolcode}\Arg{school code}
+%     \end{syntax}
+%     用于设置学校代码。
+% \end{function}
+% 
+% \begin{function}{\stuno}
+%     \begin{syntax}
+%     \cs{stuno}\Arg{student number}
+%     \end{syntax}
+%     用于设置学号。
+% \end{function}
+% 
+% \begin{function}{\classno}
+%     \begin{syntax}
+%     \cs{classno}\Arg{classify number}
+%     \end{syntax}
+%     用于设置分类号。
+% \end{function}
+% 
+% \begin{function}{\secretlevel}
+%     \begin{syntax}
+%     \cs{secretlevel}\Arg{secret level}
+%     \end{syntax}
+%     用于设置密级。
+% \end{function}
+% 
+% \begin{function}{\zhabstract,\enabstract,\abstract}
+%     \begin{syntax}
+%     \cs{zhabstract}\Arg{Chinese abstract}
+%     \cs{enabstract}\Arg{English abstract}
+%     \cs{abstract}\Arg{Chinese abstract}\Arg{English abstract}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文摘要。
+% \end{function}
+% 
+% \begin{function}{\zhkeywords,\enkeywords,\keywords}
+%     \begin{syntax}
+%     \cs{zhkeywords}\Arg{Chinese keywords}
+%     \cs{enkeywords}\Arg{English keywords}
+%     \cs{keywords}\Arg{Chinese keywords}\Arg{English keywords}
+%     \end{syntax}
+%     这一组命令用于设定论文的中英文关键字。
+% \end{function}
+%
+% \subsection{其它基本命令}
+%
+% 下面来介绍其它基本命令。
+%
+% \begin{function}{\frontmatter,\mainmatter,\backmatter}
+%     这一组命令用于设定论文的状态、改变样式，其具体使用见\nameref{sec:简单示例}。\verb+\frontmatter+用在文档最开始，表明文档的前言部分（如封面，摘要，目录等）的开始。\verb+\mainmatter+表示论文正文的开始。\verb+\backmatter+表示论文正文的结束。
+% \end{function}
+%
+% \begin{function}{\maketitle,\makecover}
+%     \verb+\maketitle+和\verb+\makecover+作用相同，用于生成封面和版权页面。
+% \end{function}
+%
+% \begin{function}{\makeabstract}
+%     用于生成中英文摘要页面。
+% \end{function}
+%
+% \begin{function}{\tableofcontents}
+%     用于生成目录。
+% \end{function}
+%
+% \begin{function}{\zhdateformat,\endateformat}
+%     用于打印中英文日期。
+% \end{function}
+%
+% \vskip 1ex\DescribeEnv{ack}
+%     \verb+ack+环境用于致谢页面。使用方法如下：
+%     \begin{verbatim}
+%     \begin{ack}
+%         <content>
+%     \end{ack}
+%     \end{verbatim}
+%
+% \begin{function}{\bibliography}
+%     \begin{syntax}
+%     \cs{bibliography}\Arg{.bib file}
+%     \end{syntax}
+%     用于生成参考文献。
+% \end{function}
+%
+% \vskip 1ex\DescribeEnv{appendix}
+%     \verb+appendix+环境用于附录环境。你可以将附录置于\verb+appendix+环境中，如：
+%     \begin{verbatim}
+%     \begin{appendix}
+%         <content>
+%     \end{appendix}
+%     \end{verbatim}
+% \begin{function}{\appendix}
+%     或者使用\verb+\appendix+代表后文均为附录，如：
+%     \begin{verbatim}
+%     \appendix
+%     <content>
+%     \end{verbatim}
+% \end{function}
+%
+% \begin{function}{\listoffigures,\listoftables}
+%     这两个命令分别用于生成图片和表格索引，可以根据要求在论文前言中使用或附录中使用。
+% \end{function}
+%
+% \vskip 1ex\DescribeEnv{publications}
+%     \verb+publications+环境用于已发表论文页面。一般用于附录中。使用上同\verb+enumerate+环境。如下：
+%     \begin{verbatim}
+%     \begin{publications}
+%         \item <thesis>
+%         <...>
+%     \end{publications}
+%     \end{verbatim}
+%
+% \begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
+%     因为模板中设定了表格的行距和字号，使得使用中无法临时自定义表格的行距和字号。故提供两个命令用于关闭和开启默认表格的行距和字号设置。比如你如果需要输出一个自己定义字号的表格，可以使用如下示例：
+%     \begin{verbatim}
+%     \begingroup
+%     \TurnOffTabFontSetting
+%     \footnotesize % 设置字号
+%     \begin{tabular}{...}
+%         <content>
+%     \end{tabular}
+%     \TurnOnTabFontSetting
+%     \endgroup
+%     \end{verbatim}
+% \end{function}
+%
+% \begin{function}{\email}
+%     \begin{syntax}
+%     \cs{email}\Arg{Email Address}
+%     \end{syntax}
+%     用于生成邮箱地址。如\verb+\email{name@example.com}+会生成如下效果的地址：\email{name@example.com}。
+% \end{function}
+%
+% \section{简单示例}\label{sec:简单示例}
+% 如下为一个使用本模板的简单示例。更完整的例子请见\texttt{hustthesis-zh-example.tex}文件，其效果见\href{https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf}{\texttt{hustthesis-zh-example.pdf}}。
+%
+% \iffalse 
+%<*driver>
+% \fi
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass[degree=phd,language=chinese]{hustthesis}
+
+\stuno{你的学号}
+\schoolcode{10487}
+\title{中文标题}{英文标题}
+\author{作者名}{作者名拼音}
+\major{专业中文}{专业英文}
+\supervisor{指导老师中文}{指导老师英文}
+\date{2013}{7}{1} % 答辩日期
+
+\zhabstract{中文摘要}
+\zhkeywords{中文关键字}
+\enabstract{英文摘要}
+\enkeywords{英文关键字}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\makeabstract
+\tableofcontents
+\listoffigures
+\listoftables
+\mainmatter
+
+%% 正文
+
+\backmatter
+
+\begin{ack}
+%% 致谢
+\end{ack}
+\bibliography{参考文献.bib文件}
+
+\appendix
+
+\begin{publications}
+%% 发表过的论文列表
+\end{publications}
+
+%% 附录剩余部分
+
+\end{document}
+\end{lstlisting}
+% \iffalse 
+%</driver>
+% \fi
+%
+% \section{预设宏包介绍}
+%
+% 本模板中预设了一些宏包，下面对其进行简单介绍。
+%
+% \begin{itemize}
+%     \item \pkgurl{algorithm2e} 算法环境。
+%     \item \pkgurl{enumitem} 自定义列表环境的式样。
+%     \item \pkgurl{fancynum} 用于将大数每三位断开。
+%     \item \pkgurl{listings} 代码环境。如需更好的代码高亮可以使用\pkgurl{minted}宏包。
+%     \item \pkgurl{longtable} 跨页的超长表格环境。
+%     \item \pkgurl{ltxtable} \textsf{longtable}环境和\textsf{tabularx}环境的合并。
+%     \item \pkgurl{multirow} 用于表格中合并行。
+%     \item \pkgurl{overpic} 用于在图片上层叠其他内容。
+%     \item \pkgurl{tabularx} 扩展到表格环境。
+%     \item \pkgurl[xypic]{xy-pic} 用于绘制简单图形。如需更高级功能可以使用\pkgurl[pgf]{tikz}宏包。
+%     \item \pkgurl{zhnumber} 用于生成中文数字。
+% \end{itemize}
+%
+% \section{高级设置}
+%
+% \subsection{切换字体}
+%
+% 模板正文字体为宋体（\textsf{AdobeSongStd-Light}），同时我们提供如下命令切换中文字体：
+%
+% \begin{function}{\HEI,\hei}
+%     \begin{syntax}
+%     \{\cs{HEI} \meta{content}\}
+%     \cs{hei}\Arg{content}
+%     \end{syntax}
+%     切换字体为黑体（\textsf{AdobeHeitiStd-Regular}）。
+% \end{function}
+%
+% \begin{function}{\KAI,\kai}
+%     \begin{syntax}
+%     \{\cs{KAI} \meta{content}\}
+%     \cs{kai}\Arg{content}
+%     \end{syntax}
+%     切换字体为楷体（\textsf{AdobeKaitiStd-Regular}）。
+% \end{function}
+%
+% \begin{function}{\FANGSONG,\fangsong}
+%     \begin{syntax}
+%     \{\cs{FANGSONG} \meta{content}\}
+%     \cs{fangsong}\Arg{content}
+%     \end{syntax}
+%     切换字体为仿宋（\textsf{AdobeFangsongStd-Regular}）。
+% \end{function}
+%
+% 如果需要加载其他字体，请参阅宏包\pkgurl{fontspec}，宏包\pkgurl{xeCJK}（对于\XeLaTeX{}）和宏包\pkgurl[luatexja]{luatex-ja}（对于\LuaLaTeX{}）的文档。
+%
+% \subsection{内部字段设置}
+%
+% 本模板定义了很多内部字段，其具体内容见\autoref{sec:Localization}。通过更改这些字段，可以对论文格式进行自定义。
+%
 % \part{English Version Instruction}\label{part:English Version Instruction}
+%
+% \section{Requirement}
+% Install the latest version of \href{http://www.tug.org/texlive/}{\texttt{TeXLive}}(Recommend) or \href{http://miktex.org/}{\texttt{MiKTeX}}. Please ensure that all the packages are up-to-date.
+%
+% If you need to produce the final format of thesis (see \autoref{subsec:Option} for more details), you should also need to install following Chinese fonts:
+% \begin{itemize}
+%   \item \textsf{AdobeSongStd-Light}
+%   \item \textsf{AdobeKaitiStd-Regular}
+%   \item \textsf{AdobeHeitiStd-Regular}
+%   \item \textsf{AdobeFangsongStd-Regular}
+% \end{itemize}
+% \begin{informationnote}
+% If you use \textnormal{\LuaTeX}, you need to run the command \verb+mkluatexfontdb+ to refresh font database index after installing the fonts.
+% \end{informationnote}
+%
+% \section{Installation}
+%
+% \subsection{Install into local}
+%
+% Use the command below to install this template into local.
+% \begin{verbatim}
+%    make install
+% \end{verbatim}
+% If you need uninstall it, use the command below.
+% \begin{verbatim}
+%    make uninstall
+% \end{verbatim}
+%
+% For Windows User who don't install \texttt{Make}, use the command below to install. 
+% \begin{verbatim}
+%     makewin32.bat install
+% \end{verbatim}
+% If you need uninstall it, use the command below.
+% \begin{verbatim}
+%     makewin32.bat uninstall
+% \end{verbatim}
+% Although \texttt{makewin32.bat} behaves much like \texttt{Makefile}, I still
+% recommend you install \texttt{Make} into your Windows. You can download
+% it from \href{http://gnuwin32.sourceforge.net/packages/make.htm}{here}.
+%
+% \subsection{Use without installation}
+%
+% If you want to use this template temporary rather than installing it into local for long term use. Run below command to unpack the package.
+% \begin{verbatim}
+%     make unpack
+% \end{verbatim}
+% For Windows User who don't install \texttt{Make}, use the command below to unpack the package.
+% \begin{verbatim}
+%     makewin32.bat unpack
+% \end{verbatim}
+% Then copy the following files from directory \texttt{hustthesis} into your \TeX{} project root directory.
+% \begin{itemize}
+%     \item \verb+hustthesis.bst+
+%     \item \verb+hustthesis.cls+
+%     \item \verb+hust-title.eps+
+%     \item \verb+hust-title.pdf+
+% \end{itemize}
+%
+% \section{Usage}
+% \begin{importantnote}
+% This template can only be compiled by \\
+% \hskip 10pt \textnormal{\XeLaTeX} or\textnormal{\LuaLaTeX}(Recommend).
+% \end{importantnote}
+% 
+% Insert below code in the top of source code to use this template:
+% \begin{verbatim}
+%     \documentclass[language=english]{hustthesis}
+% \end{verbatim}
+%
+% \subsection{Option} \label{subsec:Option}
+%
+% There's three options available when use this template.
+%
+% % \begin{function}{format}
+%     \begin{syntax}
+%         format = \meta{draft\orvar{}\textbf{final}}
+%     \end{syntax}
+%     If \verb+format+ is set to \verb+final+, the header will be removed. This option is only valid if \verb+language+ is not set to \verb+english-draft+. The default value is \verb+final+.
+% \end{function}
+%
+% \begin{function}[updated=2013-07-01]{language}
+%     \begin{syntax}
+%         language = \meta{\textbf{chinese}\orvar{}english\orvar{}english-draft}
+%     \end{syntax}
+%     Set what language is used in the document. Specially, if it's set to \verb+english-draft+, all the Chinese characters will be removed in the document. This is extremely helpful when you don't install Chinese fonts. The default value is \verb+chinese+.
+% \end{function}
+%
+% \begin{function}{degree}
+%     \begin{syntax}
+%         degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
+%     \end{syntax}
+%     Set the category of thesis. It will influence the title of document, see Table~\ref{tab:optdegree-en}. The default value is \verb+none+.
+% \end{function}
+%
+% \begin{table}[ht]
+%     \centering
+%     \caption{Title under different \texttt{degree}}\label{tab:optdegree-en}
+%     \begin{tabularx}{\textwidth}{|c|X|}
+%     \hline
+%     \textbf{Option} & \textbf{Title}\\
+%     \hline
+%     \verb+none+  & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree \\ \hline
+%     \verb+fyp+ & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
+%     \verb+bachelor+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
+%     \verb+master+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
+%     \verb+phd+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+%     \end{tabularx}
+% \end{table}
+%
+% \subsection{Variables setting}
+%
+% There're some commands which are used to set the variables for the thesis.
+%
+% \begin{function}{\title}
+%     \begin{syntax}
+%     \cs{title}\Arg{title}
+%     \end{syntax}
+%     Set title.
+% \end{function}
+%
+% \begin{function}{\author}
+%     \begin{syntax}
+%     \cs{author}\Arg{author}
+%     \end{syntax}
+%     Set author.
+% \end{function}
+%
+% \begin{function}{\date}
+%     \begin{syntax}
+%     \cs{date}\Arg{Year}\Arg{Month}\Arg{Day}
+%     \end{syntax}
+%     Set date. If you don't set it, template will use current date.
+% \end{function}
+%
+% \begin{function}{\schoolname}
+%     \begin{syntax}
+%     \cs{schoolname}\Arg{school name}
+%     \end{syntax}
+%     Set the name of school which has been set as \\*\hbox{\verb+\schoolname{Huazhong University of Science \& Technology}+} by default. So unless you want to change the name, you don't need to use this command.
+% \end{function}
+%
+% \begin{function}{\address}
+%     \begin{syntax}
+%     \cs{address}\Arg{address}
+%     \end{syntax}
+%     Set the address of school which has been set as \\*\hbox{\verb+\address{Wuhan~430074, P.~R.~China}+} by default. So unless you want to change the address, you don't need to use this command.
+% \end{function}
+%
+% \begin{function}{\major}
+%     \begin{syntax}
+%     \cs{major}\Arg{major}
+%     \end{syntax}
+%     Set your major.
+% \end{function}
+%
+% \begin{function}{\supervisor}
+%     \begin{syntax}
+%     \cs{supervisor}\Arg{supervisor}
+%     \end{syntax}
+%     Set your supervisor.
+% \end{function}
+%
+% \begin{function}{\asssupervisor}
+%     \begin{syntax}
+%     \cs{asssupervisor}\Arg{ass-supervisor}
+%     \end{syntax}
+%     Set your ass-supervisor if you have.
+% \end{function}
+%
+% \begin{function}{\abstract}
+%     \begin{syntax}
+%     \cs{abstract}\Arg{abstract}
+%     \end{syntax}
+%     Put your abstract.
+% \end{function}
+%
+% \begin{function}{\keywords}
+%     \begin{syntax}
+%     \cs{keywords}\Arg{keywords}
+%     \end{syntax}
+%     Put your keywords.
+% \end{function}
+%
+% \subsection{Other commands}
+% 
+% \begin{function}{\frontmatter,\mainmatter,\backmatter}
+%     Used to determine the different part of document. You can see the example at \autoref{sec:simple-example}.
+% \end{function}
+% 
+% \begin{function}{\maketitle,\makecover}
+%     \verb+\maketitle+ and \verb+\makecover+ are the same. Used to create the title page.
+% \end{function}
+% 
+% \begin{function}{\makeabstract}
+%     Used to create abstract page.
+% \end{function}
+% 
+% \begin{function}{\tableofcontents}
+%     Used to create table of contents.
+% \end{function}
+% 
+% \begin{function}{\endateformat}
+%     Used to print the date.
+% \end{function}
+% 
+% \vskip 1ex\DescribeEnv{ack}
+%     The \verb+ack+ environment is used to create acknowledge page.
+%     \begin{verbatim}
+%     \begin{ack}
+%         <content>
+%     \end{ack}
+%     \end{verbatim}
+% 
+% \begin{function}{\bibliography}
+%     \begin{syntax}
+%     \cs{bibliography}\Arg{.bib file}
+%     \end{syntax}
+%     Used to create bibliography page.
+% \end{function}
+% 
+% \vskip 1ex\DescribeEnv{appendix}
+%     The \verb+appendix+ environment is for appendix of course. Used like this:
+%     \begin{verbatim}
+%     \begin{appendix}
+%         <content>
+%     \end{appendix}
+%     \end{verbatim}
+% \begin{function}{\appendix}
+%     Or simple use \verb+\appendix+ to indicate that the rest of document are all in appendix, like this:
+%     \begin{verbatim}
+%     \appendix
+%     <content>
+%     \end{verbatim}
+% \end{function}
+% 
+% \begin{function}{\listoffigures,\listoftables}
+%     Create the index for all the figures and tables separately.
+% \end{function}
+% 
+% \vskip 1ex\DescribeEnv{publications}
+%     The \verb+publications+ environment is where you list all of your published thesises. It's usually putted in appendix. 
+%     \begin{verbatim}
+%     \begin{publications}
+%         \item <thesis>
+%         <...>
+%     \end{publications}
+%     \end{verbatim}
+% 
+% \begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
+%     This template has set the font size and line spread for all the tables which makes it's impossible to change font format temporary in one table.  So it provides these to command to temporary disable or enable default font setting in table. For example, if you want to change table font size, you can use the code like this:
+%     \begin{verbatim}
+%     \begingroup
+%     \TurnOffTabFontSetting
+%     \footnotesize % Set your font format as you like.
+%     \begin{tabular}{...}
+%         <content>
+%     \end{tabular}
+%     \TurnOnTabFontSetting
+%     \endgroup
+%     \end{verbatim}
+% \end{function}
+%
+% \begin{function}{\email}
+%     \begin{syntax}
+%     \cs{email}\Arg{Email Address}
+%     \end{syntax}
+%     A command to display email address. For example, \verb+\email{name@example.com}+ would look like this: \email{name@example.com}.
+% \end{function}
+%
+% \section{Simple example}\label{sec:simple-example}
+% Below is a simple example of using this template. For a complete example see \texttt{hustthesis-en-example.tex} which will generate \href{https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf}{\texttt{hustthesis-en-example.pdf}}.
+% 
+% \iffalse 
+%<*driver>
+% \fi
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass[degree=phd,language=english]{hustthesis}
+
+\title{your title}
+\author{your name}
+\major{your major}
+\supervisor{your supervisor}
+\date{2013}{6}{1} 
+
+\abstract{the abstract}
+\keywords{the keywords}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\makeabstract
+\tableofcontents
+\listoffigures
+\listoftables
+\mainmatter
+
+%% main body
+
+\backmatter
+
+\begin{ack}
+%% acknowledge
+\end{ack}
+\bibliography{.bib file}
+
+\appendix
+
+\begin{publications}
+%% your publications
+\end{publications}
+
+%% rest of appendix
+
+\end{document}
+\end{lstlisting}
+% \iffalse 
+%</driver>
+% \fi
+%
+%
+% \section{Introduction to some packages used in the template}
+% 
+% Here's a list of some packages used in the template.
+% 
+% \begin{itemize}
+%     \item \pkgurl{algorithm2e} For display algorithm.
+%     \item \pkgurl{enumitem} For set the style of enumerate, itemize and description environment.
+%     \item \pkgurl{fancynum} Display the really big number.
+%     \item \pkgurl{listings} For display the highlighted code. If you need better quality, use the package \pkgurl{minted}.
+%     \item \pkgurl{longtable} Create a very long table.
+%     \item \pkgurl{ltxtable} Combine the features of \textsf{longtable} anb \textsf{tabularx}.
+%     \item \pkgurl{multirow} Combine multi-rows in table.
+%     \item \pkgurl{overpic} Put something over a picture,
+%     \item \pkgurl{tabularx} A better table environment.
+%     \item \pkgurl[xypic]{xy-pic} To draw some picture. If you need more advanced features, use the package \pkgurl[pgf]{tikz}.
+% \end{itemize}
 %
 % \StopEventually{
 %  \PrintIndex
@@ -805,7 +1578,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \section{Localization}
+% \section{Localization}\label{sec:Localization}
 % Chinese localization.
 % \footnote{The |autorefname| Reference:\url{http://tex.stackexchange.com/questions/52410/how-to-use-the-command-autoref-to-implement-the-same-effect-when-use-the-comman}}
 %    \begin{macrocode}
@@ -967,7 +1740,7 @@
 \ifthenelse{\equal{\HUST@language}{chinese}}{
   \hypersetup{pdfsubject={\HUST@zhschoolname\HUST@zhapplyname}}
 }{
-  \hypersetup{pdfsubject={\HUST@enschoolname~\HUST@enapplyname}}
+  \hypersetup{pdfsubject={\HUST@enapplyname}}
 }
 %    \end{macrocode}
 %
@@ -1259,8 +2032,9 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-\ifthenelse{\equal{\HUST@language}{english-draft}}{}
-{
+\ifthenelse{\equal{\HUST@language}{english-draft}}{
+  \fancyfoot[C]{\thepage}
+}{
   \ifHUST@finalformat
     \fancyfoot[C]{\thepage}
   \else
@@ -1291,6 +2065,7 @@
 \setlist[enumerate,3]{label=\emph{\alph*}),ref=\theenumii\emph{\alph*}}
 \setlist[description]{font=\bfseries\HEI
 }
+%    \end{macrocode}
 %
 % \subsection{Footnote Style}
 %    \begin{macrocode}
