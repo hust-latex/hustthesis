@@ -1,7 +1,7 @@
 HUSTThesis-en
 ==========
 
-** Deprecate: this's old version archive, whole template has been move to [here](https://github.com/michael911009/hustthesis/tree/master). **
+**Deprecate: this's old version archive, whole template has been move to [here](https://github.com/michael911009/hustthesis/tree/master).**
 
 A English Version **Unofficial** LaTeX Template for Huazhong University of Science and Technology Thesis. If you write your thesis in Chinese, please use [Chinese Version Template](https://github.com/michael911009/hustthesis/tree/hustthesis-oldversionarchive). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
