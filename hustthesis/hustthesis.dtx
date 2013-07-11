@@ -118,16 +118,16 @@
 \setlength{\cftsecindent}{2em}
 \setlength{\cftsubsecindent}{4em}
 \makeatletter
-\newskip\ITEC@oldcftbeforepartskip
-\ITEC@oldcftbeforepartskip=\cftbeforepartskip
-\newskip\ITEC@oldcftbeforesecskip
-\ITEC@oldcftbeforesecskip=\cftbeforesecskip
-\let\ITEC@oldl@part\l@part
-\let\ITEC@oldl@section\l@section
-\let\ITEC@oldl@subsection\l@subsection
-\def\l@part#1#2{\ITEC@oldl@part{#1}{#2}\cftbeforepartskip=3pt}
-\def\l@section#1#2{\ITEC@oldl@section{#1}{#2}\cftbeforepartskip=\ITEC@oldcftbeforepartskip\cftbeforesecskip=3pt}
-\def\l@subsection#1#2{\ITEC@oldl@subsection{#1}{#2}\cftbeforesecskip=\ITEC@oldcftbeforesecskip}
+\newskip\HUST@oldcftbeforepartskip
+\HUST@oldcftbeforepartskip=\cftbeforepartskip
+\newskip\HUST@oldcftbeforesecskip
+\HUST@oldcftbeforesecskip=\cftbeforesecskip
+\let\HUST@oldl@part\l@part
+\let\HUST@oldl@section\l@section
+\let\HUST@oldl@subsection\l@subsection
+\def\l@part#1#2{\HUST@oldl@part{#1}{#2}\cftbeforepartskip=3pt}
+\def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforepartskip=\HUST@oldcftbeforepartskip\cftbeforesecskip=3pt}
+\def\l@subsection#1#2{\HUST@oldl@subsection{#1}{#2}\cftbeforesecskip=\HUST@oldcftbeforesecskip}
 \makeatother
 
 \titleformat{\part}
@@ -151,6 +151,11 @@
   corresponding~entry~is~described,~
   numbers~underlined~point~to~the~definition,~
   all~others~indicate~the~places~where~it~is~used.
+ }
+
+\GlossaryPrologue
+ {
+  \part{Change History}
  }
 
 \EnableCrossrefs
@@ -216,7 +221,8 @@
 % \fi
 %
 % \changes{v1.0}{2013/06/01}{Initial version}
-% \changes{v1.1}{2013/07/01}{Package template using dtx and ins file}
+% \changes{v1.1}{2013/07/01}{Pack template using dtx and ins file}
+% \changes{v1.1}{2013/07/01}{Add language option}
 %
 % \GetFileInfo{hustthesis.dtx}
 %
@@ -247,6 +253,7 @@
 %
 % \StopEventually{
 %  \PrintIndex
+%  \PrintChanges
 % }
 %
 % \part{Implementation}\label{part:Implementation}
@@ -256,17 +263,1863 @@
 \RequirePackage{ifthen}
 %    \end{macrocode}
 %
+% \section{Process Options}
+% Use \pkgurl{xkeyval} to process options.
+%    \begin{macrocode}
+\RequirePackage{xkeyval}
+%    \end{macrocode}
 %
+% Option |format|.
+%    \begin{macrocode}
+\newif\ifHUST@finalformat
+\HUST@finalformattrue
+\DeclareOptionX{format}[final]{
+  \ifthenelse{\equal{#1}{final}}{
+    \HUST@finalformattrue
+  }{
+    \ifthenelse{\equal{#1}{draft}}{
+      \HUST@finalformatfalse
+    }{
+      \ClassError{hustthesis}
+      {Option format can only be 'final' or 'draft'}
+      {Try to remove option format^^J}
+    }
+  }
+}
+%    \end{macrocode}
+%
+% Option |language|.
+%    \begin{macrocode}
+\DeclareOptionX{language}[chinese]{
+  \ifthenelse{\equal{#1}{chinese} \OR \equal{#1}{english} \OR \equal{#1}{english-draft}}{
+    \gdef\HUST@language{#1}
+  }{
+    \ClassError{hustthesis}
+    {Option language can only be 'chinese', 'english' or 'english-draft'}
+    {Try to remove option language^^J}
+  }
+}
+%    \end{macrocode}
+%
+% Option |degree|.
+%    \begin{macrocode}
+\DeclareOptionX{degree}[none]{
+  \ifthenelse{\equal{#1}{none} \OR \equal{#1}{fyp} \OR \equal{#1}{bachelor} \OR \equal{#1}{master} \OR \equal{#1}{phd}}{
+    \gdef\HUST@degree{#1}
+  }{
+     \ClassError{hustthesis}
+      {Option degree can only be 'none', 'fyp', 'bachelor', 'master' or 'phd'}
+      {Try to remove option degree^^J}
+  }
+}
+%    \end{macrocode}
+%
+% Process options and load class |book|.
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\ProcessOptionsX
+\LoadClass[12pt, a4paper, openany]{book}
+%    \end{macrocode}
+%
+% \section{Check Engine}
+% Check engine, only \XeLaTeX{} and \LuaLaTeX{} are supported.
+%    \begin{macrocode}
+\RequirePackage{iftex}
+\ifXeTeX\else
+  \ifLuaTeX\else
+    \begingroup
+      \errorcontextlines=-1\relax
+      \newlinechar=10\relax
+      \errmessage{^^J
+      *******************************************************^^J
+      * XeTeX or LuaTeX is required to compile this document.^^J
+      * Sorry!^^J
+      *******************************************************^^J
+      }%
+    \endgroup
+  \fi
+\fi
+%    \end{macrocode}
+%
+% \section{Font Setting}
+% Set font used in document. Firstly, it's font setting for English font under |english-draft| mode. We use \pkgurl{fontspec} package to handle font. We choose \textsf{Tex Gyre Termes}, \textsf{Droid Sans} and \textsf{CMU Typewriter Text} as document main font, sans font and mono font.
+%    \begin{macrocode}
+\ifthenelse{\equal{\HUST@language}{english-draft}}{
+    \RequirePackage{fontspec}
+    \setmainfont[
+      Ligatures={Common,TeX},
+      Extension=.otf,
+      UprightFont=*-regular,
+      BoldFont=*-bold,
+      ItalicFont=*-italic,
+      BoldItalicFont=*-bolditalic]{texgyretermes}
+    \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+    \setmonofont{CMU Typewriter Text}
+    \defaultfontfeatures{Mapping=tex-text}
+%    \end{macrocode}
+%
+% Now let's set the Chinese font commands into empty, when document is under |english-draft| mode.
+%    \begin{macrocode}
+    \let\HEI\relax
+    \let\KAI\relax
+    \let\FANGSONG\relax
+    \newcommand{\hei}[1]{#1}
+    \newcommand{\kai}[1]{#1}
+    \newcommand{\fangsong}[1]{#1}
+}{}
+%    \end{macrocode}
+%
+% Below is the font setting under |chinese| or |english| mode. We chooses the same English font as under |english-draft| mode. We use \pkgurl{xecjk} package (for \XeLaTeX) or \pkgurl[luatexja]{luatex-ja} package (for \LuaLaTeX, recommend) to handle Chinese font. We will use font: \textsf{AdobeSongStd-Light}, \textsf{AdobeKaitiStd-Regular}, \textsf{AdobeHeitiStd-Regular} and \textsf{AdobeFangsongStd-Regular}.
+%    \begin{macrocode}
+\ifthenelse{\equal{\HUST@language}{english-draft}}{}{
+    \ifXeTeX  % XeTeX下使用fontspec + xeCJK处理字体
+      % 英文字体
+      \RequirePackage{fontspec}
+      \RequirePackage{xunicode}
+      \setmainfont[
+        Ligatures={Common,TeX},
+        Extension=.otf,
+        UprightFont=*-regular,
+        BoldFont=*-bold,
+        ItalicFont=*-italic,
+        BoldItalicFont=*-bolditalic]{texgyretermes}
+      \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+      \setmonofont{CMU Typewriter Text}
+      \defaultfontfeatures{Mapping=tex-text}
+      % 中文字体
+      \RequirePackage[CJKmath]{xeCJK}
+      \setCJKmainfont[
+       BoldFont={Adobe Heiti Std},
+       ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
+      \setCJKsansfont{Adobe Kaiti Std}
+      \setCJKmonofont{Adobe Fangsong Std}
+      \xeCJKsetup{PunctStyle=kaiming}
+
+      \newcommand\ziju[2]{{\renewcommand{\CJKglue}{\hskip #1} #2}}
+%    \end{macrocode}
+%
+% \begin{macro}{\HEI}
+%    \begin{macrocode}
+      \newCJKfontfamily\HEI{Adobe Heiti Std}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\KAI}
+%    \begin{macrocode}
+      \newCJKfontfamily\KAI{Adobe Kaiti Std}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FANGSONG}
+%    \begin{macrocode}
+      \newCJKfontfamily\FANGSONG{Adobe Fangsong Std}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\hei}
+%    \begin{macrocode}
+      \newcommand{\hei}[1]{{\HEI #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\kai}
+%    \begin{macrocode}
+      \newcommand{\kai}[1]{{\KAI #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fangsong}
+%    \begin{macrocode}
+      \newcommand{\fangsong}[1]{{\FANGSONG #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+    \else\fi
+    \ifLuaTeX  % LuaTeX下使用luatex-ja处理字体 [推荐]
+      \RequirePackage{luatexja-fontspec}
+      % 英文字体
+      \setmainfont[Ligatures={Common,TeX}]{Tex Gyre Termes}
+      \setsansfont[Ligatures={Common,TeX}]{Droid Sans}
+      \setmonofont{CMU Typewriter Text}
+      \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+      % 中文字体
+      \setmainjfont[
+       BoldFont={AdobeHeitiStd-Regular},
+       ItalicFont={AdobeKaitiStd-Regular}]{AdobeSongStd-Light}
+      \setsansjfont{AdobeKaitiStd-Regular}
+      \defaultjfontfeatures{JFM=kaiming}
+
+      \newcommand\ziju[2]{\vbox{\ltjsetparameter{kanjiskip=#1} #2}}
+%    \end{macrocode}
+%
+% \begin{macro}{\HEI}
+%    \begin{macrocode}
+      \newjfontfamily\HEI{AdobeHeitiStd-Regular}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\KAI}
+%    \begin{macrocode}
+      \newjfontfamily\KAI{AdobeKaitiStd-Regular}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FANGSONG}
+%    \begin{macrocode}
+      \newjfontfamily\FANGSONG{AdobeFangsongStd-Regular}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\hei}
+%    \begin{macrocode}
+      \newcommand{\hei}[1]{{\jfontspec{AdobeHeitiStd-Regular} #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\kai}
+%    \begin{macrocode}
+      \newcommand{\kai}[1]{{\jfontspec{AdobeKaitiStd-Regular} #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fangsong}
+%    \begin{macrocode}
+      \newcommand{\fangsong}[1]{{\jfontspec{AdobeFangsongStd-Regular} #1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+    \else\fi
+%    \end{macrocode}
+%
+% Generate Chinese number using \pkgurl{zhnumber}.
+%    \begin{macrocode}
+    \RequirePackage{zhnumber}
+    \def\CJKnumber#1{\zhnumber{#1}} % 兼容CJKnumb
+}
+%    \end{macrocode}
+%
+% \section{Basic Format}
+% Use \pkgurl{interfaces} package to handle font size and line spread. We set global line spread to 1.2.
+%    \begin{macrocode}
+\RequirePackage{interfaces-LaTeX}
+\changefont{linespread=1.2}
+%    \end{macrocode}
+%
+% Use \pkgurl{geometry} package to handle paper page.
+%    \begin{macrocode}
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top=1.2in,
+  bottom=1.2in,
+  left=1in,
+  right=1in,
+  includefoot
+}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+%    \end{macrocode}
+%
+% Indent of paragraph and skip between paragraphs.
+%    \begin{macrocode}
+\RequirePackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt plus 2pt minus 1pt} 
+%    \end{macrocode}
+%
+% Packages to handle color.
+%    \begin{macrocode}
+\RequirePackage{color}
+\RequirePackage[table]{xcolor}
+%    \end{macrocode}
+%
+% Use \pkgurl{hyperref} package to generate cross-reference link.
+%    \begin{macrocode}
+\RequirePackage[unicode]{hyperref}
+\hypersetup{
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  breaklinks=true,
+  colorlinks=true,
+  allcolors=black,
+  linktoc=all,
+  plainpages=false,
+  pdfpagelabels=true,
+  pdfstartview={XYZ null null 1},
+  pdfinfo={Template.Info={hustthesis.cls v1.1 2013/07/01, Copyright (C) 2013 by Xu Cheng, https://github.com/michael911009/hustthesis}}
+}
+%    \end{macrocode}
+%
+% \section{Load Packages}
+% Load packages for math.
+%    \begin{macrocode}
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage[amsmath,amsthm,thmmarks,hyperref,thref]{ntheorem}
+\RequirePackage{fancynum}
+\setfnumgsym{\,}
+\RequirePackage[lined,boxed,linesnumbered,ruled,vlined]{algorithm2e}
+%    \end{macrocode}
+%
+% Load packages for picture.
+%    \begin{macrocode}
+\RequirePackage[all]{xy}
+\RequirePackage{overpic}
+\RequirePackage{graphicx,caption,subcaption}
+%    \end{macrocode}
+%
+% Load packages for table.
+%    \begin{macrocode}
+\RequirePackage{array}
+\RequirePackage{multirow,tabularx,ltxtable}
+%    \end{macrocode}
+%
+% Load package for code highlight. Here we use \pkgurl{listings} to highlight the code. But if you need more features, use \pkgurl{minted}.
+%    \begin{macrocode}
+\RequirePackage{listings}
+%    \end{macrocode}
+%
+% Load package for bibliography cite style.
+%    \begin{macrocode}
+\RequirePackage[numbers,square,comma,sort&compress]{natbib}
+%    \end{macrocode}
+%
+% Other packages for style setting.
+%    \begin{macrocode}
+\RequirePackage{titlesec}
+\RequirePackage{titletoc}
+\RequirePackage{tocvsec2}
+\RequirePackage[inline]{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage{afterpage}
+\RequirePackage{datenumber}
+\RequirePackage{etoolbox}
+\RequirePackage{appendix}
+\RequirePackage[titles]{tocloft}
+\RequirePackage{xstring}
+\RequirePackage{perpage}
+%    \end{macrocode}
+%
+% \section{Variables Setting}
+% \begin{macro}{\zhtitle,\entitle,\title}
+% Commands to set the title.
+%    \begin{macrocode}
+\def\zhtitle#1{\gdef\HUST@zhtitle{#1}\hypersetup{pdftitle={#1}}}
+\def\entitle#1{\gdef\HUST@entitle{#1}}
+\DeclareDocumentCommand\title{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhtitle{#1}\entitle{#1}
+  }{
+    \zhtitle{#1}\entitle{#2}
+  }
+}
+\title{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhauthor,\enauthor,\author}
+% Commands to set the author.
+%    \begin{macrocode}
+\def\zhauthor#1{\gdef\HUST@zhauthor{#1}\hypersetup{pdfauthor={#1}}}
+\def\enauthor#1{\gdef\HUST@enauthor{#1}}
+\DeclareDocumentCommand\author{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhauthor{#1}\enauthor{#1}
+  }{
+    \zhauthor{#1}\enauthor{#2}
+  }
+}
+\author{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\date,\zhdateformat,\endateformat,\dateformat}
+% A command to set the date and several commands to display date.
+%    \begin{macrocode}
+\def\date#1#2#3{
+  \setdate{#1}{#2}{#3}
+}
+\setdatetoday
+\def\zhdateformat{~\thedateyear~年~\thedatemonth~月~\thedateday~日}
+\def\endateformat{\datedate}
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \let\dateformat\zhdateformat
+}{
+  \let\dateformat\endateformat
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhschoolname,\enschoolname,\schoolname}
+% Commands to set the school name.
+%    \begin{macrocode}
+\def\zhschoolname#1{\gdef\HUST@zhschoolname{#1}}
+\def\enschoolname#1{\gdef\HUST@enschoolname{#1}}
+\DeclareDocumentCommand\schoolname{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhschoolname{#1}\enschoolname{#1}
+  }{
+    \zhschoolname{#1}\enschoolname{#2}
+  }
+}
+\schoolname{华中科技大学}{Huazhong University of Science~\char38~Technology}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhaddress,\enaddress,\address}
+% Commands to set the address.
+%    \begin{macrocode}
+\def\zhaddress#1{\gdef\HUST@zhaddress{#1}}
+\def\enaddress#1{\gdef\HUST@enaddress{#1}}
+\DeclareDocumentCommand\address{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhaddress{#1}\enaddress{#1}
+  }{
+    \zhaddress{#1}\enaddress{#2}
+  }
+}
+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhmajor,\enmajor,\major}
+% Commands to set the major.
+%    \begin{macrocode}
+\def\zhmajor#1{\gdef\HUST@zhmajor{#1}}
+\def\enmajor#1{\gdef\HUST@enmajor{#1}}
+\DeclareDocumentCommand\major{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhmajor{#1}\enmajor{#1}
+  }{
+    \zhmajor{#1}\enmajor{#2}
+  }
+}
+\major{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhsupervisor,\ensupervisor,\supervisor}
+% Commands to set the supervisor.
+%    \begin{macrocode}
+\def\zhsupervisor#1{\gdef\HUST@zhsupervisor{#1}}
+\def\ensupervisor#1{\gdef\HUST@ensupervisor{#1}}
+\DeclareDocumentCommand\supervisor{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhsupervisor{#1}\ensupervisor{#1}
+  }{
+    \zhsupervisor{#1}\ensupervisor{#2}
+  }
+}
+\supervisor{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhasssupervisor,\enasssupervisor,\asssupervisor}
+% Commands to set the asssupervisor.
+%    \begin{macrocode}
+\def\zhasssupervisor#1{\gdef\HUST@zhasssupervisor{#1}}
+\def\enasssupervisor#1{\gdef\HUST@enasssupervisor{#1}}
+\DeclareDocumentCommand\asssupervisor{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhasssupervisor{#1}\enasssupervisor{#1}
+  }{
+    \zhasssupervisor{#1}\enasssupervisor{#2}
+  }
+}
+\asssupervisor{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\schoolcode}
+% A command to set school code.
+%    \begin{macrocode}
+\def\schoolcode#1{\gdef\HUST@schoolcode{#1}}
+\schoolcode{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\stuno}
+% A command to set student number.
+%    \begin{macrocode}
+\def\stuno#1{\gdef\HUST@stuno{#1}}
+\stuno{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\classno}
+% A command to set classification number.
+%    \begin{macrocode}
+\def\classno#1{\gdef\HUST@classno{#1}}
+\classno{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\secretlevel}
+% A command to set secret level.
+%    \begin{macrocode}
+\def\secretlevel#1{\gdef\HUST@secretlevel{#1}}
+\secretlevel{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhabstract,\enabstract,\abstract}
+% Commands to set the abstract.
+%    \begin{macrocode}
+\long\def\zhabstract#1{\long\gdef\HUST@zhabstract{#1}}
+\long\def\enabstract#1{\long\gdef\HUST@enabstract{#1}}
+\DeclareDocumentCommand\abstract{+m +g}
+{
+  \IfNoValueTF{#2}{
+    \zhabstract{#1}\enabstract{#1}
+  }{
+    \zhabstract{#1}\enabstract{#2}
+  }
+}
+\abstract{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhkeywords,\enkeywords,\keywords}
+% Commands to set the keywords.
+%    \begin{macrocode}
+\def\zhkeywords#1{\gdef\HUST@zhkeywords{#1}\hypersetup{pdfkeywords={#1}}}
+\def\enkeywords#1{\gdef\HUST@enkeywords{#1}}
+\DeclareDocumentCommand\keywords{m g}
+{
+  \IfNoValueTF{#2}{
+    \zhkeywords{#1}\enkeywords{#1}
+  }{
+    \zhkeywords{#1}\enkeywords{#2}
+  }
+}
+\keywords{}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Localization}
+% Chinese localization.
+% \footnote{The |autorefname| Reference:\url{http://tex.stackexchange.com/questions/52410/how-to-use-the-command-autoref-to-implement-the-same-effect-when-use-the-comman}}
+%    \begin{macrocode}
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+    \def\indexname{索引}
+    \def\figurename{图}
+    \def\tablename{表}
+    \def\listingscaption{代码}
+    \def\bibname{参考文献}
+    \def\contentsname{目\hspace{1em}录}
+    \def\contentsnamenospace{目录}
+    \def\appendixname{附录}
+    \def\HUST@listfigurename{插图索引}
+    \def\HUST@listtablename{表格索引}  
+    \def\equationautorefname{公式}
+    \def\footnoteautorefname{脚注}
+    \def\itemautorefname~#1\null{第~#1~项\null}
+    \def\figureautorefname{图}
+    \def\tableautorefname{表}
+    \def\appendixautorefname{附录}
+    \expandafter\def\csname\appendixname autorefname\endcsname{\appendixname}
+    \def\chapterautorefname~#1\null{第\zhnumber{#1}章\null}
+    \def\sectionautorefname~#1\null{#1~小节\null}
+    \def\subsectionautorefname~#1\null{#1~小节\null}
+    \def\subsubsectionautorefname~#1\null{#1~小节\null}
+    \def\FancyVerbLineautorefname~#1\null{第~#1~行\null}
+    \def\pageautorefname~#1\null{第~#1~页\null}
+    \def\lstlistingautorefname{代码}
+    \def\definitionautorefname{定义}
+    \def\propositionautorefname{命题}
+    \def\lemmaautorefname{引理}
+    \def\theoremautorefname{定理}
+    \def\axiomautorefname{公理}
+    \def\corollaryautorefname{推论}
+    \def\exerciseautorefname{练习}
+    \def\exampleautorefname{例}
+    \def\proofautorefname{证明}
+    \SetAlgorithmName{算法}{算法}{算法索引}
+    \SetAlgoProcName{过程}{过程}
+    \SetAlgoFuncName{函数}{函数}
+    \def\AlgoLineautorefname~#1\null{第~#1~行\null}
+}{}
+%    \end{macrocode}
+%
+% English localization.
+%    \begin{macrocode}
+\ifthenelse{\equal{\HUST@language}{chinese}}{}{
+    \def\HUST@listfigurename{List of Figures}
+    \def\HUST@listtablename{List of Tables}
+    \def\equationautorefname{Equation}
+    \def\footnoteautorefname{Footnote}
+    \def\itemautorefname{Item}
+    \def\figureautorefname{Figure}
+    \def\tableautorefname{Table}
+    \def\appendixautorefname{Appendix}
+    \expandafter\def\csname\appendixname autorefname\endcsname{\appendixname}
+    \def\chapterautorefname{Chapter}
+    \def\sectionautorefname{Section}
+    \def\subsectionautorefname{Subsection}
+    \def\subsubsectionautorefname{Sub-subsection}
+    \def\FancyVerbLineautorefname{Line}
+    \def\pageautorefname{Page}
+    \def\lstlistingautorefname{Code Fragment}
+    \def\definitionautorefname{Definition}
+    \def\propositionautorefname{Proposition}
+    \def\lemmaautorefname{Lemma}
+    \def\theoremautorefname{Theorem}
+    \def\axiomautorefname{Axiom}
+    \def\corollaryautorefname{Corollary}
+    \def\exerciseautorefname{Exercise}
+    \def\exampleautorefname{Example}
+    \def\proofautorefname{Proof}
+    \SetAlgorithmName{Algorithm}{Algorithm}{List of Algorithms}
+    \SetAlgoProcName{Procedure}{Procedure}
+    \SetAlgoFuncName{Function}{Function}
+    \def\AlgoLineautorefname{Line}
+}
+%    \end{macrocode}
+%
+% Internal variables.
+%    \begin{macrocode}
+\def\HUST@classnotitle{{分}\hfill{类}\hfill{号}}
+\def\HUST@stunotitle{学号}
+\def\HUST@schoolcodetitle{学校代码}
+\def\HUST@secrettile{密级}
+\def\HUST@zhauthortitle{{学}\hfill{位}\hfill{申}\hfill{请}\hfill{人}}
+\def\HUST@zhmajortitle{{学}\hfill{科}\hfill{专}\hfill{业}}
+\def\HUST@zhsupervisortitle{{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhasssupervisortitle{{副}\hfill{指}\hfill{导}\hfill{教}\hfill{师}}
+\def\HUST@zhdatetitle{{答}\hfill{辩}\hfill{日}\hfill{期}}
+
+\def\HUST@enauthortitle{Student}
+\def\HUST@enmajortitle{Major}
+\def\HUST@ensupervisortitle{Supervisor}
+\def\HUST@enasssupervisortitle{Co-Supervisor}
+
+\def\HUST@originaldeclare{独创性声明}
+\long\def\HUST@originaldeclaretext{
+  本人声明所呈交的学位论文是我个人在导师的指导下进行的研究工作及取得的研究成果。尽我所知，除文中已标明引用的内容外，本论文不包含任何其他人或集体已经发表或撰写过的研究成果。对本文的研究做出贡献的个人和集体，均已在文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
+}
+\def\HUST@zhauthorsig{学位论文作者签名：}
+\def\HUST@zhdatefield{日期：\hspace{2em}年\hspace{2em}月\hspace{2em}日}
+
+\def\HUST@authtitle{学位论文版权使用授权书}
+\long\def\HUST@authorizationtext{
+  本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+}
+\long\def\HUST@authorizationaddon{
+ 本论文属于 
+ \tabincell{l}{
+  保密$\square$，在~\makebox[2em]{\hrulefill} 年解密后适用本授权书。\\ 
+  不保密~$\square$。
+ } 
+}
+\def\HUST@authorizationcheck{（请在以上方框内打“$\surd$”）} 
+\def\HUST@zhteachersig{指导教师签名：}   
+
+\def\HUST@zhabstractname{摘\hspace{1em}要}
+\def\HUST@zhabstractnamenospace{摘要}
+\def\HUST@zhkeywordstitle{关键词：}
+\def\HUST@enabstractname{Abstract}
+\def\HUST@enkeywordstitle{Key words:}
+
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \def\HUST@ackname{致\hspace{1em}谢}
+  \def\HUST@acknamenospace{致谢}
+  \def\HUST@publicationtitle{攻读学位期间发表的学术论文}
+}{
+  \def\HUST@ackname{Acknowledge}
+  \def\HUST@acknamenospace{Acknowledge}
+  \def\HUST@publicationtitle{Publication}
+}
+
+\ifthenelse{\equal{\HUST@degree}{none}}{
+  \def\HUST@zhapplyname{学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{fyp}}{
+  \def\HUST@zhapplyname{毕业论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{bachelor}}{
+  \def\HUST@zhapplyname{学士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{master}}{
+  \def\HUST@zhapplyname{硕士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master}
+}{}
+
+\ifthenelse{\equal{\HUST@degree}{phd}}{
+  \def\HUST@zhapplyname{博士学位论文}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D}
+}{}
+
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \hypersetup{pdfsubject={\HUST@zhschoolname\HUST@zhapplyname}}
+}{
+  \hypersetup{pdfsubject={\HUST@enschoolname~\HUST@enapplyname}}
+}
+%    \end{macrocode}
+%
+% Set |\listfigurename| and |\listtablename|.
+%    \begin{macrocode}
+\def\listfigurename{\HUST@listfigurename}
+\def\listtablename{\HUST@listtablename}
+%    \end{macrocode}
+%
+% \section{Style Setting}
+% \subsection{Equation Style}
+% Allow long equation breaking between lines or pages.
+%    \begin{macrocode}
+\allowdisplaybreaks[4]
+%    \end{macrocode}
+%
+% Set skip between equation and context.
+%    \begin{macrocode}
+\abovedisplayskip=10bp plus 2bp minus 2bp
+\abovedisplayshortskip=10bp plus 2bp minus 2bp
+\belowdisplayskip=\abovedisplayskip
+\belowdisplayshortskip=\abovedisplayshortskip
+%    \end{macrocode}
+%
+% Set equation numbering style.
+%    \begin{macrocode}
+\numberwithin{equation}{chapter}
+%    \end{macrocode}
+%
+% \subsection{Theorem Style}
+% We use \pkgurl{amsthm} to handle the proof environment and use \pkgurl{ntheorem} to handle other theorem environments.
+%    \begin{macrocode}
+\theoremnumbering{arabic}
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \theoremseparator{：}
+}{
+  \theoremseparator{:}
+}
+\theorempreskip{1.2ex plus 0ex minus 1ex}
+\theorempostskip{1.2ex plus 0ex minus 1ex}
+\theoremheaderfont{\normalfont\bfseries\HEI}
+\theoremsymbol{}
+
+\theoremstyle{definition}
+\theorembodyfont{\normalfont}
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \newtheorem{definition}{定义}[chapter]
+}{
+  \newtheorem{definition}{Definition}[chapter]
+}
+
+\theoremstyle{plain}
+\theorembodyfont{\itshape}
+\ifthenelse{\equal{\HUST@language}{chinese}}{
+  \newtheorem{proposition}{命题}[chapter]
+  \newtheorem{lemma}{引理}[chapter]
+  \newtheorem{theorem}{定理}[chapter]
+  \newtheorem{axiom}{公理}[chapter]
+  \newtheorem{corollary}{推论}[chapter]
+  \newtheorem{exercise}{练习}[chapter]
+  \newtheorem{example}{例}[chapter]
+  \def\proofname{\hei{证明}}
+}{
+  \newtheorem{proposition}{Proposition}[chapter]
+  \newtheorem{lemma}{Lemma}[chapter]
+  \newtheorem{theorem}{Theorem}[chapter]
+  \newtheorem{axiom}{Axiom}[chapter]
+  \newtheorem{corollary}{Corollary}[chapter]
+  \newtheorem{exercise}{Exercise}[chapter]
+  \newtheorem{example}{Example}[chapter]
+  \def\proofname{\textbf{Proof}}
+}
+%    \end{macrocode}
+%
+% \subsection{Floating Objects Style}
+% Set the skip to the context for floating object with argument `h'.
+%    \begin{macrocode}
+\setlength{\intextsep}{0.7\baselineskip plus 0.1\baselineskip minus 0.1\baselineskip}
+%    \end{macrocode}
+%
+% Set the skip to the context for top or bottom floating object.
+%    \begin{macrocode}
+\setlength{\textfloatsep}{0.8\baselineskip plus 0.1\baselineskip minus 0.2\baselineskip}
+%    \end{macrocode}
+%
+% Set the fraction of floating object. Make the fraction less crowded than default value to prevent floating object occupying too much space.
+%    \begin{macrocode}
+\renewcommand{\textfraction}{0.15} 
+\renewcommand{\topfraction}{0.85} 
+\renewcommand{\bottomfraction}{0.65} 
+\renewcommand{\floatpagefraction}{0.60} 
+%    \end{macrocode}
+%
+% \subsection{Table Style}
+%
+% \begin{macro}{\tabincell}
+% A command make it easier to insert a new table into an existing cell.
+%    \begin{macrocode}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+%    \end{macrocode}
+% \end{macro}
+%
+% To prevent |\cline| breaking page in \pkgurl{longtable} environment, use in this way:
+% \meta{table content} |\\* \nopagebreak \cline{i-j}|
+% \footnote{Reference:\url{http://tex.stackexchange.com/questions/52100/longtable-multirow-problem-with-cline-and-nopagebreak}}
+%    \begin{macrocode}
+\def\@cline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidth\hfill
+  \cr
+  \noalign{\nobreak\vskip-\arrayrulewidth}}
+%    \end{macrocode}
+%
+% Here we set the global font setting (font size: 11pt and line spread: 1.4) for tables. But first we will declare a variable to determine whether table global font setting is activated.
+%    \begin{macrocode}
+\newif\ifHUST@useoldtabular
+\HUST@useoldtabularfalse
+%    \end{macrocode}
+%
+% \begin{macro}{\TurnOffTabFontSetting}
+% Use |\TurnOffTabFontSetting| to deactivate global font setting.
+%    \begin{macrocode}
+\def\TurnOffTabFontSetting{\HUST@useoldtabulartrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\TurnOnTabFontSetting}
+% Use |\TurnOnTabFontSetting| to activate global font setting.
+%    \begin{macrocode}
+\def\TurnOnTabFontSetting{\HUST@useoldtabularfalse}
+%    \end{macrocode}
+% \end{macro}
+%
+% Hook the \pkgurl{tabular}, \pkgurl{tabularx} and \pkgurl{longtable} environment to imply the global font setting.
+%    \begin{macrocode}
+\AtBeginEnvironment{tabular}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,linespread=1.4}
+  \fi
+}
+\AtBeginEnvironment{tabularx}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,linespread=1.4}
+  \fi
+}
+\AtBeginEnvironment{longtable}{
+  \ifHUST@useoldtabular\else
+    \changefont{size=11pt,linespread=1.4}
+  \fi
+}
+%    \end{macrocode}
+%
+% \subsection{Caption Style}
+% Set caption font size as 11pt, use hang format, remove `:' after number and set the skip between context as 12pt.
+%    \begin{macrocode}
+\DeclareCaptionFont{HUST@captionfont}{\changefont{size=11pt}}
+\DeclareCaptionLabelFormat{HUST@caplabel}{#1~#2}
+\captionsetup{
+  font=HUST@captionfont,
+  labelformat=HUST@caplabel,
+  format=hang,
+  labelsep=quad,
+  skip=12pt
+}
+%    \end{macrocode}
+%
+% Set figure and table numbering style.
+%    \begin{macrocode}
+\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+\renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
+%    \end{macrocode}
+%
+% \subsection{Code Highlight Style}
+%    \begin{macrocode}
+\definecolor{HUST@lstgreen}{rgb}{0,0.6,0}
+\definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily\changefont{linespread=1}\FANGSONG,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{HUST@lstgreen}\itshape\KAI,
+  stringstyle=\color{HUST@lstmauve},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  numbers=left,
+  numberstyle=\tiny\color{black},
+  frame=lines,
+  rulecolor=\color{black},
+  breaklines=true
+}
+%    \end{macrocode}
+%
+% \subsection{Section Title Style}
+% Set the numbering depth for section.
+%    \begin{macrocode}
+\setcounter{secnumdepth}{3}
+%    \end{macrocode}
+%
+% Chapter tilte format and spacing setting.
+%    \begin{macrocode}
+\titleformat{\chapter}
+  {
+    \bfseries
+    \HEI
+    \centering
+    \changefont{size=18pt}
+  }
+  {
+    \ifthenelse{\equal{\HUST@language}{chinese}}
+    {\zhnumber{\thechapter}}
+    {Chapter~\thechapter}
+  }
+  {1em}
+  {}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+%    \end{macrocode}
+%
+% Section tilte format and spacing setting.
+%    \begin{macrocode}
+\titleformat*{\section}{\bfseries\HEI\changefont{size=16pt}}
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+%    \end{macrocode}
+%
+% Subsection tilte format and spacing setting.
+%    \begin{macrocode}
+\titleformat*{\subsection}{\bfseries\HEI\changefont{size=14pt}}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+%    \end{macrocode}
+%
+% Subsubsection tilte format and spacing setting.
+%    \begin{macrocode}
+\titleformat*{\subsubsection}{\bfseries\HEI\changefont{size=13pt}}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+%    \end{macrocode}
+%
+% \subsection{TOC Style}
+% TOC depth.
+%    \begin{macrocode}
+\setcounter{tocdepth}{2}
+%    \end{macrocode}
+%
+% TOC right margin.
+%    \begin{macrocode}
+\contentsmargin{2.0em}
+%    \end{macrocode}
+%
+% Remove vertical space between two continues chapter entries.
+% \footnote{Reference:\url{http://tex.stackexchange.com/questions/89103/remove-vertical-space-between-two-chapters-in-table-of-contents-in-latex}}
+%    \begin{macrocode}
+\newskip\HUST@oldcftbeforechapskip
+\HUST@oldcftbeforechapskip=\cftbeforechapskip
+\newskip\HUST@oldcftbeforesecskip
+\HUST@oldcftbeforesecskip=\cftbeforesecskip
+\let\HUST@oldl@chapter\l@chapter
+\let\HUST@oldl@section\l@section
+\let\HUST@oldl@subsection\l@subsection
+\def\l@chapter#1#2{\HUST@oldl@chapter{#1}{#2}\cftbeforechapskip=3pt}
+\def\l@section#1#2{\HUST@oldl@section{#1}{#2}\cftbeforechapskip=\HUST@oldcftbeforechapskip\cftbeforesecskip=3pt}
+\def\l@subsection#1#2{\HUST@oldl@subsection{#1}{#2}\cftbeforesecskip=\HUST@oldcftbeforesecskip}
+%    \end{macrocode}
+%
+% Set LOF LOT style.
+% \footnote{Reference:\url{http://www.latex-community.org/viewtopic.php?f=5&t=1838}}
+%    \begin{macrocode}
+\renewcommand*\cftfigpresnum{\figurename~}
+\newlength{\HUST@cftfignumwidth@tmp}
+\settowidth{\HUST@cftfignumwidth@tmp}{\cftfigpresnum}
+\addtolength{\cftfignumwidth}{\HUST@cftfignumwidth@tmp}
+\renewcommand{\cftfigaftersnumb}{\quad~}
+\renewcommand*\cfttabpresnum{\tablename~}
+\newlength{\HUST@cfttabnumwidth@tmp}
+\settowidth{\HUST@cfttabnumwidth@tmp}{\cfttabpresnum}
+\addtolength{\cfttabnumwidth}{\HUST@cfttabnumwidth@tmp}
+\renewcommand{\cfttabaftersnumb}{\quad~}
+%    \end{macrocode}
+%
+% \subsection{Head \& Foot Style}
+%    \begin{macrocode}
+\let\ps@plain\ps@fancy
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\ifthenelse{\equal{\HUST@language}{english-draft}}{}
+{
+  \ifHUST@finalformat
+    \fancyfoot[C]{\thepage}
+  \else
+    \fancyhead[C]{
+      \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
+      \vskip -5pt
+      \vbox{
+        \hrule width \textwidth height 0.4pt
+        \vskip 1.0pt
+        \hrule width \textwidth height 0.4pt
+      }
+    }
+    \fancyfoot[C]{
+      \hrule width \textwidth height 0.4pt
+      \vskip 0.3\normalbaselineskip
+      \thepage
+    }
+  \fi
+}
+%    \end{macrocode}
+%
+% \subsection{List Environment Style}
+%    \begin{macrocode}
+\setlist{noitemsep,partopsep=0pt,topsep=.8ex}
+\setlist[1]{labelindent=\parindent}
+\setlist[enumerate,1]{label=\arabic*.,ref=\arabic*}
+\setlist[enumerate,2]{label*=\arabic*,ref=\theenumi.\arabic*}
+\setlist[enumerate,3]{label=\emph{\alph*}),ref=\theenumii\emph{\alph*}}
+\setlist[description]{font=\bfseries\HEI
+}
+%
+% \subsection{Footnote Style}
+%    \begin{macrocode}
+\MakePerPage{footnote}
+%    \end{macrocode}
+%
+% \section{Specical Page}
+% \begin{macro}{\frontmatter,\mainmatter,\backmatter}
+%    \begin{macrocode}
+\def\frontmatter{
+  \clearpage
+  \@mainmatterfalse
+  \pagenumbering{Roman}
+}
+\def\mainmatter{
+  \clearpage
+  \@mainmattertrue
+  \pagenumbering{arabic}
+}
+\def\backmatter{
+  \clearpage
+  \@mainmatterfalse
+  \settocdepth{chapter}
+  \hypersetup{bookmarksopenlevel=0}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Chinese title page.
+%    \begin{macrocode}
+\def\HUST@zhtitlepage{
+  \begin{center}
+  \vspace*{-1.0cm}
+  \parbox[t][2.2cm][t]{\textwidth}{
+    \begin{center}
+      \setlength{\tabcolsep}{0pt}
+      \setlength{\extrarowheight}{12pt}
+      \TurnOffTabFontSetting
+      \changefont{size=14pt,linespread=1.2}
+      \begin{tabularx}{\textwidth}{p{4em}p{5em}Xp{2em}p{12em}}
+        \HUST@classnotitle    & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
+        \HUST@stunotitle      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
+        \HUST@schoolcodetitle & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@schoolcode}\hfill} & &
+        \HUST@secrettile      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@secretlevel}\hfill}
+      \end{tabularx}
+      \TurnOnTabFontSetting
+    \end{center}
+    }
+  \parbox[t][6cm][t]{\textwidth}{
+    \vspace{1.0cm}
+    \begin{center}
+    \includegraphics[scale=1.1]{hust-title.pdf}\\[0.8cm]
+    \ziju{10bp}{\changefont{size=42pt}\HUST@zhapplyname}
+    \end{center}
+  }
+  \parbox[t][4.8cm][t]{.8\textwidth}{
+    \vspace{1.4cm}
+    \begin{center}
+    \changefont{size=22pt,linespread=1.6}\hei{\HUST@zhtitle}
+    \end{center}
+  }
+  \parbox[t][7.4cm][t]{\textwidth}{
+    \vspace{1.2cm}
+    \begin{center}
+    \changefont{size=18pt,linespread=1.5}
+    \setlength{\extrarowheight}{0pt}
+    \TurnOffTabFontSetting
+    \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
+    \HUST@zhauthortitle       & {\HUST@zhauthor} \\
+    \HUST@zhmajortitle      & {\HUST@zhmajor} \\
+    \HUST@zhsupervisortitle & {\HUST@zhsupervisor} \\
+    \ifthenelse{\equal{\HUST@zhasssupervisor}{}}{}{
+      \HUST@zhasssupervisortitle & {\HUST@zhasssupervisor} \\
+    }
+    \HUST@zhdatetitle & \zhdateformat
+    \end{tabular}
+    \TurnOnTabFontSetting
+    \end{center}
+  }
+  \end{center}
+}
+%    \end{macrocode}
+%
+% English title page.
+%    \begin{macrocode}
+\def\HUST@entitlepage{
+  \begin{center}
+    \parbox[t][4.5cm][t]{.9\textwidth}{
+      \begin{center}
+        \changefont{size=16pt,linespread=1.1}
+        \HUST@enapplyname
+      \end{center}
+    }
+    \parbox[t][5.7cm][t]{\textwidth}{
+      \begin{center}
+        \changefont{size=18pt,linespread=1.3}
+        \textbf{\textsf{\HUST@entitle}}
+      \end{center}
+    }
+    \parbox[t][5cm][t]{.8\textwidth}{
+      \begin{center}
+      \setlength{\extrarowheight}{5pt}
+      \changefont{size=16pt,linespread=1.5}
+      \TurnOffTabFontSetting
+      \begin{tabular}{l@{~:~}p{18em}}
+        \HUST@enauthortitle     & {\HUST@enauthor} \\
+        \HUST@enmajortitle      & {\HUST@enmajor} \\
+        \HUST@ensupervisortitle & {\HUST@ensupervisor}
+        \ifthenelse{\equal{\HUST@enasssupervisor}{}}{}{
+          \\ \HUST@enasssupervisortitle & {\HUST@enasssupervisor}
+        }
+      \end{tabular}
+      \TurnOnTabFontSetting
+      \end{center}
+    }
+    \parbox[t][7cm][b]{.8\textwidth}{
+      \begin{center}
+      \bfseries
+      \changefont{size=14pt,linespread=2.0}
+      \HUST@enschoolname \\
+      \HUST@enaddress \\
+      \endateformat
+    \end{center}
+    }
+  \end{center}
+}
+%    \end{macrocode}
+%
+% Copyright page.
+%    \begin{macrocode}
+\def\HUST@authorization{
+  \centerline{\changefont{size=16pt} \HEI \HUST@originaldeclare}
+  \vspace{1cm}
+  {
+    \changefont{size=12pt,linespread=2.0}
+    \indent\HUST@originaldeclaretext
+  }
+  \\[1.9cm]
+  \parbox[t]{\textwidth}{
+    \changefont{size=12pt,linespread=1.5}
+    \TurnOffTabFontSetting
+    \hfill\begin{tabular}{ll}
+        \HUST@zhauthorsig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \TurnOnTabFontSetting
+  }
+  \\[1.9cm]
+  \centerline{\changefont{size=16pt} \HEI \HUST@authtitle}
+  \\[1cm]
+  {
+    \changefont{size=12pt,linespread=2.0}
+    \indent\HUST@authorizationtext \\
+    \indent\HUST@authorizationaddon \\
+    \indent\HUST@authorizationcheck
+  }
+  \\[1.9cm]
+  \hspace{2em}\parbox[t]{.9\textwidth}{
+    \changefont{size=12pt,linespread=1.5}
+    \TurnOffTabFontSetting
+    \begin{tabular}{ll}
+        \HUST@zhauthorsig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \hfill
+    \begin{tabular}{ll}
+        \HUST@zhteachersig & \hspace{2em}\\
+        \HUST@zhdatefield & \hspace{2em}\\
+    \end{tabular}
+    \TurnOnTabFontSetting
+  }
+  \vfill
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\maketitle,\makecover}
+% Commands to generate title page.
+%    \begin{macrocode}
+\def\maketitle{
+  \let\HUST@oldthepage\thepage
+  \ifthenelse{\equal{\HUST@language}{english-draft}}
+  {\def\thepage{Titlepage}}
+  {\def\thepage{封面}}
+  \begin{titlepage}
+    \ifthenelse{\equal{\HUST@language}{english-draft}}{}{
+      \thispagestyle{empty}
+      \HUST@zhtitlepage
+      \clearpage
+    }
+    \thispagestyle{empty}
+    \HUST@entitlepage 
+  \end{titlepage}
+  \ifthenelse{\equal{\HUST@language}{english-draft}}{}{
+    \def\thepage{版权页}
+    \thispagestyle{empty}
+    \HUST@authorization
+    \clearpage
+  }
+  \let\thepage\HUST@oldthepage
+  \setcounter{page}{1}
+}
+\let\makecover\maketitle
+%    \end{macrocode}
+% \end{macro}
+%
+% Chinese abstract page.
+%    \begin{macrocode}
+\def\HUST@zhabstractpage{
+  \chapter*{\HUST@zhabstractname}
+  \HUST@zhabstract \par
+  \vskip 1.2ex
+  \noindent\hei{\HUST@zhkeywordstitle}\hspace{.8em} \HUST@zhkeywords
+}
+%    \end{macrocode}
+%
+% English abstract page.
+%    \begin{macrocode}
+\def\HUST@enabstractpage{
+  \chapter*{\textsf{\HUST@enabstractname}}
+  \HUST@enabstract \par
+  \vskip 1.2ex
+  \noindent\textbf{\HUST@enkeywordstitle}\hspace{.8em} \HUST@enkeywords
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\makeabstract}
+% A command to generate abstract page.
+%    \begin{macrocode}
+\def\makeabstract{
+  \phantomsection
+  \ifthenelse{\equal{\HUST@language}{chinese}}{
+    \addcontentsline{toc}{chapter}{\HUST@zhabstractnamenospace}
+  }{
+    \addcontentsline{toc}{chapter}{\HUST@enabstractname}
+  }
+  \ifthenelse{\equal{\HUST@language}{english-draft}}{}{
+    \HUST@zhabstractpage
+    \clearpage
+  }
+  \HUST@enabstractpage
+  \clearpage
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tableofcontents}
+% A command to generate table of contents.
+%    \begin{macrocode}
+\let\HUST@tableofcontents\tableofcontents
+\def\tableofcontents{
+  \ifthenelse{\equal{\HUST@language}{chinese}}{
+    \pdfbookmark{\contentsnamenospace}{\contentsnamenospace}
+  }{
+    \pdfbookmark{\contentsname}{\contentsname}
+  }
+  \HUST@tableofcontents
+  \clearpage
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{ack}
+% A command to generate acknowledge page.
+%    \begin{macrocode}
+\newenvironment{ack}{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\HUST@acknamenospace}
+  \chapter*{\HUST@ackname}
+  \begingroup
+  \normalsize
+}{
+  \endgroup
+}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{publications}
+% A command to generate publications page.
+%    \begin{macrocode}
+\newenvironment{publications}{
+  \clearpage
+  \ifHUST@inappendix
+    \chapter{\HUST@publicationtitle}
+  \else
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\HUST@publicationtitle}
+    \chapter*{\HUST@publicationtitle}
+  \fi
+  \begin{enumerate}[labelindent=0pt,label={[\arabic*]}]
+}{
+  \end{enumerate}
+}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{\bibliography}
+% A command to generate bibliography page.
+%    \begin{macrocode}
+\bibliographystyle{hustthesis}
+\let\HUST@bibliography\bibliography
+\def\bibliography#1{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\bibname}
+  \HUST@bibliography{#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{appendix}
+% The appendix environment.
+%    \begin{macrocode}
+\newif\ifHUST@inappendix
+\HUST@inappendixfalse
+\newif\ifHUST@appendix@resetmainmatter
+\HUST@appendix@resetmainmatterfalse
+\renewenvironment{appendix}{
+  \if@mainmatter
+    \HUST@appendix@resetmainmatterfalse
+  \else
+    \HUST@appendix@resetmainmattertrue
+    \@mainmattertrue
+  \fi
+  \appendixtitletocon
+  \appendices
+  \titleformat{\chapter}
+  {
+    \bfseries\HEI
+    \centering
+    \changefont{size=18pt}
+  }
+  {\appendixname\,\thechapter} 
+  {1em}
+  {}
+  \HUST@inappendixtrue
+}{
+  \endappendices
+  \HUST@inappendixfalse
+  \ifHUST@appendix@resetmainmatter
+    \HUST@appendix@resetmainmatterfalse
+    \@mainmatterfalse
+  \else\fi
+}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{\listoffigures}
+% A command to generate list of figures.
+%    \begin{macrocode}
+\let\HUST@listoffigures\listoffigures
+\def\listoffigures{
+  \clearpage
+  \ifHUST@inappendix
+    \addtocounter{chapter}{1}
+    \def\listfigurename{\appendixname\,\thechapter\hspace{1em}\HUST@listfigurename}
+  \else
+    \def\listfigurename{\HUST@listfigurename}
+  \fi
+  \phantomsection
+  \ifHUST@inappendix
+    \addcontentsline{toc}{chapter}{\thechapter\hspace{1em}\HUST@listfigurename}
+  \else
+    \addcontentsline{toc}{chapter}{\listfigurename}
+  \fi
+  \HUST@listoffigures
+  \def\listfigurename{\HUST@listfigurename}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\listoftables}
+% A command to generate list of tables.
+%    \begin{macrocode}
+\let\HUST@listoftables\listoftables
+\def\listoftables{
+  \clearpage
+  \ifHUST@inappendix
+    \addtocounter{chapter}{1}
+    \def\listtablename{\appendixname\,\thechapter\hspace{1em}\HUST@listtablename}
+  \else
+    \def\listtablename{\HUST@listtablename}
+  \fi
+  \phantomsection
+  \ifHUST@inappendix
+    \addcontentsline{toc}{chapter}{\thechapter\hspace{1em}\HUST@listtablename}
+  \else
+    \addcontentsline{toc}{chapter}{\listtablename}
+  \fi
+  \HUST@listoftables
+  \def\listtablename{\HUST@listtablename}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Other Command}
+% \begin{macro}{\email}
+%    \begin{macrocode}
+\def\email#1{
+  \href{mailto:#1}{\texttt{#1}}
+}
+%    \end{macrocode}
+% \end{macro}
 %    \begin{macrocode}
 %</class>
 %    \end{macrocode}
 %
-% \endgroup
 % \Finale
+%
 % ^^A Other files
 % \iffalse
 %
 %<*example-zh|example-en>
+%<example-zh>\documentclass[format=draft,language=chinese,degree=bachelor]{hustthesis}
+%<example-en>\documentclass[format=draft,language=english,degree=bachelor]{hustthesis}
+
+\stuno{U2009xxxxx}
+\schoolcode{10487}
+%<example-zh>\title{\LaTeX 模板使用示例}{An Example of Using hustthesis \LaTeX{} Template}
+%<example-en>\title{An Example of Using hustthesis \LaTeX{} Template}
+\author
+%<example-zh>{许铖}
+{Xu Cheng}
+\major
+%<example-zh>{电子信息工程}
+{Electronic and Information Engineering}
+\supervisor
+%<example-zh>{黑晓军\hspace{1em}副教授}
+{Ass. Prof. Xiaojun Hei}
+\date{2013}{7}{1}
+
+%<*example-zh>
+\zhabstract{
+    这这是一个\LaTeX{}模板使用实例文件，该模板用于华中科技大学毕业设计、学士论文、硕士论文和博士论文写作中。
+
+    该模板基于LPPL v1.3发行。
+
+}
+\zhkeywords{\LaTeX{}，华中科技大学，论文，模板}
+%</example-zh>
+
+%<example-zh>\enabstract
+%<example-en>\abstract
+{
+    This is a \LaTeX{} template example file. This template is used in written thesis for Huazhong Univ. of Sci. \& Tech.
+
+    This template is published under LPPL v1.3 License.
+
+}
+%<example-zh>\enkeywords
+%<example-en>\keywords
+{\LaTeX{}, Huazhong Univ. of Sci. \& Tech., Thesis, Template}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\makeabstract
+\tableofcontents
+\listoffigures
+\listoftables
+\mainmatter
+
+%<*example-zh>
+\chapter{基本格式测试}\label{chapter:1}
+
+\section{第一层}\label{sec:1}
+\subsection{第二层}\label{sec:2}
+\subsubsection{第三层}\label{sec:3}
+测试测试测试测试测试测试测试测试测试测试测试测试。
+\footnote{\label{footnote:1}脚注}
+
+\section{字体}
+
+普通\textbf{粗体}\emph{斜体}
+
+\hei{黑体}\kai{楷体}\fangsong{仿宋}
+
+\section{公式}
+
+单个公式，公式引用：\autoref{eq:1}。
+\begin{equation}
+ c^2 = a^2 + b^2 \label{eq:1}
+\end{equation}
+
+多个公式，公式引用：\autoref{eq:2}，\autoref{eq:3}。
+
+\begin{subequations}
+\begin{equation}
+  F = ma \label{eq:2}
+\end{equation}
+\begin{equation}
+  E = mc^2 \label{eq:3}
+\end{equation}
+\end{subequations}
+
+\section{罗列环境}
+
+\begin{enumerate}
+    \item 第一层\label{item:1}
+    \item 第一层
+    \begin{enumerate}
+        \item 第二层\label{item:2}
+        \item 第二层
+        \begin{enumerate}
+            \item 第三层\label{item:3}
+            \item 第三层
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\begin{description}
+    \item[解释环境]  解释内容
+\end{description}
+
+\chapter{其他格式测试}
+
+\section{代码环境}
+
+\begin{lstlisting}[language=python]
+import os
+
+def main():
+    '''
+    doc here
+    '''
+    print 'hello, world' # Abc
+    print 'hello, 中文' # 中文
+\end{lstlisting}
+
+\section{定律证明环境}
+
+\begin{definition}\label{def:1}
+这是一个定义。
+\end{definition}
+\begin{proposition}\label{proposition:1}
+这是一个命题。
+\end{proposition}
+\begin{axiom}\label{axiom:1}
+这是一个公理。
+\end{axiom}
+\begin{lemma}\label{lemma:1}
+这是一个引理。
+\end{lemma}
+\begin{theorem}\label{theorem:1}
+这是一个定理。
+\end{theorem}
+\begin{proof}\label{proof:1}
+这是一个证明。
+\end{proof}
+
+\section{算法环境}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{this text}
+\KwResult{how to write algorithm with \LaTeX2e }
+initialization\;\label{alg_line:1}
+\While{not at end of this document}{
+read current\;
+\eIf{understand}{
+go to next section\;
+current section becomes this one\;
+}{
+go back to the beginning of current section\;
+}
+}
+\caption{How to write algorithms}\label{alg:1}
+\end{algorithm}
+
+\section{表格}
+表格见\autoref{tab:1}。
+
+\begin{table}[!h]
+\centering
+\caption{一个表格}\label{tab:1}
+\begin{tabular}{|c|c|}
+\hline
+a & b \\
+\hline
+c & d \\
+\hline
+\end{tabular}
+\end{table}
+\section{图片}
+图片见\autoref{fig:1}。图片格式支持eps，png，pdf等。多个图片见\autoref{fig:2}，分开引用：\autoref{fig:2-1}，\autoref{fig:2-2}。
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.4\textwidth]{fig-example.pdf}
+\caption{一个图片}\label{fig:1}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+  \begin{subfigure}[b]{0.3\textwidth}
+  \includegraphics[width=\textwidth]{fig-example.pdf}
+  \caption{图片1}\label{fig:2-1}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.3\textwidth}
+  \includegraphics[width=\textwidth]{fig-example.pdf}
+  \caption{图片2}\label{fig:2-2}
+  \end{subfigure}
+\caption{多个图片}\label{fig:2}
+\end{figure}
+
+\section{参考文献示例}
+这是一篇中文参考文献\cite{TEXGURU99}；这是一篇英文参考文献\cite{knuth}；同时引用\cite{TEXGURU99,knuth}。
+
+\section[\textbackslash{}autoref 测试]{\texttt{\textbackslash{}autoref} 测试}
+
+\begin{description}
+  \item[公式] \autoref{eq:1}
+  \item[脚注] \autoref{footnote:1}
+  \item[项] \autoref{item:1},\autoref{item:2},\autoref{item:3}
+  \item[图] \autoref{tab:1}
+  \item[表] \autoref{fig:1}
+  \item[附录] \autoref{appendix:1}
+  \item[章] \autoref{chapter:1}
+  \item[小节] \autoref{sec:1},\autoref{sec:2},\autoref{sec:3}
+  \item[算法] \autoref{alg:1},\autoref{alg_line:1}
+  \item[证明环境] \autoref{def:1},\autoref{proposition:1},\autoref{axiom:1},\autoref{lemma:1},\autoref{theorem:1},\autoref{proof:1}
+\end{description}
+
+
+\backmatter
+
+\begin{ack}
+致谢正文。
+\end{ack}
+
+\bibliography{ref-example}
+
+\appendix
+
+\begin{publications}
+    \item 论文1
+    \item 论文2
+\end{publications}
+
+\chapter{这是一个附录}\label{appendix:1}
+附录正文。
+
+%</example-zh>
+%<*example-en>
+\chapter{Simple Test}\label{chapter:1}
+
+\section{Level 1}\label{sec:1}
+\subsection{Level 2}\label{sec:2}
+\subsubsection{Level 3}\label{sec:3}
+Content
+\footnote{\label{footnote:1}A footnote.}
+
+\section{Font}
+
+Normal \textbf{Bold} \emph{Italic} \textsf{Sans}
+
+The quick brown fox jumps over the lazy dog.
+
+\section{Equation}
+
+Single equation, see \autoref{eq:1}.
+\begin{equation}
+  c^2 = a^2 + b^2 \label{eq:1}
+\end{equation}
+
+Multi-equations, see \autoref{eq:2} and \autoref{eq:3}.
+
+\begin{subequations}
+\begin{equation}
+  F = ma \label{eq:2}
+\end{equation}
+\begin{equation}
+  E = mc^2 \label{eq:3}
+\end{equation}
+\end{subequations}
+
+\section{List Environment}
+
+\begin{enumerate}
+    \item Level 1\label{item:1}
+    \item Level 1
+    \begin{enumerate}
+        \item Level 2\label{item:2}
+        \item Level 2
+        \begin{enumerate}
+            \item Level 3\label{item:3}
+            \item Level 3
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\begin{description}
+    \item[Discription]  Content
+\end{description}
+
+\chapter{Other Test}
+
+\section{Code Highlight}
+
+\begin{lstlisting}[language=python]
+import os
+
+def main():
+    '''
+    doc here
+    '''
+    print 'hello, world' # Abc
+\end{lstlisting}
+
+\section{Theorem}
+
+\begin{definition}\label{def:1}
+This is a definition.
+\end{definition}
+\begin{proposition}\label{proposition:1}
+This is a proposition.
+\end{proposition}
+\begin{axiom}\label{axiom:1}
+This is an axiom.
+\end{axiom}
+\begin{lemma}\label{lemma:1}
+This is a lemma.
+\end{lemma}
+\begin{theorem}\label{theorem:1}
+This is a theorem.
+\end{theorem}
+\begin{proof}\label{proof:1}
+This is a proof.
+\end{proof}
+
+\section{Algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{this text}
+\KwResult{how to write algorithm with \LaTeX2e }
+initialization\;\label{alg_line:1}
+\While{not at end of this document}{
+read current\;
+\eIf{understand}{
+go to next section\;
+current section becomes this one\;
+}{
+go back to the beginning of current section\;
+}
+}
+\caption{How to write algorithms}\label{alg:1}
+\end{algorithm}
+
+\section{Table}
+See \autoref{tab:1}.
+
+\begin{table}[!h]
+\centering
+\caption{A table}\label{tab:1}
+\begin{tabular}{|c|c|}
+\hline
+a & b \\
+\hline
+c & d \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Figure}
+See \autoref{fig:1}.Figure supports format in eps, png, pdf and so on. Multi-figures, see \autoref{fig:2}. Reference separately: \autoref{fig:2-1}, \autoref{fig:2-2}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.4\textwidth]{fig-example.pdf}
+\caption{A figure}\label{fig:1}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+  \begin{subfigure}[b]{0.3\textwidth}
+  \includegraphics[width=\textwidth]{fig-example.pdf}
+  \caption{Figure A}\label{fig:2-1}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.3\textwidth}
+  \includegraphics[width=\textwidth]{fig-example.pdf}
+  \caption{Figure B}\label{fig:2-2}
+  \end{subfigure}
+\caption{Multi-figures}\label{fig:2}
+\end{figure}
+
+\section{Bibliography}
+Cite one bib\cite{knuth}, cite two\cite{TEXGURU99,knuth}.
+
+\section[\textbackslash{}autoref Test]{\texttt{\textbackslash{}autoref} Test}
+
+\begin{description}
+  \item[Equation] \autoref{eq:1}
+  \item[Footnote] \autoref{footnote:1}
+  \item[Item] \autoref{item:1},\autoref{item:2},\autoref{item:3}
+  \item[Figure] \autoref{tab:1}
+  \item[Table] \autoref{fig:1}
+  \item[Appendix] \autoref{appendix:1}
+  \item[Chapter] \autoref{chapter:1}
+  \item[Section] \autoref{sec:1},\autoref{sec:2},\autoref{sec:3}
+  \item[Algorithm] \autoref{alg:1},\autoref{alg_line:1}
+  \item[Theorem] \autoref{def:1},\autoref{proposition:1},\autoref{axiom:1},\autoref{lemma:1},\autoref{theorem:1},\autoref{proof:1}
+\end{description}
+
+\backmatter
+
+\begin{ack}
+Acknowledge
+\end{ack}
+
+\bibliography{ref-example}
+
+\appendix
+
+\begin{publications}
+    \item Thesis 1
+    \item Thesis 2
+\end{publications}
+
+\chapter{This is an appendix}\label{appendix:1}
+Content.
+
+%</example-en>
+
+\end{document}
+
 %</example-zh|example-en>
 %
 %<*example-bib>
