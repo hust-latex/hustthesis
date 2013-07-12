@@ -198,7 +198,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{1504}
+% \CheckSum{1508}
 %
 % \iffalse
 %<*!(example-bib)>
@@ -1063,6 +1063,7 @@
 %
 % Option |language|.
 %    \begin{macrocode}
+\gdef\HUST@language{chinese}
 \DeclareOptionX{language}[chinese]{
   \ifthenelse{\equal{#1}{chinese} \OR \equal{#1}{english} \OR \equal{#1}{english-draft}}{
     \gdef\HUST@language{#1}
@@ -1076,6 +1077,7 @@
 %
 % Option |degree|.
 %    \begin{macrocode}
+\gdef\HUST@degree{none}
 \DeclareOptionX{degree}[none]{
   \ifthenelse{\equal{#1}{none} \OR \equal{#1}{fyp} \OR \equal{#1}{bachelor} \OR \equal{#1}{master} \OR \equal{#1}{phd}}{
     \gdef\HUST@degree{#1}
@@ -2063,8 +2065,7 @@
 \setlist[enumerate,1]{label=\arabic*.,ref=\arabic*}
 \setlist[enumerate,2]{label*=\arabic*,ref=\theenumi.\arabic*}
 \setlist[enumerate,3]{label=\emph{\alph*}),ref=\theenumii\emph{\alph*}}
-\setlist[description]{font=\bfseries\HEI
-}
+\setlist[description]{font=\bfseries\HEI}
 %    \end{macrocode}
 %
 % \subsection{Footnote Style}
@@ -2469,6 +2470,7 @@
 }
 %    \end{macrocode}
 % \end{macro}
+%
 %    \begin{macrocode}
 %</class>
 %    \end{macrocode}
