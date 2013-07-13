@@ -23,7 +23,6 @@ mkdir "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
 xcopy /q /y .\hustthesis\hustthesis.bst "%TEXMFLOCAL%\bibtex\bst\hustthesis\" > nul
 mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\"
 xcopy /q /y .\hustthesis\hustthesis.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\" > nul
-xcopy /q /y .\hustthesis\README.md "%TEXMFLOCAL%\doc\latex\hustthesis\" > nul
 mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\example\"
 xcopy /q /y .\hustthesis\hustthesis-zh-example.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
 xcopy /q /y .\hustthesis\hustthesis-zh-example.tex "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
