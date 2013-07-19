@@ -3,7 +3,7 @@ hustthesis
 
 >   中文版[点击这里](https://github.com/michael911009/hustthesis/blob/master/README.zh-cn.md)。
 
-An Unofficial LaTeX Template for [Huazhong University of Science and Technology](http://www.hust.edu.cn) Thesis. This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+An Unofficial Thesis Template in LaTeX for [Huazhong University of Science and Technology](http://www.hust.edu.cn). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 This project is part of [hust-latex-template](https://github.com/michael911009/hust-latex-template).
 
