@@ -44,5 +44,8 @@ else
 	./install/unix.sh uninstall
 endif
 
+checksum:FORCE
+	make -C ./hustthesis checksum
+
 FORCE:
-.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean FORCE
+.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean checksum FORCE
