@@ -1,11 +1,11 @@
 hustthesis
 ==========
 
->   中文版[点击这里](https://github.com/michael911009/hustthesis/blob/master/README.zh-cn.md)。
+>   中文版[点击这里](https://github.com/xu-cheng/hustthesis/blob/master/README.zh-cn.md)。
 
 An Unofficial Thesis Template in LaTeX for [Huazhong University of Science and Technology](http://www.hust.edu.cn). This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This project is part of [hust-latex-template](https://github.com/michael911009/hust-latex-template).
+This project is part of [hust-latex-template](https://github.com/xu-cheng/hust-latex-template).
 
 If this template is useful for you, you might want to buy me a cup of coffee to keep me fresh. Thanks! :)
 
@@ -63,8 +63,8 @@ Then copy following files from directory `hustthesis` into your TeX project root
 
 **Important : This template can only be compiled by XeLaTeX or LuaLaTeX[Recommend].**
 
-* Manual: See [hustthesis.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis.pdf).
-* Example: See [hustthesis-zh-example.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) and [hustthesis-en-example.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
+* Manual: See [hustthesis.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis.pdf).
+* Example: See [hustthesis-zh-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) and [hustthesis-en-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
 
 ## License
 

@@ -1,11 +1,11 @@
 hustthesis
 ==========
 
->   To see English version, [click me](https://github.com/michael911009/hustthesis/blob/master/README.md).
+>   To see English version, [click me](https://github.com/xu-cheng/hustthesis/blob/master/README.md).
 
 [华中科技大学](http://www.hust.edu.cn)学术论文 **非官方** LaTeX模板。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
 
-本项目属于[hust-latex-template](https://github.com/michael911009/hust-latex-template)的一部分。
+本项目属于[hust-latex-template](https://github.com/xu-cheng/hust-latex-template)的一部分。
 
 如果您觉得本模板对您有所帮助，您可以请我喝杯咖啡让我保持清醒。谢谢！:)
 
@@ -63,8 +63,8 @@ makewin32.bat unpack
 
 **重要 : 该模板只能使用 XeLaTeX 或 LuaLaTeX [推荐]编译。**
 
-* 说明文档: 见 [hustthesis.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis.pdf).
-* 示例文档: 见 [hustthesis-zh-example.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) 和 [hustthesis-en-example.pdf](https://github.com/michael911009/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
+* 说明文档: 见 [hustthesis.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis.pdf).
+* 示例文档: 见 [hustthesis-zh-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) 和 [hustthesis-en-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
 
 ## 开源协议
 
