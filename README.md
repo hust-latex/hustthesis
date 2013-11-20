@@ -88,3 +88,6 @@ This work consists of the files hustthesis.bst, hustthesis.dtx,
 hustthesis.ins and the derived file hustthesis.cls 
 along with its documnet and example files.
 ```
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/xu-cheng/hustthesis/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
