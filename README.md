@@ -70,7 +70,7 @@ Then copy following files from directory `hustthesis` into your TeX project root
 
 LPPL v1.3 is chosen to be the license of the project. Use as you desire.
 ```
-Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
+Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -86,7 +86,7 @@ The Current Maintainer of this work is Xu Cheng.
 
 This work consists of the files hustthesis.bst, hustthesis.dtx,
 hustthesis.ins and the derived file hustthesis.cls 
-along with its documnet and example files.
+along with its document and example files.
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/xu-cheng/hustthesis/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

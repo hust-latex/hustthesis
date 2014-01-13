@@ -70,7 +70,7 @@ makewin32.bat unpack
 
 本项目使用LPPL v1.3协议，请任意使用。
 ```
-Copyright (C) 2013 by Xu Cheng <xucheng@me.com>
+Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -86,5 +86,5 @@ The Current Maintainer of this work is Xu Cheng.
 
 This work consists of the files hustthesis.bst, hustthesis.dtx,
 hustthesis.ins and the derived file hustthesis.cls 
-along with its documnet and example files.
+along with its document and example files.
 ```
