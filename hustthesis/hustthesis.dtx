@@ -198,7 +198,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{1509}
+% \CheckSum{1522}
 %
 % \iffalse
 %<*!(example-bib)>
@@ -2119,7 +2119,7 @@
     \vspace{1.0cm}
     \begin{center}
     \includegraphics[scale=1.1]{hust-title.pdf}\\[0.8cm]
-    \ziju{10bp}{\changefont{size=42pt}\HUST@zhapplyname}
+    \ziju{10bp}{\changefont{size=42pt}\HEI\HUST@zhapplyname}
     \end{center}
   }
   \parbox[t][4.8cm][t]{.8\textwidth}{
@@ -2276,9 +2276,12 @@
 %    \begin{macrocode}
 \def\HUST@zhabstractpage{
   \chapter*{\HUST@zhabstractname}
+  \begingroup
+  \changefont{size=10.5pt}
   \HUST@zhabstract \par
   \vskip 1.2ex
   \noindent\hei{\HUST@zhkeywordstitle}\hspace{.8em} \HUST@zhkeywords
+  \endgroup
 }
 %    \end{macrocode}
 %
@@ -2286,9 +2289,12 @@
 %    \begin{macrocode}
 \def\HUST@enabstractpage{
   \chapter*{\textsf{\HUST@enabstractname}}
+  \begingroup
+  \changefont{size=10.5pt}
   \HUST@enabstract \par
   \vskip 1.2ex
   \noindent\textbf{\HUST@enkeywordstitle}\hspace{.8em} \HUST@enkeywords
+  \endgroup
 }
 %    \end{macrocode}
 %
@@ -2337,7 +2343,7 @@
   \addcontentsline{toc}{chapter}{\HUST@acknamenospace}
   \chapter*{\HUST@ackname}
   \begingroup
-  \normalsize
+  \changefont{size=10.5pt}
 }{
   \endgroup
 }
@@ -2356,7 +2362,8 @@
     \addcontentsline{toc}{chapter}{\HUST@publicationtitle}
     \chapter*{\HUST@publicationtitle}
   \fi
-  \begin{enumerate}[labelindent=0pt,label={[\arabic*]}]
+  \begin{enumerate}[labelindent=0pt,label={[\arabic*]},itemsep=0.5ex]
+  \changefont{size=10.5pt,linespread=1}
 }{
   \end{enumerate}
 }
@@ -2372,7 +2379,11 @@
   \clearpage
   \phantomsection
   \addcontentsline{toc}{chapter}{\bibname}
+  \begingroup
+  \changefont{size=10.5pt,linespread=1}
+  \setlength\bibsep{0.5ex} 
   \HUST@bibliography{#1}
+  \endgroup
 }
 %    \end{macrocode}
 % \end{macro}
