@@ -89,5 +89,3 @@ hustthesis.ins and the derived file hustthesis.cls
 along with its document and example files.
 ```
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/xu-cheng/hustthesis/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
