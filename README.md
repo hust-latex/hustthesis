@@ -54,7 +54,6 @@ For Windows User who don't install `Make`, use the command below to unpack the p
 makewin32.bat unpack
 ```
 Then copy following files from directory `hustthesis` into your TeX project root directory:
-* `hustthesis.bst`
 * `hustthesis.cls`
 * `hust-title.eps`
 * `hust-title.pdf`

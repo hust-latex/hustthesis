@@ -54,7 +54,7 @@ goto :exit
 call :unpack
 pushd hustthesis
 lualatex -shell-escape -8bit hustthesis-zh-example
-bibtex hustthesis-zh-example
+biber hustthesis-zh-example
 lualatex -shell-escape -8bit hustthesis-zh-example
 lualatex -shell-escape -8bit hustthesis-zh-example
 popd
@@ -64,7 +64,7 @@ goto :exit
 call :unpack
 pushd hustthesis
 lualatex -shell-escape -8bit hustthesis-en-example
-bibtex hustthesis-en-example
+biber hustthesis-en-example
 lualatex -shell-escape -8bit hustthesis-en-example
 lualatex -shell-escape -8bit hustthesis-en-example
 popd

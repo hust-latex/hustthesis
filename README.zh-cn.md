@@ -54,7 +54,6 @@ make unpack
 makewin32.bat unpack
 ```
 再将`hustthesis`目录下的如下文件拷贝到你TeX工程根目录下即可：
-* `hustthesis.bst`
 * `hustthesis.cls`
 * `hust-title.eps`
 * `hust-title.pdf`

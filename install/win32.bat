@@ -19,8 +19,6 @@ mkdir "%TEXMFLOCAL%\tex\latex\hustthesis\"
 xcopy /q /y .\hustthesis\hustthesis.cls "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
 xcopy /q /y .\hustthesis\hust-title.eps "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
 xcopy /q /y .\hustthesis\hust-title.pdf "%TEXMFLOCAL%\tex\latex\hustthesis\" > nul
-mkdir "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
-xcopy /q /y .\hustthesis\hustthesis.bst "%TEXMFLOCAL%\bibtex\bst\hustthesis\" > nul
 mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\"
 xcopy /q /y .\hustthesis\hustthesis.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\" > nul
 mkdir "%TEXMFLOCAL%\doc\latex\hustthesis\example\"
@@ -30,12 +28,17 @@ xcopy /q /y .\hustthesis\hustthesis-en-example.pdf "%TEXMFLOCAL%\doc\latex\hustt
 xcopy /q /y .\hustthesis\hustthesis-en-example.tex "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
 xcopy /q /y .\hustthesis\fig-example.pdf "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
 xcopy /q /y .\hustthesis\ref-example.bib "%TEXMFLOCAL%\doc\latex\hustthesis\example\" > nul
+
+:: Remove .bst file from old version template
+IF EXIST "%TEXMFLOCAL%\bibtex\bst\hustthesis\" (
+    rd /q /s "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
+)
+
 goto :hash
 
 :uninstall
 echo. Uninstall hustthesis.cls template.
 rd /q /s "%TEXMFLOCAL%\tex\latex\hustthesis\"
-rd /q /s "%TEXMFLOCAL%\bibtex\bst\hustthesis\"
 rd /q /s "%TEXMFLOCAL%\doc\latex\hustthesis\"
 goto :hash
 

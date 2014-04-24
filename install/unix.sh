@@ -29,8 +29,6 @@ mkdir -p "${TEXMFLOCAL}/tex/latex/hustthesis/"
 cp -f ./hustthesis/hustthesis.cls "${TEXMFLOCAL}/tex/latex/hustthesis/"
 cp -f ./hustthesis/hust-title.eps "${TEXMFLOCAL}/tex/latex/hustthesis/"
 cp -f ./hustthesis/hust-title.pdf "${TEXMFLOCAL}/tex/latex/hustthesis/"
-mkdir -p "${TEXMFLOCAL}/bibtex/bst/hustthesis/"
-cp -f ./hustthesis/hustthesis.bst "${TEXMFLOCAL}/bibtex/bst/hustthesis/"
 mkdir -p "${TEXMFLOCAL}/doc/latex/hustthesis/"
 cp -f ./hustthesis/hustthesis.pdf "${TEXMFLOCAL}/doc/latex/hustthesis/"
 mkdir -p "${TEXMFLOCAL}/doc/latex/hustthesis/example/"
@@ -40,13 +38,18 @@ cp -f ./hustthesis/hustthesis-en-example.pdf "${TEXMFLOCAL}/doc/latex/hustthesis
 cp -f ./hustthesis/hustthesis-en-example.tex "${TEXMFLOCAL}/doc/latex/hustthesis/example/"
 cp -f ./hustthesis/fig-example.pdf "${TEXMFLOCAL}/doc/latex/hustthesis/example/"
 cp -f ./hustthesis/ref-example.bib "${TEXMFLOCAL}/doc/latex/hustthesis/example/"
+
+# Remove .bst file from old version template
+if [[ -d "${TEXMFLOCAL}/bibtex/bst/hustthesis/" ]]; then
+    rm -rf "${TEXMFLOCAL}/bibtex/bst/hustthesis/"
+fi
+
 hash
 }
 
 uninstall(){
 echo "Uninstall hustthesis.cls template."
 rm -rf "${TEXMFLOCAL}/tex/latex/hustthesis/"
-rm -rf "${TEXMFLOCAL}/bibtex/bst/hustthesis/"
 rm -rf "${TEXMFLOCAL}/doc/latex/hustthesis/"
 hash
 }

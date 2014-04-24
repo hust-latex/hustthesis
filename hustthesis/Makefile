@@ -12,21 +12,19 @@ endif
 
 # Program Defintions
 TEX    = lualatex -shell-escape -8bit 
-BIBTEX = bibtex
+BIBTEX = biber
 INDEX  = makeindex -q 
 RM     = $(if $(filter $(OS_TYPE),Windows),del /f /q ,rm -f )
 
-all:class bst doc example
+all:class doc example
 
 unpack:hustthesis.dtx hustthesis.ins
 	@$(TEX) hustthesis.ins
 
-%.cls %.tex %.md %.bib %.bst:hustthesis.dtx hustthesis.ins
+%.cls %.tex %.md %.bib:hustthesis.dtx hustthesis.ins
 	@$(TEX) hustthesis.ins
 
 class:hustthesis.cls
-
-bst:hustthesis.bst
 
 doc:hustthesis.pdf
 
