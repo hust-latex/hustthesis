@@ -198,7 +198,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{1522}
+% \CheckSum{1518}
 %
 % \iffalse
 %<*!(example-bib)>
@@ -1287,10 +1287,10 @@
 \RequirePackage{geometry}
 \geometry{
   a4paper,
-  top=1.2in,
-  bottom=1.2in,
-  left=1in,
-  right=1in,
+  top=1.77in,
+  bottom=1.1in,
+  left=1.1in,
+  right=1.1in,
   includefoot
 }
 \pdfpagewidth=\paperwidth
@@ -1720,7 +1720,7 @@
 }{}
 
 \ifthenelse{\equal{\HUST@degree}{fyp}}{
-  \def\HUST@zhapplyname{毕业论文}
+  \def\HUST@zhapplyname{毕业设计论文}
   \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project}
 }{}
 
@@ -2034,25 +2034,20 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-\ifthenelse{\equal{\HUST@language}{english-draft}}{
-  \fancyfoot[C]{\thepage}
+\ifthenelse{\equal{\HUST@degree}{fyp}}{
+  \fancyfoot[R]{\thepage}
 }{
-  \ifHUST@finalformat
-    \fancyfoot[C]{\thepage}
-  \else
+  \fancyfoot[C]{\thepage}
+}
+
+\ifthenelse{\equal{\HUST@language}{english-draft}}{}{
+  \ifHUST@finalformat\else
     \fancyhead[C]{
       \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
       \vskip -5pt
       \vbox{
-        \hrule width \textwidth height 0.4pt
-        \vskip 1.0pt
-        \hrule width \textwidth height 0.4pt
+        \hrule width \textwidth height 2pt
       }
-    }
-    \fancyfoot[C]{
-      \hrule width \textwidth height 0.4pt
-      \vskip 0.3\normalbaselineskip
-      \thepage
     }
   \fi
 }
@@ -2246,6 +2241,13 @@
 % Commands to generate title page.
 %    \begin{macrocode}
 \def\maketitle{
+  \newgeometry{
+    a4paper,
+    top=1.2in,
+    bottom=1.2in,
+    left=1in,
+    right=1in,
+  }
   \let\HUST@oldthepage\thepage
   \ifthenelse{\equal{\HUST@language}{english-draft}}
   {\def\thepage{Titlepage}}
@@ -2265,6 +2267,7 @@
     \HUST@authorization
     \clearpage
   }
+  \restoregeometry
   \let\thepage\HUST@oldthepage
   \setcounter{page}{1}
 }
