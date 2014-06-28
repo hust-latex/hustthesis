@@ -1,15 +1,9 @@
 hustthesis
 ==========
 
->   To see English version, [click me](https://github.com/xu-cheng/hustthesis/blob/master/README.md).
+>   To see English version, [click me](https://github.com/hust-latex/hustthesis/blob/master/README.md).
 
-[华中科技大学](http://www.hust.edu.cn)学术论文 **非官方** LaTeX模板。此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
-
-本项目属于[hust-latex-template](https://github.com/xu-cheng/hust-latex-template)的一部分。
-
-如果您觉得本模板对您有所帮助，您可以请我喝杯咖啡让我保持清醒。谢谢！:)
-
-[![Buy me a cup of coffee via PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=xucheng@me.com&lc=US&item_name=Donate%20this%20project&item_number=hustthesis&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
+[华中科技大学](http://www.hust.edu.cn)学术论文非官方LaTeX模板。在<http://hust-latex.github.io>浏览其他模板。
 
 ## 必备条件:
 
@@ -63,14 +57,19 @@ makewin32.bat unpack
 
 **重要 : 该模板只能使用 XeLaTeX 或 LuaLaTeX [推荐]编译。**
 
-* 说明文档: 见 [hustthesis.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis.pdf).
-* 示例文档: 见 [hustthesis-zh-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) 和 [hustthesis-en-example.pdf](https://github.com/xu-cheng/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
+* 说明文档: 见 [hustthesis.pdf](https://github.com/hust-latex/hustthesis/raw/master/hustthesis/hustthesis.pdf).
+* 示例文档: 见 [hustthesis-zh-example.pdf](https://github.com/hust-latex/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf) 和 [hustthesis-en-example.pdf](https://github.com/hust-latex/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf).
+
+## 免责声明
+
+此模板为个人开发，如果因为使用这份模板蒙受了任何经济、学术上的损失，作者将不承担任何责任。
 
 ## 开源协议
 
-本项目使用LPPL v1.3协议，请任意使用。
+模板原作者为[许铖](https://github.com/xu-cheng)。本项目使用LPPL v1.3协议，请任意使用。
 ```
 Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
+              2014      by hust-latex <https://github.com/hust-latex>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -82,7 +81,7 @@ version 2005/12/01 or later.
 
 This work has the LPPL maintenance status `maintained'.
 
-The Current Maintainer of this work is Xu Cheng.
+The Current Maintainer of this work is hust-latex Organization.
 
 This work consists of the files hustthesis.bst, hustthesis.dtx,
 hustthesis.ins and the derived file hustthesis.cls 
