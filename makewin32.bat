@@ -73,8 +73,7 @@ goto :exit
 :doc
 pushd hustthesis
 lualatex -shell-escape -8bit hustthesis.dtx
-makeindex -q -s l3doc.ist hustthesis
-makeindex -s l3doc.ist  -o hustthesis.ind hustthesis.idx
+makeindex -s gind.ist  -o hustthesis.ind hustthesis.idx
 makeindex -s gglo.ist -o hustthesis.gls hustthesis.glo
 lualatex -shell-escape -8bit hustthesis.dtx
 lualatex -shell-escape -8bit hustthesis.dtx

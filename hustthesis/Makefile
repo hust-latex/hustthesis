@@ -32,7 +32,7 @@ doc:hustthesis.pdf
 
 hustthesis.pdf:hustthesis.dtx
 	@$(TEX) $(^F)
-	@$(INDEX) -s l3doc.ist  -o $(basename $(^F)).ind $(basename $(^F)).idx
+	@$(INDEX) -s gind.ist  -o $(basename $(^F)).ind $(basename $(^F)).idx
 	@$(INDEX) -s gglo.ist -o $(basename $(^F)).gls $(basename $(^F)).glo
 	@$(TEX) $(^F)
 	@$(TEX) $(^F)
