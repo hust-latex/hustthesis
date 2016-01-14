@@ -15,11 +15,11 @@
 % version 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status `maintained'.
-% 
+%
 % The Current Maintainer of this work is hust-latex Organization.
 %
 % This work consists of the files hustthesis.bst, hustthesis.dtx,
-% hustthesis.ins and the derived file hustthesis.cls 
+% hustthesis.ins and the derived file hustthesis.cls
 % along with its document and example files.
 %
 % \fi
@@ -133,9 +133,9 @@
 
 \titleformat{\part}
   {
-    \bfseries           
-    \centering               
-    \changefont{size=18pt}  
+    \bfseries
+    \centering
+    \changefont{size=18pt}
   }
   {\thepart}
   {1em}
@@ -250,7 +250,7 @@
 %
 % \part{Introduction}
 %
-% This is a thesis template for \href{http://www.hust.edu.cn/}{Huazhong University of Science \& Technology}. This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+% This is a thesis template for \href{http://www.hust.edu.cn/}{Huazhong University of Science \& Technology}. This template is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 %
 % The whole project is published under LPPL v1.3 License at \href{https://github.com/hust-latex/hustthesis}{GitHub}.
 %
@@ -367,7 +367,7 @@
 %     \verb+master+ & 硕士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
 %     \verb+phd+ & 博士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
 %     \end{tabularx}
-% \end{table} 
+% \end{table}
 %
 % \subsection{基本字段设置}
 %
@@ -381,7 +381,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文标题。
 % \end{function}
-% 
+%
 % \begin{function}{\zhauthor,\enauthor,\author}
 %     \begin{syntax}
 %     \cs{zhauthor}\Arg{Chinese author}
@@ -390,14 +390,14 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文作者名。
 % \end{function}
-% 
+%
 % \begin{function}{\date}
 %     \begin{syntax}
 %     \cs{date}\Arg{Year}\Arg{Month}\Arg{Day}
 %     \end{syntax}
 %     该命令用于设定论文的答辩日期。如果不设定，则会选择当前编译日期作为答辩日期。
 % \end{function}
-% 
+%
 % \begin{function}{\zhschoolname,\enschoolname,\schoolname}
 %     \begin{syntax}
 %     \cs{zhschoolname}\Arg{Chinese schoolname}
@@ -406,7 +406,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文学校名。该字段在模板中已默认设置为\verb+\schoolname{华中科技大学}{Huazhong University of Science \& Technology}+。所以除非需更改学校名，无需使用该命令。
 % \end{function}
-% 
+%
 % \begin{function}{\zhaddress,\enaddress,\address}
 %     \begin{syntax}
 %     \cs{zhaddress}\Arg{Chinese address}
@@ -415,7 +415,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文学校地址。该字段在模板中已默认设置为\verb+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}+。所以除非需更改学校地址，无需使用该命令。
 % \end{function}
-% 
+%
 % \begin{function}{\zhmajor,\enmajor,\major}
 %     \begin{syntax}
 %     \cs{zhmajor}\Arg{Chinese major}
@@ -424,7 +424,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文专业名。
 % \end{function}
-% 
+%
 % \begin{function}{\zhsupervisor,\ensupervisor,\supervisor}
 %     \begin{syntax}
 %     \cs{zhsupervisor}\Arg{Chinese supervisor}
@@ -433,7 +433,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文指导老师名（含职称）。
 % \end{function}
-% 
+%
 % \begin{function}{\zhasssupervisor,\enasssupervisor,\asssupervisor}
 %     \begin{syntax}
 %     \cs{zhasssupervisor}\Arg{Chinese asssupervisor}
@@ -442,35 +442,35 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文副指导老师名（含职称）。该命令是可选的，如果不加以设定，封面处不会显示相应项。
 % \end{function}
-% 
+%
 % \begin{function}{\schoolcode}
 %     \begin{syntax}
 %     \cs{schoolcode}\Arg{school code}
 %     \end{syntax}
 %     用于设置学校代码。
 % \end{function}
-% 
+%
 % \begin{function}{\stuno}
 %     \begin{syntax}
 %     \cs{stuno}\Arg{student number}
 %     \end{syntax}
 %     用于设置学号。
 % \end{function}
-% 
+%
 % \begin{function}{\classno}
 %     \begin{syntax}
 %     \cs{classno}\Arg{classify number}
 %     \end{syntax}
 %     用于设置分类号。
 % \end{function}
-% 
+%
 % \begin{function}{\secretlevel}
 %     \begin{syntax}
 %     \cs{secretlevel}\Arg{secret level}
 %     \end{syntax}
 %     用于设置密级。
 % \end{function}
-% 
+%
 % \begin{function}{\zhabstract,\enabstract,\abstract}
 %     \begin{syntax}
 %     \cs{zhabstract}\Arg{Chinese abstract}
@@ -479,7 +479,7 @@
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文摘要。
 % \end{function}
-% 
+%
 % \begin{function}{\zhkeywords,\enkeywords,\keywords}
 %     \begin{syntax}
 %     \cs{zhkeywords}\Arg{Chinese keywords}
@@ -580,7 +580,7 @@
 % \section{简单示例}\label{sec:简单示例}
 % 如下为一个使用本模板的简单示例。更完整的例子请见\texttt{hustthesis-zh-example.tex}文件，其效果见\href{https://github.com/hust-latex/hustthesis/raw/master/hustthesis/hustthesis-zh-example.pdf}{\texttt{hustthesis-zh-example.pdf}}。
 %
-% \iffalse 
+% \iffalse
 %<*driver>
 % \fi
 \begin{lstlisting}[language={[LaTeX]TeX}]
@@ -628,7 +628,7 @@
 
 \end{document}
 \end{lstlisting}
-% \iffalse 
+% \iffalse
 %</driver>
 % \fi
 %
@@ -715,7 +715,7 @@
 %    make uninstall
 % \end{verbatim}
 %
-% For Windows User who don't install \texttt{Make}, use the command below to install. 
+% For Windows User who don't install \texttt{Make}, use the command below to install.
 % \begin{verbatim}
 %     makewin32.bat install
 % \end{verbatim}
@@ -750,7 +750,7 @@
 % This template can only be compiled by \\
 % \hskip 10pt \textnormal{\XeLaTeX} or\textnormal{\LuaLaTeX}(Recommend).
 % \end{importantnote}
-% 
+%
 % Insert below code in the top of source code to use this template:
 % \begin{verbatim}
 %     \documentclass[language=english]{hustthesis}
@@ -871,27 +871,27 @@
 % \end{function}
 %
 % \subsection{Other commands}
-% 
+%
 % \begin{function}{\frontmatter,\mainmatter,\backmatter}
 %     Used to determine the different part of document. You can see the example at \autoref{sec:simple-example}.
 % \end{function}
-% 
+%
 % \begin{function}{\maketitle,\makecover}
 %     \verb+\maketitle+ and \verb+\makecover+ are the same. Used to create the title page.
 % \end{function}
-% 
+%
 % \begin{function}{\makeabstract}
 %     Used to create abstract page.
 % \end{function}
-% 
+%
 % \begin{function}{\tableofcontents}
 %     Used to create table of contents.
 % \end{function}
-% 
+%
 % \begin{function}{\endateformat}
 %     Used to print the date.
 % \end{function}
-% 
+%
 % \vskip 1ex\DescribeEnv{ack}
 %     The \verb+ack+ environment is used to create acknowledge page.
 %     \begin{verbatim}
@@ -899,14 +899,14 @@
 %         <content>
 %     \end{ack}
 %     \end{verbatim}
-% 
+%
 % \begin{function}{\bibliography}
 %     \begin{syntax}
 %     \cs{bibliography}\Arg{.bib file}
 %     \end{syntax}
 %     Used to create bibliography page.
 % \end{function}
-% 
+%
 % \vskip 1ex\DescribeEnv{appendix}
 %     The \verb+appendix+ environment is for appendix of course. Used like this:
 %     \begin{verbatim}
@@ -921,20 +921,20 @@
 %     <content>
 %     \end{verbatim}
 % \end{function}
-% 
+%
 % \begin{function}{\listoffigures,\listoftables}
 %     Create the index for all the figures and tables separately.
 % \end{function}
-% 
+%
 % \vskip 1ex\DescribeEnv{publications}
-%     The \verb+publications+ environment is where you list all of your published thesises. It's usually putted in appendix. 
+%     The \verb+publications+ environment is where you list all of your published thesises. It's usually putted in appendix.
 %     \begin{verbatim}
 %     \begin{publications}
 %         \item <thesis>
 %         <...>
 %     \end{publications}
 %     \end{verbatim}
-% 
+%
 % \begin{function}{\TurnOffTabFontSetting,\TurnOnTabFontSetting}
 %     This template has set the font size and line spread for all the tables which makes it's impossible to change font format temporary in one table.  So it provides these to command to temporary disable or enable default font setting in table. For example, if you want to change table font size, you can use the code like this:
 %     \begin{verbatim}
@@ -958,8 +958,8 @@
 %
 % \section{Simple example}\label{sec:simple-example}
 % Below is a simple example of using this template. For a complete example see \texttt{hustthesis-en-example.tex} which will generate \href{https://github.com/hust-latex/hustthesis/raw/master/hustthesis/hustthesis-en-example.pdf}{\texttt{hustthesis-en-example.pdf}}.
-% 
-% \iffalse 
+%
+% \iffalse
 %<*driver>
 % \fi
 \begin{lstlisting}[language={[LaTeX]TeX}]
@@ -969,7 +969,7 @@
 \author{your name}
 \major{your major}
 \supervisor{your supervisor}
-\date{2013}{7}{1} 
+\date{2013}{7}{1}
 
 \abstract{the abstract}
 \keywords{the keywords}
@@ -1003,15 +1003,15 @@
 
 \end{document}
 \end{lstlisting}
-% \iffalse 
+% \iffalse
 %</driver>
 % \fi
 %
 %
 % \section{Introduction to some packages used in the template}
-% 
+%
 % Here's a list of some packages used in the template.
-% 
+%
 % \begin{itemize}
 %     \item \pkgurl{algorithm2e} For display algorithm.
 %     \item \pkgurl{enumitem} For set the style of enumerate, itemize and description environment.
@@ -1287,7 +1287,6 @@
 %    \begin{macrocode}
 \RequirePackage{geometry}
 \geometry{
-  a4paper,
   top=1.77in,
   bottom=1.1in,
   left=1.1in,
@@ -1302,7 +1301,7 @@
 %    \begin{macrocode}
 \RequirePackage{indentfirst}
 \setlength{\parindent}{2em}
-\setlength{\parskip}{0pt plus 2pt minus 1pt} 
+\setlength{\parskip}{0pt plus 2pt minus 1pt}
 %    \end{macrocode}
 %
 % Packages to handle color.
@@ -1595,7 +1594,7 @@
     \def\contentsnamenospace{目录}
     \def\appendixname{附录}
     \def\HUST@listfigurename{插图索引}
-    \def\HUST@listtablename{表格索引}  
+    \def\HUST@listtablename{表格索引}
     \def\equationautorefname{公式}
     \def\footnoteautorefname{脚注}
     \def\itemautorefname~#1\null{第~#1~项\null}
@@ -1690,14 +1689,14 @@
   本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
 }
 \long\def\HUST@authorizationaddon{
- 本论文属于 
+ 本论文属于
  \tabincell{l}{
-  保密$\square$，在~\makebox[2em]{\hrulefill} 年解密后适用本授权书。\\ 
+  保密$\square$，在~\makebox[2em]{\hrulefill} 年解密后适用本授权书。\\
   不保密~$\square$。
- } 
+ }
 }
-\def\HUST@authorizationcheck{（请在以上方框内打“$\surd$”）} 
-\def\HUST@zhteachersig{指导教师签名：}   
+\def\HUST@authorizationcheck{（请在以上方框内打“$\surd$”）}
+\def\HUST@zhteachersig{指导教师签名：}
 
 \def\HUST@zhabstractname{摘\hspace{1em}要}
 \def\HUST@zhabstractnamenospace{摘要}
@@ -1831,10 +1830,10 @@
 %
 % Set the fraction of floating object. Make the fraction less crowded than default value to prevent floating object occupying too much space.
 %    \begin{macrocode}
-\renewcommand{\textfraction}{0.15} 
-\renewcommand{\topfraction}{0.85} 
-\renewcommand{\bottomfraction}{0.65} 
-\renewcommand{\floatpagefraction}{0.60} 
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.60}
 %    \end{macrocode}
 %
 % \subsection{Table Style}
@@ -2243,7 +2242,6 @@
 %    \begin{macrocode}
 \def\maketitle{
   \newgeometry{
-    a4paper,
     top=1.2in,
     bottom=1.2in,
     left=1in,
@@ -2260,7 +2258,7 @@
       \clearpage
     }
     \thispagestyle{empty}
-    \HUST@entitlepage 
+    \HUST@entitlepage
   \end{titlepage}
   \ifthenelse{\equal{\HUST@language}{english-draft}}{}{
     \def\thepage{版权页}
@@ -2385,7 +2383,7 @@
   \addcontentsline{toc}{chapter}{\bibname}
   \begingroup
   \changefont{size=10.5pt,linespread=1}
-  \setlength\bibsep{0.5ex} 
+  \setlength\bibsep{0.5ex}
   \HUST@bibliography{#1}
   \endgroup
 }
@@ -2414,7 +2412,7 @@
     \centering
     \changefont{size=18pt}
   }
-  {\appendixname\,\thechapter} 
+  {\appendixname\,\thechapter}
   {1em}
   {}
   \HUST@inappendixtrue
@@ -3107,7 +3105,7 @@ FUNCTION {bibinfo.warn}
 }
 
 % IEEE separates large numbers with more than 4 digits into groups of
-% three. IEEE uses a small space to separate these number groups. 
+% three. IEEE uses a small space to separate these number groups.
 % Typical applications include patent and page numbers.
 
 % number of consecutive digits required to trigger the group separation.
@@ -3133,7 +3131,7 @@ FUNCTION {large.number.separate}
   { t empty$ not }
   { t #-1 #1 substring$ is.num
       { numnames #1 + 'numnames := }
-      { #0 'numnames := 
+      { #0 'numnames :=
         large.number.trigger 'nameptr :=
       }
     if$
@@ -3328,11 +3326,11 @@ FUNCTION {format.names}
                     { ", " * t * }
                     { lang "chinese" =
                        { ", " * t * }
-                       'skip$                   
+                       'skip$
                      if$
                     }
                   if$
-                } 
+                }
               if$
             }
           if$
@@ -3433,8 +3431,8 @@ FUNCTION {format.btitle}
 { edition empty$
   { title }
   { title empty$
-    { title } 
-    { 
+    { title }
+    {
       lang empty$
         { " " title * ", " * edition * " ed." * }
         { lang "chinese" =
@@ -3443,7 +3441,7 @@ FUNCTION {format.btitle}
           if$
         }
       if$
-    } 
+    }
     if$
   }
   if$
@@ -3532,13 +3530,13 @@ FUNCTION {format.pages}
     { pages multi.page.check
     {  lang empty$
          {"pages" pages n.dashify tie.or.space.connect }
-         { lang "chinese" = 
+         { lang "chinese" =
          { "" pages n.dashify tie.or.space.connect }
          'skip$
          if$
          }
        if$
-    }   
+    }
        { "page" pages tie.or.space.connect }
       if$
     }
@@ -3713,7 +3711,7 @@ FUNCTION {format.incoll.inproc.crossref}
 }
 
 FUNCTION {format.patent.nationality.type.number}
-{ 
+{
   nationality duplicate$ empty$
     { "nationality" bibinfo.warn pop$ "" }
     { "nationality" bibinfo.check
@@ -3727,7 +3725,7 @@ FUNCTION {format.patent.nationality.type.number}
   type empty$
     { "Patent" "type" bibinfo.check }
     { type "type" bibinfo.check }
-  if$  
+  if$
   *
   number duplicate$ empty$
     { "number" bibinfo.warn pop$ }
@@ -3735,7 +3733,7 @@ FUNCTION {format.patent.nationality.type.number}
       large.number.separate
       swap$ " " * swap$ *
     }
-  if$ 
+  if$
 }
 
 FUNCTION {format.address.publisher}
@@ -3801,7 +3799,7 @@ FUNCTION {book} { output.bibitem
     }
   if$
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   crossref missing$
     { format.bvolume output
@@ -3833,14 +3831,14 @@ FUNCTION {article}
       %format.date "year" output.check
       %new.block
       year output
-      format.vol.num.pages output      
+      format.vol.num.pages output
     }
     { format.article.crossref output.nonnull
       format.pages output
     }
   if$
   new.block
-  format.note output  
+  format.note output
   fin.entry
 }
 
@@ -3934,7 +3932,7 @@ FUNCTION {inproceedings}
       %year output
     }
     { %address output.nonnull
-      format.address.publisher output  
+      format.address.publisher output
       format.date "year" output.check
       %year output
       %new.sentence
@@ -3950,7 +3948,7 @@ FUNCTION {inproceedings}
     }
   if$
   new.block
-  note output  
+  note output
   fin.entry
 }
 
@@ -4005,7 +4003,7 @@ FUNCTION {mastersthesis}
   new.block
   format.address.school output
   %format.madd "address" output.check
-  %school "school" output.check  
+  %school "school" output.check
   format.date "year" output.check
   new.block
   note output
@@ -4031,7 +4029,7 @@ FUNCTION {phdthesis.type}
 { lang empty$
     { "[PhD Dissertation]" }
     { "[博士学位论文]" }
-  if$ 
+  if$
 }
 
 FUNCTION {phdthesis}
@@ -4042,7 +4040,7 @@ FUNCTION {phdthesis}
   new.block
   format.address.school output
   %address output
-  %school "school" output.check  
+  %school "school" output.check
   format.date "year" output.check
   new.block
   note output
