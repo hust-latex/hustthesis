@@ -31,6 +31,7 @@
 *.vrb
 *.xdy
 *.tdo
+*.thm
 
 # For Sublime Text
 *.sublime-project
