@@ -50,12 +50,11 @@
 \newjfontfamily\KAI{AdobeKaitiStd-Regular}
 \newjfontfamily\FANGSONG{AdobeFangsongStd-Regular}
 
-\usepackage{interfaces-LaTeX}
-\changefont{linespread=1.2}
+\linespread{1.2}\selectfont
 
 \usepackage[top=1.2in,bottom=1.2in,left=1.5in,right=1in]{geometry}
-\pdfpagewidth=\paperwidth
-\pdfpageheight=\paperheight
+\pagewidth=\paperwidth
+\pageheight=\paperheight
 
 \usepackage{color}
 \usepackage[table]{xcolor}
@@ -135,7 +134,7 @@
   {
     \bfseries
     \centering
-    \changefont{size=18pt}
+    \fontsize{18pt}{23.4pt}\selectfont
   }
   {\thepart}
   {1em}
@@ -176,7 +175,7 @@
         \href
         {
         http://mirrors.ctan.org/help/Catalogue/entries/
-        \tl_expandable_lowercase:n {#2} .html
+        \str_fold_case:n {#2} .html
         }
         { \textsf{#2} }
     }
@@ -184,7 +183,7 @@
         \href
         {
         http://mirrors.ctan.org/help/Catalogue/entries/
-        \tl_expandable_lowercase:n {#1} .html
+        \str_fold_case:n {#1} .html
         }
         { \textsf{#2} }
     }
@@ -646,7 +645,6 @@
 %     \item \pkgurl{multirow} 用于表格中合并行。
 %     \item \pkgurl{overpic} 用于在图片上层叠其他内容。
 %     \item \pkgurl{tabularx} 扩展到表格环境。
-%     \item \pkgurl[xypic]{xy-pic} 用于绘制简单图形。如需更高级功能可以使用\pkgurl[pgf]{tikz}宏包。
 %     \item \pkgurl{zhnumber} 用于生成中文数字。
 % \end{itemize}
 %
@@ -1022,7 +1020,6 @@
 %     \item \pkgurl{multirow} Combine multi-rows in table.
 %     \item \pkgurl{overpic} Put something over a picture,
 %     \item \pkgurl{tabularx} A better table environment.
-%     \item \pkgurl[xypic]{xy-pic} To draw some picture. If you need more advanced features, use the package \pkgurl[pgf]{tikz}.
 % \end{itemize}
 %
 % \StopEventually{
@@ -1277,10 +1274,9 @@
 %    \end{macrocode}
 %
 % \section{Basic Format}
-% Use \pkgurl{interfaces} package to handle font size and line spread. We set global line spread to 1.3.
+% We set global line spread to 1.3.
 %    \begin{macrocode}
-\RequirePackage{interfaces-LaTeX}
-\changefont{linespread=1.3}
+\linespread{1.3}\selectfont
 %    \end{macrocode}
 %
 % Use \pkgurl{geometry} package to handle paper page.
@@ -1293,8 +1289,8 @@
   right=1.1in,
   includefoot
 }
-\pdfpagewidth=\paperwidth
-\pdfpageheight=\paperheight
+\pagewidth=\paperwidth
+\pageheight=\paperheight
 %    \end{macrocode}
 %
 % Indent of paragraph and skip between paragraphs.
@@ -1340,7 +1336,6 @@
 %
 % Load packages for picture.
 %    \begin{macrocode}
-\RequirePackage[all]{xy}
 \RequirePackage{overpic}
 \RequirePackage{graphicx,caption,subcaption}
 %    \end{macrocode}
@@ -1886,17 +1881,17 @@
 %    \begin{macrocode}
 \AtBeginEnvironment{tabular}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,linespread=1.4}
+    \fontsize{11pt}{15.4pt}\selectfont
   \fi
 }
 \AtBeginEnvironment{tabularx}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,linespread=1.4}
+    \fontsize{11pt}{15.4pt}\selectfont
   \fi
 }
 \AtBeginEnvironment{longtable}{
   \ifHUST@useoldtabular\else
-    \changefont{size=11pt,linespread=1.4}
+    \fontsize{11pt}{15.4pt}\selectfont
   \fi
 }
 %    \end{macrocode}
@@ -1904,7 +1899,7 @@
 % \subsection{Caption Style}
 % Set caption font size as 11pt, use hang format, remove `:' after number and set the skip between context as 12pt.
 %    \begin{macrocode}
-\DeclareCaptionFont{HUST@captionfont}{\changefont{size=11pt}}
+\DeclareCaptionFont{HUST@captionfont}{\fontsize{11pt}{14.3pt}\selectfont}
 \DeclareCaptionLabelFormat{HUST@caplabel}{#1~#2}
 \captionsetup{
   font=HUST@captionfont,
@@ -1927,7 +1922,7 @@
 \definecolor{HUST@lstmauve}{rgb}{0.58,0,0.82}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily\changefont{linespread=1}\FANGSONG,
+  basicstyle=\footnotesize\ttfamily\linespread{1}\selectfont\FANGSONG,
   keywordstyle=\color{blue}\bfseries,
   commentstyle=\color{HUST@lstgreen}\itshape\KAI,
   stringstyle=\color{HUST@lstmauve},
@@ -1955,7 +1950,7 @@
     \bfseries
     \HEI
     \centering
-    \changefont{size=18pt}
+    \fontsize{18pt}{23.4pt}\selectfont
   }
   {
     \ifthenelse{\equal{\HUST@language}{chinese}}
@@ -1969,19 +1964,19 @@
 %
 % Section tilte format and spacing setting.
 %    \begin{macrocode}
-\titleformat*{\section}{\bfseries\HEI\changefont{size=16pt}}
+\titleformat*{\section}{\bfseries\HEI\fontsize{16pt}{20.8pt}\selectfont}
 \titlespacing*{\section}{0pt}{18pt}{6pt}
 %    \end{macrocode}
 %
 % Subsection tilte format and spacing setting.
 %    \begin{macrocode}
-\titleformat*{\subsection}{\bfseries\HEI\changefont{size=14pt}}
+\titleformat*{\subsection}{\bfseries\HEI\fontsize{14pt}{18.2pt}\selectfont}
 \titlespacing*{\subsection}{0pt}{12pt}{6pt}
 %    \end{macrocode}
 %
 % Subsubsection tilte format and spacing setting.
 %    \begin{macrocode}
-\titleformat*{\subsubsection}{\bfseries\HEI\changefont{size=13pt}}
+\titleformat*{\subsubsection}{\bfseries\HEI\fontsize{13pt}{16.9pt}\selectfont}
 \titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
 %    \end{macrocode}
 %
@@ -2043,7 +2038,7 @@
 \ifthenelse{\equal{\HUST@language}{english-draft}}{}{
   \ifHUST@finalformat\else
     \fancyhead[C]{
-      \ziju{1em}{\kai{\changefont{size=14pt}\HUST@zhschoolname\HUST@zhapplyname}}
+      \ziju{1em}{\kai{\fontsize{14pt}{18.2pt}\selectfont\HUST@zhschoolname\HUST@zhapplyname}}
       \vskip -5pt
       \vbox{
         \hrule width \textwidth height 2pt
@@ -2100,7 +2095,7 @@
       \setlength{\tabcolsep}{0pt}
       \setlength{\extrarowheight}{12pt}
       \TurnOffTabFontSetting
-      \changefont{size=14pt,linespread=1.2}
+      \fontsize{14pt}{16.8pt}\selectfont
       \begin{tabularx}{\textwidth}{p{4em}p{5em}Xp{2em}p{12em}}
         \HUST@classnotitle    & \makebox[5em][l]{\rule[-2.0pt]{5em}{1pt}\hspace{-5em}\hfill\texttt{\HUST@classno}\hfill} & &
         \HUST@stunotitle      & \makebox[12em][l]{\rule[-2.0pt]{12em}{1pt}\hspace{-12em}\hfill\texttt{\HUST@stuno}\hfill} \\
@@ -2114,19 +2109,19 @@
     \vspace{1.0cm}
     \begin{center}
     \includegraphics[scale=1.1]{hust-title.pdf}\\[0.8cm]
-    \ziju{10bp}{\changefont{size=42pt}\HEI\HUST@zhapplyname}
+    \ziju{10bp}{\fontsize{42pt}{54.6pt}\selectfont\HEI\HUST@zhapplyname}
     \end{center}
   }
   \parbox[t][4.8cm][t]{.8\textwidth}{
     \vspace{1.4cm}
     \begin{center}
-    \changefont{size=22pt,linespread=1.6}\hei{\HUST@zhtitle}
+    \fontsize{22pt}{35.2pt}\selectfont\hei{\HUST@zhtitle}
     \end{center}
   }
   \parbox[t][7.4cm][t]{\textwidth}{
     \vspace{1.2cm}
     \begin{center}
-    \changefont{size=18pt,linespread=1.5}
+    \fontsize{18pt}{27.0pt}\selectfont
     \setlength{\extrarowheight}{0pt}
     \TurnOffTabFontSetting
     \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
@@ -2151,20 +2146,20 @@
   \begin{center}
     \parbox[t][4.5cm][t]{.9\textwidth}{
       \begin{center}
-        \changefont{size=16pt,linespread=1.1}
+        \fontsize{16pt}{17.6pt}\selectfont
         \HUST@enapplyname
       \end{center}
     }
     \parbox[t][5.7cm][t]{\textwidth}{
       \begin{center}
-        \changefont{size=18pt,linespread=1.3}
+        \fontsize{18pt}{23.4pt}\selectfont
         \textbf{\textsf{\HUST@entitle}}
       \end{center}
     }
     \parbox[t][5cm][t]{.8\textwidth}{
       \begin{center}
       \setlength{\extrarowheight}{5pt}
-      \changefont{size=16pt,linespread=1.5}
+      \fontsize{16pt}{24.0pt}\selectfont
       \TurnOffTabFontSetting
       \begin{tabular}{l@{~:~}p{18em}}
         \HUST@enauthortitle     & {\HUST@enauthor} \\
@@ -2180,7 +2175,7 @@
     \parbox[t][7cm][b]{.8\textwidth}{
       \begin{center}
       \bfseries
-      \changefont{size=14pt,linespread=2.0}
+      \fontsize{14pt}{28.0pt}\selectfont
       \HUST@enschoolname \\
       \HUST@enaddress \\
       \endateformat
@@ -2193,15 +2188,15 @@
 % Copyright page.
 %    \begin{macrocode}
 \def\HUST@authorization{
-  \centerline{\changefont{size=16pt} \HEI \HUST@originaldeclare}
+  \centerline{\fontsize{16pt}{20.8pt}\selectfont \HEI \HUST@originaldeclare}
   \vspace{1cm}
   {
-    \changefont{size=12pt,linespread=2.0}
+    \fontsize{12pt}{24.0pt}\selectfont
     \indent\HUST@originaldeclaretext
   }
   \\[1.9cm]
   \parbox[t]{\textwidth}{
-    \changefont{size=12pt,linespread=1.5}
+    \fontsize{12pt}{18.0pt}\selectfont
     \TurnOffTabFontSetting
     \hfill\begin{tabular}{ll}
         \HUST@zhauthorsig & \hspace{2em}\\
@@ -2210,17 +2205,17 @@
     \TurnOnTabFontSetting
   }
   \\[1.9cm]
-  \centerline{\changefont{size=16pt} \HEI \HUST@authtitle}
+  \centerline{\fontsize{16pt}{20.8pt}\selectfont \HEI \HUST@authtitle}
   \\[1cm]
   {
-    \changefont{size=12pt,linespread=2.0}
+    \fontsize{12pt}{24.0pt}\selectfont
     \indent\HUST@authorizationtext \\
     \indent\HUST@authorizationaddon \\
     \indent\HUST@authorizationcheck
   }
   \\[1.9cm]
   \hspace{2em}\parbox[t]{.9\textwidth}{
-    \changefont{size=12pt,linespread=1.5}
+    \fontsize{12pt}{18.0pt}\selectfont
     \TurnOffTabFontSetting
     \begin{tabular}{ll}
         \HUST@zhauthorsig & \hspace{2em}\\
@@ -2279,7 +2274,7 @@
 \def\HUST@zhabstractpage{
   \chapter*{\HUST@zhabstractname}
   \begingroup
-  \changefont{size=10.5pt}
+  \fontsize{10.5pt}{13.7pt}\selectfont
   \HUST@zhabstract \par
   \vskip 1.2ex
   \noindent\hei{\HUST@zhkeywordstitle}\hspace{.8em} \HUST@zhkeywords
@@ -2292,7 +2287,7 @@
 \def\HUST@enabstractpage{
   \chapter*{\textsf{\HUST@enabstractname}}
   \begingroup
-  \changefont{size=10.5pt}
+  \fontsize{10.5pt}{13.7pt}\selectfont
   \HUST@enabstract \par
   \vskip 1.2ex
   \noindent\textbf{\HUST@enkeywordstitle}\hspace{.8em} \HUST@enkeywords
@@ -2345,7 +2340,7 @@
   \addcontentsline{toc}{chapter}{\HUST@acknamenospace}
   \chapter*{\HUST@ackname}
   \begingroup
-  \changefont{size=10.5pt}
+  \fontsize{10.5pt}{13.7pt}\selectfont
 }{
   \endgroup
 }
@@ -2365,7 +2360,7 @@
     \chapter*{\HUST@publicationtitle}
   \fi
   \begin{enumerate}[labelindent=0pt,label={[\arabic*]},itemsep=0.5ex]
-  \changefont{size=10.5pt,linespread=1}
+  \fontsize{10.5pt}{10.5pt}\selectfont
 }{
   \end{enumerate}
 }
@@ -2382,7 +2377,7 @@
   \phantomsection
   \addcontentsline{toc}{chapter}{\bibname}
   \begingroup
-  \changefont{size=10.5pt,linespread=1}
+  \fontsize{10.5pt}{10.5pt}\selectfont
   \setlength\bibsep{0.5ex}
   \HUST@bibliography{#1}
   \endgroup
@@ -2410,7 +2405,7 @@
   {
     \bfseries\HEI
     \centering
-    \changefont{size=18pt}
+    \fontsize{18pt}{23.4pt}\selectfont
   }
   {\appendixname\,\thechapter}
   {1em}
