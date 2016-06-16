@@ -47,5 +47,9 @@ endif
 checksum:FORCE
 	make -C ./hustthesis checksum
 
+ctan:
+	tar --exclude Makefile --exclude adjust_checksum.pl \
+	    -czvf hustthesis.tar.gz ./hustthesis
+
 FORCE:
-.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean checksum FORCE
+.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean checksum FORCE ctan
