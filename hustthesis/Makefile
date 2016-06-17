@@ -71,6 +71,6 @@ checksum:FORCE
 	perl adjust_checksum.pl hustthesis.dtx
 
 ctan:unpack
-	ctanify *.ins *.dtx *.pdf "hust-title.*=tex/latex/hustthesis"
+	ctanify *.ins *.dtx *.pdf *.md "hust-title.*=tex/latex/hustthesis"
 
 .PHONY:all unpack class bst doc example example-zh example-en clean reallyclean checksum ctan FORCE
