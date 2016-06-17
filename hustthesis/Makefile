@@ -11,9 +11,9 @@ else
 endif
 
 # Program Defintions
-TEX    = lualatex -shell-escape -8bit 
+TEX    = lualatex -shell-escape -8bit
 BIBTEX = bibtex
-INDEX  = makeindex -q 
+INDEX  = makeindex -q
 RM     = $(if $(filter $(OS_TYPE),Windows),del /f /q ,rm -f )
 
 all:class bst doc example
@@ -70,4 +70,7 @@ reallyclean:
 checksum:FORCE
 	perl adjust_checksum.pl hustthesis.dtx
 
-.PHONY:all unpack class bst doc example example-zh example-en clean reallyclean checksum FORCE
+ctan:unpack
+	ctanify *.ins *.dtx *.pdf "hust-title.*=tex/latex/hustthesis"
+
+.PHONY:all unpack class bst doc example example-zh example-en clean reallyclean checksum ctan FORCE
