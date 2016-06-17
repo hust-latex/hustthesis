@@ -69,7 +69,7 @@ This template is distributed in the hope that it will be useful, but WITHOUT ANY
 Original works are done by [Xu Cheng](https://github.com/xu-cheng). LPPL v1.3 is chosen to be the license of the project. Use as you desire.
 ```
 Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
-              2014      by hust-latex <https://github.com/hust-latex>
+              2014-2016 by hust-latex <https://github.com/hust-latex>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
