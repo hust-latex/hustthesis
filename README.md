@@ -1,6 +1,8 @@
 hustthesis
 ==========
 
+[![CTAN](https://img.shields.io/ctan/v/hustthesis.svg)](http://www.ctan.org/pkg/hustthesis)
+
 >   中文版[点击这里](https://github.com/hust-latex/hustthesis/blob/master/README.zh-cn.md)。
 
 An Unofficial Thesis Template in LaTeX for [Huazhong University of Science and Technology](http://www.hust.edu.cn). See other templates in <http://hust-latex.github.io>.
@@ -84,7 +86,7 @@ This work has the LPPL maintenance status `maintained'.
 The Current Maintainer of this work is hust-latex Organization.
 
 This work consists of the files hustthesis.bst, hustthesis.dtx,
-hustthesis.ins and the derived file hustthesis.cls 
+hustthesis.ins and the derived file hustthesis.cls
 along with its document and example files.
 ```
 
