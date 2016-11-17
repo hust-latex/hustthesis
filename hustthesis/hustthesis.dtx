@@ -31,7 +31,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{hustthesis}
 %<*class>
-[2016/06/01 v1.2 A Thesis Template for Huazhong University of Science and Technology]
+[2016/11/17 v1.4 A Thesis Template for Huazhong University of Science and Technology]
 %</class>
 %
 %<*driver>
@@ -198,7 +198,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{1554}
+% \CheckSum{1568}
 %
 % \iffalse
 %<*!(example-bib)>
@@ -227,6 +227,8 @@
 % \changes{v1.1}{2013/07/01}{Add language option}
 % \changes{v1.2}{2016/06/01}{Fix for TeXLive 2016. Remove \texttt{interfaces} and other problematic package}
 % \changes{v1.3}{2016/07/05}{Fix for \XeLaTeX}
+% \changes{v1.4}{2016/11/17}{Minor update to fulfill school requirement.}
+% \changes{v1.4}{2016/11/17}{Add command to custom apply name field.}
 %
 % \GetFileInfo{hustthesis.dtx}
 %
@@ -345,7 +347,7 @@
 %     \begin{syntax}
 %         degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
 %     \end{syntax}
-%     指定论文种类，它将通过设置字段\verb+\HUST@zhapplyname+和\verb+\HUST@enapplyname+来影响中英文封面处的标题和正文处的页眉（如果\verb+format+设为\verb+draft+）。各个不同的选项产生的效果见表\ref{tab:optdegree-zh}。如果不指定，默认设置为\verb+none+。
+%     指定论文种类，它将通过设置字段\verb+\HUST@zhapplyname+和\verb+\HUST@enapplyname+来影响中英文封面处的标题和正文处的页眉（如果\verb+format+设为\verb+draft+）。各个不同的选项产生的效果见表\ref{tab:optdegree-zh}。如果不指定，默认设置为\verb+none+。如有需要，这两个字段可以通过\href{doc/function//applyname}{\texttt{\textbackslash{}zhapplyname},\texttt{\textbackslash{}enapplyname},\texttt{\textbackslash{}applyname}}命令进一步修改。
 % \end{function}
 %
 % \begin{function}[updated=2013-07-01]{language}
@@ -366,7 +368,7 @@
 %     \verb+fyp+ & 毕业论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
 %     \verb+bachelor+ & 学士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
 %     \verb+master+ & 硕士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
-%     \verb+phd+ & 博士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+%     \verb+phd+ & 博士学位论文 & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Philosophy \\ \hline
 %     \end{tabularx}
 % \end{table}
 %
@@ -401,9 +403,9 @@
 %
 % \begin{function}{\zhschoolname,\enschoolname,\schoolname}
 %     \begin{syntax}
-%     \cs{zhschoolname}\Arg{Chinese schoolname}
-%     \cs{enschoolname}\Arg{English schoolname}
-%     \cs{schoolname}\Arg{Chinese schoolname}\Arg{English schoolname}
+%     \cs{zhschoolname}\Arg{Chinese school name}
+%     \cs{enschoolname}\Arg{English school name}
+%     \cs{schoolname}\Arg{Chinese school name}\Arg{English school name}
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文学校名。该字段在模板中已默认设置为\verb+\schoolname{华中科技大学}{Huazhong University of Science \& Technology}+。所以除非需更改学校名，无需使用该命令。
 % \end{function}
@@ -415,6 +417,15 @@
 %     \cs{address}\Arg{Chinese address}\Arg{English address}
 %     \end{syntax}
 %     这一组命令用于设定论文的中英文学校地址。该字段在模板中已默认设置为\verb+\address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}+。所以除非需更改学校地址，无需使用该命令。
+% \end{function}
+%
+% \begin{function}[updated=2016-11-17]{\zhapplyname,\enapplyname,\applyname}
+%     \begin{syntax}
+%     \cs{zhapplyname}\Arg{Chinese apply name}
+%     \cs{enapplyname}\Arg{English apply name}
+%     \cs{applyname}\Arg{Chinese apply name}\Arg{English apply name}
+%     \end{syntax}
+%     这一组命令用于自定义中英文封面处的标题和正文处的页眉。详情见~\href{doc/function//degree}{\texttt{degree} 文档类型选项}。
 % \end{function}
 %
 % \begin{function}{\zhmajor,\enmajor,\major}
@@ -778,7 +789,7 @@
 %     \begin{syntax}
 %         degree = \meta{\textbf{none}\orvar{}fyp\orvar{}bachelor\orvar{}master\orvar{}phd}
 %     \end{syntax}
-%     Set the category of thesis. It will influence the title of document, see Table~\ref{tab:optdegree-en}. The default value is \verb+none+.
+%     Set the category of thesis. It will influence the title of document, see Table~\ref{tab:optdegree-en}. The default value is \verb+none+. Noted that the apply name field in the title page can be further customized through \href{doc/function//applyname}{\texttt{\textbackslash{}applyname}} command.
 % \end{function}
 %
 % \begin{table}[ht]
@@ -792,7 +803,7 @@
 %     \verb+fyp+ & A Thesis Submitted in Partial Fulfillment of the Requirements for Final Year Project \\ \hline
 %     \verb+bachelor+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor \\ \hline
 %     \verb+master+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Master \\ \hline
-%     \verb+phd+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D \\ \hline
+%     \verb+phd+ & A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Philosophy \\ \hline
 %     \end{tabularx}
 % \end{table}
 %
@@ -833,6 +844,13 @@
 %     \cs{address}\Arg{address}
 %     \end{syntax}
 %     Set the address of school which has been set as \\*\hbox{\verb+\address{Wuhan~430074, P.~R.~China}+} by default. So unless you want to change the address, you don't need to use this command.
+% \end{function}
+%
+% \begin{function}[updated=2016-11-17]{\applyname}
+%     \begin{syntax}
+%     \cs{applyname}\Arg{apply name}
+%     \end{syntax}
+%     Custom the apply name which affects English title page. See more detail at~\href{doc/function//degree}{\texttt{degree} option}.
 % \end{function}
 %
 % \begin{function}{\major}
@@ -1286,7 +1304,7 @@
 \RequirePackage{geometry}
 \geometry{
   top=1.77in,
-  bottom=1.1in,
+  bottom=0.8in,
   left=1.1in,
   right=1.1in,
   includefoot
@@ -1462,6 +1480,22 @@
   }
 }
 \address{中国，武汉，430074}{Wuhan~430074, P.~R.~China}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\zhapplyname,\enapplyname,\applyname}
+% Commands to custom apply name.
+%    \begin{macrocode}
+\def\zhapplyname#1{\def\HUST@zhapplyname{#1}}
+\def\enapplyname#1{\def\HUST@enapplyname{#1}}
+\DeclareDocumentCommand\applyname{m g}
+{
+  \IfNoValueTF{#2}{
+    \enapplyname{#1}
+  }{
+    \zhapplyname{#1}\enapplyname{#2}
+  }
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1738,7 +1772,7 @@
 
 \ifthenelse{\equal{\HUST@degree}{phd}}{
   \def\HUST@zhapplyname{博士学位论文}
-  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Ph.D}
+  \def\HUST@enapplyname{A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of Philosophy}
 }{}
 
 \ifthenelse{\equal{\HUST@language}{chinese}}{
