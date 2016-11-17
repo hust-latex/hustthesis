@@ -50,5 +50,8 @@ checksum:FORCE
 ctan:
 	make -C ./hustthesis ctan
 
+ctan-upload:
+	make -C ./hustthesis ctan-upload
+
 FORCE:
-.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean checksum ctan FORCE
+.PHONY:all unpack example example-zh example-en doc install uninstall clean reallyclean checksum ctan ctan-upload FORCE
