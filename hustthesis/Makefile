@@ -55,7 +55,7 @@ clean:
 			*.mtc0 *.nav *.nlo *.out *.pdfsync \
 			*.pyg *.snm *.synctex.gz *.thm *.toc \
 			*.vrb *.xdy *.tdo \
-			*.cls *.tex *.md *.bib *.bst
+			*.cls *.tex *.bib *.bst
 
 reallyclean:
 	-$(RM) *.acn *.acr *.alg *.aux *.bbl \
@@ -65,7 +65,7 @@ reallyclean:
 			*.mtc0 *.nav *.nlo *.out *.pdfsync \
 			*.pyg *.snm *.synctex.gz *.thm *.toc \
 			*.vrb *.xdy *.tdo \
-			*.cls *.tex *.md *.bib *.bst hustthesis*.pdf
+			*.cls *.tex *.bib *.bst hustthesis*.pdf
 
 checksum:FORCE
 	perl adjust_checksum.pl hustthesis.dtx
