@@ -77,12 +77,12 @@ hustthesis.tar.gz:ctan
 
 ctan-upload:hustthesis.tar.gz
 	ctanupload --contribution=hustthesis \
-			   --version=$(shell perl -ne '/\[\d+\/\d+\/\d+ v(\d[\d\.]+) [\w ]+\]/ && print $$1' hustthesis.dtx) \
+	           --version=$(shell perl -ne '/\[\d+\/\d+\/\d+ v(\d[\d\.]+) [\w ]+\]/ && print $$1' hustthesis.dtx) \
 	           --name="Xu Cheng" --email=ctan@xuc.me \
-			   --summary="Unofficial thesis template for HUST" \
-			   --directory=/macros/latex/contrib/hustthesis \
-			   --license=free --freeversion=lppl \
-			   --file=hustthesis.tar.gz \
-			   -p
+	           --summary="Unofficial thesis template for HUST" \
+	           --directory=/macros/latex/contrib/hustthesis \
+	           --license=free --freeversion=lppl \
+	           --file=hustthesis.tar.gz \
+	           -p
 
 .PHONY:all unpack class bst doc example example-zh example-en clean reallyclean checksum ctan ctan-upload FORCE
