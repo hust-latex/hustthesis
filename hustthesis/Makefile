@@ -1,88 +1,65 @@
+# WARNING: target end with `!` will modify source code
+PACKAGE = useclass
+EXT := cls
 
-# OS detected
-ifeq ($(OS),Windows_NT)
-	ifneq ($(findstring .exe,$(SHELL)),)
-    OS_TYPE := Windows
-	else
-    OS_TYPE := Cygwin
-	endif
+TAG ?= $(shell git describe --tags --abbrev=0)
+
+TEX = tex -interaction=nonstopmode -shell-escape
+LATEX = xelatex -interaction=nonstopmode -shell-escape
+LATEXMK = latexmk -pdf -quiet -outdir=. -auxdir=.
+L3BUILD = l3build
+ZIP = zip
+
+ifeq ($(OS), Windows_NT)
+	RM = cmd //C del //Q //F
+	RRM = cmd //C rmdir //Q //S
 else
-    OS_TYPE := $(shell uname -s)
+	RM = rm -f
+	RRM = rm -r -f
 endif
 
-# Program Defintions
-TEX    = lualatex -shell-escape -8bit
-BIBTEX = bibtex
-INDEX  = makeindex -q
-RM     = $(if $(filter $(OS_TYPE),Windows),del /f /q ,rm -f )
+%.ins %.$(EXT): %.dtx
+	$(TEX) $<
 
-all:class bst doc example
+%.pdf: %.dtx %.$(EXT)
+	$(LATEX) $<
 
-unpack:hustthesis.dtx hustthesis.ins
-	@$(TEX) hustthesis.ins
 
-%.cls %.tex %.md %.bib %.bst:hustthesis.dtx hustthesis.ins
-	@$(TEX) hustthesis.ins
+.DEFAULT_GOAL = build
 
-class:hustthesis.cls
+.PHONY: all build install full-install uninstall doc tag! ctan! release! clean cleanall
 
-bst:hustthesis.bst
+all: build doc full-install
 
-doc:hustthesis.pdf
+build: $(PACKAGE).$(EXT)
 
-hustthesis.pdf:hustthesis.dtx
-	@$(TEX) $(^F)
-	@$(INDEX) -s gind.ist  -o $(basename $(^F)).ind $(basename $(^F)).idx
-	@$(INDEX) -s gglo.ist -o $(basename $(^F)).gls $(basename $(^F)).glo
-	@$(TEX) $(^F)
-	@$(TEX) $(^F)
+install:
+	$(L3BUILD) install
 
-example:example-zh example-en
-example-zh:hustthesis-zh-example.pdf
-example-en:hustthesis-en-example.pdf
+full-install:
+	$(L3BUILD) install --full
 
-hustthesis-zh-example.pdf hustthesis-en-example.pdf:%-example.pdf:%-example.tex hustthesis.cls hustthesis.bst ref-example.bib
-	@$(TEX) $(<F)
-	@$(BIBTEX) $(basename $(<F))
-	@$(TEX) $(<F)
-	@$(TEX) $(<F)
+uninstall:
+	$(L3BUILD) uninstall
+
+doc: $(PACKAGE).pdf
+
+
+tag!: # `make tag! TAG=1.0.0` [WARN: WILL MODIFY SOURCE CODE]
+	$(L3BUILD) tag $(TAG)
+
+ctan!: tag! build # CTAN currently requires that the .tds.zip file be excluded
+	$(L3BUILD) ctan
+	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
+
+release!: tag! build doc ctan! # release to GitHub
+
 
 clean:
-	-$(RM) *.acn *.acr *.alg *.aux *.bbl \
-			*.blg *.dvi *.fdb_latexmk *.glg *.glo \
-			*.gls *.idx *.ilg *.hd *.ind *.ist \
-			*.lof *.log *.lot *.maf *.mtc \
-			*.mtc0 *.nav *.nlo *.out *.pdfsync \
-			*.pyg *.snm *.synctex.gz *.thm *.toc \
-			*.vrb *.xdy *.tdo \
-			*.cls *.tex *.bib *.bst
+	$(LATEXMK) -c $(PACKAGE).dtx
+	$(RM) *.aux *.fdb_latexmk *.fls *.glo *.synctex.gz \
+		*.hd *.idx *.ind *.log *.out *.pdf *.toc *.xdv
+	$(RM) *.cls *.ins *.sty *.zip
 
-reallyclean:
-	-$(RM) *.acn *.acr *.alg *.aux *.bbl \
-			*.blg *.dvi *.fdb_latexmk *.glg *.glo \
-			*.gls *.idx *.ilg *.hd *.ind *.ist \
-			*.lof *.log *.lot *.maf *.mtc \
-			*.mtc0 *.nav *.nlo *.out *.pdfsync \
-			*.pyg *.snm *.synctex.gz *.thm *.toc \
-			*.vrb *.xdy *.tdo \
-			*.cls *.tex *.bib *.bst hustthesis*.pdf
-
-checksum:FORCE
-	perl adjust_checksum.pl hustthesis.dtx
-
-ctan:unpack
-
-hustthesis.tar.gz:ctan
-	ctanify *.ins *.dtx *.pdf *.md "hust-title.*=tex/latex/hustthesis"
-
-ctan-upload:hustthesis.tar.gz
-	ctanupload --contribution=hustthesis \
-	           --version=$(shell perl -ne '/\[\d+\/\d+\/\d+ v(\d[\d\.]+) [\w ]+\]/ && print $$1' hustthesis.dtx) \
-	           --name="Xu Cheng" --email=ctan@xuc.me \
-	           --summary="Unofficial thesis template for HUST" \
-	           --directory=/macros/latex/contrib/hustthesis \
-	           --license=free --freeversion=lppl \
-	           --file=hustthesis.tar.gz \
-	           -p
-
-.PHONY:all unpack class bst doc example example-zh example-en clean reallyclean checksum ctan ctan-upload FORCE
+cleanall: clean uninstall
+	$(RRM) build/
