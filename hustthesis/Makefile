@@ -1,21 +1,23 @@
 # WARNING: target end with `!` will modify source code
-PACKAGE = useclass
+PACKAGE := hustthesis
 EXT := cls
+SOURCE := $(PACKAGE).dtx
 
 TAG ?= $(shell git describe --tags --abbrev=0)
 
-TEX = tex -interaction=nonstopmode -shell-escape
-LATEX = xelatex -interaction=nonstopmode -shell-escape
-LATEXMK = latexmk -pdf -quiet -outdir=. -auxdir=.
-L3BUILD = l3build
-ZIP = zip
+TEX := tex -interaction=nonstopmode -shell-escape
+LATEX := pdflatex -interaction=nonstopmode -shell-escape
+LATEXMK := latexmk -pdf -quiet -outdir=. -auxdir=.
+L3BUILD := l3build
+ZIP := zip
+GIT := git
 
 ifeq ($(OS), Windows_NT)
-	RM = cmd //C del //Q //F
-	RRM = cmd //C rmdir //Q //S
+	RM := cmd //C del //Q //F
+	RRM := cmd //C rmdir //Q //S
 else
-	RM = rm -f
-	RRM = rm -r -f
+	RM := rm -f
+	RRM := rm -r -f
 endif
 
 %.ins %.$(EXT): %.dtx
@@ -46,13 +48,24 @@ doc: $(PACKAGE).pdf
 
 
 tag!: # `make tag! TAG=1.0.0` [WARN: WILL MODIFY SOURCE CODE]
+	@if ! $(GIT) diff --quiet $(SOURCE); then \
+		echo "Error: Unstaged changes in $(SOURCE)"; \
+		exit 1; \
+	fi
+
+	@if ! $(GIT) diff --staged --quiet $(SOURCE); then \
+		echo "Error: Uncommitted changes in $(SOURCE)"; \
+		exit 1; \
+	fi
+
 	$(L3BUILD) tag $(TAG)
 
-ctan!: tag! build # CTAN currently requires that the .tds.zip file be excluded
+ctan: tag! build # CTAN currently requires that the .tds.zip file be excluded
 	$(L3BUILD) ctan
 	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
+	$(GIT) restore $(SOURCE)
 
-release!: tag! build doc ctan! # release to GitHub
+release!: tag! build ctan # release to GitHub
 
 
 clean:

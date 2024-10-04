@@ -1,7 +1,7 @@
 **/build/*
 
 *.ins
-*.sty
+*.cls
 *.pdf
 *.zip
 
