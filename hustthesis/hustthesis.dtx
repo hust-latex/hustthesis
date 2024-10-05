@@ -53,7 +53,7 @@
 %</internal>
 %<*install>
     \usedir{tex/latex/\jobname}
-    \file{\jobname.cls}{\from{\jobname.dtx}{package}}
+    \file{\jobname.cls}{\from{\jobname.dtx}{class}}
   }
 \endbatchfile
 %</install>
@@ -65,13 +65,13 @@
 %<package>\ProvidesExplClass{hustthesis}
 %<package>  {[LATEST]}{[DEV]}{Use Classes as Packages} %^^A [L3BUILD_REPLACED_MARK]
 %<*driver>
-\documentclass{ctexart}
+\documentclass{\jobname}
 \usepackage{useclass}
 \useclass*[full]{l3doc}
 \usepackage{mdframed}
 
 \providecommand{\name}{\jobname}
-\providecommand{\pkgname}{\pkg{\name}}
+\providecommand{\clsname}{\cls{\name}}
 \begin{document}
   \DocInput{\jobname.dtx}
   \PrintIndex
@@ -79,7 +79,7 @@
 %</driver>
 % \fi
 %
-% \title{The \pkgname.cls Class}
+% \title{The \clsname.cls Class}
 % \author
 %   {
 %     Huang Yuxi^^A
@@ -108,17 +108,19 @@
 %
 % \begin{implementation}
 %
-% \section{\pkgname{} Implementation}
+% \section{\clsname{} Implementation}
 %
 %    \begin{macrocode}
 %<@@=hustthesis>
-%<*package>
-\documentclass{ctexart}
+%<*class>
+\LoadClass{ctexbook}
 %    \end{macrocode}
+%
+% \subsection{Variables}
 %
 %
 %    \begin{macrocode}
-%</package>
+%</class>
 %    \end{macrocode}
 %
 % \end{implementation}
