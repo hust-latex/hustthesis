@@ -40,7 +40,10 @@
 \postamble
 
     This work consists of the files \jobname.dtx
-    and the derived files \jobname.sty and \jobname.ins.
+              and the derived files \jobname.ins,
+                                    \jobname.cls,
+                                    \jobname-doc.sty,
+                                    \jobname.def.
 
 \endpostamble
 
@@ -54,6 +57,8 @@
 %<*install>
     \usedir{tex/latex/\jobname}
     \file{\jobname.cls}{\from{\jobname.dtx}{class}}
+    \file{\jobname-doc.sty}{\from{\jobname.dtx}{doc-sty}}
+    \file{\jobname.def}{\from{\jobname.dtx}{def}}
   }
 \endbatchfile
 %</install>
@@ -61,19 +66,26 @@
 \fi
 %</internal>
 
-%<package>\NeedsTeXFormat{LaTeX2e}
-%<package>\ProvidesExplClass{hustthesis}
-%<package>  {[LATEST]}{[DEV]}{Use Classes as Packages} %^^A [L3BUILD_REPLACED_MARK]
+%<class>\NeedsTeXFormat{LaTeX2e}
+%<class>\ProvidesExplClass{hustthesis}
+%<doc-sty>\ProvidesExplClass{hustthesis-doc}
+%<def>\ProvidesExplFile{hustthesis.def}
+%<class|doc-sty|def>  {[LATEST]}{[DEV]} %^^A [L3BUILD_REPLACED_MARK]
+%<class>  {Thesis Template for Huazhong University of Science and Technology}
+%<doc-sty>  {Documentation for the hustthesis class}
+%<def>  {Definition file for the hustthesis class}
 %<*driver>
 \documentclass{\jobname}
 \usepackage{useclass}
 \useclass*[full]{l3doc}
+\usepackage{\jobname-doc}
 \usepackage{mdframed}
 
 \providecommand{\name}{\jobname}
 \providecommand{\clsname}{\cls{\name}}
 \begin{document}
   \DocInput{\jobname.dtx}
+  \PrintChanges
   \PrintIndex
 \end{document}
 %</driver>
@@ -101,26 +113,223 @@
 %
 % \begin{documentation}
 %
-% \section{引言}
+% \chapter{引言}
 %
+% 提前致谢 \cls{fduthesis} 的作者曾祥东，本模板的许多设计和实现都是参考了 \cls{fduthesis} 的代码。
 %
 % \end{documentation}
 %
 % \begin{implementation}
 %
-% \section{\clsname{} Implementation}
+% \chapter{\clsname{} 代码实现}
 %
 %    \begin{macrocode}
-%<@@=hustthesis>
+%<@@=hust>
 %<*class>
+%    \end{macrocode}
+%
+% \section{模板预处理}
+%
+% \subsection{变量声明}
+%
+% \begin{variable}{
+%   \l_@@_tmpa_box,
+%   \l_@@_tmpa_clist,
+%   \l_@@_tmpa_dim,
+%   \l_@@_tmpa_skip,
+%   \l_@@_tmpa_tl, \l_@@_tmpb_tl,
+% }
+% 临时变量。
+%    \begin{macrocode}
+\box_new:N \l_@@_tmpa_box
+\clist_new:N \l_@@_tmpa_clist
+\dim_new:N \l_@@_tmpa_dim
+\skip_new:N \l_@@_tmpa_skip
+\tl_new:N \l_@@_tmpa_tl
+\tl_new:N \l_@@_tmpb_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{内部函数}
+%
+
+%
+% \subsection{选项处理}
+%
+% \subsection{参数载入}
+%
+% \subsection{宏包载入}
+%
+%    \begin{macrocode}
 \LoadClass{ctexbook}
 %    \end{macrocode}
 %
-% \subsection{Variables}
+%    \begin{macrocode}
+\RequirePackage
+  {
+    amsmath,
+    geometry,
+    fancyhdr,
+    graphicx,
+    longtable,
+    caption,
+    xcolor,
+  }
+%    \end{macrocode}
 %
+%
+% \section{全局样式}
+%
+% \subsection{页面布局}
+% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
+%    \begin{macrocode}
+\geometry
+  {
+    paper = a4paper,
+    top = 4.5 cm,
+    bottom = 2.8 cm,
+    left = 2.8 cm,
+    right = 2.8 cm,
+  }
+%    \end{macrocode}
+%
+% \subsection{字体设置}
+%
+% \section{封面样式}
+%
+% \section{扉页样式}
+%
+% \subsection{目录样式}
+%
+% \section{正文样式}
+%
+% \subsection{章节样式}
+%
+% \section{篇后样式}
+%
+% \subsection{参考文献}
+%
+% \section{模板后处理}
+%
+% \section{用户接口}
 %
 %    \begin{macrocode}
 %</class>
+%    \end{macrocode}
+%
+% \section{模板参数}
+%
+%    \begin{macrocode}
+%<*def>
+%    \end{macrocode}
+%
+% \subsection{全局常量}
+%
+% \begin{variable}{\c_@@_school_zh_tl, \c_@@_school_en_tl}
+% 学校名称。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_school_zh_tl { 华中科技大学 }
+\tl_const:Nn \c_@@_school_en_tl { Huazhong~ University~ of~ Science~ and~ Technology }
+%    \end{macrocode}
+% \end{variable}
+%
+%
+%    \begin{macrocode}
+%</def>
+%    \end{macrocode}
+%
+% \section{文档样式}
+
+%    \begin{macrocode}
+%<*doc-sty>
+%<@@=hustdoc>
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_patch_cmd:Nnn,\@@_preto_cmd:Nn,\@@_appto_cmd:Nn}
+% 补丁工具。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
+  {
+    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_preto_cmd:Nn #1#2
+  {
+    \ctex_preto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
+  {
+    \ctex_appto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{\cls{l3doc} 补丁}
+%
+%
+% \begin{macro}{\codedoc_typeset_functions:}
+% 减少展开标记（用来表明中英文模板中的不同用法）前的空格。
+%    \begin{macrocode}
+\__@@_patch_cmd:Nnn \codedoc_typeset_expandability:
+  { & } { & \skip_horizontal:n { -0.5em } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\codedoc_typeset_functions:,\codedoc_macro_init:,
+%   \@@_macro_dump:}
+% 左侧边注的函数列表采用单倍行距。
+%    \begin{macrocode}
+\__@@_preto_cmd:Nn \codedoc_typeset_functions:
+  { \MacroFont }
+\__@@_patch_cmd:Nnn \codedoc_macro_init:
+  { \hbox:n } { \MacroFont \hbox:n }
+\__@@_patch_cmd:Nnn \codedoc_macro_dump:
+  { \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%<@@=codedoc>
+% \begin{macro}{\@@_macro_typeset_one:nN}
+% 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，分别用
+% 普通字体和紧缩字体输出。然而很长的命令还是会超出页边。这里用缩放
+% 盒子的手段使得长命令也可正常显示。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_macro_typeset_one:nN #1#2
+  {
+    \vbox_set:Nn \l_@@_macro_box
+      {
+        \MacroFont
+        \vbox_unpack_drop:N \l_@@_macro_box
+        \hbox_set:Nn \l_tmpa_box
+          { \@@_print_macroname:nN {#1} #2 }
+%    \end{macrocode}
+% \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到版心的距离，
+% \tn{la\-bel\-sep} 则是编号盒子右端与条目首行文本之间的距离。
+%    \begin{macrocode}
+        \dim_set:Nn \l_tmpa_dim
+          { \marginparwidth - \labelsep - \marginparsep }
+        \dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
+          {
+            \box_resize_to_wd_and_ht:Nnn \l_tmpa_box
+              { \l_tmpa_dim } { \box_ht:N \l_tmpa_box }
+          }
+        \hbox_overlap_left:n
+          {
+            \box_use:N \l_tmpa_box
+            \skip_horizontal:n { \marginparsep - \labelsep }
+          }
+      }
+    \int_incr:N \l_@@_macro_int
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+%</doc-sty>
 %    \end{macrocode}
 %
 % \end{implementation}
