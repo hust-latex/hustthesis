@@ -66,7 +66,7 @@
 \fi
 %</internal>
 
-%<class>\NeedsTeXFormat{LaTeX2e}
+%<class|doc-sty|def>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesExplClass{hustthesis}
 %<doc-sty>\ProvidesExplClass{hustthesis-doc}
 %<def>\ProvidesExplFile{hustthesis.def}
@@ -150,13 +150,87 @@
 %    \end{macrocode}
 % \end{variable}
 %
+%
+% \begin{variable}{\g_@@_config_tl}
+% 保存配置文件名称。默认为空。
+%    \begin{macrocode}
+\tl_new:N \g_@@_config_tl
+%    \end{macrocode}
+% \end{variable}
+%
 % \subsection{内部函数}
 %
-
+% \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
+% 补丁工具，来自 \pkg{ctexpatch} 宏包。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
+  {
+    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
+  {
+    \ctex_appto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_define_fn_style:nn,
+%   \@@_define_punct:nn,
+%   \@@_define_name:nn,
+%   \@@_define_name:nnn}
+% 用来定义脚注样式、标点、默认名称的辅助函数。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_define_fn_style:nn #1#2
+  { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_punct:nn #1#2
+  { \tl_const:cn { c_@@_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nn #1#2
+  { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nnn #1#2#3
+  {
+    \tl_const:cn { c_@@_name_ #1 _zh_tl } {#2}
+    \tl_const:cn { c_@@_name_ #1 _en_tl } {#3}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@@_msg_new:nn,
+%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,\@@_error:nnnn,
+%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
+%   \@@_info:nx}
+% 各种信息函数的缩略形式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_msg_new:nn { \msg_new:nnn { hustthesis } }
+\cs_new:Npn \@@_error:n { \msg_error:nn { hustthesis } }
+\cs_new:Npn \@@_error:nn { \msg_error:nnn { hustthesis } }
+\cs_new:Npn \@@_error:nx { \msg_error:nnx { hustthesis } }
+\cs_new:Npn \@@_error:nnn { \msg_error:nnnn { hustthesis } }
+\cs_new:Npn \@@_error:nnnn { \msg_error:nnnnn { hustthesis } }
+\cs_new:Npn \@@_warning:n { \msg_warning:nn { hustthesis } }
+\cs_new:Npn \@@_warning:nn { \msg_warning:nnn { hustthesis } }
+\cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { hustthesis } }
+\cs_new:Npn \@@_info:nx { \msg_info:nnx { hustthesis } }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{选项处理}
 %
 % \subsection{参数载入}
+%
+% 载入参数配置文件。
+%    \begin{macrocode}
+\file_input:n { hustthesis.def }
+\@@_msg_new:nn { load-config-file }
+  { You~ are~ loading~ config~ file~ "#1". }
+\tl_if_empty:NF \g_@@_config_tl
+  {
+    \@@_info:nx { load-config-file } { \g_@@_config_tl }
+    \file_input:V \g_@@_config_tl
+  }
+%    \end{macrocode}
 %
 % \subsection{宏包载入}
 %
@@ -268,30 +342,29 @@
 %
 % \subsection{\cls{l3doc} 补丁}
 %
+%<@@=codedoc>
 %
-% \begin{macro}{\codedoc_typeset_functions:}
+% \begin{macro}{\@@_typeset_functions:}
 % 减少展开标记（用来表明中英文模板中的不同用法）前的空格。
 %    \begin{macrocode}
-\__@@_patch_cmd:Nnn \codedoc_typeset_expandability:
+\__hustdoc_patch_cmd:Nnn \@@_typeset_expandability:
   { & } { & \skip_horizontal:n { -0.5em } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\codedoc_typeset_functions:,\codedoc_macro_init:,
+% \begin{macro}{\@@_typeset_functions:,\@@_macro_init:,
 %   \@@_macro_dump:}
 % 左侧边注的函数列表采用单倍行距。
 %    \begin{macrocode}
-\__@@_preto_cmd:Nn \codedoc_typeset_functions:
+\__hustdoc_preto_cmd:Nn \@@_typeset_functions:
   { \MacroFont }
-\__@@_patch_cmd:Nnn \codedoc_macro_init:
+\__hustdoc_patch_cmd:Nnn \@@_macro_init:
   { \hbox:n } { \MacroFont \hbox:n }
-\__@@_patch_cmd:Nnn \codedoc_macro_dump:
+\__hustdoc_patch_cmd:Nnn \@@_macro_dump:
   { \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
 %    \end{macrocode}
 % \end{macro}
 %
-%
-%<@@=codedoc>
 % \begin{macro}{\@@_macro_typeset_one:nN}
 % 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，分别用
 % 普通字体和紧缩字体输出。然而很长的命令还是会超出页边。这里用缩放
