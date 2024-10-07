@@ -5,7 +5,7 @@ typesetexe = "xelatex"
 packtdszip = true
 -- sourcefiles = {"*.dtx"}
 unpackfiles = {"*.dtx"}
-installfiles = {"*.cls", "*.sty", "*.ins", "*.def"}
+installfiles = {"*.cls", "*.sty", "*.ins", "*.def", "*.cbx", "*.bbx"}
 
 tdslocations = {
 	"source/latex/" .. module .. "/*.ins",

@@ -43,7 +43,9 @@
               and the derived files \jobname.ins,
                                     \jobname.cls,
                                     \jobname-doc.sty,
-                                    \jobname.def.
+                                    \jobname.def,
+                                    \jobname.cbx,
+                                    \jobname.bbx.
 
 \endpostamble
 
@@ -59,6 +61,8 @@
     \file{\jobname.cls}{\from{\jobname.dtx}{class}}
     \file{\jobname-doc.sty}{\from{\jobname.dtx}{doc-sty}}
     \file{\jobname.def}{\from{\jobname.dtx}{def}}
+    \file{\jobname.cbx}{\from{\jobname.dtx}{cbx}}
+    \file{\jobname.bbx}{\from{\jobname.dtx}{bbx}}
   }
 \endbatchfile
 %</install>
@@ -66,10 +70,12 @@
 \fi
 %</internal>
 
-%<class|doc-sty|def>\NeedsTeXFormat{LaTeX2e}
+%<class|doc-sty|def|cbx|bbx>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesExplClass{hustthesis}
 %<doc-sty>\ProvidesExplClass{hustthesis-doc}
 %<def>\ProvidesExplFile{hustthesis.def}
+%<cbx>\ProvidesFile{hustthesis.cbx}[Citation style for the hustthesis class]
+%<bbx>\ProvidesFile{hustthesis.bbx}[Bibliography style for the hustthesis class]
 %<class|doc-sty|def>  {[LATEST]}{[DEV]} %^^A [L3BUILD_REPLACED_MARK]
 %<class>  {Thesis Template for Huazhong University of Science and Technology}
 %<doc-sty>  {Documentation for the hustthesis class}
@@ -80,9 +86,21 @@
 \useclass*[full]{l3doc}
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
+\usepackage[backend=biber,style=hustthesis]{biblatex} % temporary
+\begin{filecontents}[overwrite]{\jobname.bib}
+@online{zeng2024fduthesis,
+  title = {复旦大学论文模板},
+  author = {曾, 祥东},
+  year = {2017},
+  month = feb,
+  url = {https://github.com/stone-zeng/fduthesis},
+}
+\end{filecontents}
+\addbibresource[location=local]{\jobname.bib}
 
 \providecommand{\name}{\jobname}
 \providecommand{\clsname}{\cls{\name}}
+
 \begin{document}
   \DocInput{\jobname.dtx}
   \PrintChanges
@@ -115,7 +133,9 @@
 %
 % \chapter{引言}
 %
-% 提前致谢 \cls{fduthesis} 的作者曾祥东，本模板的许多设计和实现都是参考了 \cls{fduthesis} 的代码。
+% 提前致谢 \cls{fduthesis} 的作者曾祥东，本模板的许多设计和实现都是参考了 \cls{fduthesis} 的代码\cite{zeng2024fduthesis}。
+%
+% \printbibliography
 %
 % \end{documentation}
 %
@@ -310,6 +330,38 @@
 %
 %    \begin{macrocode}
 %</def>
+%    \end{macrocode}
+%
+% \section{文献样式}
+%
+% \subsection{标注样式}
+%
+%    \begin{macrocode}
+%<*cbx>
+%    \end{macrocode}
+%
+% 临时占位测试。
+%    \begin{macrocode}
+\RequireCitationStyle{gb7714-2015}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</cbx>
+%    \end{macrocode}
+%
+% \subsection{著录样式}
+%
+%    \begin{macrocode}
+%<*bbx>
+%    \end{macrocode}
+%
+% 临时占位测试。
+%    \begin{macrocode}
+\RequireBibliographyStyle{gb7714-2015}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</bbx>
 %    \end{macrocode}
 %
 % \section{文档样式}
