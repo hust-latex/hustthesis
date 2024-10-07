@@ -43,7 +43,8 @@
               and the derived files \jobname.ins,
                                     \jobname.cls,
                                     \jobname-doc.sty,
-                                    \jobname.def,
+                                    \jobname-m.def,
+                                    \jobname-d.def,
                                     \jobname.cbx,
                                     \jobname.bbx.
 
@@ -60,7 +61,8 @@
     \usedir{tex/latex/\jobname}
     \file{\jobname.cls}{\from{\jobname.dtx}{class}}
     \file{\jobname-doc.sty}{\from{\jobname.dtx}{doc-sty}}
-    \file{\jobname.def}{\from{\jobname.dtx}{def}}
+    \file{\jobname-m.def}{\from{\jobname.dtx}{def-m}}
+    \file{\jobname-d.def}{\from{\jobname.dtx}{def-d}}
     \file{\jobname.cbx}{\from{\jobname.dtx}{cbx}}
     \file{\jobname.bbx}{\from{\jobname.dtx}{bbx}}
   }
@@ -70,16 +72,18 @@
 \fi
 %</internal>
 
-%<class|doc-sty|def|cbx|bbx>\NeedsTeXFormat{LaTeX2e}
+%<class|doc-sty|def-m|def-d|cbx|bbx>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesExplClass{hustthesis}
 %<doc-sty>\ProvidesExplClass{hustthesis-doc}
-%<def>\ProvidesExplFile{hustthesis.def}
+%<def-m>\ProvidesExplFile{hustthesis-m.def}
+%<def-d>\ProvidesExplFile{hustthesis-d.def}
 %<cbx>\ProvidesFile{hustthesis.cbx}[Citation style for the hustthesis class]
 %<bbx>\ProvidesFile{hustthesis.bbx}[Bibliography style for the hustthesis class]
-%<class|doc-sty|def>  {[LATEST]}{[DEV]} %^^A [L3BUILD_REPLACED_MARK]
+%<class|doc-sty|def-m|def-d>  {[LATEST]}{[DEV]} %^^A [L3BUILD_REPLACED_MARK]
 %<class>  {Thesis Template for Huazhong University of Science and Technology}
 %<doc-sty>  {Documentation for the hustthesis class}
-%<def>  {Definition file for the hustthesis class}
+%<def-m>  {Definition file for the hustthesis class in master thesis}
+%<def-d>  {Definition file for the hustthesis class in doctoral thesis}
 %<*driver>
 \documentclass{\jobname}
 \usepackage{useclass}
@@ -96,7 +100,7 @@
   url = {https://github.com/stone-zeng/fduthesis},
 }
 \end{filecontents}
-\addbibresource[location=local]{\jobname.bib}
+\addbibresource{\jobname.bib}
 
 \providecommand{\name}{\jobname}
 \providecommand{\clsname}{\cls{\name}}
@@ -242,7 +246,7 @@
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
-\file_input:n { hustthesis.def }
+\file_input:n { hustthesis-d.def }
 \@@_msg_new:nn { load-config-file }
   { You~ are~ loading~ config~ file~ "#1". }
 \tl_if_empty:NF \g_@@_config_tl
@@ -258,6 +262,7 @@
 \LoadClass{ctexbook}
 %    \end{macrocode}
 %
+% 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 \verb|U+2610|:~☐，\verb|U+2611|:~☑，\verb|U+1F5F9|:~\usym{1F5F9} 等符号。
 %    \begin{macrocode}
 \RequirePackage
   {
@@ -268,6 +273,7 @@
     longtable,
     caption,
     xcolor,
+    utfsym,
   }
 %    \end{macrocode}
 %
@@ -291,7 +297,28 @@
 %
 % \section{封面样式}
 %
+% \subsection{中文封面}
+%
+% \begin{variable}{
+%   \l_@@_info_title_tl,
+%   \l_@@_info_author_tl,
+%   \l_@@_info_major_tl,
+%   \l_@@_info_date_tl,
+%
+% }
+% 声明中文封面信息。
+%    \begin{macrocode}
+
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{英文封面}
+%
 % \section{扉页样式}
+%
+% \subsection{答辩委员会页}
+%
+% \subsection{声明页}
 %
 % \subsection{目录样式}
 %
@@ -301,7 +328,19 @@
 %
 % \section{篇后样式}
 %
+% \subsection{致谢页}
+%
 % \subsection{参考文献}
+%
+% \section{附录样式}
+%
+% \subsection{答辩委员会决议}
+%
+% \subsection{成果论文对应关系}
+%
+% \subsection{中英文缩写对照表}
+%
+% \subsection{程序代码样式}
 %
 % \section{模板后处理}
 %
@@ -314,24 +353,158 @@
 % \section{模板参数}
 %
 %    \begin{macrocode}
-%<*def>
+%<*def-m|def-d>
 %    \end{macrocode}
 %
 % \subsection{全局常量}
 %
-% \begin{variable}{\c_@@_school_zh_tl, \c_@@_school_en_tl}
+% \begin{variable}{\c_@@_name_school_zh_tl, \c_@@_name_school_en_tl}
 % 学校名称。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_school_zh_tl { 华中科技大学 }
-\tl_const:Nn \c_@@_school_en_tl { Huazhong~ University~ of~ Science~ and~ Technology }
+\tl_const:Nn \c_@@_name_school_zh_tl { 华中科技大学 }
+\tl_const:Nn \c_@@_name_school_en_tl { Huazhong~ University~ of~ Science~ and~ Technology }
 %    \end{macrocode}
 % \end{variable}
 %
-%
+% 常用标点符号，见表~\ref{tab:punctuations}。
 %    \begin{macrocode}
-%</def>
+\clist_map_inline:nn
+  {
+    { ideo_comma       } { ^^^^3001 },
+    { ideo_full_stop   } { ^^^^3002 },
+    { fwid_comma       } { ^^^^ff0c },
+    { fwid_full_stop   } { ^^^^ff0e },
+    { fwid_colon       } { ^^^^ff1a },
+    { fwid_semicolon   } { ^^^^ff1b },
+    { fwid_left_paren  } { ^^^^ff08 },
+    { fwid_right_paren } { ^^^^ff09 }
+  }
+  { \@@_define_punct:nn #1 }
 %    \end{macrocode}
 %
+% \begin{table}[ht]
+%   \caption{常用标点符号}
+%   \label{tab:punctuations}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       \textbf{中文名称} &
+%       \textbf{英文名称} &
+%       \textbf{符号} &
+%       \textbf{Unicode 码位} \\
+%     \midrule
+%       中文顿号     & Ideographic comma           & ^^^^3001 & U+3001 \\
+%       中文句号     & Ideographic full stop       & ^^^^3002 & U+3002 \\
+%       中文逗号     & Fullwidth comma             & ^^^^ff0c & U+FF0C \\
+%       全角西文句点 & Fullwidth full stop         & ^^^^ff0e & U+FF0E \\
+%       中文冒号     & Fullwidth colon             & ^^^^ff1a & U+FF1A \\
+%       中文分号     & Fullwidth semicolon         & ^^^^ff1b & U+FF1B \\
+%       中文左圆括号 & Fullwidth left parenthesis  & ^^^^ff08 & U+FF08 \\
+%       中文右圆括号 & Fullwidth right parenthesis & ^^^^ff09 & U+FF09 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% \begin{variable}{\c_@@_line_spread_fp}
+% 设置行距倍数1.5倍。
+%    \begin{macrocode}
+\fp_const:Nn \c_@@_line_spread_fp { 1.5 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_emptybox_tl, \c_@@_checkbox_tl}
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_emptybox_tl { ^^^^2610 }
+\tl_const:Nn \c_@@_checkbox_tl { ^^^^2611 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{封面页常量}
+%
+% \begin{variable}{}
+% 中英文共用项目。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+%<def-m>    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~ the~ Requirements~ for~ } { 硕士学位论文 },
+%<def-d>    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~ the~ Requirements~ for~ The~ Degree~ of~ Doctor~ of~ } { 博士学位论文 },
+%<def-m>    { author } { Candidate } { 学位申请人 },
+%<def-d>    { author } { Ph.D.~ Candidate } { 学位申请人 },
+    { major } { Major } { 专业 },
+    { supervisor } { Supervisor } { 指导老师 },
+
+  }
+  { \@@_define_name:nnn #1 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{声明页常量}
+%
+% \begin{variable}{\c_@@_orig_decl_title_tl, \c_@@_orig_decl_text_tl}
+% 独创性声明。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_orig_decl_title_tl { 独创性声明 }
+\tl_const:Nn \c_@@_orig_decl_text_tl
+  {
+    本人声明所呈交的学位论文是我个人在导师指导下进行的研究工作及取得的研
+    究成果。尽我所知，除文中已经标明引用的内容外，本论文不包含任何其他个人或
+    集体已经发表或撰写过的研究成果。对本文的研究做出贡献的个人和集体，均已在
+    文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_orig_decl_sign_clist}
+% 独创性声明签名项目。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_orig_decl_sign_clist
+  {
+    学位论文作者签名：,
+    日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_auth_decl_title_tl, \c_@@_auth_decl_text_tl}
+% 学位论文版权使用授权书。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_auth_decl_title_tl { 学位论文版权使用授权书 }
+\tl_const:Nn \c_@@_auth_decl_text_tl
+  {
+    本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权
+    保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。
+    本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检
+    索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_auth_decl_secr_clist, \c_@@_auth_decl_sign_clist}
+% 学位论文版权使用授权书填写项目：保密与签名。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_auth_decl_secr_clist
+  {
+    本论文属于,
+    保\hspace{1em}密□，在\underline{\hspace{3em}}年解密后适用本授权书。,
+    不保密□。,
+    （请在以上方框内打“√”）
+  }
+\clist_const:Nn \c_@@_auth_decl_sign_clist
+  {
+    学位论文作者签名：,
+    指导教师签名：,
+    日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{正文常量}
+%
+%
+%    \begin{macrocode}
+%</def-m|def-d>
+%    \end{macrocode}
+
 % \section{文献样式}
 %
 % \subsection{标注样式}
@@ -452,6 +625,33 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{文档层命令}
+%
+% \begin{macro}{\TeX,\LaTeX,\LaTeXe,
+%   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
+%   \AmSLaTeX,\TeXLive,\MiKTeX,\BibTeX,\biber,\TikZ}
+% \TeX{} 相关标志。
+%    \begin{macrocode}
+\def\TeX{\hologo{TeX}}
+\def\LaTeX{\hologo{LaTeX}}
+\def\LaTeXe{\hologo{LaTeXe}}
+\def\pdfTeX{\hologo{pdfTeX}}
+\def\pdfLaTeX{\hologo{pdfLaTeX}}
+\def\XeTeX{\hologo{XeTeX}}
+\def\XeLaTeX{\hologo{XeLaTeX}}
+\def\LuaTeX{\hologo{LuaTeX}}
+\def\LuaLaTeX{\hologo{LuaLaTeX}}
+\def\AmSLaTeX{\hologo{AmSLaTeX}}
+\def\TeXLive{\TeX\ Live}
+\def\MiKTeX{\hologo{MiKTeX}}
+\def\BibTeX{\hologo{BibTeX}}
+\def\biber{\hologo{biber}}
+%    \end{macrocode}
+% 该定义来自 \file{pgfmanual-en-macros.tex}。
+%    \begin{macrocode}
+\def\TikZ{Ti\emph{k}Z}
+%    \end{macrocode}
+% \end{macro}
 %
 %    \begin{macrocode}
 %</doc-sty>
