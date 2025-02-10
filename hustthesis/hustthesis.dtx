@@ -301,18 +301,163 @@
 %
 % \begin{variable}{
 %   \l_@@_info_title_tl,
+%   \l_@@_info_degree_tl,
 %   \l_@@_info_author_tl,
 %   \l_@@_info_major_tl,
-%   \l_@@_info_date_tl,
-%
+%   \l_@@_info_supervisor_prop,
+%   \l_@@_info_date_clist,
+%   \l_@@_info_clc_tl,
+%   \l_@@_info_student_id_tl,
+%   \l_@@_info_school_id_tl,
+%   \l_@@_info_secret_tl,
 % }
 % 声明中文封面信息。
 %    \begin{macrocode}
-
+\tl_new:N \l_@@_info_title_tl
+\tl_new:N \l_@@_info_degree_tl
+\tl_new:N \l_@@_info_author_tl
+\tl_new:N \l_@@_info_major_tl
+\prop_new:N \l_@@_info_supervisor_prop
+\clist_new:N \l_@@_info_date_clist
+\tl_new:N \l_@@_info_clc_tl
+\tl_new:N \l_@@_info_student_id_tl
+\tl_new:N \l_@@_info_school_id_tl
+\tl_new:N \l_@@_info_secret_tl
 %    \end{macrocode}
 % \end{variable}
 %
 % \subsection{英文封面}
+% \begin{variable}{
+%   \l_@@_info_title_en_tl,
+%   \l_@@_info_author_en_tl,
+%   \l_@@_info_major_en_tl,
+%   \l_@@_info_supervisor_en_prop,
+%   \l_@@_info_date_en_clist,
+%   \l_@@_info_degree_en_tl,
+% }
+%    \begin{macrocode}
+\tl_new:N \l_@@_info_title_en_tl
+\tl_new:N \l_@@_info_author_en_tl
+\tl_new:N \l_@@_info_major_en_tl
+\prop_new:N \l_@@_info_supervisor_en_prop
+\clist_new:N \l_@@_info_date_en_clist
+\tl_new:N \l_@@_info_degree_en_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{信息录入}
+%
+% \begin{variable}{\l_@@_info_title_sanitized_tl,\l_@@_info_title_en_sanitized_tl}
+% 处理后的论文标题。
+%    \begin{macrocode}
+\tl_new:N \l_@@_info_title_sanitized_tl
+\tl_new:N \l_@@_info_title_en_sanitized_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_set_title:nn}
+% 设置论文标题，并删除其中的 |\\| 和汉字间的空格。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_title:nn #1#2
+  {
+    \tl_set:cn { l_@@_info_ #1 _tl           } {#2}
+    \tl_set:cn { l_@@_info_ #1 _sanitized_tl } {#2}
+    \tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
+    \regex_replace_all:nnc
+      { \s+ } { \ }
+      { l_@@_info_ #1 _sanitized_tl }
+    \regex_replace_all:nnc
+      { ([\x{4e00}-\x{9fff}]) \s+ ([\x{4e00}-\x{9fff}]) } { \1 \2 }
+      { l_@@_info_ #1 _sanitized_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 定义 |hust/info| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { hust / info }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{info/title,info/title*}
+% 论文题目。以下带星号的项目均表示相应的英文字段。
+%    \begin{macrocode}
+    title .code:n = { \@@_set_title:nn { title } {#1} },
+    title* .code:n = { \@@_set_title:nn { title_en } {#1} },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/degree,info/degree*}
+% 学位类型。中文类型~|info/degree| 分为学术型~|academic|，和专业型~|professional|；英文类型~|info/degree*| 包括文学~|Arts|，理学~|Science|，教育学~|Education|，工学~|Engineering|，法学~|Laws|，医学~|Medicine|，以及其他~|XXX|。
+%    \begin{macrocode}
+    degree .choices:nn =
+      { academic, professional }
+      {
+        \tl_set_eq:NN \l_@@_info_degree_tl \l_keys_choice_tl
+      },
+    degree .default:n = { academic },
+    degree* .tl_set:N = \l_@@_info_degree_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/author,info/author*}
+% 学位申请人姓名。
+  %    \begin{macrocode}
+    author .tl_set:N = \l_@@_info_author_tl,
+    author* .tl_set:N = \l_@@_info_author_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/major,info/major*}
+% 专业名称。
+%    \begin{macrocode}
+    major .tl_set:N = \l_@@_info_major_tl,
+    major* .tl_set:N = \l_@@_info_major_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/supervisor,info/supervisor*}
+% 指导老师列表。
+%    \begin{macrocode}
+    supervisor .prop_gput:N = \l_@@_info_supervisor_prop,
+    supervisor* .prop_gput:N = \l_@@_info_supervisor_en_prop,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/date,info/date*}
+% 论文提交日期。
+%    \begin{macrocode}
+    date .clist_set:N = \l_@@_info_date_clist,
+    date* .clist_set:N = \l_@@_info_date_en_clist,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/clc}
+% 中图分类号。
+%    \begin{macrocode}
+    clc .tl_set:N = \l_@@_info_clc_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/student-id,info/school-id}
+% 学号和学校代码。学校代码默认为 |10487|。
+%    \begin{macrocode}
+    student-id .tl_set:N = \l_@@_info_student_id_tl,
+    school-id .tl_set:N = \l_@@_info_school_id_tl,
+    school-id .initial:n = { 10487 },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/secret}
+% 密级。
+%    \begin{macrocode}
+    secret .tl_set:N = \l_@@_info_secret_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+  }
+%    \end{macrocode}
 %
 % \section{扉页样式}
 %
@@ -420,9 +565,57 @@
 % \end{variable}
 %
 % \subsection{封面页常量}
+% \begin{variable}{
+%   \c_@@_name_academic_tl,
+%   \c_@@_name_professional_tl,
+%   \c_@@_name_date_tl,
+%   \c_@@_name_clc_tl,
+%   \c_@@_name_student_id_tl,
+%   \c_@@_name_school_id_tl,
+%   \c_@@_name_secret_tl,
+%   \c_@@_school_id_tl,
+% }
+% 中文封面页常量。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { academic } { 学术型 },
+    { professional } { 专业型 },
+    { date } { 答辩日期 },
+    { clc } { 分类号 },
+    { student_id } { 学号 },
+    { school_id } { 学校代码 },
+    { secret } { 密级 },
+  }
+  { \@@_define_name:nn #1 }
+\tl_const:Nn \c_@@_school_id_tl { 10487 }
+%    \end{macrocode}
+% \end{variable}
 %
-% \begin{variable}{}
-% 中英文共用项目。
+% \begin{variable}{
+%   \c_@@_location_tl
+% }
+% 英文封面页常量。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_location_tl
+  {
+    Huazhong~ University~ of~ Science~ and~ Technology\\
+    Wuhan~ 430074,~ P.~ R.~ China
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{
+%   \c_@@_name_title_zh_tl,
+%   \c_@@_name_title_en_tl,
+%   \c_@@_name_author_zh_tl,
+%   \c_@@_name_author_en_tl,
+%   \c_@@_name_major_zh_tl,
+%   \c_@@_name_major_en_tl,
+%   \c_@@_name_supervisor_zh_tl,
+%   \c_@@_name_supervisor_en_tl,
+% }
+% 中英文页共用常量。
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
@@ -432,7 +625,6 @@
 %<def-d>    { author } { Ph.D.~ Candidate } { 学位申请人 },
     { major } { Major } { 专业 },
     { supervisor } { Supervisor } { 指导老师 },
-
   }
   { \@@_define_name:nnn #1 }
 %    \end{macrocode}
@@ -498,8 +690,35 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \subsection{正文常量}
+% \subsection{摘要页常量}
+% \begin{variable}{
+%   \c_@@_name_abstract_zh_tl,
+%   \c_@@_name_abstract_en_tl,
+%   \c_@@_name_keywords_zh_tl,
+%   \c_@@_name_keywords_en_tl,
+%   \c_@@_sep_keywords_zh_tl,
+%   \c_@@_sep_keywords_en_tl,
+% }
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { abstract } { Abstract } { 摘要 },
+    { keywords } { Key~ words: } { 关键词： },
+  }
+  { \@@_define_name:nnn #1 }
+\tl_const:Nn \c_@@_sep_keywords_zh_tl { ； }
+\tl_const:Nn \c_@@_sep_keywords_en_tl { , }
+%    \end{macrocode}
+% \end{variable}
 %
+% \subsection{正文常量}
+% \begin{variable}{\c_@@_header_tl}
+% 页眉。
+%    \begin{macrocode}
+%<def-m>\tl_const:Nn \c_@@_header_tl { 华~中~科~技~大~学~硕~士~学~位~论~文 }
+%<def-d>\tl_const:Nn \c_@@_header_tl { 华~中~科~技~大~学~博~士~学~位~论~文 }
+%    \end{macrocode}
+% \end{variable}
 %
 %    \begin{macrocode}
 %</def-m|def-d>
