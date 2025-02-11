@@ -440,11 +440,10 @@
 % \end{macro}
 %
 % \begin{macro}{info/student-id,info/school-id}
-% 学号和学校代码。学校代码默认为 |10487|。
+% 学号和学校代码。
 %    \begin{macrocode}
     student-id .tl_set:N = \l_@@_info_student_id_tl,
     school-id .tl_set:N = \l_@@_info_school_id_tl,
-    school-id .initial:n = { 10487 },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -490,6 +489,40 @@
 % \section{模板后处理}
 %
 % \section{用户接口}
+%
+% \begin{macro}{info,style}
+% 定义元（meta）键值对。
+%    \begin{macrocode}
+\keys_define:nn { hust }
+  {
+    info .meta:nn = { hust / info } {#1},
+    style .meta:nn = { hust / style } {#1}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 文档类初始设置。学校代码默认为 |10487|。
+%    \begin{macrocode}
+\keys_set:nn { hust }
+  {
+    info =
+      {
+        degree = { academic },
+        secret = none,
+        school-id = { 10487 },
+        date = { \zhtoday },
+        date* = { \month,~ \year },
+      }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\hustsetup}
+% 用户设置接口。
+%    \begin{macrocode}
+\NewDocumentCommand \hustsetup { m }
+  { \keys_set:nn { hust } {#1} }
+%    \end{macrocode}
+% \end{macro}
 %
 %    \begin{macrocode}
 %</class>
