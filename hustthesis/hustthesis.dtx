@@ -277,6 +277,26 @@
 %
 % \subsubsection{\LaTeXe{} 封装}
 %
+% \begin{macro}{\@@_vspace:N,\@@_vspace:n,\@@_vspace:c}
+% 类似 \LaTeXe{} 中的 \tn{vspace*}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_vspace:N #1
+  {
+    \dim_set_eq:NN \l_@@_tmpa_dim \prevdepth
+    \hrule height \c_zero_dim
+    \nobreak
+    \skip_vertical:N #1
+    \skip_vertical:N \c_zero_skip
+    \dim_set_eq:NN \prevdepth \l_@@_tmpa_dim
+  }
+\cs_new_protected:Npn \@@_vspace:n #1
+  {
+    \skip_set:Nn \l_@@_tmpa_skip {#1}
+    \@@_vspace:N \l_@@_tmpa_skip
+  }
+\cs_generate_variant:Nn \@@_vspace:N { c }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\@@_line_spread:N,\@@_line_spread:n}
 % 设置行距。|#1|: 行距倍数 |fp| 变量。
@@ -390,18 +410,46 @@
 %
 % \subsection{宏包载入}
 %
+% 对不支持粗体斜体的字体进行兼容处理，仅限于 \XeTeX{} 引擎。参考自 \url{https://ask.latexstudio.net/ask/question/17464.html}。
+%    \begin{macrocode}
+\sys_if_engine_xetex:T
+  {
+    \PassOptionsToPackage { AutoFakeBold=3.0 } { xeCJK }
+    \AddToHook { package/ctex/before }
+      {
+        \AddToHook { package/xeCJK/after }
+          {
+            \keys_define:nn { xeCJK / features }
+              {
+                BoldFont .code:n = ,
+                ItalicFont .code:n =,
+              }
+          }
+      }
+    \AddToHook { package/ctex/after }
+      {
+        \keys_define:nn { xeCJK / features }
+          {
+            BoldFont .tl_set:N = \l__xeCJK_font_name_bf_tl ,
+            ItalicFont .tl_set:N = \l__xeCJK_font_name_it_tl,
+          }
+      }
+  }
+%    \end{macrocode}
+%
 % 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
 \PassOptionsToClass
   {
     UTF8,
+    oneside,
     heading = true,
     zihao = -4,
     linespread = \c_@@_line_spread_fp,
     \g_@@_to_ctexbook_clist,
   }
   { ctexbook }
-\LoadClass{ ctexbook }
+\LoadClass { ctexbook }
 %    \end{macrocode}
 %
 % 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 \verb|U+2610|:~☐，\verb|U+2611|:~☑，\verb|U+1F5F9|:~\usym{1F5F9} 等符号。
@@ -432,10 +480,71 @@
     bottom = 2.8 cm,
     left = 2.8 cm,
     right = 2.8 cm,
+    headheight = 30 pt,
   }
 %    \end{macrocode}
 %
 % \subsection{字体设置}
+%
+% \subsection{页眉页脚}
+%
+% 清除默认页眉页脚格式。
+%    \begin{macrocode}
+\fancyhf {}
+%    \end{macrocode}
+%
+% 设置页眉页脚颜色。
+%    \begin{macrocode}
+\providecolor { headfoot } { rgb } { 1, 0, 0 }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_draw_hf_hline:n}
+% 绘制页眉页脚横线，|#1| 是高度（粗细）。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_draw_hf_hline:n #1
+  {
+    { \color { headfoot } \hrule height #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置页眉格式。仅在非盲审模式~|anonymous| 下显示学校名称。
+%    \begin{macrocode}
+\bool_if:NF \g_@@_anonymous_bool
+  {
+    \chead
+      {
+        \zihao{3} \ziju{0.7}
+        \bfseries \kaishu
+        \textcolor{ headfoot } { \c_@@_header_tl }
+      }
+  }
+\renewcommand { \headrulewidth } { 1 pt }
+\renewcommand { \headrule }
+  {
+    \@@_vspace:N { 6 pt }
+    \@@_draw_hf_hline:n \headrulewidth
+    \@@_vspace:n \headrulewidth
+    \@@_draw_hf_hline:n \headrulewidth
+  }
+%    \end{macrocode}
+%
+% 设置页脚格式。
+%    \begin{macrocode}
+\cfoot { \zihao{-5} \thepage }
+\renewcommand { \footrulewidth } { 0.5 pt }
+\renewcommand { \footrule }
+  {
+    \@@_draw_hf_hline:n \footrulewidth
+  }
+%    \end{macrocode}
+%
+% \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式设置为 |headings|。
+% 因此必须在 \pkg{ctex} 调用之后重新设置 |\pagestyle| 为 |fancy|。
+%    \begin{macrocode}
+\pagestyle { fancy }
+%    \end{macrocode}
+%
 %
 % \section{封面样式}
 %
@@ -626,6 +735,7 @@
         beforeskip = 15.5 bp,
         afterskip = 14 bp,
         number = \@@_arabic:n { chapter },
+        pagestyle = fancy,
       },
     section =
       {
@@ -922,8 +1032,8 @@
 % \begin{variable}{\c_@@_header_tl}
 % 页眉。
 %    \begin{macrocode}
-%<def-m>\tl_const:Nn \c_@@_header_tl { 华~中~科~技~大~学~硕~士~学~位~论~文 }
-%<def-d>\tl_const:Nn \c_@@_header_tl { 华~中~科~技~大~学~博~士~学~位~论~文 }
+%<def-m>\tl_const:Nn \c_@@_header_tl { 华中科技大学硕士学位论文 }
+%<def-d>\tl_const:Nn \c_@@_header_tl { 华 中 科 技 大 学 博 士 学 位 论 文 }
 %    \end{macrocode}
 % \end{variable}
 %
