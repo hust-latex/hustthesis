@@ -145,7 +145,7 @@
 %
 % \begin{implementation}
 %
-% \chapter{\clsname{} 代码实现 abc}
+% \chapter{\clsname{} 代码实现}
 %
 %    \begin{macrocode}
 %<@@=hust>
@@ -153,6 +153,11 @@
 %    \end{macrocode}
 %
 % \section{模板预处理}
+%
+% 载入 \LaTeX3 基础宏包。
+%    \begin{macrocode}
+\RequirePackage { xtemplate, l3keys2e }
+%    \end{macrocode}
 %
 % \subsection{变量声明}
 %
@@ -174,6 +179,34 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_thesis_type_tl}
+% 论文类型。
+%    \begin{macrocode}
+\tl_new:N \g_@@_thesis_type_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_to_ctexbook_clist,\g_@@_to_hyperref_clist}
+% 分别保存由 \clsname{} 传入 \cls{ctexbook} 文档类和 \pkg{hyperref} 宏包的选项列表。
+%    \begin{macrocode}
+\clist_new:N \g_@@_to_ctexbook_clist
+\clist_new:N \g_@@_to_hyperref_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_draft_bool}
+% 草稿模式。
+%    \begin{macrocode}
+\bool_new:N \g_@@_draft_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_anonymous_bool}
+% 盲审模式。
+%    \begin{macrocode}
+\bool_new:N \g_@@_anonymous_bool
+%    \end{macrocode}
+% \end{variable}
 %
 % \begin{variable}{\g_@@_config_tl}
 % 保存配置文件名称。默认为空。
@@ -265,24 +298,110 @@
 %
 % \subsection{选项处理}
 %
+% 定义 | hust / option | 键值类。
+%    \begin{macrocode}
+\keys_define:nn { hust / option }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{type}
+% 论文类型。目前分为硕士学位论文~|master| 和博士学位论文~|doctor|，默认为博士学位论文。
+%    \begin{macrocode}
+    type .choices:nn =
+      { master, doctor }
+      { \tl_set_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
+    type .value_required:n = true,
+    type .initial:n = { doctor },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{draft}
+% 是否启用草稿模式。默认为 |false|。
+%    \begin{macrocode}
+    draft .choice:,
+    draft / true .code:n =
+      {
+        \bool_gset_true:N \g_@@_draft_bool
+        \clist_gput_right:Nn \g_@@_to_ctexbook_clist { draft }
+      },
+    draft / false .code:n =
+      {
+        \bool_gset_false:N \g_@@_draft_bool
+      },
+    draft .default:n = { true },
+    draft .initial:n = { false },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{anonymous}
+% 是否启用盲审模式。默认为 |false|，即显示作者信息。
+%    \begin{macrocode}
+    anonymous .choice:,
+    anonymous / true .code:n =
+      {
+        \bool_gset_true:N \g_@@_anonymous_bool
+      },
+    anonymous / false .code:n =
+      {
+        \bool_gset_false:N \g_@@_anonymous_bool
+      },
+    anonymous .default:n = { false },
+    anonymous .initial:n = { false },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{config}
+% 自定义配置文件名。
+%    \begin{macrocode}
+    config .tl_gset:N = \g_@@_config_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理未知选项。
+%    \begin{macrocode}
+    unknown .code:n = { \@@_error:n { unknown-option } },
+  }
+\@@_msg_new:nn { unknown-option }
+  { Class~ option~ "\l_keys_key_str"~ is~ unknown. }
+%    \end{macrocode}
+%
+% 将文档类选项传给 |hust/option|。
+%    \begin{macrocode}
+\ProcessKeysOptions { hust / option }
+%    \end{macrocode}
+%
 % \subsection{参数载入}
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
-\file_input:n { hustthesis-d.def }
-\@@_msg_new:nn { load-config-file }
-  { You~ are~ loading~ config~ file~ "#1". }
-\tl_if_empty:NF \g_@@_config_tl
+\tl_if_empty:NTF \g_@@_config_tl
   {
-    \@@_info:nx { load-config-file } { \g_@@_config_tl }
-    \file_input:V \g_@@_config_tl
+    \tl_if_eq:NnTF \g_@@_thesis_type_tl { master }
+      { \file_input:n { hustthesis-m.def } }
+      { \file_input:n { hustthesis-d.def } }
+  }
+  {
+    \@@_msg_new:nn { load-config-file }
+      { You~ are~ loading~ config~ file~ "#1". }
+    \@@_info:n { load-config-file }
+    \file_input:V { \g_@@_config_tl }
   }
 %    \end{macrocode}
 %
 % \subsection{宏包载入}
 %
+% 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
-\LoadClass{ctexbook}
+\PassOptionsToClass
+  {
+    UTF8,
+    heading = true,
+    zihao = -4,
+    linespread = \c_@@_line_spread_fp,
+    \g_@@_to_ctexbook_clist,
+  }
+  { ctexbook }
+\LoadClass{ ctexbook }
 %    \end{macrocode}
 %
 % 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 \verb|U+2610|:~☐，\verb|U+2611|:~☑，\verb|U+1F5F9|:~\usym{1F5F9} 等符号。
@@ -510,14 +629,14 @@
       },
     section =
       {
-        format = \zihao{4} \bfseries \rmfamily \CJKfamily{hei} \raggedright,
+        format = \zihao{4} \bfseries \rmfamily \raggedright,
         numberformat = \rmfamily,
         beforeskip = 10 bp,
         afterskip = 7 bp,
       },
     subsection =
       {
-        format = \zihao{-4} \bfseries \rmfamily \CJKfamily{hei} \raggedright,
+        format = \zihao{-4} \bfseries \rmfamily \raggedright,
         numberformat = \rmfamily,
         beforeskip = 7 bp,
         afterskip = 4 bp,
