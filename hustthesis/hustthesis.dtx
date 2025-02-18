@@ -145,7 +145,7 @@
 %
 % \begin{implementation}
 %
-% \chapter{\clsname{} 代码实现}
+% \chapter{\clsname{} 代码实现 abc}
 %
 %    \begin{macrocode}
 %<@@=hust>
@@ -184,6 +184,8 @@
 %
 % \subsection{内部函数}
 %
+%
+% \subsubsection{辅助函数}
 % \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
@@ -237,6 +239,27 @@
 \cs_new:Npn \@@_warning:nn { \msg_warning:nnn { hustthesis } }
 \cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { hustthesis } }
 \cs_new:Npn \@@_info:nx { \msg_info:nnx { hustthesis } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{\LaTeXe{} 封装}
+%
+%
+% \begin{macro}{\@@_line_spread:N,\@@_line_spread:n}
+% 设置行距。|#1|: 行距倍数 |fp| 变量。
+%    \begin{macrocode}
+\cs_new:Npn \@@_line_spread:N #1
+  { \linespread { \fp_use:N #1 } \selectfont }
+\cs_new:Npn \@@_line_spread:n #1
+  { \linespread {#1} \selectfont }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_arabic:n}
+% 等价于 \LaTeXe{} 中的 \tn{arabic}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_arabic:n #1
+  { \int_to_arabic:v { c@ #1 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -469,6 +492,38 @@
 % \section{正文样式}
 %
 % \subsection{章节样式}
+%
+%    \begin{macrocode}
+\keys_set:nn { ctex }
+  {
+%    \end{macrocode}
+% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
+
+%    \begin{macrocode}
+    chapter =
+      {
+        format = \zihao{3} \bfseries \rmfamily \centering,
+        name = {},
+        beforeskip = 15.5 bp,
+        afterskip = 14 bp,
+        number = \@@_arabic:n { chapter },
+      },
+    section =
+      {
+        format = \zihao{4} \bfseries \rmfamily \CJKfamily{hei} \raggedright,
+        numberformat = \rmfamily,
+        beforeskip = 10 bp,
+        afterskip = 7 bp,
+      },
+    subsection =
+      {
+        format = \zihao{-4} \bfseries \rmfamily \CJKfamily{hei} \raggedright,
+        numberformat = \rmfamily,
+        beforeskip = 7 bp,
+        afterskip = 4 bp,
+      }
+  }
+%    \end{macrocode}
 %
 % \section{篇后样式}
 %
