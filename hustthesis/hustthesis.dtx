@@ -145,6 +145,10 @@
 %
 % \begin{implementation}
 %
+% \newgeometry{
+%   marginpar = 2.8 cm,
+% }
+%
 % \chapter{\clsname{} 代码实现}
 %
 %    \begin{macrocode}
@@ -186,7 +190,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_to_ctexbook_clist,\g_@@_to_hyperref_clist}
+% \begin{variable}{\g_@@_to_ctexbook_clist, \g_@@_to_hyperref_clist}
 % 分别保存由 \clsname{} 传入 \cls{ctexbook} 文档类和 \pkg{hyperref} 宏包的选项列表。
 %    \begin{macrocode}
 \clist_new:N \g_@@_to_ctexbook_clist
@@ -219,7 +223,7 @@
 %
 %
 % \subsubsection{辅助函数}
-% \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
+% \begin{macro}{\@@_patch_cmd:Nnn, \@@_appto_cmd:Nn}
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
@@ -257,9 +261,10 @@
 %
 %
 % \begin{macro}{\@@_msg_new:nn,
-%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,\@@_error:nnnn,
-%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
-%   \@@_info:nx}
+%   \@@_error:n, \@@_error:nn, \@@_error:nx, \@@_error:nnn, \@@_error:nnnn,
+%   \@@_warning:n, \@@_warning:nn, \@@_warning:nxx,
+%   \@@_info:nx
+%}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_msg_new:nn { \msg_new:nnn { hustthesis } }
@@ -277,17 +282,17 @@
 %
 % \subsubsection{\LaTeXe{} 封装}
 %
-% \begin{macro}{\@@_vspace:N,\@@_vspace:n,\@@_vspace:c}
+% \begin{macro}{\@@_vspace:N, \@@_vspace:n, \@@_vspace:c}
 % 类似 \LaTeXe{} 中的 \tn{vspace*}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_vspace:N #1
   {
-    \dim_set_eq:NN \l_@@_tmpa_dim \prevdepth
-    \hrule height \c_zero_dim
+    \dim_set_eq:NN \l_@@_tmpa_dim \tex_prevdepth:D
+    \tex_hrule:D height \c_zero_dim
     \nobreak
     \skip_vertical:N #1
     \skip_vertical:N \c_zero_skip
-    \dim_set_eq:NN \prevdepth \l_@@_tmpa_dim
+    \dim_set_eq:NN \tex_prevdepth:D \l_@@_tmpa_dim
   }
 \cs_new_protected:Npn \@@_vspace:n #1
   {
@@ -298,13 +303,16 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_line_spread:N,\@@_line_spread:n}
-% 设置行距。|#1|: 行距倍数 |fp| 变量。
+% \begin{macro}{\@@_line_spread:N, \@@_line_spread:n}
+% 设置行距。
+% \begin{arguments}
+%   \item 行距倍数， |fp| 变量
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_line_spread:N #1
-  { \linespread { \fp_use:N #1 } \selectfont }
+  { \tex_linespread:D { \fp_use:N #1 } \tex_selectfont:D }
 \cs_new:Npn \@@_line_spread:n #1
-  { \linespread {#1} \selectfont }
+  { \tex_linespread:D {#1} \tex_selectfont:D }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -318,14 +326,14 @@
 %
 % \subsection{选项处理}
 %
-% 定义 | hust / option | 键值类。
+% 定义 | hust / option | 键值类，该键值类仅可在文档类选项中使用。
 %    \begin{macrocode}
 \keys_define:nn { hust / option }
   {
 %    \end{macrocode}
 %
-% \begin{macro}{type}
-% 论文类型。目前分为硕士学位论文~|master| 和博士学位论文~|doctor|，默认为博士学位论文。
+% \begin{macro}[module=option]{type}
+% 论文类型。目前分为硕士学位论文~\val{master} 和博士学位论文~\val{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
     type .choices:nn =
       { master, doctor }
@@ -335,8 +343,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{draft}
-% 是否启用草稿模式。默认为 |false|。
+% \begin{macro}[module=option]{draft}
+% 是否启用草稿模式。默认为 \val{false}。
 %    \begin{macrocode}
     draft .choice:,
     draft / true .code:n =
@@ -353,8 +361,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{anonymous}
-% 是否启用盲审模式。默认为 |false|，即显示作者信息。
+% \begin{macro}[module=option]{anonymous}
+% 是否启用盲审模式。默认为 \val{false}，即显示作者信息。\key[option]{anonymous}
 %    \begin{macrocode}
     anonymous .choice:,
     anonymous / true .code:n =
@@ -370,7 +378,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{config}
+% \begin{macro}[module=option]{config}
 % 自定义配置文件名。
 %    \begin{macrocode}
     config .tl_gset:N = \g_@@_config_tl,
@@ -385,10 +393,12 @@
   { Class~ option~ "\l_keys_key_str"~ is~ unknown. }
 %    \end{macrocode}
 %
-% 将文档类选项传给 |hust/option|。
+% \begin{macro}[module=option, int]{option}
+% 将文档类选项传给 |hust / option|。
 %    \begin{macrocode}
 \ProcessKeysOptions { hust / option }
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsection{参数载入}
 %
@@ -396,8 +406,9 @@
 %    \begin{macrocode}
 \tl_if_empty:NTF \g_@@_config_tl
   {
-    \tl_if_eq:NnTF \g_@@_thesis_type_tl { master }
+    \tl_if_eq:NnT \g_@@_thesis_type_tl { master }
       { \file_input:n { hustthesis-m.def } }
+    \tl_if_eq:NnT \g_@@_thesis_type_tl { doctor }
       { \file_input:n { hustthesis-d.def } }
   }
   {
@@ -415,9 +426,9 @@
 \sys_if_engine_xetex:T
   {
     \PassOptionsToPackage { AutoFakeBold=3.0 } { xeCJK }
-    \AddToHook { package/ctex/before }
+    \AddToHook { package / ctex / before }
       {
-        \AddToHook { package/xeCJK/after }
+        \AddToHook { package / xeCJK / after }
           {
             \keys_define:nn { xeCJK / features }
               {
@@ -426,7 +437,7 @@
               }
           }
       }
-    \AddToHook { package/ctex/after }
+    \AddToHook { package / ctex / after }
       {
         \keys_define:nn { xeCJK / features }
           {
@@ -452,7 +463,7 @@
 \LoadClass { ctexbook }
 %    \end{macrocode}
 %
-% 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 \verb|U+2610|:~☐，\verb|U+2611|:~☑，\verb|U+1F5F9|:~\usym{1F5F9} 等符号。
+% 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 |U+2610|:~☐，|U+2611|:~☑，|U+1F5F9|:~\usym{1F5F9} 等符号。
 %    \begin{macrocode}
 \RequirePackage
   {
@@ -499,16 +510,19 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_draw_hf_hline:n}
-% 绘制页眉页脚横线，|#1| 是高度（粗细）。
+% 绘制页眉页脚横线。
+% \begin{arguments}
+%   \item 页眉页脚线的高度（粗细）
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_draw_hf_hline:n #1
   {
-    { \color { headfoot } \hrule height #1 }
+    { \color { headfoot } \tex_hrule:D height #1 }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% 设置页眉格式。仅在非盲审模式~|anonymous| 下显示学校名称。
+% 设置页眉格式。仅在非盲审模式~\key{anonymous} 下显示学校名称。
 %    \begin{macrocode}
 \bool_if:NF \g_@@_anonymous_bool
   {
@@ -540,7 +554,7 @@
 %    \end{macrocode}
 %
 % \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式设置为 |headings|。
-% 因此必须在 \pkg{ctex} 调用之后重新设置 |\pagestyle| 为 |fancy|。
+% 因此必须在 \pkg{ctex} 调用之后重新设置 \tn{pagestyle} 为 |fancy|。
 %    \begin{macrocode}
 \pagestyle { fancy }
 %    \end{macrocode}
@@ -606,12 +620,12 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}{\@@_set_title:nn}
+% \begin{macro}[do-not-index={\1, \2}]{\@@_set_title:nn}
 % 设置论文标题，并删除其中的 |\\| 和汉字间的空格。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_set_title:nn #1#2
   {
-    \tl_set:cn { l_@@_info_ #1 _tl           } {#2}
+    \tl_set:cn { l_@@_info_ #1 _tl } {#2}
     \tl_set:cn { l_@@_info_ #1 _sanitized_tl } {#2}
     \tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
     \regex_replace_all:nnc
@@ -630,7 +644,7 @@
   {
 %    \end{macrocode}
 %
-% \begin{macro}{info/title,info/title*}
+% \begin{macro}[module=info]{info/title, info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
     title .code:n = { \@@_set_title:nn { title } {#1} },
@@ -638,8 +652,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/degree,info/degree*}
-% 学位类型。中文类型~|info/degree| 分为学术型~|academic|，和专业型~|professional|；英文类型~|info/degree*| 包括文学~|Arts|，理学~|Science|，教育学~|Education|，工学~|Engineering|，法学~|Laws|，医学~|Medicine|，以及其他~|XXX|。
+% \begin{macro}[module=info]{info/degree, info/degree*}
+% 学位类型。中文类型~\key[info]{degree} 分为学术型~\val{academic}，和专业型~\val{professional}；英文类型~\key[info]{degree*} 包括文学~\val{Arts}，理学~\val{Science}，教育学~\val{Education}，工学~\val{Engineering}，法学~\val{Laws}，医学~\val{Medicine}，以及其他~\val{XXX}。
 %    \begin{macrocode}
     degree .choices:nn =
       { academic, professional }
@@ -651,7 +665,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/author,info/author*}
+% \begin{macro}[module=info]{info/author, info/author*}
 % 学位申请人姓名。
   %    \begin{macrocode}
     author .tl_set:N = \l_@@_info_author_tl,
@@ -659,7 +673,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/major,info/major*}
+% \begin{macro}[module=info]{info/major, info/major*}
 % 专业名称。
 %    \begin{macrocode}
     major .tl_set:N = \l_@@_info_major_tl,
@@ -667,7 +681,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/supervisor,info/supervisor*}
+% \begin{macro}[module=info]{info/supervisor, info/supervisor*}
 % 指导老师列表。
 %    \begin{macrocode}
     supervisor .prop_gput:N = \l_@@_info_supervisor_prop,
@@ -675,7 +689,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/date,info/date*}
+% \begin{macro}[module=info]{info/date, info/date*}
 % 论文提交日期。
 %    \begin{macrocode}
     date .clist_set:N = \l_@@_info_date_clist,
@@ -683,14 +697,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/clc}
+% \begin{macro}[module=info]{info/clc}
 % 中图分类号。
 %    \begin{macrocode}
     clc .tl_set:N = \l_@@_info_clc_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/student-id,info/school-id}
+% \begin{macro}[module=info]{info/student-id, info/school-id}
 % 学号和学校代码。
 %    \begin{macrocode}
     student-id .tl_set:N = \l_@@_info_student_id_tl,
@@ -698,7 +712,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/secret}
+% \begin{macro}[module=info]{info/secret}
 % 密级。
 %    \begin{macrocode}
     secret .tl_set:N = \l_@@_info_secret_tl,
@@ -774,7 +788,8 @@
 %
 % \section{用户接口}
 %
-% \begin{macro}{info,style}
+% \begin{macro}[module=info]{info}
+% \begin{macro}[module=style]{style}
 % 定义元（meta）键值对。
 %    \begin{macrocode}
 \keys_define:nn { hust }
@@ -784,8 +799,9 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \end{macro}
 %
-% 文档类初始设置。学校代码默认为 |10487|。
+% 文档类初始设置。学校代码默认为 \val{10487}。
 %    \begin{macrocode}
 \keys_set:nn { hust }
   {
@@ -828,7 +844,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% 常用标点符号，见表~\ref{tab:punctuations}。
+% 常用标点符号，见表~\ref{tab:punctuations}，定义为 |\c_@@_ #1 _tl|。
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
@@ -936,10 +952,16 @@
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-%<def-m>    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~ the~ Requirements~ for~ } { 硕士学位论文 },
-%<def-d>    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~ the~ Requirements~ for~ The~ Degree~ of~ Doctor~ of~ } { 博士学位论文 },
-%<def-m>    { author } { Candidate } { 学位申请人 },
-%<def-d>    { author } { Ph.D.~ Candidate } { 学位申请人 },
+%<*def-m>
+    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+      the~ Requirements~ for~ } { 硕士学位论文 },
+    { author } { Candidate } { 学位申请人 },
+%</def-m>
+%<*def-d>
+    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+      the~ Requirements~ for~ The~ Degree~ of~ Doctor~ of~ } { 博士学位论文 },
+    { author } { Ph.D.~ Candidate } { 学位申请人 },
+%</def-d>
     { major } { Major } { 专业 },
     { supervisor } { Supervisor } { 指导老师 },
   }
@@ -1033,7 +1055,7 @@
 % 页眉。
 %    \begin{macrocode}
 %<def-m>\tl_const:Nn \c_@@_header_tl { 华中科技大学硕士学位论文 }
-%<def-d>\tl_const:Nn \c_@@_header_tl { 华 中 科 技 大 学 博 士 学 位 论 文 }
+%<def-d>\tl_const:Nn \c_@@_header_tl { 华中科技大学博士学位论文 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1078,9 +1100,12 @@
 %    \begin{macrocode}
 %<*doc-sty>
 %<@@=hustdoc>
+\RequirePackage { xcolor-material, zref-base }
 %    \end{macrocode}
 %
-% \begin{macro}{\@@_patch_cmd:Nnn,\@@_preto_cmd:Nn,\@@_appto_cmd:Nn}
+% \subsection{内部函数}
+%
+% \begin{macro}{\@@_patch_cmd:Nnn, \@@_preto_cmd:Nn, \@@_appto_cmd:Nn}
 % 补丁工具。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
@@ -1113,7 +1138,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_typeset_functions:,\@@_macro_init:,
+% \begin{macro}{\@@_typeset_functions:, \@@_macro_init:,
 %   \@@_macro_dump:}
 % 左侧边注的函数列表采用单倍行距。
 %    \begin{macrocode}
@@ -1162,10 +1187,36 @@
 % \end{macro}
 %
 % \subsection{文档层命令}
+%<@@=hustdoc>
 %
-% \begin{macro}{\TeX,\LaTeX,\LaTeXe,
-%   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
-%   \AmSLaTeX,\TeXLive,\MiKTeX,\BibTeX,\biber,\TikZ}
+% \begin{macro}[no-user-doc]{\key}
+% 用于在文档中输出自定义索引的命令，主要用于键值对的键的索引。仅当索引项的父分类为 |option| 时，即用于文档类选项时，隐藏父分类。
+%  \begin{arguments}
+%    \item 在索引中显示项的父分类，默认为 \val{option}。
+%    \item 命令本体。
+%  \end{arguments}
+%    \begin{macrocode}
+\DeclareDocumentCommand \key { O{option} m }
+  {
+    \tl_if_eq:nnTF { #1 } { option }
+      { \cmd[module=#1]{#2} }
+      { \cmd[module=#1]{#1/#2} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[no-user-doc]{\val}
+% 输出键值对的值。
+%    \begin{macrocode}
+\DeclareDocumentCommand \val { m }
+  { \texttt{#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\TeX, \LaTeX, \LaTeXe,
+%   \pdfTeX, \pdfLaTeX, \XeTeX, \XeLaTeX, \LuaTeX, \LuaLaTeX,
+%   \AmSLaTeX, \TeXLive, \MiKTeX, \BibTeX, \biber, \TikZ
+% }
 % \TeX{} 相关标志。
 %    \begin{macrocode}
 \def\TeX{\hologo{TeX}}
@@ -1186,6 +1237,759 @@
 % 该定义来自 \file{pgfmanual-en-macros.tex}。
 %    \begin{macrocode}
 \def\TikZ{Ti\emph{k}Z}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{\env{macrocode}环境}
+% \paragraph{代码行处理}
+%
+% \begin{macro}[int]{\xmacro@code,\sxmacro@code}
+% 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，将对代码逐行
+% 处理。后者会将空格显示为“\verb*| |”。
+%    \begin{macrocode}
+\cs_set_protected_nopar:Npn \xmacro@code
+  { \@@_marco_code:w }
+\cs_set_protected_nopar:Npn \sxmacro@code
+  {
+    \fontspec_print_visible_spaces:
+    \xmacro@code
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_marco_code:w}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_marco_code:w
+  {
+%    \end{macrocode}
+% 根据 \tn{codeline@index} 是否为 |true| 选择是否显示行号。
+%    \begin{macrocode}
+    \ifcodeline@index
+      \@@_marco_code_every_par:n { \@@_code_line_no: }
+    \else:
+      \@@_marco_code_every_par:n { }
+    \fi:
+%    \end{macrocode}
+% 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
+%    \begin{macrocode}
+    \@@_make_finish_tag:x { \@currenvir }
+%    \end{macrocode}
+% 开始 \env{macrocode}。
+%    \begin{macrocode}
+    \@@_macro_code_start:w
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_marco_code_every_par:n}
+% 在每段之前插入内容。这里每段即相当于每行。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_marco_code_every_par:n #1
+  {
+    \everypar
+      {
+        \everypar {#1}
+        \if@inlabel
+          \global \@inlabelfalse \@noparlistfalse
+          \llap { \box \@labels \hskip \leftskip }
+        \fi
+        #1
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置 \tn{endlinechar} 为 $-1$，表示行末不插入任何字符（实际上相当于在行尾
+% 插入注释符 |%|）。
+%    \begin{macrocode}
+\group_begin:
+  \int_set:Nn \tex_endlinechar:D { -1 }
+%    \end{macrocode}
+%
+% \begin{variable}{\c_@@_active_space_tl}
+% 活动字符类的空格（ASCII 码为 32）。
+%    \begin{macrocode}
+  \use:n
+    {
+      \char_set_catcode_active:n { 32 }
+      \tl_const:Nn \c_@@_active_space_tl
+    }
+    { }
+\group_end:
+%    \end{macrocode}
+% \end{variable}
+%
+% ASCII 码 13 是回车符 |^^M|。将其设置为活动字符。
+%    \begin{macrocode}
+\group_begin:
+  \char_set_catcode_active:n { 13 }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_make_finish_tag:n,\@@_make_finish_tag:x}
+% \env{macrocode} 结尾标记。展开后变成“\verb*|%    \end{#1}^^M|”。
+%    \begin{macrocode}
+  \cs_new_protected:Npx \@@_make_finish_tag:n #1
+    {
+      \tl_set:Nn \exp_not:N \l_@@_macro_code_finish_tl
+        {
+          \c_percent_str
+          \prg_replicate:nn { 4 }
+            { \exp_not:o { \c_@@_active_space_tl } }
+          \exp_not:o { \active@escape@char } end
+          \c_left_brace_str #1 \c_right_brace_str
+          \exp_not:N ^^M
+        }
+    }
+  \cs_generate_variant:Nn \@@_make_finish_tag:n { x }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_macro_code_start:w}
+% 开始代码环境。此命令主要是为了防止 |\begin{macrocode}| 后出现多余的空行。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_macro_code_start:w #1
+    {
+      \str_if_eq:nnTF {#1} { ^^M }
+        { \@@_macro_code_read_line:w }
+        { \@@_macro_code_read_line:w #1 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_macro_code_read_line:w}
+% 逐行读取代码，并连同行尾回车符一并存入 \cs{l_@@_macro_code_line_tl}。如果该行
+% 与结束标记“\verb*|%    \end{macrocode}^^M|”相同，则结束此 \env{macrocode}；
+% 否则继续处理该行代码。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_macro_code_read_line:w #1 ^^M
+    {
+      \tl_set:Nn \l_@@_macro_code_line_tl { #1 ^^M }
+      \tl_if_eq:NNTF
+        \l_@@_macro_code_line_tl \l_@@_macro_code_finish_tl
+        { \exp_args:Nx \end { \@currenvir } }
+        {
+          \@@_macro_code_process_line:
+          \@@_macro_code_read_line:w
+        }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_swap_cr:,\@@_swap_cr_aux:w}
+% 把 \cs{l_@@_macro_code_line_tl} 中的回车符 |^^M| 挪到外面。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_swap_cr:
+    {
+      \exp_after:wN
+        \@@_swap_cr_aux:w \l_@@_macro_code_line_tl
+    }
+  \cs_new_protected:Npn \@@_swap_cr_aux:w #1 ^^M
+    {
+      \group_insert_after:N ^^M
+      \tl_set:Nn \l_@@_macro_code_line_tl {#1}
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_active_cr_tl}
+% 活动字符类的回车符。
+%    \begin{macrocode}
+  \tl_const:Nn \c_@@_active_cr_tl { ^^M }
+\group_end:
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_macro_code_line_tl,
+%   \l_@@_macro_code_finish_tl,
+%   \g_@@_macro_code_verbatim_stop_tl}
+% 分别用来存储代码行、\env{macrocode} 结束标记以及抄录停止标记。
+%    \begin{macrocode}
+\tl_new:N \l_@@_macro_code_line_tl
+\tl_new:N \l_@@_macro_code_finish_tl
+\tl_new:N \g_@@_macro_code_verbatim_stop_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_process_normal_line:}
+% 普通代码行根据开头字符分别处理。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_process_normal_line:
+  {
+    \str_case_e:nnF
+      { \str_head:N \l_@@_macro_code_line_tl }
+      {
+%    \end{macrocode}
+% 以 |%| 开头的行先由 \cs{tl_tail:N} 去掉 |%|，之后再检查 |<|。
+%    \begin{macrocode}
+        { \c_percent_str }
+        {
+          \@@_check_angle:x
+            { \tl_tail:N \l_@@_macro_code_line_tl }
+        }
+%    \end{macrocode}
+% 以 |#| 开头的行按注释的格式输出。
+%    \begin{macrocode}
+        { \c_hash_str }
+        { \@@_output_comment_line: }
+      }
+%    \end{macrocode}
+% 其余正常输出。
+%    \begin{macrocode}
+      { \@@_output_line: }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_process_verbatim_line:}
+% 处理抄录代码行（不检查 |%| 与 |<|）。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_process_verbatim_line:
+  {
+%    \end{macrocode}
+% 将该行与抄录停止标记进行比较。
+%    \begin{macrocode}
+    \tl_if_eq:NNTF \l_@@_macro_code_line_tl
+        \g_@@_macro_code_verbatim_stop_tl
+%    \end{macrocode}
+% 若相同，则结束抄录环境，清空抄录停止标记，并输出该标记；
+%    \begin{macrocode}
+      {
+        \tl_gclear:N \g_@@_macro_code_verbatim_stop_tl
+        \cs_gset_eq:NN \@@_macro_code_process_line:
+          \@@_process_normal_line:
+        \@@_output_module:nn
+          { \color { verb@guard } }
+          {
+            \@@_swap_cr:
+            \@@_module_pop:n { \l_@@_macro_code_line_tl }
+          }
+      }
+%    \end{macrocode}
+% 否则直接输出抄录代码。
+%    \begin{macrocode}
+      { \tl_use:N \l_@@_macro_code_line_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_macro_code_process_line:}
+% 处理代码行。该命令的作用如下：
+% \begin{itemize}
+%   \item 正常情况下，等同于 \cs{@@_process_normal_line:}；
+%   \item 在 \cs{DontCheckModules} 之后，等价于 \cs{@@_output_line:}，
+%     即不检查模块标记，直接输出；
+%   \item 在抄录环境中，等价于 \cs{@@_process_verbatim_line:}，
+%     此时将不再特殊处理以 |%| 开头的代码行。
+% \end{itemize}
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_macro_code_process_line:
+  \@@_process_normal_line:
+%    \end{macrocode}
+% \end{macro}
+%
+% \paragraph{模块标记处理}
+%
+% \begin{macro}[int]{\CheckModules, \DontCheckModules}
+% 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，此处重新声明。
+%    \begin{macrocode}
+\DeclareDocumentCommand \CheckModules { }
+  {
+    \cs_set_eq:NN \@@_macro_code_process_line:
+      \@@_process_normal_line:
+  }
+\DeclareDocumentCommand \DontCheckModules { }
+  {
+    \cs_set_eq:NN \@@_macro_code_process_line:
+      \@@_output_line:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_check_angle:n,\@@_check_angle:x}
+% 检查第一个字符是否是 |<|。若是，则检查模块；否则立刻输出改行。
+% 该函数的参数不带 |%|。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_angle:n #1
+  {
+    \str_if_eq:eeTF { \str_head:n {#1} } { < }
+      { \@@_check_module:x { \tl_tail:n {#1} } }
+      { \@@_output_comment_line: }
+  }
+\cs_generate_variant:Nn \@@_check_angle:n { x }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_check_module:n,\@@_check_module:x}
+% 检查紧跟 |<| 之后的字符。共有四种情况：
+% \begin{itemize}
+%   \item |*|：模块开始（|%<*|\meta{module}|>|）；
+%   \item |/|：模块结束（|%</|\meta{module}|>|）；
+%   \item |@|：名字空间（|%<@@=|\meta{namespace}|>|）；
+%   \item |<|：抄录环境开始（|%<<|\meta{end-tag}）。
+% \end{itemize}
+% 若不是这几种情况，则为单独一行的独立模块（|%<|\meta{module}|>|）。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_module:n #1
+  {
+    \str_case_e:nnF { \str_head:n {#1} }
+      {
+        { * } { \@@_module_star:w }
+        { / } { \@@_module_slash:w }
+        { @ } { \@@_module_at:w }
+        { < } { \@@_module_verb:w }
+      }
+      { \@@_module_pm:w }
+%    \end{macrocode}
+% 参数 |#1| 将被上面几个 |:w| 型函数吃掉。
+%    \begin{macrocode}
+    #1 \q_stop
+  }
+\cs_generate_variant:Nn \@@_check_module:n { x }
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置 |>| 为活动字符。
+%    \begin{macrocode}
+\group_begin:
+  \char_set_catcode_active:N \>
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_module_star:w}
+% 模块开始标记。
+% \begin{arguments}
+%   \item |*|\meta{module}
+%   \item 之后的代码
+% \end{arguments}
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
+    {
+%    \end{macrocode}
+% 临时变量 \cs{l_@@_tmpa_tl} 保存 |<*|\meta{module}|>| 之后的部分，即真实代码。
+%    \begin{macrocode}
+      \tl_set:Nn \l_@@_tmpa_tl {#2}
+%    \end{macrocode}
+% 判断该行是否为空（只含一个回车符 |^^M|）。
+%    \begin{macrocode}
+      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+%    \end{macrocode}
+% 若是，则将 |<|\meta{module}|>| 放在行号的右侧；
+%    \begin{macrocode}
+        {
+          \@@_output_module:nn
+            { \@@_star_color: }
+            {
+              \@@_module_push:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+%    \end{macrocode}
+% 否则放在左侧，并输出相应代码。
+%    \begin{macrocode}
+        {
+          \@@_output_module_left:nn
+            { \@@_star_color: }
+            {
+              \@@_module_push:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+      \@@_output_line:n {#2}
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_slash:w}
+% 模块结束标记。结构与 \cs{@@_module_star:w} 相同。
+% \begin{arguments}
+%   \item |/|\meta{module}
+%   \item 之后的代码
+% \end{arguments}
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
+    {
+      \tl_set:Nn \l_@@_tmpa_tl {#2}
+      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+        {
+          \@@_output_module:nn
+            { \@@_slash_color: }
+            {
+              \@@_module_pop:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+        {
+          \@@_output_module_left:nn
+            { \@@_slash_color: }
+            {
+              \@@_module_pop:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+      \@@_output_line:n {#2}
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_at:w}
+% 名字空间。
+% \begin{arguments}
+%   \item 名字空间的名称（不含 |@@=|）
+%   \item 之后的代码
+% \end{arguments}
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
+    {
+      \@@_output_module:nn
+        { \color { at@guard } }
+        { \@@_module_angle:n { @ @ = #1 } }
+%    \end{macrocode}
+% 设置名字空间为 |#1|。\cls{l3doc} 中将名字空间称为“模块”（module），
+% 注意不要混淆。
+%    \begin{macrocode}
+      \tl_gset:Nn \g__codedoc_module_name_tl {#1}
+      \@@_output_line:n {#2}
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_verb:w}
+% 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。\meta{end-tag} 的最后会
+% 带有一个回车符 |^^M|。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
+    {
+%    \end{macrocode}
+% 重定义 \cs{@@_macro_code_process_line:}，用以输出抄录行。
+%    \begin{macrocode}
+      \cs_gset_eq:NN \@@_macro_code_process_line:
+        \@@_process_verbatim_line:
+%    \end{macrocode}
+% 设置抄录停止标记。用 \cs{tl_tail:n} 去掉开头的 |<|。
+%    \begin{macrocode}
+      \tl_gset:Nx \g_@@_macro_code_verbatim_stop_tl
+        { \c_percent_str \tl_tail:n {#1} }
+%    \end{macrocode}
+% 输出 |%<<|\meta{end-tag}。
+%    \begin{macrocode}
+      \@@_output_module:nn
+        { \color { verb@guard } }
+        {
+          \@@_swap_cr:
+          \@@_module_push:n { \l_@@_macro_code_line_tl }
+        }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_pm:w}
+% 处理单独一行的模块。|<|\meta{module}|>| 放在行号的左侧。
+% \begin{arguments}
+%   \item \meta{module}
+%   \item 之后的代码
+% \end{arguments}
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
+    {
+      \@@_output_module_left:nn
+        { \@@_pm_color: }
+        { \@@_module_angle:n {#1} }
+      \@@_output_line:n {#2}
+    }
+\group_end:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_output_line:n,\@@_output_line:}
+% 输出代码行。参数将被存入 \cs{l_@@_macro_code_line_tl}，
+% 再由不带参数的版本调用。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_output_line:n #1
+  {
+    \tl_set:Nn \l_@@_macro_code_line_tl {#1}
+%    \end{macrocode}
+% 若为空行（只含一个 |^^M|），则直接输出（换行）。
+%    \begin{macrocode}
+    \tl_if_eq:NNTF
+      \l_@@_macro_code_line_tl \c_@@_active_cr_tl
+      { \tl_use:N \l_@@_macro_code_line_tl }
+      {
+%    \end{macrocode}
+% 检查开头是否为 |%|，据此分别处理。
+%    \begin{macrocode}
+        \str_if_eq:eeTF
+          { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
+          { \@@_output_comment_line: } { \@@_output_line: }
+      }
+  }
+\cs_new_protected_nopar:Npn \@@_output_line:
+  {
+    \tex_noindent:D
+%    \end{macrocode}
+% 此处将把 |@@| 替换为相应的名字空间。
+%    \begin{macrocode}
+    \@@_replace_at_at:N \l_@@_macro_code_line_tl
+    \tl_use:N \l_@@_macro_code_line_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_output_comment_line:}
+% 输出注释代码行。用灰色、斜体显示。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_output_comment_line:
+  {
+    \tex_noindent:D
+    \group_begin:
+      \__hustdoc_swap_cr:
+      \color { code@gray } \slshape \@@_output_line:
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_replace_at_at:N,
+%   \@@_replace_at_at_aux:Nn,\@@_replace_at_at_aux:No}
+% 把 |@@| 替换为相应的名字空间。其名称存放在全局变量
+% \cs{g__codedoc_module_name_tl} 中。它为空时（|%<@@=>|），不做替换。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_replace_at_at:N #1
+  {
+    \tl_if_empty:NF \g__codedoc_module_name_tl
+      { \@@_replace_at_at_aux:No #1 \g__codedoc_module_name_tl }
+  }
+\cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
+  {
+%    \end{macrocode}
+% 以下代码分别对应两种名字空间的替换：
+% \begin{itemize}
+%   \item 内部变量：|\|\meta{type}|_@@_|\meta{name} $\to$
+%     |\|\meta{type}|__|\meta{namespace}|_|\meta{name}；
+%   \item 内部函数：|\@@_|\meta{name}” $\to$
+%     |\__|\meta{namespace}|_|\meta{name}”）。
+% \end{itemize}
+%    \begin{macrocode}
+    \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
+    \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
+  }
+\cs_generate_variant:Nn \@@_replace_at_at_aux:Nn { No }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_push:n,
+%   \@@_module_push_aux:nn,\@@_module_push_aux:on}
+% 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）之间的超链接。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_module_push:n
+  { \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
+\cs_new_protected:Npn \@@_module_push_aux:nn #1
+  {
+    \seq_gpush:Nn \g_@@_module_dest_seq {#1}
+    \hypersetup { hidelinks }
+    \exp_args:Nx \hdclindex
+      { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
+  }
+\cs_generate_variant:Nn \@@_module_push_aux:nn { on }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_pop:n,
+%   \@@_module_pop_aux:nn,\@@_module_pop_aux:on}
+% 将模块名释放出栈。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_module_pop:n
+  {
+    \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
+      { \@@_module_pop_aux:on { \l_@@_tmpa_tl } }
+      { \BOOM \use:n }
+  }
+\cs_new_protected:Npn \@@_module_pop_aux:nn #1
+  {
+    \zref@labelbylist { HD.#1 } { hustdoc }
+    \hypersetup { hidelinks }
+    \hdclindex {#1} { }
+  }
+\cs_generate_variant:Nn \@@_module_pop_aux:nn { on }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_module_dest_seq}
+% 存放模块名的序列（栈）。
+%    \begin{macrocode}
+\seq_new:N \g_@@_module_dest_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% 处理行号超链接。使用 \pkg{zref} 宏包。
+%    \begin{macrocode}
+\zref@newlist { hustdoc }
+\zref@newprop { guard@end } [ 1 ]
+  { \int_eval:n { \c@HD@hypercount - 1 } }
+\zref@addprop { hustdoc } { guard@end }
+%    \end{macrocode}
+%
+% \paragraph{格式处理}
+%
+% \begin{macro}[int]{\MacroFont}
+% 代码部分的字体。
+%    \begin{macrocode}
+\cs_set_protected:Npn \MacroFont
+  {
+    \linespread { 1.05 }
+    \small \ttfamily \mdseries \upshape
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_output_module:nn,\@@_output_module_left:nn}
+% 输出模块名（分行内和行号左侧两种）。
+% \begin{arguments}
+%   \item 颜色等样式
+%   \item 模块名
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_output_module:nn #1#2
+  {
+    \tex_noindent:D
+    \group_begin:
+      #1
+      \footnotesize \normalfont \sffamily #2
+    \group_end:
+  }
+\cs_new_protected:Npn \@@_output_module_left:nn #1#2
+  {
+    \tex_noindent:D
+    \hbox_overlap_left:n
+      {
+        \@@_output_module:nn {#1} {#2}
+        \skip_horizontal:n { \leftskip + \smallskipamount }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_star_color:,\@@_slash_color:,\@@_pm_color:}
+% 选择模块标记的颜色。模块标记的颜色会根据嵌套层次而改变。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_star_color:
+  {
+    \seq_gpop:NNTF \g_@@_star_color_seq \current@color
+      { \set@color }
+      { \@@_select_color: }
+    \seq_gpush:No \g_@@_slash_color_seq { \current@color }
+  }
+\cs_new_protected_nopar:Npn \@@_slash_color:
+  {
+    \seq_gpop:NNTF \g_@@_slash_color_seq \current@color
+      {
+        \set@color
+        \seq_gpush:No \g_@@_star_color_seq { \current@color }
+      }
+% TODO: 需要报错：star 与 slash 没有匹配
+      { \BOOM }
+  }
+\cs_new_protected_nopar:Npn \@@_pm_color:
+  {
+    \seq_get:NNTF \g_@@_star_color_seq \current@color
+      { \set@color }
+      {
+        \@@_select_color:
+        \seq_gpush:No \g_@@_star_color_seq { \current@color }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_star_color_seq,\g_@@_slash_color_seq}
+% 存放模块标记颜色的序列。
+%    \begin{macrocode}
+\seq_new:N \g_@@_star_color_seq
+\seq_new:N \g_@@_slash_color_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_select_color:}
+% \begin{macro}[int]{guard@series}
+% 设置模块标记的色系。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_select_color:
+  { \color { guard@series!!+ } }
+\definecolorseries { guard@series }
+  { cmyk } { last } { blue } { purple }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% 设置色系的增量大小。可选参数 |3| 意味着基色（blue）与末色（purple）之间将被
+% 等分为三份。该数字比嵌套最大深度小 1。
+%    \begin{macrocode}
+\resetcolorseries [ 3 ] { guard@series }
+%    \end{macrocode}
+%
+% \begin{macro}[int]{verb@guard,at@guard,code@gray}
+% 设置颜色。
+%    \begin{macrocode}
+\definecolor { verb@guard } { named } { MaterialLime600 }
+\definecolor { at@guard   } { named } { MaterialPink    }
+\definecolor { code@gray  } { named } { MaterialGrey    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_module_angle:n}
+% 输出“$\langle\cdots\rangle$”。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_module_angle:n #1
+  { < #1 > }
+%   { \textlangle #1 \textrangle }
+%   { \ensuremath \langle #1 \ensuremath \rangle }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_code_line_no:}
+% 行号。设置为阿拉伯数字。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_code_line_no:
+  {
+    \int_gincr:N \c@CodelineNo
+    \hbox_overlap_left:n
+      {
+        \hbox_to_wd:nn
+          { \MacroIndent }
+          {
+            \HD@target
+            \tex_hss:D \@@_code_line_no_style:
+            \theCodelineNo \enspace
+          }
+        \tex_kern:D \@totalleftmargin
+      }
+  }
+\tl_set:Nn \theCodelineNo { \arabic { CodelineNo } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_code_line_no_style:}
+% 行号格式。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_code_line_no_style:
+  { \color { code@gray } \normalfont \sffamily \tiny }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\HD@SetMacroIndent}
+% 设置代码缩进（行号一栏的宽度）。该命令会写进 |.aux| 辅助文件，
+% 以便在二次编译时确定最大行号宽度。
+%    \begin{macrocode}
+\cs_set_protected:Npn \HD@SetMacroIndent #1
+  {
+    \group_begin:
+      \settowidth \MacroIndent
+        {
+          \@@_code_line_no_style:
+          \prg_replicate:nn { \tl_count:n {#1} } { 0 }
+          \enspace
+        }
+      \dim_gset_eq:NN \MacroIndent \MacroIndent
+    \group_end:
+  }
 %    \end{macrocode}
 % \end{macro}
 %
