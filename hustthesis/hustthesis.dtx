@@ -87,7 +87,10 @@
 %<*driver>
 \documentclass{\jobname}
 \usepackage{useclass}
+% Protect \maketitile from the redefinition in \cls{article} in \cls{l3doc}.
+\let\maketitleold=\maketitle
 \useclass*[full]{l3doc}
+\let\maketitle=\maketitleold
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
 \usepackage[backend=biber,style=hustthesis]{biblatex} % temporary
@@ -113,6 +116,7 @@
 %</driver>
 % \fi
 %
+% \changes{v2.0}{2024/10/01}{应用 \LaTeX3 重构代码。}
 % \title{The \clsname.cls Class}
 % \author
 %   {
@@ -127,7 +131,6 @@
 %     >
 %   }
 % \date{[LATEST] \quad Version [DEV]} ^^A [L3BUILD_REPLACED_MARK]
-%
 %
 % \maketitle
 %
@@ -333,7 +336,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}[module=option]{type}
-% 论文类型。目前分为硕士学位论文~\val{master} 和博士学位论文~\val{doctor}，默认为博士学位论文。
+% 论文类型。目前分为硕士学位论文~\opt{master} 和博士学位论文~\opt{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
     type .choices:nn =
       { master, doctor }
@@ -344,7 +347,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=option]{draft}
-% 是否启用草稿模式。默认为 \val{false}。
+% 是否启用草稿模式。默认为 \opt{false}。
 %    \begin{macrocode}
     draft .choice:,
     draft / true .code:n =
@@ -362,7 +365,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=option]{anonymous}
-% 是否启用盲审模式。默认为 \val{false}，即显示作者信息。\key[option]{anonymous}
+% 是否启用盲审模式。默认为 \opt{false}，即显示作者信息。\key[option]{anonymous}
 %    \begin{macrocode}
     anonymous .choice:,
     anonymous / true .code:n =
@@ -470,6 +473,7 @@
     amsmath,
     geometry,
     fancyhdr,
+    titletoc,
     graphicx,
     longtable,
     caption,
@@ -562,7 +566,7 @@
 %
 % \section{封面样式}
 %
-% \subsection{中文封面}
+% \subsection{信息录入}
 %
 % \begin{variable}{
 %   \l_@@_info_title_tl,
@@ -591,7 +595,6 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \subsection{英文封面}
 % \begin{variable}{
 %   \l_@@_info_title_en_tl,
 %   \l_@@_info_author_en_tl,
@@ -600,6 +603,7 @@
 %   \l_@@_info_date_en_clist,
 %   \l_@@_info_degree_en_tl,
 % }
+% 声明英文封面信息。
 %    \begin{macrocode}
 \tl_new:N \l_@@_info_title_en_tl
 \tl_new:N \l_@@_info_author_en_tl
@@ -609,8 +613,6 @@
 \tl_new:N \l_@@_info_degree_en_tl
 %    \end{macrocode}
 % \end{variable}
-%
-% \subsection{信息录入}
 %
 % \begin{variable}{\l_@@_info_title_sanitized_tl,\l_@@_info_title_en_sanitized_tl}
 % 处理后的论文标题。
@@ -653,7 +655,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=info]{info/degree, info/degree*}
-% 学位类型。中文类型~\key[info]{degree} 分为学术型~\val{academic}，和专业型~\val{professional}；英文类型~\key[info]{degree*} 包括文学~\val{Arts}，理学~\val{Science}，教育学~\val{Education}，工学~\val{Engineering}，法学~\val{Laws}，医学~\val{Medicine}，以及其他~\val{XXX}。
+% 学位类型。中文类型~\key[info]{degree} 分为学术型~\opt{academic}，和专业型~\opt{professional}；英文类型~\key[info]{degree*} 包括文学~\opt{Arts}，理学~\opt{Science}，教育学~\opt{Education}，工学~\opt{Engineering}，法学~\opt{Laws}，医学~\opt{Medicine}，以及其他~\opt{XXX}。
 %    \begin{macrocode}
     degree .choices:nn =
       { academic, professional }
@@ -722,6 +724,289 @@
 %    \begin{macrocode}
   }
 %    \end{macrocode}
+%
+% \subsubsection{定义内部函数}
+%
+% \begin{macro}{\@@_spread_box:nn, \@@_spread_box:no}
+% 分散对齐的水平盒子。
+% \begin{arguments}
+%   \item 宽度
+%   \item 内容
+% \end{arguments}
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的 \tn{unskip}
+% 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_spread_box:nn #1#2
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1} { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
+  }
+\cs_generate_variant:Nn \@@_spread_box:nn { no }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_center_box:nn, \@@_center_box:Vn}
+% 居中对齐的水平盒子。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_center_box:nn #1#2
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1} { \hfil #2 \hfil }
+  }
+\cs_generate_variant:Nn \@@_center_box:nn { Vn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fixed_width_box:nn}
+% 限宽盒子（允许换行）。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fixed_width_box:nn #1#2
+  { \parbox {#1} {#2} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fixed_width_center_box:nn}
+% 居中对齐的限宽盒子（允许换行）。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fixed_width_center_box:nn #1#2
+  { \parbox {#1} { \centering #2 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_text_width:Nn, \@@_get_text_width:NV}
+% 获取文本宽度，并存入 |dim| 型变量。
+% \begin{arguments}
+%   \item |dim| 型变量
+%   \item 内容
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_text_width:Nn #1#2
+  {
+    \hbox_set:Nn \l_@@_tmpa_box {#2}
+    \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
+  }
+\cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_blank_underline:n}
+% 下划线占位符。|#1|: 长度。
+%    \begin{macrocode}
+\cs_new:Npn \@@_blank_underline:n #1
+  { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{封面各部件}
+%
+% \begin{macro}{\@@_cover_logo:}
+% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
+% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_logo:
+  {
+    \includegraphics[scale=1.1]{hust-title.pdf}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{封面模板}
+%
+% 声明封面对象。不需要带参数。
+%    \begin{macrocode}
+\DeclareObjectType { hust / cover } { \c_zero_int }
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\@@_declare_template:nn}
+% 声明封面模板。
+% \begin{arguments}
+%   \item 模板名称
+%   \item 封面部件列表，以逗号分隔
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_declare_template:nn #1#2
+  {
+    \tl_set:Nn \l_@@_template_tl {#1}
+%    \end{macrocode}
+% 构建模板接口。
+%    \begin{macrocode}
+    \@@_declare_template_interface:nx {#1}
+      {
+        format : tokenlist,
+        top-skip : skip,
+        bottom-skip : skip,
+        \clist_map_function:nN {#2} \@@_key_type:n
+      }
+%    \end{macrocode}
+% 声明所用变量。
+%    \begin{macrocode}
+    \tl_new:c { l_@@ / #1 / format_tl }
+    \skip_new:c { l_@@ / #1 / top_skip }
+    \skip_new:c { l_@@ / #1 / bottom_skip }
+    \clist_map_inline:nn {#2}
+      {
+        \tl_new:c { l_@@ / #1 / ##1 / content_tl }
+        \tl_new:c { l_@@ / #1 / ##1 / format_tl }
+        \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
+      }
+%    \end{macrocode}
+% 声明模板代码。
+%    \begin{macrocode}
+    \@@_declare_template_code:nxn {#1}
+      {
+        format = \exp_not:c { l_@@ / #1 / format_tl },
+        top-skip = \use:c { l_@@ / #1 / top_skip },
+        bottom-skip = \use:c { l_@@ / #1 / bottom_skip },
+        \clist_map_function:nN {#2} \@@_key_binding:n
+      }
+      {
+        \AssignTemplateKeys
+        \tl_use:c { l_@@ / #1 / format_tl }
+        \@@_vspace:c { l_@@ / #1 / top_skip }
+        \clist_map_inline:nn {#2}
+          {
+            \use:c { @@ / #1 / ####1 / align:n }
+              {
+                \tl_use:c { l_@@ / #1 / ####1 / format_tl }
+                \tl_use:c { l_@@ / #1 / ####1 / content_tl }
+                \tex_par:D
+              }
+            \@@_vspace:c { l_@@ / #1 / ####1 / bottom_skip }
+          }
+        \@@_vspace:c { l_@@ / #1 / bottom_skip }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_template_tl}
+% 保存模板名称。
+%    \begin{macrocode}
+\tl_new:N \l_@@_template_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{
+%   \@@_declare_template_interface:nn,
+%   \@@_declare_template_code:nnn,
+%   \@@_declare_template_interface:nx,
+%   \@@_declare_template_code:nxn
+% }
+% 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
+  { \DeclareTemplateInterface { hust / cover } {#1} { \c_zero_int } {#2} }
+\cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
+  { \DeclareTemplateCode { hust / cover } {#1} { \c_zero_int } {#2} {#3} }
+\cs_generate_variant:Nn \@@_declare_template_interface:nn { nx }
+\cs_generate_variant:Nn \@@_declare_template_code:nnn { nxn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_key_type:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_key_type:n #1
+  {
+    #1 / content : tokenlist,
+    #1 / format : tokenlist,
+    #1 / bottom-skip : skip,
+    #1 / align : choice { left, right, center, normal } = normal,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_key_binding:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_key_binding:n #1
+  {
+    #1 / content =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / content_tl },
+    #1 / format =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / format_tl },
+    #1 / bottom-skip =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
+    #1 / align =
+      {
+        left =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushleft ##1 \endflushleft
+                  \group_end:
+                }
+            },
+        right =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushright ##1 \endflushright
+                  \group_end:
+                }
+            },
+        center =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \center ##1 \endcenter
+                  \group_end:
+                }
+            },
+        normal =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            { \exp_not:n { \group_begin: ##1 \group_end: } }
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{绘制封面}
+%
+%    \begin{macrocode}
+\DeclareDocumentCommand \maketitle { }
+  {
+    \makecoveri
+  }
+%    \end{macrocode}
+%
+% \subsubsection{中文封面（封一）}
+%
+% \begin{macro}{\makecoveri}
+% 用户接口。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoveri { }
+  {
+    \thispagestyle { empty }
+    \tl_set:Nn \thepage { A }
+    \UseInstance { hust / cover } { cover-i-default }
+  }
+\@@_declare_template:nn { cover-i }
+  { logo }
+\DeclareInstance { hust / cover } { cover-i-default } { cover-i }
+  {
+    logo / content =\@@_cover_logo:,
+    logo / align = center,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
 %
 % \section{扉页样式}
 %
@@ -801,7 +1086,7 @@
 % \end{macro}
 % \end{macro}
 %
-% 文档类初始设置。学校代码默认为 \val{10487}。
+% 文档类初始设置。学校代码默认为 \opt{10487}。
 %    \begin{macrocode}
 \keys_set:nn { hust }
   {
@@ -840,7 +1125,8 @@
 % 学校名称。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_name_school_zh_tl { 华中科技大学 }
-\tl_const:Nn \c_@@_name_school_en_tl { Huazhong~ University~ of~ Science~ and~ Technology }
+\tl_const:Nn \c_@@_name_school_en_tl { Huazhong~ University~ of~ Science~
+  and~ Technology }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1192,7 +1478,7 @@
 % \begin{macro}[no-user-doc]{\key}
 % 用于在文档中输出自定义索引的命令，主要用于键值对的键的索引。仅当索引项的父分类为 |option| 时，即用于文档类选项时，隐藏父分类。
 %  \begin{arguments}
-%    \item 在索引中显示项的父分类，默认为 \val{option}。
+%    \item 在索引中显示项的父分类，默认为 \opt{option}。
 %    \item 命令本体。
 %  \end{arguments}
 %    \begin{macrocode}
@@ -1205,10 +1491,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[no-user-doc]{\val}
+% \begin{macro}[no-user-doc]{\opt}
 % 输出键值对的值。
 %    \begin{macrocode}
-\DeclareDocumentCommand \val { m }
+\DeclareDocumentCommand \opt { m }
   { \texttt{#1} }
 %    \end{macrocode}
 % \end{macro}
@@ -1241,7 +1527,8 @@
 % \end{macro}
 %
 % \subsection{\env{macrocode}环境}
-% \paragraph{代码行处理}
+%
+% \subsubsection{代码行处理}
 %
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
 % 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，将对代码逐行
@@ -1487,7 +1774,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \paragraph{模块标记处理}
+% \subsubsection{模块标记处理}
 %
 % \begin{macro}[int]{\CheckModules, \DontCheckModules}
 % 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，此处重新声明。
@@ -1769,7 +2056,7 @@
 % \end{itemize}
 %    \begin{macrocode}
     \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
-    \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
+    \tl_replace_all:Nnn #1 { @ @ } { _ _ #2 }
   }
 \cs_generate_variant:Nn \@@_replace_at_at_aux:Nn { No }
 %    \end{macrocode}
@@ -1827,7 +2114,7 @@
 \zref@addprop { hustdoc } { guard@end }
 %    \end{macrocode}
 %
-% \paragraph{格式处理}
+% \subsubsection{格式处理}
 %
 % \begin{macro}[int]{\MacroFont}
 % 代码部分的字体。
@@ -1929,8 +2216,8 @@
 % 设置颜色。
 %    \begin{macrocode}
 \definecolor { verb@guard } { named } { MaterialLime600 }
-\definecolor { at@guard   } { named } { MaterialPink    }
-\definecolor { code@gray  } { named } { MaterialGrey    }
+\definecolor { at@guard } { named } { MaterialPink }
+\definecolor { code@gray } { named } { MaterialGrey }
 %    \end{macrocode}
 % \end{macro}
 %
