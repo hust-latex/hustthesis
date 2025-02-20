@@ -72,7 +72,7 @@
 \fi
 %</internal>
 
-%<class|doc-sty|def-m|def-d|cbx|bbx>\NeedsTeXFormat{LaTeX2e}
+%<class>\NeedsTeXFormat{LaTeX2e}[2024-11-01]
 %<class>\ProvidesExplClass{hustthesis}
 %<doc-sty>\ProvidesExplClass{hustthesis-doc}
 %<def-m>\ProvidesExplFile{hustthesis-m.def}
@@ -95,11 +95,21 @@
 \usepackage{mdframed}
 \usepackage[backend=biber,style=hustthesis]{biblatex} % temporary
 \begin{filecontents}[overwrite]{\jobname.bib}
-@online{zeng2024fduthesis,
-  title = {复旦大学论文模板},
+@online{zeng2023fduthesis,
+  title = {\cls{fduthesis}: 复旦大学论文模板},
   author = {曾, 祥东},
-  year = {2017},
-  month = feb,
+  year = {2023},
+  month = {may},
+  day = {27},
+  url = {https://github.com/stone-zeng/fduthesis},
+}
+
+@online{sjtug2024SJTUTeX,
+  title = {\cls{SJTU\TeX}: 上海交通大学文档类集},
+  author = {SJTUG},
+  year = {2024},
+  month = {feb},
+  day = {18},
   url = {https://github.com/stone-zeng/fduthesis},
 }
 \end{filecontents}
@@ -116,7 +126,8 @@
 %</driver>
 % \fi
 %
-% \changes{v2.0}{2024/10/01}{应用 \LaTeX3 重构代码}
+% \changes{v2.0}{2024/10/01}{使用\cls{useclass}在文档类手册中应用自身}
+%
 % \title{The \clsname.cls Class}
 % \author
 %   {
@@ -140,7 +151,7 @@
 %
 % \chapter{引言}
 %
-% 提前致谢 \cls{fduthesis} 的作者曾祥东，本模板的许多设计和实现都是参考了 \cls{fduthesis} 的代码\cite{zeng2024fduthesis}。
+% 提前致谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}和 \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，本模板的许多设计和实现都是参考了上述代码。
 %
 % \printbibliography
 %
@@ -153,6 +164,7 @@
 % }
 %
 % \chapter{\clsname{} 代码实现}
+% 本文档类使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境。
 %
 %    \begin{macrocode}
 %<@@=hust>
@@ -161,9 +173,10 @@
 %
 % \section{模板预处理}
 %
-% 载入 \LaTeX3 基础宏包。
+% 本文档类隐式依赖已纳入 \LaTeX--\pkg{base} 的 \pkg{ltkeys} (原 \pkg{l3keys2e}) 和 \pkg{lttemplates}（原 \pkg{xtemplate}）。
+%
 %    \begin{macrocode}
-\RequirePackage { xtemplate, l3keys2e }
+ \RequirePackage { }
 %    \end{macrocode}
 %
 % \subsection{变量声明}
@@ -193,10 +206,10 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_to_ctexbook_clist, \g_@@_to_hyperref_clist}
+% \begin{variable}{\g_@@_to_ctex_class_clist, \g_@@_to_hyperref_clist}
 % 分别保存由 \clsname{} 传入 \cls{ctexbook} 文档类和 \pkg{hyperref} 宏包的选项列表。
 %    \begin{macrocode}
-\clist_new:N \g_@@_to_ctexbook_clist
+\clist_new:N \g_@@_to_ctex_class_clist
 \clist_new:N \g_@@_to_hyperref_clist
 %    \end{macrocode}
 % \end{variable}
@@ -335,7 +348,7 @@
   {
 %    \end{macrocode}
 %
-% \begin{macro}[module=option]{type}
+% \begin{macro}[module=option/]{type}
 % 论文类型。目前分为硕士学位论文~\opt{master} 和博士学位论文~\opt{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
     type .choices:nn =
@@ -346,14 +359,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=option]{draft}
+% \begin{macro}[module=option/]{draft}
 % 是否启用草稿模式。默认为 \opt{false}。
 %    \begin{macrocode}
     draft .choice:,
     draft / true .code:n =
       {
         \bool_gset_true:N \g_@@_draft_bool
-        \clist_gput_right:Nn \g_@@_to_ctexbook_clist { draft }
+        \clist_gput_right:Nn \g_@@_to_ctex_class_clist { draft }
       },
     draft / false .code:n =
       {
@@ -364,7 +377,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=option]{anonymous}
+% \begin{macro}[module=option/]{anonymous}
 % 是否启用盲审模式。默认为 \opt{false}，即显示作者信息。\key[option]{anonymous}
 %    \begin{macrocode}
     anonymous .choice:,
@@ -381,25 +394,24 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=option]{config}
+% \begin{macro}[module=option/]{config}
 % 自定义配置文件名。
 %    \begin{macrocode}
     config .tl_gset:N = \g_@@_config_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% 处理未知选项。
+% 将未知选项传给 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
-    unknown .code:n = { \@@_error:n { unknown-option } },
+    unknown .code:n =
+      { \clist_gput_right:No \g_@@_to_ctex_class_clist { \CurrentOption } }
   }
-\@@_msg_new:nn { unknown-option }
-  { Class~ option~ "\l_keys_key_str"~ is~ unknown. }
 %    \end{macrocode}
 %
-% \begin{macro}[module=option, int]{option}
+% \begin{macro}[module=option/, int]{option/}
 % 将文档类选项传给 |hust / option|。
 %    \begin{macrocode}
-\ProcessKeysOptions { hust / option }
+\ProcessKeyOptions [ hust / option ]
 %    \end{macrocode}
 % \end{macro}
 %
@@ -460,7 +472,7 @@
     heading = true,
     zihao = -4,
     linespread = \c_@@_line_spread_fp,
-    \g_@@_to_ctexbook_clist,
+    \g_@@_to_ctex_class_clist,
   }
   { ctexbook }
 \LoadClass { ctexbook }
@@ -646,7 +658,7 @@
   {
 %    \end{macrocode}
 %
-% \begin{macro}[module=info]{info/title, info/title*}
+% \begin{macro}[module=info/]{info/title, info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
     title .code:n = { \@@_set_title:nn { title } {#1} },
@@ -654,7 +666,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/degree, info/degree*}
+% \begin{macro}[module=info/]{info/degree, info/degree*}
 % 学位类型。中文类型~\key[info]{degree} 分为学术型~\opt{academic}，和专业型~\opt{professional}；英文类型~\key[info]{degree*} 包括文学~\opt{Arts}，理学~\opt{Science}，教育学~\opt{Education}，工学~\opt{Engineering}，法学~\opt{Laws}，医学~\opt{Medicine}，以及其他~\opt{XXX}。
 %    \begin{macrocode}
     degree .choices:nn =
@@ -667,7 +679,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/author, info/author*}
+% \begin{macro}[module=info/]{info/author, info/author*}
 % 学位申请人姓名。
   %    \begin{macrocode}
     author .tl_set:N = \l_@@_info_author_tl,
@@ -675,7 +687,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/major, info/major*}
+% \begin{macro}[module=info/]{info/major, info/major*}
 % 专业名称。
 %    \begin{macrocode}
     major .tl_set:N = \l_@@_info_major_tl,
@@ -683,7 +695,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/supervisor, info/supervisor*}
+% \begin{macro}[module=info/]{info/supervisor, info/supervisor*}
 % 指导老师列表。
 %    \begin{macrocode}
     supervisor .prop_gput:N = \l_@@_info_supervisor_prop,
@@ -691,7 +703,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/date, info/date*}
+% \begin{macro}[module=info/]{info/date, info/date*}
 % 论文提交日期。
 %    \begin{macrocode}
     date .clist_set:N = \l_@@_info_date_clist,
@@ -699,14 +711,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/clc}
+% \begin{macro}[module=info/]{info/clc}
 % 中图分类号。
 %    \begin{macrocode}
     clc .tl_set:N = \l_@@_info_clc_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/student-id, info/school-id}
+% \begin{macro}[module=info/]{info/student-id, info/school-id}
 % 学号和学校代码。
 %    \begin{macrocode}
     student-id .tl_set:N = \l_@@_info_student_id_tl,
@@ -714,7 +726,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info]{info/secret}
+% \begin{macro}[module=info/]{info/secret}
 % 密级。
 %    \begin{macrocode}
     secret .tl_set:N = \l_@@_info_secret_tl,
@@ -797,180 +809,112 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{封面各部件}
-%
-% \begin{macro}{\@@_cover_logo:}
-% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
-% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_logo:
-  {
-    \includegraphics[scale=1.1]{hust-title.pdf}
-  }
-%    \end{macrocode}
-% \end{macro}
-%
 % \subsection{封面模板}
 %
-% 声明封面对象。不需要带参数。
+% \begin{macro}[int, module=hust/component/]{component/}
+% 封面组件。
 %    \begin{macrocode}
-\DeclareObjectType { hust / cover } { \c_zero_int }
+\NewTemplateType { hust / component } { 0 }
+\DeclareTemplateInterface { hust / component } { plain } { 0 }
+{
+  format : tokenlist = \c_empty_tl,
+  content : tokenlist = \c_empty_tl,
+  bottom-skip : skip = \c_zero_skip,
+  align : choice { left, right, center, normal } = center,
+}
+\DeclareTemplateCode { hust / component } { plain } { 0 }
+{
+  content = \l_@@_component_content_tl,
+  format = \l_@@_component_format_tl,
+  bottom-skip = \l_@@_component_bottom_skip,
+  align =
+    {
+      left =
+        \cs_set_eq:NN \l_@@_component_align: \raggedright,
+      right =
+        \cs_set_eq:NN \l_@@_component_align: \raggedleft,
+      center =
+        \cs_set_eq:NN \l_@@_component_align: \centering,
+      normal =
+        \cs_set_eq:NN \l_@@_component_align: \prg_do_nothing:,
+    }
+}
+{
+  \AssignTemplateKeys
+  \group_begin:
+    \l_@@_component_align:
+    \l_@@_component_format_tl
+    \l_@@_component_content_tl
+    \tex_par:D
+  \group_end:
+  \skip_vertical:N \l_@@_component_bottom_skip
+  \skip_vertical:N \c_zero_skip
+}
 %    \end{macrocode}
+% \end{macro}
 %
-% \begin{macro}[int]{\@@_declare_template:nn}
-% 声明封面模板。
-% \begin{arguments}
-%   \item 模板名称
-%   \item 封面部件列表，以逗号分隔
-% \end{arguments}
+% \begin{macro}[int, module=hust/page]{page/}
+% 页面模板。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_declare_template:nn #1#2
+\NewTemplateType { hust / page } { 0 }
+\DeclareTemplateInterface { hust / page } { title } { 0 }
   {
-    \tl_set:Nn \l_@@_template_tl {#1}
-%    \end{macrocode}
-% 构建模板接口。
-%    \begin{macrocode}
-    \@@_declare_template_interface:nx {#1}
-      {
-        format : tokenlist,
-        top-skip : skip,
-        bottom-skip : skip,
-        \clist_map_function:nN {#2} \@@_key_type:n
-      }
-%    \end{macrocode}
-% 声明所用变量。
-%    \begin{macrocode}
-    \tl_new:c { l_@@ / #1 / format_tl }
-    \skip_new:c { l_@@ / #1 / top_skip }
-    \skip_new:c { l_@@ / #1 / bottom_skip }
-    \clist_map_inline:nn {#2}
-      {
-        \tl_new:c { l_@@ / #1 / ##1 / content_tl }
-        \tl_new:c { l_@@ / #1 / ##1 / format_tl }
-        \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
-      }
-%    \end{macrocode}
-% 声明模板代码。
-%    \begin{macrocode}
-    \@@_declare_template_code:nxn {#1}
-      {
-        format = \exp_not:c { l_@@ / #1 / format_tl },
-        top-skip = \use:c { l_@@ / #1 / top_skip },
-        bottom-skip = \use:c { l_@@ / #1 / bottom_skip },
-        \clist_map_function:nN {#2} \@@_key_binding:n
-      }
-      {
-        \AssignTemplateKeys
-        \tl_use:c { l_@@ / #1 / format_tl }
-        \@@_vspace:c { l_@@ / #1 / top_skip }
-        \clist_map_inline:nn {#2}
-          {
-            \use:c { @@ / #1 / ####1 / align:n }
-              {
-                \tl_use:c { l_@@ / #1 / ####1 / format_tl }
-                \tl_use:c { l_@@ / #1 / ####1 / content_tl }
-                \tex_par:D
-              }
-            \@@_vspace:c { l_@@ / #1 / ####1 / bottom_skip }
-          }
-        \@@_vspace:c { l_@@ / #1 / bottom_skip }
-      }
+    style : tokenlist = empty,
+    format : tokenlist = \linespread { } \selectfont,
+    prefix : tokenlist,
+    components : commalist,
+  }
+\DeclareTemplateCode { hust / page } { title } { 0 }
+  {
+    style = \l_@@_page_style_tl,
+    format = \l_@@_page_format_tl,
+    prefix = \l_@@_page_prefix_tl,
+    components = \l_@@_page_components_clist,
+  }
+  {
+    \AssignTemplateKeys
+    \group_begin:
+      \exp_args:No \thispagestyle { \l_@@_page_style_tl }
+      \l_@@_page_format_tl
+      \clist_map_inline:Nn \l_@@_page_components_clist
+        { \UseInstance { hust / component } { \l_@@_page_prefix_tl / ##1 } }
+    \group_end:
+    \clearpage
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{\l_@@_template_tl}
-% 保存模板名称。
-%    \begin{macrocode}
-\tl_new:N \l_@@_template_tl
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{macro}{
-%   \@@_declare_template_interface:nn,
-%   \@@_declare_template_code:nnn,
-%   \@@_declare_template_interface:nx,
-%   \@@_declare_template_code:nxn
+%   \@@_declare_component_instance:nnn,
+%   \@@_declare_page_instance:nn,
 % }
 % 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
-  { \DeclareTemplateInterface { hust / cover } {#1} { \c_zero_int } {#2} }
-\cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
-  { \DeclareTemplateCode { hust / cover } {#1} { \c_zero_int } {#2} {#3} }
-\cs_generate_variant:Nn \@@_declare_template_interface:nn { nx }
-\cs_generate_variant:Nn \@@_declare_template_code:nnn { nxn }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_key_type:n}
-%    \begin{macrocode}
-\cs_new:Npn \@@_key_type:n #1
-  {
-    #1 / content : tokenlist,
-    #1 / format : tokenlist,
-    #1 / bottom-skip : skip,
-    #1 / align : choice { left, right, center, normal } = normal,
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_key_binding:n}
-%    \begin{macrocode}
-\cs_new:Npn \@@_key_binding:n #1
-  {
-    #1 / content =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / content_tl },
-    #1 / format =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / format_tl },
-    #1 / bottom-skip =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
-    #1 / align =
+\cs_new_protected:Npn \@@_declare_component_instance:nnn #1#2#3
+  { \DeclareInstance { hust / component } { #1/#2 } { plain } {#3} }
+  \cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
+    {
+      \DeclareInstance { hust / page } {#1} { title }
       {
-        left =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \flushleft ##1 \endflushleft
-                  \group_end:
-                }
-            },
-        right =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \flushright ##1 \endflushright
-                  \group_end:
-                }
-            },
-        center =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \center ##1 \endcenter
-                  \group_end:
-                }
-            },
-        normal =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            { \exp_not:n { \group_begin: ##1 \group_end: } }
+        prefix = #1,
+        #2,
+      }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{封面组件}
+%
+% \begin{macro}[int, module=hust/component/]{component/logo}
+% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
+% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title a } { logo }
+  {
+    align = center,
+    content =
+      {
+        \includegraphics [ height = 1.6 cm ] { hust-title.pdf }
       },
   }
 %    \end{macrocode}
@@ -978,34 +922,29 @@
 %
 % \subsection{绘制封面}
 %
+% \begin{macro}{\maketitlea}
+% 中文标题页（A）。
 %    \begin{macrocode}
-\DeclareDocumentCommand \maketitle { }
+\@@_declare_page_instance:nn { title a }
   {
-    \makecoveri
+    components = { logo },
   }
-%    \end{macrocode}
-%
-% \subsubsection{中文封面（封一）}
-%
-% \begin{macro}{\makecoveri}
-% 用户接口。
-%    \begin{macrocode}
-\NewDocumentCommand \makecoveri { }
+\DeclareDocumentCommand \maketitlea { }
   {
-    \thispagestyle { empty }
-    \tl_set:Nn \thepage { A }
-    \UseInstance { hust / cover } { cover-i-default }
-  }
-\@@_declare_template:nn { cover-i }
-  { logo }
-\DeclareInstance { hust / cover } { cover-i-default } { cover-i }
-  {
-    logo / content =\@@_cover_logo:,
-    logo / align = center,
+    \UseInstance { hust / page } { title a }
   }
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\maketitle}
+% 封面。
+%    \begin{macrocode}
+\DeclareDocumentCommand \maketitle { }
+  {
+    \maketitlea
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 %
 % \section{扉页样式}
@@ -1073,8 +1012,8 @@
 %
 % \section{用户接口}
 %
-% \begin{macro}[module=info]{info}
-% \begin{macro}[module=style]{style}
+% \begin{macro}[module=info/]{info/}
+% \begin{macro}[module=style/]{style/}
 % 定义元（meta）键值对。
 %    \begin{macrocode}
 \keys_define:nn { hust }
@@ -1212,11 +1151,11 @@
 % \end{variable}
 %
 % \begin{variable}{
-%   \c_@@_location_tl
+%   \c_@@_address_tl
 % }
 % 英文封面页常量。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_location_tl
+\tl_const:Nn \c_@@_address_tl
   {
     Huazhong~ University~ of~ Science~ and~ Technology\\
     Wuhan~ 430074,~ P.~ R.~ China
@@ -1452,7 +1391,7 @@
           { \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
 % \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到版心的距离，
-% \tn{la\-bel\-sep} 则是编号盒子右端与条目首行文本之间的距离。
+% \tn{labelsep} 则是编号盒子右端与条目首行文本之间的距离。
 %    \begin{macrocode}
         \dim_set:Nn \l_tmpa_dim
           { \marginparwidth - \labelsep - \marginparsep }
@@ -1485,8 +1424,8 @@
 \DeclareDocumentCommand \key { O{option} m }
   {
     \tl_if_eq:nnTF { #1 } { option }
-      { \cmd[module=#1]{#2} }
-      { \cmd[module=#1]{#1/#2} }
+      { \cmd[module=#1/]{#2} }
+      { \cmd[module=#1/]{#1/#2} }
   }
 %    \end{macrocode}
 % \end{macro}
