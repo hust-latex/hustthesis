@@ -489,7 +489,6 @@
     graphicx,
     longtable,
     caption,
-    xcolor,
     utfsym,
   }
 %    \end{macrocode}
@@ -522,7 +521,8 @@
 %
 % 设置页眉页脚颜色。
 %    \begin{macrocode}
-\providecolor { headfoot } { rgb } { 1, 0, 0 }
+\color_set:nn { headfoot } { red }
+% \providecolor { headfoot } { rgb } { 1, 0, 0 }
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_draw_hf_hline:n}
@@ -533,7 +533,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_draw_hf_hline:n #1
   {
-    { \color { headfoot } \tex_hrule:D height #1 }
+    { \color_select:n { headfoot } \tex_hrule:D height #1 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -544,9 +544,11 @@
   {
     \chead
       {
-        \zihao{3} \ziju{0.7}
-        \bfseries \kaishu
-        \textcolor{ headfoot } { \c_@@_header_tl }
+        \zihao{3} \ziju{0.7} \bfseries \kaishu
+        \color_group_begin:
+        \color_select:n { headfoot }
+        \c_@@_header_tl
+        \color_group_end:
       }
   }
 \renewcommand { \headrulewidth } { 1 pt }
@@ -905,13 +907,39 @@
 %
 % \subsection{封面组件}
 %
-% \begin{macro}[int, module=hust/component/]{component/logo}
-% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
-% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
+% \subsubsection{中文封面}
+%
+% \begin{macro}[int, module=hust/component/]{component/identifiers}
+% 分类号，学号，学校代码，密级。
 %    \begin{macrocode}
-\@@_declare_component_instance:nnn { title a } { logo }
+\@@_declare_component_instance:nnn { title zh } { identifiers }
   {
-    align = center,
+    content =
+      {
+        \dim_set:Nn \tabcolsep { 0 pt }
+        \dim_set:Nn \extrarowheight { 12 pt }
+        \begin{tabular}{p{4em}p{5em}p{\linewidth-18em}p{2em}p{10em}}
+          \c_@@_name_clc_tl &
+          \underline{\makebox[\linewidth][c]{\l_@@_info_clc_tl}} & &
+          \c_@@_name_student_id_tl &
+          \underline{\makebox[\linewidth][c]{\l_@@_info_student_id_tl}} \\
+          \c_@@_name_school_id_tl &
+          \underline{\makebox[\linewidth][c]{\l_@@_info_school_id_tl}} & &
+          \c_@@_name_secret_tl &
+          \underline{\makebox[\linewidth][c]{\l_@@_info_secret_tl}} \\
+        \end{tabular}
+      },
+    format = { \zihao{-4} \bfseries \rmfamily \songti },
+    bottom-skip = 1.0 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{component/logo}
+% 校名图片。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title zh } { logo }
+  {
     content =
       {
         \includegraphics [ height = 1.6 cm ] { hust-title.pdf }
@@ -920,18 +948,23 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%
+% \subsubsection{英文封面}
+
+% \subsubsection{版权页}
+%
 % \subsection{绘制封面}
 %
 % \begin{macro}{\maketitlea}
-% 中文标题页（A）。
+% 中文标题页。
 %    \begin{macrocode}
-\@@_declare_page_instance:nn { title a }
+\@@_declare_page_instance:nn { title zh }
   {
-    components = { logo },
+    components = { identifiers, logo },
   }
 \DeclareDocumentCommand \maketitlea { }
   {
-    \UseInstance { hust / page } { title a }
+    \UseInstance { hust / page } { title zh }
   }
 %    \end{macrocode}
 % \end{macro}
