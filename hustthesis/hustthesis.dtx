@@ -126,8 +126,19 @@
 %</driver>
 % \fi
 %
-% \changes{v2.0}{2024/10/01}{使用\cls{useclass}在文档类手册中应用自身}
+% \changes{v2.0}{2024-10-01}{使用\cls{useclass}在文档类手册中应用自身}
 %
+% \hustsetup {
+%   info =
+%     {
+%       title = { \clsname{}：华中科技大学研究生\\学位论文\LaTeX{}文档类使用说明 },
+%       degree = { academic },
+%       degree* = { Engineering },
+%       author = { ABC },
+%       major = { 专业 },
+%       supervisor = { 指导老师 },
+%     },
+% }
 % \title{The \clsname.cls Class}
 % \author
 %   {
@@ -199,10 +210,10 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_thesis_type_tl}
+% \begin{variable}{\g_@@_degree_level_tl}
 % 论文类型。
 %    \begin{macrocode}
-\tl_new:N \g_@@_thesis_type_tl
+\tl_new:N \g_@@_degree_level_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -269,8 +280,8 @@
   { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nnn #1#2#3
   {
-    \tl_const:cn { c_@@_name_ #1 _zh_tl } {#2}
-    \tl_const:cn { c_@@_name_ #1 _en_tl } {#3}
+    \tl_const:cn { c_@@_name_ #1 _en_tl } {#2}
+    \tl_const:cn { c_@@_name_ #1 _zh_tl } {#3}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -298,7 +309,7 @@
 %
 % \subsubsection{\LaTeXe{} 封装}
 %
-% \begin{macro}{\@@_vspace:N, \@@_vspace:n, \@@_vspace:c}
+% \begin{macro}[deprecated]{\@@_vspace:N, \@@_vspace:n, \@@_vspace:c}
 % 类似 \LaTeXe{} 中的 \tn{vspace*}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_vspace:N #1
@@ -319,6 +330,37 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[deprecated]{\@@_hrule:nn}
+% 不改变位置的 \tn{hrule}。
+% \begin{arguments}
+%    \item 线段粗细（高度）
+%    \item 线段长度（宽度）
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_hrule:nn #1#2
+  {
+    \rule [ -0.5 ex ] { #2 } { #1 }
+    \skip_horizontal:n { -#2 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_ul_to_wd:nnn}
+  % \begin{arguments}
+  %    \item 下划线粗细
+  %    \item 下划线长度
+  %    \item 内容
+  % \end{arguments}
+%    \begin{macrocode}
+\dim_new:N \l_@@_ul_dim
+\cs_new_protected:Npn \@@_ul_to_wd:nnn #1#2#3
+  {
+    \hbox_overlap_right:n { \rule [ - 0.5 ex - #1 / 2 ] { #2 } { #1 } }
+    \hbox_to_wd:nn { #2 } { \tex_hfil:D #3 \tex_hfil:D }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_line_spread:N, \@@_line_spread:n}
 % 设置行距。
 % \begin{arguments}
@@ -326,13 +368,19 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_line_spread:N #1
-  { \tex_linespread:D { \fp_use:N #1 } \tex_selectfont:D }
+  {
+    \tl_set:Nn \baselinestretch { \fp_use:N #1 }
+    \selectfont
+  }
 \cs_new:Npn \@@_line_spread:n #1
-  { \tex_linespread:D {#1} \tex_selectfont:D }
+  {
+    \tl_set:Nn \baselinestretch { #1 }
+    \selectfont
+  }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_arabic:n}
+% \begin{macro}[deprecated]{\@@_arabic:n}
 % 等价于 \LaTeXe{} 中的 \tn{arabic}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_arabic:n #1
@@ -348,14 +396,14 @@
   {
 %    \end{macrocode}
 %
-% \begin{macro}[module=option/]{type}
+% \begin{macro}[module=option/]{level}
 % 论文类型。目前分为硕士学位论文~\opt{master} 和博士学位论文~\opt{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
-    type .choices:nn =
+    level .choices:nn =
       { master, doctor }
-      { \tl_set_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
-    type .value_required:n = true,
-    type .initial:n = { doctor },
+      { \tl_gset_eq:NN \g_@@_degree_level_tl \l_keys_choice_tl },
+    level .value_required:n = true,
+    level .initial:n = { doctor },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -421,9 +469,9 @@
 %    \begin{macrocode}
 \tl_if_empty:NTF \g_@@_config_tl
   {
-    \tl_if_eq:NnT \g_@@_thesis_type_tl { master }
+    \tl_if_eq:NnT \g_@@_degree_level_tl { master }
       { \file_input:n { hustthesis-m.def } }
-    \tl_if_eq:NnT \g_@@_thesis_type_tl { doctor }
+    \tl_if_eq:NnT \g_@@_degree_level_tl { doctor }
       { \file_input:n { hustthesis-d.def } }
   }
   {
@@ -440,7 +488,7 @@
 %    \begin{macrocode}
 \sys_if_engine_xetex:T
   {
-    \PassOptionsToPackage { AutoFakeBold=3.0 } { xeCJK }
+    \PassOptionsToPackage { AutoFakeBold=4.0 } { xeCJK }
     \AddToHook { package / ctex / before }
       {
         \AddToHook { package / xeCJK / after }
@@ -520,6 +568,7 @@
 %    \end{macrocode}
 %
 % 设置页眉页脚颜色。
+% \changes{v2.0}{2025-02-21}{使用 \pkg{l3color}，不再依赖 \pkg{xcolor}}
 %    \begin{macrocode}
 \color_set:nn { headfoot } { red }
 % \providecolor { headfoot } { rgb } { 1, 0, 0 }
@@ -551,12 +600,12 @@
         \color_group_end:
       }
   }
-\renewcommand { \headrulewidth } { 1 pt }
-\renewcommand { \headrule }
+\tl_set:Nn { \headrulewidth } { 1 pt }
+\tl_set:Nn { \headrule }
   {
-    \@@_vspace:N { 6 pt }
+    \skip_vertical:n { 6 pt }
     \@@_draw_hf_hline:n \headrulewidth
-    \@@_vspace:n \headrulewidth
+    \skip_vertical:n \headrulewidth
     \@@_draw_hf_hline:n \headrulewidth
   }
 %    \end{macrocode}
@@ -564,8 +613,8 @@
 % 设置页脚格式。
 %    \begin{macrocode}
 \cfoot { \zihao{-5} \thepage }
-\renewcommand { \footrulewidth } { 0.5 pt }
-\renewcommand { \footrule }
+\tl_set:Nn { \footrulewidth } { 0.5 pt }
+\tl_set:Nn { \footrule }
   {
     \@@_draw_hf_hline:n \footrulewidth
   }
@@ -583,48 +632,48 @@
 % \subsection{信息录入}
 %
 % \begin{variable}{
-%   \l_@@_info_title_tl,
-%   \l_@@_info_degree_tl,
-%   \l_@@_info_author_tl,
-%   \l_@@_info_major_tl,
-%   \l_@@_info_supervisor_prop,
-%   \l_@@_info_date_clist,
-%   \l_@@_info_clc_tl,
-%   \l_@@_info_student_id_tl,
-%   \l_@@_info_school_id_tl,
-%   \l_@@_info_secret_tl,
+%   \g_@@_info_title_tl,
+%   \g_@@_info_degree_tl,
+%   \g_@@_info_author_tl,
+%   \g_@@_info_major_tl,
+%   \g_@@_info_supervisor_tl,
+%   \g_@@_info_date_tl,
+%   \g_@@_info_clc_tl,
+%   \g_@@_info_student_id_tl,
+%   \g_@@_info_school_id_tl,
+%   \g_@@_info_secret_tl,
 % }
 % 声明中文封面信息。
 %    \begin{macrocode}
-\tl_new:N \l_@@_info_title_tl
-\tl_new:N \l_@@_info_degree_tl
-\tl_new:N \l_@@_info_author_tl
-\tl_new:N \l_@@_info_major_tl
-\prop_new:N \l_@@_info_supervisor_prop
-\clist_new:N \l_@@_info_date_clist
-\tl_new:N \l_@@_info_clc_tl
-\tl_new:N \l_@@_info_student_id_tl
-\tl_new:N \l_@@_info_school_id_tl
-\tl_new:N \l_@@_info_secret_tl
+\tl_new:N \g_@@_info_title_tl
+\tl_new:N \g_@@_info_degree_type_tl
+\tl_new:N \g_@@_info_author_tl
+\tl_new:N \g_@@_info_major_tl
+\tl_new:N \g_@@_info_supervisor_tl
+\tl_new:N \g_@@_info_date_tl
+\tl_new:N \g_@@_info_clc_tl
+\tl_new:N \g_@@_info_student_id_tl
+\tl_new:N \g_@@_info_school_id_tl
+\tl_new:N \g_@@_info_secret_tl
 %    \end{macrocode}
 % \end{variable}
 %
 % \begin{variable}{
-%   \l_@@_info_title_en_tl,
-%   \l_@@_info_author_en_tl,
-%   \l_@@_info_major_en_tl,
-%   \l_@@_info_supervisor_en_prop,
-%   \l_@@_info_date_en_clist,
-%   \l_@@_info_degree_en_tl,
+%   \g_@@_info_title_en_tl,
+%   \g_@@_info_author_en_tl,
+%   \g_@@_info_major_en_tl,
+%   \g_@@_info_supervisor_en_tl,
+%   \g_@@_info_date_en_tl,
+%   \g_@@_info_degree_en_tl,
 % }
 % 声明英文封面信息。
 %    \begin{macrocode}
-\tl_new:N \l_@@_info_title_en_tl
-\tl_new:N \l_@@_info_author_en_tl
-\tl_new:N \l_@@_info_major_en_tl
-\prop_new:N \l_@@_info_supervisor_en_prop
-\clist_new:N \l_@@_info_date_en_clist
-\tl_new:N \l_@@_info_degree_en_tl
+\tl_new:N \g_@@_info_title_en_tl
+\tl_new:N \g_@@_info_author_en_tl
+\tl_new:N \g_@@_info_major_en_tl
+\tl_new:N \g_@@_info_supervisor_en_tl
+\tl_new:N \g_@@_info_date_en_tl
+\tl_new:N \g_@@_info_degree_en_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -641,8 +690,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_set_title:nn #1#2
   {
-    \tl_set:cn { l_@@_info_ #1 _tl } {#2}
-    \tl_set:cn { l_@@_info_ #1 _sanitized_tl } {#2}
+    \tl_gset:cn { g_@@_info_ #1 _tl } { #2 }
+    \tl_set:cn { l_@@_info_ #1 _sanitized_tl } { #2 }
     \tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
     \regex_replace_all:nnc
       { \s+ } { \ }
@@ -663,75 +712,79 @@
 % \begin{macro}[module=info/]{info/title, info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
-    title .code:n = { \@@_set_title:nn { title } {#1} },
-    title* .code:n = { \@@_set_title:nn { title_en } {#1} },
+    title .tl_gset:N = \g_@@_info_title_tl,
+    title* .tl_gset:N = \g_@@_info_title_en_tl,
+%    title .code:n = { \@@_set_title:nn { title } { #1 } },
+%    title* .code:n = { \@@_set_title:nn { title_en } { #1 } },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/degree, info/degree*}
-% 学位类型。中文类型~\key[info]{degree} 分为学术型~\opt{academic}，和专业型~\opt{professional}；英文类型~\key[info]{degree*} 包括文学~\opt{Arts}，理学~\opt{Science}，教育学~\opt{Education}，工学~\opt{Engineering}，法学~\opt{Laws}，医学~\opt{Medicine}，以及其他~\opt{XXX}。
+% 学位类型（中文）或学科（英文）。
+% 中文类型~\key[info]{degree} 分为学术型~\opt{academic}，和专业型~\opt{professional}；
+% 英文学科~\key[info]{degree*}\footnote{为保持命名一致性，学科 degree discipline 在此处仍使用键名 |degree*|} 包括文学~\opt{Arts}，理学~\opt{Science}，教育学~\opt{Education}，工学~\opt{Engineering}，法学~\opt{Laws}，医学~\opt{Medicine}，以及其他~\opt{XXX}。
 %    \begin{macrocode}
     degree .choices:nn =
       { academic, professional }
       {
-        \tl_set_eq:NN \l_@@_info_degree_tl \l_keys_choice_tl
+        \tl_gset_eq:NN \g_@@_info_degree_tl \l_keys_choice_tl
       },
     degree .default:n = { academic },
-    degree* .tl_set:N = \l_@@_info_degree_en_tl,
+    degree* .tl_gset:N = \g_@@_info_degree_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/author, info/author*}
 % 学位申请人姓名。
-  %    \begin{macrocode}
-    author .tl_set:N = \l_@@_info_author_tl,
-    author* .tl_set:N = \l_@@_info_author_en_tl,
+%    \begin{macrocode}
+    author .tl_gset:N = \g_@@_info_author_tl,
+    author* .tl_gset:N = \g_@@_info_author_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/major, info/major*}
 % 专业名称。
 %    \begin{macrocode}
-    major .tl_set:N = \l_@@_info_major_tl,
-    major* .tl_set:N = \l_@@_info_major_en_tl,
+    major .tl_gset:N = \g_@@_info_major_tl,
+    major* .tl_gset:N = \g_@@_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/supervisor, info/supervisor*}
 % 指导老师列表。
 %    \begin{macrocode}
-    supervisor .prop_gput:N = \l_@@_info_supervisor_prop,
-    supervisor* .prop_gput:N = \l_@@_info_supervisor_en_prop,
+    supervisor .tl_gset:N = \g_@@_info_supervisor_tl,
+    supervisor* .tl_gset:N = \g_@@_info_supervisor_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/date, info/date*}
 % 论文提交日期。
 %    \begin{macrocode}
-    date .clist_set:N = \l_@@_info_date_clist,
-    date* .clist_set:N = \l_@@_info_date_en_clist,
+    date .tl_gset:N = \g_@@_info_date_tl,
+    date* .tl_gset:N = \g_@@_info_date_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/clc}
 % 中图分类号。
 %    \begin{macrocode}
-    clc .tl_set:N = \l_@@_info_clc_tl,
+    clc .tl_gset:N = \g_@@_info_clc_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/student-id, info/school-id}
 % 学号和学校代码。
 %    \begin{macrocode}
-    student-id .tl_set:N = \l_@@_info_student_id_tl,
-    school-id .tl_set:N = \l_@@_info_school_id_tl,
+    student-id .tl_gset:N = \g_@@_info_student_id_tl,
+    school-id .tl_gset:N = \g_@@_info_school_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/secret}
 % 密级。
 %    \begin{macrocode}
-    secret .tl_set:N = \l_@@_info_secret_tl,
+    secret .tl_gset:N = \g_@@_info_secret_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -765,7 +818,7 @@
 \cs_new_protected:Npn \@@_center_box:nn #1#2
   {
     \mode_leave_vertical:
-    \hbox_to_wd:nn {#1} { \hfil #2 \hfil }
+    \hbox_to_wd:nn {#1} { \tex_hfil:D #2 \tex_hfil:D }
   }
 \cs_generate_variant:Nn \@@_center_box:nn { Vn }
 %    \end{macrocode}
@@ -803,7 +856,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_blank_underline:n}
+% \begin{macro}[deprecated]{\@@_blank_underline:n}
 % 下划线占位符。|#1|: 长度。
 %    \begin{macrocode}
 \cs_new:Npn \@@_blank_underline:n #1
@@ -815,12 +868,21 @@
 %
 % \begin{macro}[int, module=hust/component/]{component/}
 % 封面组件。
+% \begin{arguments}
+%   \item 组件主体内容
+%   \item 组件字体/段落格式
+%   \item 组件固定高度，不设置则自动计算
+%   \item 顶部间距（建议优先配置底部间距，顶部间距仅在特殊情况使用）
+%   \item 底部间距
+% \end{arguments}
 %    \begin{macrocode}
 \NewTemplateType { hust / component } { 0 }
 \DeclareTemplateInterface { hust / component } { plain } { 0 }
 {
-  format : tokenlist = \c_empty_tl,
   content : tokenlist = \c_empty_tl,
+  format : tokenlist = \c_empty_tl,
+  height: skip = \c_zero_skip,
+  top-skip : skip = \c_zero_skip,
   bottom-skip : skip = \c_zero_skip,
   align : choice { left, right, center, normal } = center,
 }
@@ -828,6 +890,8 @@
 {
   content = \l_@@_component_content_tl,
   format = \l_@@_component_format_tl,
+  height = \l_@@_component_height_skip,
+  top-skip = \l_@@_component_top_skip,
   bottom-skip = \l_@@_component_bottom_skip,
   align =
     {
@@ -843,12 +907,28 @@
 }
 {
   \AssignTemplateKeys
-  \group_begin:
-    \l_@@_component_align:
-    \l_@@_component_format_tl
-    \l_@@_component_content_tl
-    \tex_par:D
-  \group_end:
+  \dim_compare:nNnTF { \l_@@_component_height_skip } > { \c_zero_skip }
+    {
+      \box_clear_new:N \l_@@_component_box
+      \vbox_set_to_ht:Nnn \l_@@_component_box { \l_@@_component_height_skip }
+        {
+          \skip_vertical:N \l_@@_component_top_skip
+          \l_@@_component_align:
+          \l_@@_component_format_tl
+          \l_@@_component_content_tl
+          \tex_vfill:D
+        }
+      \box_use:N \l_@@_component_box
+    }
+    {
+      \skip_vertical:N \l_@@_component_top_skip
+      \group_begin:
+      \l_@@_component_align:
+      \l_@@_component_format_tl
+      \l_@@_component_content_tl
+      \tex_par:D
+      \group_end:
+    }
   \skip_vertical:N \l_@@_component_bottom_skip
   \skip_vertical:N \c_zero_skip
 }
@@ -857,24 +937,34 @@
 %
 % \begin{macro}[int, module=hust/page]{page/}
 % 页面模板。
+% \begin{arguments}
+%   \item 组件共用前缀
+%   \item 组件列表
+%   \item 页面样式 （可使用 \tn{thispagestyle} 配置）
+%   \item 页面字体/段落格式
+%   \item 顶部间距
+% \end{arguments}
 %    \begin{macrocode}
 \NewTemplateType { hust / page } { 0 }
 \DeclareTemplateInterface { hust / page } { title } { 0 }
   {
-    style : tokenlist = empty,
-    format : tokenlist = \linespread { } \selectfont,
     prefix : tokenlist,
     components : commalist,
+    style : tokenlist = empty,
+    format : tokenlist = \linespread { } \selectfont,
+    top-skip : skip = \c_zero_skip,
   }
 \DeclareTemplateCode { hust / page } { title } { 0 }
   {
-    style = \l_@@_page_style_tl,
-    format = \l_@@_page_format_tl,
     prefix = \l_@@_page_prefix_tl,
     components = \l_@@_page_components_clist,
+    style = \l_@@_page_style_tl,
+    format = \l_@@_page_format_tl,
+    top-skip = \l_@@_page_top_skip,
   }
   {
     \AssignTemplateKeys
+    \skip_vertical:N \l_@@_page_top_skip
     \group_begin:
       \exp_args:No \thispagestyle { \l_@@_page_style_tl }
       \l_@@_page_format_tl
@@ -890,7 +980,7 @@
 %   \@@_declare_component_instance:nnn,
 %   \@@_declare_page_instance:nn,
 % }
-% 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
+% 声明模板实例的辅助函数。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_declare_component_instance:nnn #1#2#3
   { \DeclareInstance { hust / component } { #1/#2 } { plain } {#3} }
@@ -909,62 +999,178 @@
 %
 % \subsubsection{中文封面}
 %
-% \begin{macro}[int, module=hust/component/]{component/identifiers}
+% \begin{macro}[int, module=hust/component/]{title zh/identifiers}
 % 分类号，学号，学校代码，密级。
 %    \begin{macrocode}
+\cs_new:Npn \@@_title_zh_ids_aux:nn #1#2
+  {
+    \tl_use:c { c_@@_name_ #2 _tl }
+    \@@_ul_to_wd:nnn { 1 pt } { #1 }
+      { \tl_use:c { g_@@_info_ #2 _tl } }
+  }
 \@@_declare_component_instance:nnn { title zh } { identifiers }
   {
     content =
       {
-        \dim_set:Nn \tabcolsep { 0 pt }
-        \dim_set:Nn \extrarowheight { 12 pt }
-        \begin{tabular}{p{4em}p{5em}p{\linewidth-18em}p{2em}p{10em}}
-          \c_@@_name_clc_tl &
-          \underline{\makebox[\linewidth][c]{\l_@@_info_clc_tl}} & &
-          \c_@@_name_student_id_tl &
-          \underline{\makebox[\linewidth][c]{\l_@@_info_student_id_tl}} \\
-          \c_@@_name_school_id_tl &
-          \underline{\makebox[\linewidth][c]{\l_@@_info_school_id_tl}} & &
-          \c_@@_name_secret_tl &
-          \underline{\makebox[\linewidth][c]{\l_@@_info_secret_tl}} \\
-        \end{tabular}
+        \@@_title_zh_ids_aux:nn { 6em } { clc } % 3 em
+        \skip_horizontal:n { \linewidth - 19em }
+        \@@_title_zh_ids_aux:nn { 8em } { student_id } % 4 em
+        \tex_par:D
+        \@@_title_zh_ids_aux:nn { 5em } { school_id } % 4 em
+        \skip_horizontal:n { \linewidth - 19em }
+        \@@_title_zh_ids_aux:nn { 8em } { secret } % 4 em
       },
-    format = { \zihao{-4} \bfseries \rmfamily \songti },
-    bottom-skip = 1.0 cm,
+    format =
+      {
+        \zihao{-4} \bfseries \rmfamily \songti
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-skip = 2.5 cm,
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int, module=hust/component/]{component/logo}
+% \begin{macro}[int, module=hust/component/]{title zh/logo}
 % 校名图片。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { logo }
   {
     content =
       {
-        \includegraphics [ height = 1.6 cm ] { hust-title.pdf }
+        \includegraphics [ height = 1.4 cm ] { hust-title.pdf }
       },
+    bottom-skip = 0.5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title zh/level}
+% 学位级别。
+%    \begin{macrocode}
+\__ctex_save_font_size:nn { a } { 45 bp } % 大初号
+\@@_declare_component_instance:nnn { title zh } { level }
+  {
+    content =
+      {
+        \c_@@_name_level_zh_tl
+      },
+    format = { \zihao { a } \bfseries \songti \ziju { 0.1 } },
+    bottom-skip = 0.5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title zh/degree}
+% 学位类型。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title zh } { degree }
+  {
+    content =
+      {
+        （
+        \c_@@_name_academic_zh_tl
+        \tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
+          { \c_@@_checkbox_tl }
+          { \c_@@_emptybox_tl }
+        \skip_horizontal:n { 2.5 em }
+        \c_@@_name_professional_zh_tl
+        \tl_if_eq:NnTF \g_@@_info_degree_tl { professional }
+          { \c_@@_checkbox_tl }
+          { \c_@@_emptybox_tl }
+        ）
+      },
+    format = { \zihao { -3 } \c_@@_name_degree_font_tl },
+    bottom-skip = 1.5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title zh/title}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title zh } { title }
+  {
+    content =
+      {
+        \g_@@_info_title_tl
+      },
+    format = { \zihao { 1 } \bfseries \songti },
+    height = 4.8 cm,
+    bottom-skip = 1.2 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title zh/info}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title zh } { info }
+  {
+    content =
+      {
+        \tl_set:Nn \tabcolsep { 0 pt }
+        \tl_set:Nn \arraystretch { 2 }
+        \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
+          \c_@@_name_author_zh_tl & \g_@@_info_author_tl \\
+          \c_@@_name_major_zh_tl & \g_@@_info_major_tl \\
+          \c_@@_name_supervisor_zh_tl & \g_@@_info_supervisor_tl \\
+          \c_@@_name_date_tl & \g_@@_info_date_tl \\
+        \end{tabular}
+      },
+    format = { \zihao { -3 } \bfseries \rmfamily \songti },
+    bottom-skip = 30 pt,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{英文封面}
+%
+% \begin{macro}[int, module=hust/component/]{title en/degree}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title en } { degree }
+  {
+    content =
+      {
+        \c_@@_name_level_en_tl
+        \tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
+          { \c_@@_name_academic_en_tl }
+          { \c_@@_name_professional_en_tl }
+        \g_@@_info_degree_en_tl
+      },
+    format = { \zihao { -3 } \bfseries \rmfamily },
+    bottom-skip = 2.5 cm,
   }
 %    \end{macrocode}
 % \end{macro}
 %
 %
-% \subsubsection{英文封面}
-
 % \subsubsection{版权页}
 %
 % \subsection{绘制封面}
 %
-% \begin{macro}{\maketitlea}
+% \begin{macro}{\makezhtitle}
 % 中文标题页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { title zh }
   {
-    components = { identifiers, logo },
+    components = { identifiers, logo, level, degree, title, info, },
   }
-\DeclareDocumentCommand \maketitlea { }
+\DeclareDocumentCommand \makezhtitle { }
   {
     \UseInstance { hust / page } { title zh }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+
+% \begin{macro}{\makeentitle}
+% 英文标题页。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { title en }
+  {
+    components = { degree, },
+  }
+\DeclareDocumentCommand \makeentitle { }
+  {
+    \UseInstance { hust / page } { title en }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -974,7 +1180,8 @@
 %    \begin{macrocode}
 \DeclareDocumentCommand \maketitle { }
   {
-    \maketitlea
+    \makezhtitle
+    \makeentitle
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1005,7 +1212,7 @@
         name = {},
         beforeskip = 15.5 bp,
         afterskip = 14 bp,
-        number = \@@_arabic:n { chapter },
+        number = \arabic{ chapter },
         pagestyle = fancy,
       },
     section =
@@ -1150,14 +1357,14 @@
 %
 % \begin{variable}{\c_@@_emptybox_tl, \c_@@_checkbox_tl}
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_emptybox_tl { ^^^^2610 }
-\tl_const:Nn \c_@@_checkbox_tl { ^^^^2611 }
+\tl_const:Nn \c_@@_emptybox_tl { \usym{2610} }
+\tl_const:Nn \c_@@_checkbox_tl { \usym{2611} }
 %    \end{macrocode}
 % \end{variable}
 %
 % \subsection{封面页常量}
 % \begin{variable}{
-%   \c_@@_name_academic_tl,
+%   \c_@@_name_degree_font_tl,
 %   \c_@@_name_professional_tl,
 %   \c_@@_name_date_tl,
 %   \c_@@_name_clc_tl,
@@ -1170,9 +1377,9 @@
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { academic } { 学术型 },
-    { professional } { 专业型 },
-    { date } { 答辩日期 },
+%<def-m>    { degree_font } { \bfseries \songti },
+%<def-d>    { degree_font } { \heiti },
+    { date } { 答\hfill 辩\hfill 日\hfill 期 },
     { clc } { 分类号 },
     { student_id } { 学号 },
     { school_id } { 学校代码 },
@@ -1197,31 +1404,39 @@
 % \end{variable}
 %
 % \begin{variable}{
-%   \c_@@_name_title_zh_tl,
-%   \c_@@_name_title_en_tl,
-%   \c_@@_name_author_zh_tl,
+%   \c_@@_name_level_en_tl,
+%   \c_@@_name_level_zh_tl,
+%   \c_@@_name_academic_en_tl,
+%   \c_@@_name_academic_zh_tl,
+%   \c_@@_name_professional_en_tl,
+%   \c_@@_name_professional_zh_tl,
 %   \c_@@_name_author_en_tl,
-%   \c_@@_name_major_zh_tl,
+%   \c_@@_name_author_zh_tl,
 %   \c_@@_name_major_en_tl,
-%   \c_@@_name_supervisor_zh_tl,
+%   \c_@@_name_major_zh_tl,
 %   \c_@@_name_supervisor_en_tl,
+%   \c_@@_name_supervisor_zh_tl,
 % }
 % 中英文页共用常量。
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
 %<*def-m>
-    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+    { level } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
       the~ Requirements~ for~ } { 硕士学位论文 },
-    { author } { Candidate } { 学位申请人 },
+    { academic } { the~ Master~ Degree~ in } { 学术型 },
+    { professional } { the~ Professional~ Master~ Degree~ in }  { 专业型 },
+    { author } { Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
 %</def-m>
 %<*def-d>
-    { title } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
-      the~ Requirements~ for~ The~ Degree~ of~ Doctor~ of~ } { 博士学位论文 },
-    { author } { Ph.D.~ Candidate } { 学位申请人 },
+    { level } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+      The~ Requirements~ for~ } { 博士学位论文 },
+    { academic } { The~ Degree~ of~ Doctor~ of } { 学术型 },
+    { professional } { The~ Degree~ of~ Doctor~ of } { 专业型 }, % no diff in English
+    { author } { Ph.D.~ Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
 %</def-d>
-    { major } { Major } { 专业 },
-    { supervisor } { Supervisor } { 指导老师 },
+    { major } { Major } { 学\hfill 科\hfill 专\hfill 业 },
+    { supervisor } { Supervisor } { 指\hfill 导\hfill 老\hfill 师 },
   }
   { \@@_define_name:nnn #1 }
 %    \end{macrocode}
@@ -2344,7 +2559,7 @@
 % \begin{macro}[TF]{\@@_if_date_later:nn}
 % \begin{macro}{\@@_parse_date:w}
 % 比较两个日期。如果 |#1| 在 |#2| 之后，则为 |true|；反之为 |false|。
-% 日期的格式为 YYYY/MM/DD。比较方法是直接将日期化成 8 位数字，
+% 日期的格式为 |YYYY-MM-DD|。比较方法是直接将日期化成 8 位数字，
 % 所以月、日前的 0 不可以省略。
 %    \begin{macrocode}
 \prg_new_conditional:Npnn \@@_if_date_later:nn #1#2 { TF, T }
@@ -2357,7 +2572,7 @@
       \prg_return_false:
     \fi:
   }
-\cs_new:Npn \@@_parse_date:w #1/#2/#3/ #4 \q_stop
+\cs_new:Npn \@@_parse_date:w #1-#2-#3/ #4 \q_stop
   { #1#2#3 }
 %    \end{macrocode}
 % \end{macro}
@@ -2399,7 +2614,7 @@
       {
         \footnotesize
         \str_if_eq:nnTF {#1} {#2}
-          { ( #1 ) } { ( #1 ~ -- ~ #2 ) }
+          { ( #1 ) } { ( #1 \c_space_tl \c_tilde_str \c_space_tl #2 ) }
       }
     \par \nopagebreak
   }
