@@ -85,7 +85,7 @@
 %<def-m>  {Definition file for the hustthesis class in master thesis}
 %<def-d>  {Definition file for the hustthesis class in doctoral thesis}
 %<*driver>
-\documentclass{\jobname}
+\documentclass[]{\jobname}
 \usepackage{useclass}
 % Protect \maketitile from the redefinition in \cls{article} in \cls{l3doc}.
 \let\maketitleold=\maketitle
@@ -103,14 +103,21 @@
   day = {27},
   url = {https://github.com/stone-zeng/fduthesis},
 }
-
 @online{sjtug2024SJTUTeX,
   title = {\cls{SJTU\TeX}: 上海交通大学文档类集},
   author = {SJTUG},
   year = {2024},
   month = {feb},
   day = {18},
-  url = {https://github.com/stone-zeng/fduthesis},
+  url = {https://github.com/sjtug/SJTUTeX},
+}
+@online{njulug2023njuthesis,
+  title = {南京大学学位论文模板},
+  author = {南京大学~Linux~用户组},
+  year = {2023},
+  month = {dec},
+  day = {05},
+  url = {https://github.com/nju-lug/NJUThesis},
 }
 \end{filecontents}
 \addbibresource{\jobname.bib}
@@ -162,7 +169,7 @@
 %
 % \chapter{引言}
 %
-% 提前致谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}和 \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，本模板的许多设计和实现都是参考了上述代码。
+% 提前致谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}， \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，和 \cls{njuthesis} 文档类\cite{njulug2023njuthesis}，本文档类的许多设计和实现都是参考了上述代码。
 %
 % \printbibliography
 %
@@ -182,9 +189,9 @@
 %<*class>
 %    \end{macrocode}
 %
-% \section{模板预处理}
+% \section{文档类预处理}
 %
-% 本文档类隐式依赖已纳入 \LaTeX--\pkg{base} 的 \pkg{ltkeys} (原 \pkg{l3keys2e}) 和 \pkg{lttemplates}（原 \pkg{xtemplate}）。
+% 本文档类隐式依赖已整合进 \LaTeX--\pkg{base} 的 \pkg{ltkeys} (原 \pkg{l3keys2e}) 和 \pkg{lttemplates}（原 \pkg{xtemplate}）。
 %
 %    \begin{macrocode}
  \RequirePackage { }
@@ -236,6 +243,34 @@
 % 盲审模式。
 %    \begin{macrocode}
 \bool_new:N \g_@@_anonymous_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{
+%   \g_@@_font_set_tl,
+%   \g_@@_font_latin_tl,
+%   \g_@@_font_cjk_tl,
+%   \g_@@_font_math_tl}
+% 存储所使用字体名称的全局变量。
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_set_tl
+\tl_new:N \g_@@_font_latin_tl
+\tl_new:N \g_@@_font_cjk_tl
+\tl_new:N \g_@@_font_math_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_font_dir_tl}
+% 存储字体路径的全局变量。
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_dir_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_font_dir_bool}
+% 是否使用独立的字体文件。
+%    \begin{macrocode}
+\bool_new:N \g_@@_font_dir_bool
 %    \end{macrocode}
 % \end{variable}
 %
@@ -437,8 +472,54 @@
       {
         \bool_gset_false:N \g_@@_anonymous_bool
       },
-    anonymous .default:n = { false },
+    anonymous .default:n = { true },
     anonymous .initial:n = { false },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[module=option/]{latin-font, cjk-font}
+% 中英文字体选项。\opt{fandol} 和 \opt{gyre} 是等价的。
+%    \begin{macrocode}
+    latin-font .choices:nn =
+      { fandol, gyre, mac, macoffice, win, none, }
+      { \tl_gset:Nn \g_@@_font_latin_tl {#1} },
+    cjk-font .choices:nn =
+      { fandol, founder, mac, macoffice, noto, source, win, none, }
+      { \tl_gset:Nn \g_@@_font_cjk_tl {#1} },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[module=option/]{fontset}
+% 中英文字体选项。\opt{fontset} 这个名称和 \pkg{ctex} 中的是一致的。
+%    \begin{macrocode}
+    fontset .choices:nn =
+      { fandol, mac, macoffice, win, none, }
+      { \keys_set:nn { hust / options } { latin-font = #1, cjk-font = #1 } },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[module=option/]{math-font}
+% 数学字体选项。
+% 由 \pkg{unicode-math} 指定 \XeTeX 和 \LuaTeX 下使用的数学字体。
+%    \begin{macrocode}
+    math-font .choices:nn =
+      {
+        asana, cambria, fira, garamond, lm, libertinus, newcm,
+        stix, bonum, dejavu, pagella, schola, termes, xits, none,
+      }
+      { \tl_gset_eq:NN \g_@@_font_math_tl \l_keys_choice_tl },
+    math-font .initial:n = xits,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[module=option/]{font-dir}
+% 独立字体文件的路径。
+%    \begin{macrocode}
+    font-dir .code:n =
+      {
+        \bool_gset_true:N \g_@@_font_dir_bool
+        \tl_gset_eq:NN \g_@@_font_dir_tl \l_keys_value_tl
+      },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -463,9 +544,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{参数载入}
+% \subsection{常量载入}
 %
-% 载入参数配置文件。
+% 载入常量定义文件。
 %    \begin{macrocode}
 \tl_if_empty:NTF \g_@@_config_tl
   {
@@ -484,38 +565,42 @@
 %
 % \subsection{宏包载入}
 %
-% 对不支持粗体斜体的字体进行兼容处理，仅限于 \XeTeX{} 引擎。参考自 \url{https://ask.latexstudio.net/ask/question/17464.html}。
+% \sout{对不支持粗体斜体的字体进行兼容处理，仅限于 \XeTeX{} 引擎。}\\
+% \sout{参考自 \url{https://ask.latexstudio.net/ask/question/17464.html}。}
 %    \begin{macrocode}
-\sys_if_engine_xetex:T
-  {
-    \PassOptionsToPackage { AutoFakeBold=4.0 } { xeCJK }
-    \AddToHook { package / ctex / before }
-      {
-        \AddToHook { package / xeCJK / after }
-          {
-            \keys_define:nn { xeCJK / features }
-              {
-                BoldFont .code:n = ,
-                ItalicFont .code:n =,
-              }
-          }
-      }
-    \AddToHook { package / ctex / after }
-      {
-        \keys_define:nn { xeCJK / features }
-          {
-            BoldFont .tl_set:N = \l__xeCJK_font_name_bf_tl ,
-            ItalicFont .tl_set:N = \l__xeCJK_font_name_it_tl,
-          }
-      }
-  }
+%\sys_if_engine_xetex:T
+%  {
+%    \PassOptionsToPackage { AutoFakeBold=4.0 } { xeCJK }
+%    \AddToHook { package / ctex / before }
+%      {
+%        \AddToHook { package / xeCJK / after }
+%          {
+%            \keys_define:nn { xeCJK / features }
+%              {
+%                BoldFont .code:n = ,
+%                ItalicFont .code:n =,
+%              }
+%          }
+%      }
+%    \AddToHook { package / ctex / after }
+%      {
+%        \keys_define:nn { xeCJK / features }
+%          {
+%            BoldFont .tl_set:N = \l__xeCJK_font_name_bf_tl ,
+%            ItalicFont .tl_set:N = \l__xeCJK_font_name_it_tl,
+%          }
+%      }
+%  }
 %    \end{macrocode}
 %
 % 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
 \PassOptionsToClass
   {
+    a4paper,
     UTF8,
+    scheme = chinese,
+    fontset = none,
     oneside,
     heading = true,
     zihao = -4,
@@ -549,7 +634,6 @@
 %    \begin{macrocode}
 \geometry
   {
-    paper = a4paper,
     top = 4.5 cm,
     bottom = 2.8 cm,
     left = 2.8 cm,
@@ -559,6 +643,608 @@
 %    \end{macrocode}
 %
 % \subsection{字体设置}
+%
+% ^^A 本小节初版实现主要来自 \pkg{njuthesis} 文档类。
+%
+% \pkg{fontspec} 包含于 \pkg{ctex} 宏集，无需另行载入。
+%
+% \subsubsection{操作系统检测}
+%
+% \begin{variable}{\c_@@_path_macoffice_tl}
+% mac Office 字体路径。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_path_macoffice_tl
+  { /Applications/Microsoft~ Word.app/Contents/Resources/DFonts/ }
+%    \end{macrocode}
+% \end{variable}
+%
+% 操作系统检测。相较于 \pkg{ctex} 提供的 \cs{ctex_detect_platform:}，
+% 额外增加了对 macOS 上 MS Office 的检测。
+%    \begin{macrocode}
+\sys_if_platform_windows:TF
+  { \tl_gset:Nn \g_@@_font_set_tl { win } }
+  {
+    \ctex_if_platform_macos:TF
+      {
+        \file_if_exist:nTF { \c_@@_path_macoffice_tl times.ttf }
+          { \tl_gset:Nn \g_@@_font_set_tl { macoffice } }
+          { \tl_gset:Nn \g_@@_font_set_tl { mac } }
+      }
+      { \tl_gset:Nn \g_@@_font_set_tl { fandol } }
+  }
+%    \end{macrocode}
+% 判断用户是否自定义了中英文字体。如果其中任意一种未被定义，
+% 则使用系统预装字体覆盖字体选项。
+% Windows 或 macOS 外的系统被判断为 Linux，一律使用自由字体。
+%    \begin{macrocode}
+\tl_if_empty:NT \g_@@_font_latin_tl
+  { \tl_gset_eq:NN \g_@@_font_latin_tl \g_@@_font_set_tl }
+\tl_if_empty:NT \g_@@_font_cjk_tl
+  { \tl_gset_eq:NN \g_@@_font_cjk_tl \g_@@_font_set_tl }
+%    \end{macrocode}
+%
+%
+% \subsubsection{定义英文字库}
+%
+% 接下来逐个定义所需要使用的字库。
+%
+% \begin{macro}{
+%   \@@_loadfont_latin:n,
+%   \@@_loadfont_latin_win:,
+%   \@@_loadfont_latin_mac:,
+% }
+% Windows 与 macOS 西文字体的区别主要在于默认等宽字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_latin:n #1
+  {
+    \__fontspec_main_setmainfont:nn { } { Times~New~Roman }
+    \__fontspec_main_setsansfont:nn { } { Arial }
+    \__fontspec_main_setmonofont:nn { Scale = MatchLowercase } {#1}
+  }
+\cs_new_protected:Npn \@@_loadfont_latin_win:
+  { \@@_loadfont_latin:n { Courier~New } }
+\cs_new_protected:Npn \@@_loadfont_latin_mac:
+  {
+    \@@_loadfont_latin:n { Menlo }
+%    \end{macrocode}
+% 检测 Times New Roman 是否具有小型大写字母（small caps）字型。
+% 这是 macOS 预装的字体版本较旧导致的。
+%    \begin{macrocode}
+    \fontspec_if_small_caps:F
+      {
+        \
+        \@@_warning:n { no-small-caps }
+        \__fontspec_main_setmainfont:nn
+          { \c_@@_name_gyrefeature_clist } { texgyretermes }
+      }
+  }
+\@@_msg_new:nn { no-small-caps }
+  {
+    I~ am~ using~ TeX~ Gyre~ Termes~ as~ default~ Roman~ font.\\
+    This~ is~ because~ the~ "Times~ New~ Roman"~ font~ in~ your~
+    system~ does~ not~ embed~ glyphs~ for~ small~ capitals.~
+    You~ can~ ignore~ this~ warning~ if~ you~ do~ not~ need~
+    \string\textsc.~ For~ more~ information,~
+    please~ refer~ to~ section~ 3.2.6~ of~ the~ documentation.
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_latin_macoffice:}
+% mac Office 西文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_latin_macoffice:
+  {
+    \__fontspec_main_setmainfont:nn
+      { \c_@@_name_macofficefeature_clist } { times }
+    \__fontspec_main_setsansfont:nn
+      { \c_@@_name_macofficefeature_clist } { arial }
+    \__fontspec_main_setmonofont:nn
+      { Scale = MatchLowercase } { Menlo }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_name_macofficefeature_clist}
+% 用于 \pkg{fontspec} 的 mac Office 字体特性列表。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_name_macofficefeature_clist
+  {
+    Path = \c_@@_path_macoffice_tl,
+    Extension = .ttf,
+    UprightFont = *,
+    BoldFont = *bd,
+    ItalicFont = *i,
+    BoldItalicFont = *bi,
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_loadfont_latin_gyre:}
+% 开源的 \TeX Gyre 西文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_latin_gyre:
+  {
+    \__fontspec_main_setmainfont:nn
+      { \c_@@_name_gyrefeature_clist } { texgyretermes }
+    \__fontspec_main_setsansfont:nn
+      { \c_@@_name_gyrefeature_clist } { texgyreheros }
+    \__fontspec_main_setmonofont:nn
+      {
+        \c_@@_name_gyrefeature_clist,
+        Scale = MatchLowercase,
+        Ligatures = CommonOff,
+      }
+      { texgyrecursor }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_latin_fandol:}
+% 为兼容 \pkg{ctex} 做出的名称改变。
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_loadfont_latin_fandol: \@@_loadfont_latin_gyre:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_name_gyrefeature_clist}
+% 用于 \pkg{fontspec} 的 \TeX Gyre 字体特性列表。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_name_gyrefeature_clist
+  {
+    Extension = .otf,
+    UprightFont = *-regular,
+    BoldFont = *-bold,
+    ItalicFont = *-italic,
+    BoldItalicFont = *-bolditalic,
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+%
+% \subsubsection{定义中文字库}
+%
+% \begin{macro}{\@@_hide_no_script_msg:}
+% 隐藏 |does not contain script "CJK"| 警告。
+%    \begin{macrocode}
+\cs_new:Npn \@@_hide_no_script_msg:
+  { \msg_redirect_name:nnn { fontspec } { no-script } { info } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_win:N, \@@_loadfont_cjk_win:}
+% Windows 中文字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_cjk_win:N #1
+  {
+    \setCJKmainfont { SimSun } [ #1, ItalicFont = KaiTi ]
+    \setCJKsansfont { SimHei } [#1]
+    \setCJKmonofont { FangSong } [#1]
+    \setCJKfamilyfont { zhsong } { SimSun } [#1]
+    \setCJKfamilyfont { zhhei } { SimHei } [#1]
+    \setCJKfamilyfont { zhfs } { FangSong } [#1]
+    \setCJKfamilyfont { zhkai } { KaiTi } [#1]
+    \@@_define_stzhongs:nn { STZhongsong } {#1}
+  }
+\cs_new:Npn \@@_loadfont_cjk_win:
+  { \@@_loadfont_cjk_win:N \c_@@_name_fakebold_tl }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_mac:}
+% macOS 字体。
+% ^^A TODO: 修复 macOS 字体支持，实现开箱即用。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_cjk_mac:
+  {
+    \@@_hide_no_script_msg:
+    \setCJKmainfont { Songti~SC~Light }
+      [
+        BoldFont = Songti~SC~Bold,
+        ItalicFont = Kaiti~SC,
+        BoldItalicFont = Kaiti~SC~Bold,
+      ]
+    \setCJKsansfont { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
+    \setCJKmonofont { STFangsong }
+    \setCJKfamilyfont { zhsong } { Songti~SC~Light } [ BoldFont = Songti~SC~Bold ]
+    \setCJKfamilyfont { zhhei } { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
+    \setCJKfamilyfont { zhfs } { STFangsong }
+    \setCJKfamilyfont { zhkai } { Kaiti~SC } [ BoldFont = Kaiti~SC~Bold ]
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_macoffice:n, \@@_loadfont_cjk_macoffice:}
+% mac Office 中文字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_cjk_macoffice:n #1
+  {
+    \setCJKmainfont { Simsun.ttc } [ ItalicFont = Kaiti.ttf, #1 ]
+    \setCJKsansfont { SimHei.ttf } [#1]
+    \setCJKmonofont { Fangsong.ttf } [#1]
+    \setCJKfamilyfont { zhsong } { Simsun.ttc } [#1]
+    \setCJKfamilyfont { zhhei } { SimHei.ttf } [#1]
+    \setCJKfamilyfont { zhfs } { Fangsong.ttf } [#1]
+    \setCJKfamilyfont { zhkai } { Kaiti.ttf } [#1]
+    \@@_define_stzhongs:nn { \c__hust_path_macoffice_tl STZHONGS.ttf } {#1}
+  }
+\cs_new:Npn \@@_loadfont_cjk_macoffice:
+  {
+    \@@_loadfont_cjk_macoffice:n
+      { Path = \c_@@_path_macoffice_tl, \c_@@_name_fakebold_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_fandol:}
+% Fandol 字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_cjk_fandol:
+  {
+    \@@_hide_no_script_msg:
+    \setCJKmainfont { FandolSong-Regular }
+      [
+        Extension = .otf,
+        BoldFont = FandolSong-Bold,
+        ItalicFont = FandolKai-Regular,
+      ]
+    \setCJKsansfont { FandolHei-Regular }
+      [
+        Extension = .otf,
+        BoldFont = FandolHei-Bold,
+      ]
+    \setCJKmonofont { FandolFang-Regular }
+      [ Extension = .otf ]
+    \setCJKfamilyfont { zhsong } { FandolSong-Regular }
+      [
+        Extension = .otf,
+        BoldFont  = FandolSong-Bold
+      ]
+    \setCJKfamilyfont { zhhei } { FandolHei-Regular }
+      [
+        Extension = .otf,
+        BoldFont = FandolHei-Bold,
+      ]
+    \setCJKfamilyfont { zhfs } { FandolFang-Regular }
+      [ Extension = .otf ]
+    \setCJKfamilyfont { zhkai } { FandolKai-Regular }
+      [ Extension = .otf, \c_@@_name_fakebold_tl ]
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_founder:}
+% 方正字库（简繁扩展）
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_cjk_founder:
+  {
+%    \end{macrocode}
+% 调整方正字体括号位置。
+% \footnote{\XeTeX 的调整方法来自 \url{https://www.zhihu.com/question/46241367/answer/101660183}。}
+%    \begin{macrocode}
+    \sys_if_engine_xetex:T
+      { \xeCJKEditPunctStyle { quanjiao } { optimize-kerning = true } }
+    \sys_if_engine_luatex:T
+      { \defaultCJKfontfeatures { JFM = { zh_CN / { quanjiao, fzpr } } } }
+    \setCJKmainfont { FZShuSong-Z01 }
+      [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
+    \setCJKsansfont { FZXiHeiI-Z08 } [ BoldFont = FZHei-B01 ]
+    \setCJKmonofont { FZFangSong-Z02 }
+    \setCJKfamilyfont { zhsong } { FZShuSong-Z01 }
+      [ BoldFont = FZXiaoBiaoSong-B05 ]
+    \setCJKfamilyfont { zhhei } { FZHei-B01 }
+      [ \c_@@_name_fakebold_tl ]
+    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
+      [ \c_@@_name_fakebold_tl ]
+    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+    \defaultCJKfontfeatures { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_noto:}
+% Noto 思源字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_cjk_noto:
+  {
+    \setCJKmainfont [ \c_@@_name_notofeature_clist ]
+      { NotoSerifCJKsc }
+    \setCJKsansfont [ \c_@@_name_notofeature_clist ]
+      { NotoSansCJKsc  }
+    \setCJKmonofont { Noto~Sans~Mono~CJK~SC }
+    \setCJKfamilyfont { zhsong } { Noto~Serif~CJK~SC }
+    \setCJKfamilyfont { zhhei } { Noto~Sans~CJK~SC }
+    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
+      [ \c_@@_name_fakebold_tl ]
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_cjk_source:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont_cjk_source:
+  {
+    \setCJKmainfont [ \c_@@_name_notofeature_clist ]
+      { SourceHanSerifSC }
+    \setCJKsansfont [ \c_@@_name_notofeature_clist ]
+      { SourceHanSansSC  }
+    \setCJKmonofont { FZFangSong-Z02 }
+    \setCJKfamilyfont { zhsong } { Source~Han~Serif~SC }
+    \setCJKfamilyfont { zhhei } { Source~Han~Sans~SC }
+    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
+      [ \c_@@_name_fakebold_tl ]
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_name_fakebold_tl}
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_name_fakebold_tl { AutoFakeBold = 2.17 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_name_notofeature_clist}
+% 用于 \pkg{fontspec} 的思源字体特性列表。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_name_notofeature_clist
+  {
+    Extension = .otf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Regular,
+    BoldItalicFont = *-Bold,
+    ItalicFeatures = FakeSlant,
+    BoldItalicFeatures = FakeSlant,
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_name_stzhongsopts_tl}
+% 华文中宋的字体特性列表，默认为仅使用伪粗体。
+%    \begin{macrocode}
+\tl_new:N \l_@@_name_stzhongsopts_tl
+\tl_set_eq:NN \l_@@_name_stzhongsopts_tl \c_@@_name_fakebold_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_define_stzhongs:nn}
+% 中文封面额外需要的华文中宋。
+%    \begin{macrocode}
+\tl_new:N \l_@@_name_stzhongsfile_tl
+\cs_new:Npn \@@_define_stzhongs:nn #1#2
+  {
+    \tl_set:Nn \l_@@_name_stzhongsfile_tl {#1}
+    \tl_set:Nn \l_@@_name_stzhongsopts_tl {#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_stzhongs:n}
+% \begin{macro}{\@@_loadfont_stzhongs:V, \@@_loadfont_stzhongs:, \@@_stzhongs:}
+% 研究生封面额外需要的华文中宋。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_stzhongs:
+  {
+    \@@_loadfont_stzhongs:V \l_@@_name_stzhongsfile_tl
+  }
+\cs_new_protected:Npn \@@_loadfont_stzhongs:n #1
+  {
+    \fontspec_font_if_exist:nTF { #1 }
+      {
+        \newCJKfontfamily \@@_stzhongs: { #1 }
+          [ \l_@@_name_stzhongsopts_tl ]
+      }
+      {
+        \bool_if:NTF \g_@@_font_dir_bool
+          {
+            \newCJKfontfamily \@@_stzhongs: { #1 }
+              [ Path = \g_@@_font_dir_tl, \c_@@_name_fakebold_tl ]
+          }
+          {
+            \cs_set_eq:NN \@@_stzhongs: \rmfamily
+            \@@_warning:n { missing-stzhongs }
+          }
+      }
+  }
+\@@_msg_new:nn { missing-stzhongs }
+  {
+    "STZHONGS.TTF"~ is~ not~ found~ in~ your~ system.\\
+    The~ font~ is~ normally~ distributed~ with~ MS~ Windows.~
+    I~ have~ used~ songti~ for~ substitution.
+  }
+\cs_generate_variant:Nn \@@_loadfont_stzhongs:n { V }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \subsubsection{定义数学字库}
+%
+% \begin{macro}{\@@_define_math_font:nn}
+% 批量定义数学字体配置。
+%    \begin{macrocode}
+\cs_new:Npn \@@_define_math_font:nn #1#2
+  {
+    \cs_new:cpn { @@_loadfont_math_ #1 : }
+      { \__um_setmathfont:nn { } {#2} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+% {
+%   \@@_loadfont_math_asana:,
+%   \@@_loadfont_math_fira:,
+%   \@@_loadfont_math_garamond:,
+%   \@@_loadfont_math_lm:,
+%   \@@_loadfont_math_libertinus:,
+%   \@@_loadfont_math_stix:,
+%   \@@_loadfont_math_bonum:,
+%   \@@_loadfont_math_dejavu:,
+%   \@@_loadfont_math_pagella:,
+%   \@@_loadfont_math_schola:,
+%   \@@_loadfont_math_termes:,
+% }
+% 批量定义若干数学字体的载入命令。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { asana } { Asana-Math.otf },
+    { fira } { FiraMath-Regular.otf },
+    { garamond } { Garamond-Math.otf },
+    { lm } { latinmodern-math.otf },
+    { libertinus } { LibertinusMath-Regular.otf },
+    { stix } { STIXMath-Regular.otf },
+    { bonum } { texgyrebonum-math.otf },
+    { dejavu } { texgyredejavu-math.otf },
+    { pagella } { texgyrepagella-math.otf },
+    { schola } { texgyreschola-math.otf },
+    { termes } { texgyretermes-math.otf },
+  }
+  { \@@_define_math_font:nn #1 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_math_cambria:}
+% Cambria Math 字体配置。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_math_cambria:
+  {
+    \bool_if:NTF \g_@@_font_dir_bool
+      {
+        \__um_setmathfont:nn
+          { Path = \g_@@_font_dir_tl/, FontIndex = 1 }
+          { cambria.ttc }
+      }
+      { \__um_setmathfont:nn { } { Cambria~Math } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_math_xits:}
+% XITS Math 字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_math_xits:
+  {
+    \bool_if:NTF \g_@@_opt_math_int_bool
+      { \tl_set:Nn \l_@@_tmpa_tl { 8 } }
+      { \tl_clear:N \l_@@_tmpa_tl }
+    \__um_setmathfont:nn
+      {
+        Extension = .otf,
+        StylisticSet = \l_@@_tmpa_tl,
+        BoldFont = XITSMath-Bold,
+      }
+      { XITSMath-Regular }
+    \__um_setmathfont:nn
+      {
+        Extension = .otf,
+        StylisticSet = 1,
+        range = {cal, bfcal},
+      }
+      { XITSMath-Regular }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_math_newcm:}
+% New Computer Modern Math 字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loadfont_math_newcm:
+  {
+    \bool_if:NTF \g_@@_opt_math_int_bool
+      { \tl_set:Nn \l_@@_tmpa_tl { 2 } }
+      { \tl_clear:N \l_@@_tmpa_tl }
+    \__um_setmathfont:nn
+      {
+        Extension = .otf,
+        StylisticSet = \l_@@_tmpa_tl,
+      }
+      { NewCMMath-Book }
+    \__um_setmathfont:nn
+      {
+        Extension = .otf,
+        StylisticSet = 1,
+        range = {scr,bfscr},
+      }
+      { NewCMMath-Book }
+    \__fontspec_main_setmathrm:nn
+      {
+        Extension = .otf,
+        UprightFont = *-Book,
+        BoldFont = *-Bold,
+        ItalicFont = *-BookItalic,
+        BoldItalicFont = *-BoldItalic,
+      }
+      { NewCM10 }
+    \__fontspec_main_setmathsf:nn
+      {
+        Extension = .otf,
+        UprightFont = *-Book,
+        BoldFont = *-Bold,
+        ItalicFont = *-BookOblique,
+        BoldItalicFont = *-BoldOblique,
+      }
+      { NewCMSans10 }
+    \__fontspec_main_setmathtt:nn
+      {
+        Extension = .otf,
+        UprightFont = *-Book,
+        ItalicFont = *-BookItalic,
+        BoldFont = *-Bold,
+        BoldItalicFont = *-BoldOblique,
+      }
+      { NewCMMono10 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_loadfont_math_none:}
+% 不进行数学字体配置。
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_loadfont_math_none: \tex_relax:D
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsubsection{载入指定字库}
+%
+% \begin{macro}{\@@_loadfont:}
+% 载入字体命令。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_loadfont:
+  {
+    \use:c { @@_loadfont_latin_ \g_@@_font_latin_tl : }
+    \use:c { @@_loadfont_cjk_ \g_@@_font_cjk_tl : }
+%    \end{macrocode}
+% 自行定义 \pkg{ctex} 中的四类字体命令。
+%    \begin{macrocode}
+    \NewDocumentCommand \songti { } { \CJKfamily { zhsong } }
+    \NewDocumentCommand \heiti { } { \CJKfamily { zhhei } }
+    \NewDocumentCommand \fangsong { } { \CJKfamily { zhfs } }
+    \NewDocumentCommand \kaishu { } { \CJKfamily { zhkai } }
+%    \end{macrocode}
+% \begin{macro}{\bigger}
+% 重定义字号命令。
+%    \begin{macrocode}
+    \NewDocumentCommand \bigger { } { \ctex_zihao:n { 4 } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% 载入设置的字体。^^A 为了吸收导言区的设置，放在其后载入。
+%    \begin{macrocode}
+% \BeforeBeginEnvironment { document } { \@@_loadfont: }
+\@@_loadfont:
+%    \end{macrocode}
+%
+% 将华文中宋放在文档类最后载入。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n { \@@_loadfont_stzhongs: }
+%    \end{macrocode}
 %
 % \subsection{页眉页脚}
 %
@@ -869,11 +1555,12 @@
 % \begin{macro}[int, module=hust/component/]{component/}
 % 封面组件。
 % \begin{arguments}
-%   \item 组件主体内容
-%   \item 组件字体/段落格式
-%   \item 组件固定高度，不设置则自动计算
-%   \item 顶部间距（建议优先配置底部间距，顶部间距仅在特殊情况使用）
-%   \item 底部间距
+%   \item[\opt{content}] 组件主体内容
+%   \item[\opt{format}] 组件字体/段落格式
+%   \item[\opt{height}] 组件固定高度，不设置则自动计算
+%   \item[\opt{top-skip}] 顶部间距（建议优先配置底部间距，顶部间距仅在特殊情况使用）
+%   \item[\opt{bottom-skip}] 底部间距
+%   \item[\opt{align}] 对齐方式，可选值为靠左对齐~\opt{left}，靠右对齐~\opt{right}，居中对齐~\opt{center}，以及两端对齐~\opt{justify}。默认为居中对齐
 % \end{arguments}
 %    \begin{macrocode}
 \NewTemplateType { hust / component } { 0 }
@@ -884,7 +1571,7 @@
   height: skip = \c_zero_skip,
   top-skip : skip = \c_zero_skip,
   bottom-skip : skip = \c_zero_skip,
-  align : choice { left, right, center, normal } = center,
+  align : choice { left, right, center, justify } = center,
 }
 \DeclareTemplateCode { hust / component } { plain } { 0 }
 {
@@ -901,7 +1588,7 @@
         \cs_set_eq:NN \l_@@_component_align: \raggedleft,
       center =
         \cs_set_eq:NN \l_@@_component_align: \centering,
-      normal =
+      justify =
         \cs_set_eq:NN \l_@@_component_align: \prg_do_nothing:,
     }
 }
@@ -938,11 +1625,11 @@
 % \begin{macro}[int, module=hust/page]{page/}
 % 页面模板。
 % \begin{arguments}
-%   \item 组件共用前缀
-%   \item 组件列表
-%   \item 页面样式 （可使用 \tn{thispagestyle} 配置）
-%   \item 页面字体/段落格式
-%   \item 顶部间距
+%   \item[\opt{prefix}] 组件共用前缀
+%   \item[\opt{components}] 组件列表
+%   \item[\opt{style}] 页面样式 （可使用 \tn{thispagestyle} 配置）
+%   \item[\opt{format}] 页面字体/段落格式
+%   \item[\opt{top-skip}] 顶部间距
 % \end{arguments}
 %    \begin{macrocode}
 \NewTemplateType { hust / page } { 0 }
@@ -1248,7 +1935,7 @@
 %
 % \subsection{程序代码样式}
 %
-% \section{模板后处理}
+% \section{文档类后处理}
 %
 % \section{用户接口}
 %
@@ -1292,7 +1979,7 @@
 %</class>
 %    \end{macrocode}
 %
-% \section{模板参数}
+% \section{常量定义}
 %
 %    \begin{macrocode}
 %<*def-m|def-d>
@@ -1569,11 +2256,18 @@
 %    \end{macrocode}
 %
 % \section{文档样式}
-
+%
+% ^^A 本小节初版实现主要来自 \pkg{fduthesis} 文档类。
+%
 %    \begin{macrocode}
 %<*doc-sty>
 %<@@=hustdoc>
-\RequirePackage { xcolor-material, zref-base }
+\RequirePackage
+  {
+    ulem,
+    xcolor-material,
+    zref-base,
+  }
 %    \end{macrocode}
 %
 % \subsection{内部函数}
@@ -1601,7 +2295,9 @@
 %
 % \subsection{\cls{l3doc} 补丁}
 %
+%    \begin{macrocode}
 %<@@=codedoc>
+%    \end{macrocode}
 %
 % \begin{macro}{\@@_typeset_functions:}
 % 减少展开标记（用来表明中英文模板中的不同用法）前的空格。
