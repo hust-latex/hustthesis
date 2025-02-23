@@ -139,6 +139,7 @@
 %   info =
 %     {
 %       title = { \clsname{}：华中科技大学研究生\\学位论文\LaTeX{}文档类使用说明 },
+%       title* = { \clsname{}: \LaTeX{} Thesis Template for Huazhong University of Science and Technology },
 %       degree = { academic },
 %       degree* = { Engineering },
 %       author = { ABC },
@@ -1557,7 +1558,7 @@
 % \begin{arguments}
 %   \item[\opt{content}] 组件主体内容
 %   \item[\opt{format}] 组件字体/段落格式
-%   \item[\opt{height}] 组件固定高度，不设置则自动计算
+%   \item[\opt{height}] 组件固定高度，不设置则自动计算。主要用于行数不确定，需要固定高度的情况
 %   \item[\opt{top-skip}] 顶部间距（建议优先配置底部间距，顶部间距仅在特殊情况使用）
 %   \item[\opt{bottom-skip}] 底部间距
 %   \item[\opt{align}] 对齐方式，可选值为靠左对齐~\opt{left}，靠右对齐~\opt{right}，居中对齐~\opt{center}，以及两端对齐~\opt{justify}。默认为居中对齐
@@ -1568,6 +1569,7 @@
 {
   content : tokenlist = \c_empty_tl,
   format : tokenlist = \c_empty_tl,
+  width: skip = \c_zero_skip,
   height: skip = \c_zero_skip,
   top-skip : skip = \c_zero_skip,
   bottom-skip : skip = \c_zero_skip,
@@ -1577,6 +1579,7 @@
 {
   content = \l_@@_component_content_tl,
   format = \l_@@_component_format_tl,
+  width = \l_@@_component_width_skip,
   height = \l_@@_component_height_skip,
   top-skip = \l_@@_component_top_skip,
   bottom-skip = \l_@@_component_bottom_skip,
@@ -1671,14 +1674,14 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_declare_component_instance:nnn #1#2#3
   { \DeclareInstance { hust / component } { #1/#2 } { plain } {#3} }
-  \cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
+\cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
+  {
+    \DeclareInstance { hust / page } {#1} { title }
     {
-      \DeclareInstance { hust / page } {#1} { title }
-      {
-        prefix = #1,
-        #2,
-      }
+      prefix = #1,
+      #2,
     }
+  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1737,10 +1740,7 @@
 \__ctex_save_font_size:nn { a } { 45 bp } % 大初号
 \@@_declare_component_instance:nnn { title zh } { level }
   {
-    content =
-      {
-        \c_@@_name_level_zh_tl
-      },
+    content = { \c_@@_name_level_zh_tl },
     format = { \zihao { a } \bfseries \songti \ziju { 0.1 } },
     bottom-skip = 0.5 cm,
   }
@@ -1773,14 +1773,16 @@
 % \end{macro}
 %
 % \begin{macro}[int, module=hust/component/]{title zh/title}
+% 论文题目。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { title }
   {
-    content =
+    content = { \g_@@_info_title_tl },
+    format =
       {
-        \g_@@_info_title_tl
+        \zihao { 1 } \bfseries \songti
+        \@@_line_spread:n { 1.5 }
       },
-    format = { \zihao { 1 } \bfseries \songti },
     height = 4.8 cm,
     bottom-skip = 1.2 cm,
   }
@@ -1788,6 +1790,7 @@
 % \end{macro}
 %
 % \begin{macro}[int, module=hust/component/]{title zh/info}
+% 信息表格。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { info }
   {
@@ -1811,6 +1814,7 @@
 % \subsubsection{英文封面}
 %
 % \begin{macro}[int, module=hust/component/]{title en/degree}
+% 学位级别和学科。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { degree }
   {
@@ -1822,14 +1826,119 @@
           { \c_@@_name_professional_en_tl }
         \g_@@_info_degree_en_tl
       },
-    format = { \zihao { -3 } \bfseries \rmfamily },
-    bottom-skip = 2.5 cm,
+    format =
+      {
+        \zihao { -3 } \bfseries \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-skip = 5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title en/title}
+% 论文题目。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title en } { title }
+  {
+    content = { \g_@@_info_title_en_tl },
+    format =
+      {
+        \zihao { -2 } \bfseries \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    height = 3 cm,
+    bottom-skip = 1.2 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title en/info}
+% 信息表格。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title en } { info }
+  {
+    content =
+      {
+        \tl_set:Nn \tabcolsep { 0.5 em }
+        \begin{tabular}{l@{:}l}
+          \c_@@_name_author_en_tl & \g_@@_info_author_en_tl \\
+          \c_@@_name_major_en_tl & \g_@@_info_major_en_tl \\
+          \c_@@_name_supervisor_en_tl & \g_@@_info_supervisor_en_tl \\
+        \end{tabular}
+      },
+    format =
+      {
+        \zihao { -3 } \bfseries \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-skip = 4 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title en/address}
+% 学校名称和地址。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title en } { address }
+  {
+    content = { \c_@@_address_tl },
+    format =
+      {
+        \zihao { -3 } \bfseries \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{title en/date}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { title en } { date }
+  {
+    content = { \g_@@_info_date_en_tl },
+    format =
+      {
+        \zihao { -3 } \bfseries \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
   }
 %    \end{macrocode}
 % \end{macro}
 %
 %
-% \subsubsection{版权页}
+% \subsubsection{声明页}
+%
+% \begin{macro}[int, module=hust/component/]{decl/orig title}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { orig title }
+  {
+    content = { \c_@@_orig_decl_title_tl },
+    format =
+      {
+        \zihao { 3 } \bfseries \heiti
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-skip = 1 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{decl/orig text}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { orig text }
+  {
+    content = { \c_@@_orig_decl_text_tl },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    align = justify,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 %
 % \subsection{绘制封面}
 %
@@ -1853,11 +1962,25 @@
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { title en }
   {
-    components = { degree, },
+    components = { degree, title, info, address, date, },
   }
 \DeclareDocumentCommand \makeentitle { }
   {
     \UseInstance { hust / page } { title en }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\makedecl}
+% 声明页。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { decl }
+  {
+    components = { orig title, orig text },
+  }
+\DeclareDocumentCommand \makedecl { }
+  {
+    \UseInstance { hust / page } { decl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1869,6 +1992,7 @@
   {
     \makezhtitle
     \makeentitle
+    \makedecl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1962,7 +2086,7 @@
         secret = none,
         school-id = { 10487 },
         date = { \zhtoday },
-        date* = { \month,~ \year },
+        date* = { \month~ \year }
       }
   }
 %    \end{macrocode}
@@ -2108,16 +2232,19 @@
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
+    { level }
+      { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+%<def-m>      the~
+%<def-d>      The~
+      Requirements~ for~ }
+%<def-m>      { 硕士学位论文 },
+%<def-d>      { 博士学位论文 },
 %<*def-m>
-    { level } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
-      the~ Requirements~ for~ } { 硕士学位论文 },
     { academic } { the~ Master~ Degree~ in } { 学术型 },
     { professional } { the~ Professional~ Master~ Degree~ in }  { 专业型 },
     { author } { Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
 %</def-m>
 %<*def-d>
-    { level } { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
-      The~ Requirements~ for~ } { 博士学位论文 },
     { academic } { The~ Degree~ of~ Doctor~ of } { 学术型 },
     { professional } { The~ Degree~ of~ Doctor~ of } { 专业型 }, % no diff in English
     { author } { Ph.D.~ Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
