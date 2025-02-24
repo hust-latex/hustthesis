@@ -142,9 +142,13 @@
 %       title* = { \clsname{}: \LaTeX{} Thesis Template for Huazhong University of Science and Technology },
 %       degree = { academic },
 %       degree* = { Engineering },
-%       author = { ABC },
+%       author = { 姓名 },
+%       author* = { Author },
+%       student-id = { D201234567 },
 %       major = { 专业 },
-%       supervisor = { 指导老师 },
+%       major* = { Major },
+%       supervisor = { 指导老师\quad{} 教授 },
+%       supervisor* = { Prof.~ Supervisor },
 %     },
 % }
 % \title{The \clsname.cls Class}
@@ -1390,6 +1394,27 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_set_date:n}
+% 设置论文提交日期。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_date:n #1
+  {
+    \@@_set_date_aux:w #1 \q_stop
+  }
+\cs_new_protected:Npn \@@_set_date_aux:w #1 - #2 - #3 \q_stop
+  {
+    \tl_gset:Nn \g_@@_info_date_tl { {#1} 年 {#2} 月 {#3} 日 }
+    \tl_gset:Nn \g_@@_info_date_en_tl
+      { \clist_item:Nn \c_@@_month_clist {#2},~ {#1} }
+  }
+\clist_const:Nn \c_@@_month_clist
+  {
+    January, February, March, April, May, June,
+    July, August, September, October, November, December,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % 定义 |hust/info| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { hust / info }
@@ -1445,11 +1470,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[module=info/]{info/date, info/date*}
+% \begin{macro}[module=info/]{info/date}
 % 论文提交日期。
 %    \begin{macrocode}
-    date .tl_gset:N = \g_@@_info_date_tl,
-    date* .tl_gset:N = \g_@@_info_date_en_tl,
+    date .code:n = { \@@_set_date:n { #1 } },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1796,9 +1820,8 @@
   {
     content =
       {
-        \tl_set:Nn \tabcolsep { 0 pt }
         \tl_set:Nn \arraystretch { 2 }
-        \begin{tabular}{p{5em}@{{：\hspace{1em}}}l}
+        \begin{tabular}{p{5em}@{：\hspace{1em}}l}
           \c_@@_name_author_zh_tl & \g_@@_info_author_tl \\
           \c_@@_name_major_zh_tl & \g_@@_info_major_tl \\
           \c_@@_name_supervisor_zh_tl & \g_@@_info_supervisor_tl \\
@@ -1860,8 +1883,7 @@
   {
     content =
       {
-        \tl_set:Nn \tabcolsep { 0.5 em }
-        \begin{tabular}{l@{:}l}
+        \begin{tabular}{l@{\hspace{0.5em}:\hspace{0.5em}}l}
           \c_@@_name_author_en_tl & \g_@@_info_author_en_tl \\
           \c_@@_name_major_en_tl & \g_@@_info_major_en_tl \\
           \c_@@_name_supervisor_en_tl & \g_@@_info_supervisor_en_tl \\
@@ -1896,7 +1918,7 @@
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { date }
   {
-    content = { \g_@@_info_date_en_tl },
+    content = { \tl_use:N \g_@@_info_date_en_tl },
     format =
       {
         \zihao { -3 } \bfseries \rmfamily
@@ -1910,6 +1932,7 @@
 % \subsubsection{声明页}
 %
 % \begin{macro}[int, module=hust/component/]{decl/orig title}
+% 独创性声明标题。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { orig title }
   {
@@ -1925,6 +1948,7 @@
 % \end{macro}
 %
 % \begin{macro}[int, module=hust/component/]{decl/orig text}
+% 独创性声明正文。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { orig text }
   {
@@ -1935,10 +1959,118 @@
         \@@_line_spread:n { 1.5 }
       },
     align = justify,
+    bottom-skip = 1 cm,
   }
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int, module=hust/component/]{decl/orig sign}
+% 独创性声明签名。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { orig sign }
+  {
+    content =
+      {
+        \clist_map_inline:Nn \c_@@_orig_decl_sign_clist
+          {
+            #1 \\
+          }
+      },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    align = right,
+    bottom-skip = 3.5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{decl/auth title}
+% 学位论文版权使用授权书标题。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { auth title }
+  {
+    content = { \c_@@_auth_decl_title_tl },
+    format =
+      {
+        \zihao { 3 } \bfseries \heiti
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-skip = 1 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{decl/auth text}
+% 学位论文版权使用授权书正文。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { auth text }
+  {
+    content = { \c_@@_auth_decl_text_tl },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    align = justify,
+    bottom-skip = 0.5 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{decl/auth secr}
+% 学位论文保密使用保密选项。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { auth secr }
+  {
+    content =
+      {
+        \mode_leave_vertical:
+        \hbox_overlap_right:n
+          { \clist_item:Nn \c_@@_auth_decl_secr_clist { 1 } }
+        \skip_vertical:n { -1.2 cm }
+        \skip_horizontal:n { 6 em }
+        \clist_item:Nn \c_@@_auth_decl_secr_clist { 2 }
+        \tex_par:D
+        \skip_horizontal:n { 6 em }
+        \clist_item:Nn \c_@@_auth_decl_secr_clist { 3 }
+        \tex_par:D
+        \clist_item:Nn \c_@@_auth_decl_secr_clist { 4 }
+      },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    align = justify,
+    bottom-skip = 1 cm,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{decl/auth sign}
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { decl } { auth sign }
+  {
+    content =
+      {
+        \clist_map_inline:Nn \c_@@_auth_decl_sign_clist
+          {
+            #1
+            \tex_par:D
+          }
+      },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      },
+    align = justify,
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{绘制封面}
 %
@@ -1976,7 +2108,11 @@
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { decl }
   {
-    components = { orig title, orig text },
+    components =
+      {
+        orig title, orig text, orig sign,
+        auth title, auth text, auth secr, auth sign,
+      },
   }
 \DeclareDocumentCommand \makedecl { }
   {
@@ -2085,8 +2221,12 @@
         degree = { academic },
         secret = none,
         school-id = { 10487 },
-        date = { \zhtoday },
-        date* = { \month~ \year }
+        date =
+          {
+            \int_use:N \c_sys_year_int -
+            \int_use:N \c_sys_month_int -
+            \int_use:N \c_sys_day_int
+          }
       }
   }
 %    \end{macrocode}
@@ -2277,7 +2417,7 @@
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_orig_decl_sign_clist
   {
-    学位论文作者签名：,
+    学位论文作者签名：\hspace{2em}\mbox{},
     日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
   }
 %    \end{macrocode}
@@ -2309,9 +2449,9 @@
   }
 \clist_const:Nn \c_@@_auth_decl_sign_clist
   {
-    学位论文作者签名：,
-    指导教师签名：,
-    日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
+    学位论文作者签名：\hfill{} 指导教师签名：\hspace*{5em} \mbox{},
+    日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日 \hfill{}
+    日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日\hspace*{1em} \mbox{}
   }
 %    \end{macrocode}
 % \end{variable}
