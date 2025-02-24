@@ -167,8 +167,9 @@
 % \date{[LATEST] \quad Version [DEV]} ^^A [L3BUILD_REPLACED_MARK]
 %
 % \maketitle
-%
+% \frontmatter
 % \tableofcontents
+% \mainmatter
 %
 % \begin{documentation}
 %
@@ -182,6 +183,7 @@
 %
 % \begin{implementation}
 %
+% \appendix
 % \newgeometry{
 %   marginpar = 2.8 cm,
 % }
@@ -499,7 +501,7 @@
 %    \begin{macrocode}
     fontset .choices:nn =
       { fandol, mac, macoffice, win, none, }
-      { \keys_set:nn { hust / options } { latin-font = #1, cjk-font = #1 } },
+      { \keys_set:nn { hust / option } { latin-font = #1, cjk-font = #1 } },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -625,6 +627,7 @@
     fancyhdr,
     titletoc,
     graphicx,
+    multirow,
     longtable,
     caption,
     utfsym,
@@ -717,7 +720,6 @@
 %    \begin{macrocode}
     \fontspec_if_small_caps:F
       {
-        \
         \@@_warning:n { no-small-caps }
         \__fontspec_main_setmainfont:nn
           { \c_@@_name_gyrefeature_clist } { texgyretermes }
@@ -1368,6 +1370,13 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{macro}{\g_@@_info_committee_seq}
+% 声明答辩委员会成员列表。
+%    \begin{macrocode}
+\seq_new:N \g_@@_info_committee_seq
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{variable}{\l_@@_info_title_sanitized_tl,\l_@@_info_title_en_sanitized_tl}
 % 处理后的论文标题。
 %    \begin{macrocode}
@@ -1499,6 +1508,16 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[module=info/]{info/committee}
+% 答辩委员会成员列表。
+%    \begin{macrocode}
+    committee .code:n =
+      {
+        \seq_gset_from_clist:Nn \g_@@_info_committee_seq { #1 }
+      },
+%    \end{macrocode}
+% \end{macro}
+%
 %    \begin{macrocode}
   }
 %    \end{macrocode}
@@ -1583,8 +1602,10 @@
 %   \item[\opt{content}] 组件主体内容
 %   \item[\opt{format}] 组件字体/段落格式
 %   \item[\opt{height}] 组件固定高度，不设置则自动计算。主要用于行数不确定，需要固定高度的情况
+%   \item[\opt{top-lines}] 顶部空出的行数，按照设定的段落格式计算
 %   \item[\opt{top-skip}] 顶部间距（建议优先配置底部间距，顶部间距仅在特殊情况使用）
 %   \item[\opt{bottom-skip}] 底部间距
+%   \item[\opt{bottom-lines}] 底部空出的行数，按照设定的段落格式计算
 %   \item[\opt{align}] 对齐方式，可选值为靠左对齐~\opt{left}，靠右对齐~\opt{right}，居中对齐~\opt{center}，以及两端对齐~\opt{justify}。默认为居中对齐
 % \end{arguments}
 %    \begin{macrocode}
@@ -1595,8 +1616,10 @@
   format : tokenlist = \c_empty_tl,
   width: skip = \c_zero_skip,
   height: skip = \c_zero_skip,
+  top-lines : integer = \c_zero_int,
   top-skip : skip = \c_zero_skip,
   bottom-skip : skip = \c_zero_skip,
+  bottom-lines : integer = \c_zero_int,
   align : choice { left, right, center, justify } = center,
 }
 \DeclareTemplateCode { hust / component } { plain } { 0 }
@@ -1605,8 +1628,10 @@
   format = \l_@@_component_format_tl,
   width = \l_@@_component_width_skip,
   height = \l_@@_component_height_skip,
+  top-lines = \l_@@_component_top_lines_int,
   top-skip = \l_@@_component_top_skip,
   bottom-skip = \l_@@_component_bottom_skip,
+  bottom-lines = \l_@@_component_bottom_lines_int,
   align =
     {
       left =
@@ -1621,6 +1646,12 @@
 }
 {
   \AssignTemplateKeys
+  \int_step_inline:nn { \l_@@_component_top_lines_int }
+    {
+      \l_@@_component_format_tl
+      \mode_leave_vertical:
+      \tex_par:D
+    }
   \dim_compare:nNnTF { \l_@@_component_height_skip } > { \c_zero_skip }
     {
       \box_clear_new:N \l_@@_component_box
@@ -1642,6 +1673,12 @@
       \l_@@_component_content_tl
       \tex_par:D
       \group_end:
+    }
+  \int_step_inline:nn { \l_@@_component_bottom_lines_int }
+    {
+      \l_@@_component_format_tl
+      \mode_leave_vertical:
+      \tex_par:D
     }
   \skip_vertical:N \l_@@_component_bottom_skip
   \skip_vertical:N \c_zero_skip
@@ -1928,6 +1965,79 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{答辩委员会页}
+%
+% \begin{macro}[int, module=hust/component/]{committee/title}
+% 答辩委员会标题。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { committee } { title }
+  {
+    content = { \c_@@_name_committee_tl },
+    format =
+      {
+        \zihao { 3 } \bfseries \sffamily
+        \@@_line_spread:n { 1.5 }
+      },
+    bottom-lines = 1,
+  }
+\tl_const:Nn \c_@@_name_committee_tl { 答辩委员会 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int, module=hust/component/]{committee/members}
+% 答辩委员会成员列表。
+%    \begin{macrocode}
+\@@_declare_component_instance:nnn { committee } { members }
+  {
+    content =
+      {
+        \tl_set:Nn \arraystretch { 1.5 }
+        \begin{tabular}
+          { |c|c|c|c| }
+          \hline
+          \c_@@_committee_header_tl \\
+          \hline
+          \int_const:Nn \l_@@_info_committee_count_int
+            { \seq_count:N \g_@@_info_committee_seq }
+          \seq_map_indexed_inline:Nn \g_@@_info_committee_seq
+            {
+              \int_case:nnF { #1 }
+                {
+                  { 1 }
+                    {
+                      \clist_item:Nn \c_@@_committee_role_clist { 1 }
+                      & #2 \\ \hline
+                    }
+                  { 2 }
+                    {
+                      \multirow
+                        { \int_eval:n { \l_@@_info_committee_count_int - 1 } }
+                        { * }
+                        { \clist_item:Nn \c_@@_committee_role_clist { 2 } }
+                      & #2 \\ \cline{2-4}
+                    }
+                  { \l_@@_info_committee_count_int }
+                    { & #2 }
+                }
+                { & #2 \\ \cline{2-4} }
+            }
+            \\ \hline
+        \end{tabular}
+      },
+    format =
+      {
+        \zihao { 4 } \sffamily
+        \@@_line_spread:n { 1.5 }
+      },
+    top-lines = 1,
+  }
+\tl_const:Nn \c_@@_committee_header_tl
+  { \makebox[3em]{} & \makebox[4em][c]{姓名} & \makebox[4em][c]{职称} & \makebox[12em][c]{单位} }
+\clist_const:Nn \c_@@_committee_role_clist
+  { 主席, 委员, }
+\tl_new:N \l_@@_committee_member_tl
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{声明页}
 %
@@ -1942,7 +2052,7 @@
         \zihao { 3 } \bfseries \heiti
         \@@_line_spread:n { 1.5 }
       },
-    bottom-skip = 1 cm,
+      bottom-lines = 1,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1959,7 +2069,7 @@
         \@@_line_spread:n { 1.5 }
       },
     align = justify,
-    bottom-skip = 1 cm,
+    bottom-lines = 1,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1982,7 +2092,7 @@
         \@@_line_spread:n { 1.5 }
       },
     align = right,
-    bottom-skip = 3.5 cm,
+    bottom-lines = 3,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1998,7 +2108,8 @@
         \zihao { 3 } \bfseries \heiti
         \@@_line_spread:n { 1.5 }
       },
-    bottom-skip = 1 cm,
+    top-lines = 1,
+    bottom-lines = 1,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2045,7 +2156,7 @@
         \@@_line_spread:n { 1.5 }
       },
     align = justify,
-    bottom-skip = 1 cm,
+    bottom-lines = 1,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2103,6 +2214,20 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\makecomm}
+% 答辩委员会页。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { committee }
+  {
+    components = { title, members, },
+  }
+\DeclareDocumentCommand \makecomm { }
+  {
+    \UseInstance { hust / page } { committee }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\makedecl}
 % 声明页。
 %    \begin{macrocode}
@@ -2127,6 +2252,8 @@
 \DeclareDocumentCommand \maketitle { }
   {
     \makezhtitle
+    \tl_if_eq:NnT \g_@@_degree_level_tl { doctor }
+      { \makecomm }
     \makeentitle
     \makedecl
   }
@@ -2226,6 +2353,16 @@
             \int_use:N \c_sys_year_int -
             \int_use:N \c_sys_month_int -
             \int_use:N \c_sys_day_int
+          },
+        committee =
+          {
+            { &~&~ },
+            { &~&~ },
+            { &~&~ },
+            { &~&~ },
+            { &~&~ },
+            { &~&~ },
+            { &~&~ },
           }
       }
   }
