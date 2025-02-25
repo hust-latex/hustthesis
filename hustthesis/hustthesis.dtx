@@ -168,6 +168,8 @@
 %
 % \maketitle
 % \frontmatter
+% \chapter{测试1}
+% \chapter*{测试2\addcontentsline{toc}{chapter}{测试2}}
 % \tableofcontents
 % \mainmatter
 %
@@ -177,6 +179,14 @@
 %
 % 提前致谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}， \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，和 \cls{njuthesis} 文档类\cite{njulug2023njuthesis}，本文档类的许多设计和实现都是参考了上述代码。
 %
+% \section{测试}
+% 123
+% \subsection{测试}
+% 321
+% \chapter{测试}
+% 123
+% \tocchapter{测试123}
+% 321
 % \printbibliography
 %
 % \end{documentation}
@@ -250,6 +260,13 @@
 % 盲审模式。
 %    \begin{macrocode}
 \bool_new:N \g_@@_anonymous_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_anonymous_clist}
+% 盲审模式需要隐藏的内容。
+%    \begin{macrocode}
+\clist_new:N \g_@@_anonymous_clist
 %    \end{macrocode}
 % \end{variable}
 %
@@ -484,6 +501,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[module=option/]{anonymous-list}
+% 在开启盲审模式下需要隐藏的内容。其中下划线（|_|）需替换为连接符（|-|），星号（|*|）需替换为|_en|。
+%    \begin{macrocode}
+    anonymous-list .clist_gset:N = \g_@@_anonymous_clist,
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}[module=option/]{latin-font, cjk-font}
 % 中英文字体选项。\opt{fandol} 和 \opt{gyre} 是等价的。
 %    \begin{macrocode}
@@ -636,6 +660,14 @@
 %
 %
 % \section{全局样式}
+%
+% 隐藏盲审模式下需要隐藏的内容。
+%    \begin{macrocode}
+\clist_map_inline:Nn \g_@@_anonymous_clist
+  {
+    \tl_gset_eq:cN { g_@@_name_ #1 _tl } \c_empty_tl
+  }
+%    \end{macrocode}
 %
 % \subsection{页面布局}
 % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
@@ -1232,14 +1264,8 @@
     \NewDocumentCommand \heiti { } { \CJKfamily { zhhei } }
     \NewDocumentCommand \fangsong { } { \CJKfamily { zhfs } }
     \NewDocumentCommand \kaishu { } { \CJKfamily { zhkai } }
-%    \end{macrocode}
-% \begin{macro}{\bigger}
-% 重定义字号命令。
-%    \begin{macrocode}
-    \NewDocumentCommand \bigger { } { \ctex_zihao:n { 4 } }
   }
 %    \end{macrocode}
-% \end{macro}
 % \end{macro}
 %
 % 载入设置的字体。^^A 为了吸收导言区的设置，放在其后载入。
@@ -1280,23 +1306,23 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 设置页眉格式。仅在非盲审模式~\key{anonymous} 下显示学校名称。
+% \sout{设置页眉格式。仅在非盲审模式~\key{anonymous} 下显示学校名称。}
 %    \begin{macrocode}
-\bool_if:NF \g_@@_anonymous_bool
-  {
+%\bool_if:NF \g_@@_anonymous_bool
+%  {
     \chead
       {
-        \zihao{3} \ziju{0.7} \bfseries \kaishu
+        \zihao{3} \ziju{0.75} \bfseries \kaishu
         \color_group_begin:
         \color_select:n { headfoot }
         \c_@@_header_tl
         \color_group_end:
       }
-  }
+%  }
 \tl_set:Nn { \headrulewidth } { 1 pt }
 \tl_set:Nn { \headrule }
   {
-    \skip_vertical:n { 6 pt }
+    \skip_vertical:n { 3 pt }
     \@@_draw_hf_hline:n \headrulewidth
     \skip_vertical:n \headrulewidth
     \@@_draw_hf_hline:n \headrulewidth
@@ -1310,6 +1336,7 @@
 \tl_set:Nn { \footrule }
   {
     \@@_draw_hf_hline:n \footrulewidth
+    \skip_vertical:n { 3 pt }
   }
 %    \end{macrocode}
 %
@@ -1320,7 +1347,9 @@
 %    \end{macrocode}
 %
 %
-% \section{封面样式}
+% \section{封面扉页样式}
+%
+% 定义中英文封面，答辩委员会页，声明页样式，即在正文前不含有页眉页脚的特殊页面样式。
 %
 % \subsection{信息录入}
 %
@@ -1646,9 +1675,9 @@
 }
 {
   \AssignTemplateKeys
+  \l_@@_component_format_tl
   \int_step_inline:nn { \l_@@_component_top_lines_int }
     {
-      \l_@@_component_format_tl
       \mode_leave_vertical:
       \tex_par:D
     }
@@ -1659,7 +1688,6 @@
         {
           \skip_vertical:N \l_@@_component_top_skip
           \l_@@_component_align:
-          \l_@@_component_format_tl
           \l_@@_component_content_tl
           \tex_vfill:D
         }
@@ -1667,16 +1695,12 @@
     }
     {
       \skip_vertical:N \l_@@_component_top_skip
-      \group_begin:
       \l_@@_component_align:
-      \l_@@_component_format_tl
       \l_@@_component_content_tl
       \tex_par:D
-      \group_end:
     }
   \int_step_inline:nn { \l_@@_component_bottom_lines_int }
     {
-      \l_@@_component_format_tl
       \mode_leave_vertical:
       \tex_par:D
     }
@@ -1720,7 +1744,11 @@
       \exp_args:No \thispagestyle { \l_@@_page_style_tl }
       \l_@@_page_format_tl
       \clist_map_inline:Nn \l_@@_page_components_clist
-        { \UseInstance { hust / component } { \l_@@_page_prefix_tl / ##1 } }
+        {
+          \group_begin:
+          \UseInstance { hust / component } { \l_@@_page_prefix_tl / ##1 }
+          \group_end:
+        }
     \group_end:
     \clearpage
   }
@@ -1753,12 +1781,6 @@
 % \begin{macro}[int, module=hust/component/]{title zh/identifiers}
 % 分类号，学号，学校代码，密级。
 %    \begin{macrocode}
-\cs_new:Npn \@@_title_zh_ids_aux:nn #1#2
-  {
-    \tl_use:c { c_@@_name_ #2 _tl }
-    \@@_ul_to_wd:nnn { 1 pt } { #1 }
-      { \tl_use:c { g_@@_info_ #2 _tl } }
-  }
 \@@_declare_component_instance:nnn { title zh } { identifiers }
   {
     content =
@@ -1776,7 +1798,13 @@
         \zihao{-4} \bfseries \rmfamily \songti
         \@@_line_spread:n { 1.5 }
       },
-    bottom-skip = 2.5 cm,
+    bottom-skip = 2 cm,
+  }
+\cs_new:Npn \@@_title_zh_ids_aux:nn #1#2
+  {
+    \tl_use:c { c_@@_name_ #2 _tl }
+    \@@_ul_to_wd:nnn { 1 pt } { #1 }
+      { \tl_use:c { g_@@_info_ #2 _tl } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1845,7 +1873,7 @@
         \@@_line_spread:n { 1.5 }
       },
     height = 4.8 cm,
-    bottom-skip = 1.2 cm,
+    bottom-skip = 1 cm,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2050,7 +2078,6 @@
     format =
       {
         \zihao { 3 } \bfseries \heiti
-        \@@_line_spread:n { 1.5 }
       },
       bottom-lines = 1,
   }
@@ -2063,11 +2090,6 @@
 \@@_declare_component_instance:nnn { decl } { orig text }
   {
     content = { \c_@@_orig_decl_text_tl },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
     align = justify,
     bottom-lines = 1,
   }
@@ -2086,11 +2108,6 @@
             #1 \\
           }
       },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
     align = right,
     bottom-lines = 3,
   }
@@ -2106,7 +2123,6 @@
     format =
       {
         \zihao { 3 } \bfseries \heiti
-        \@@_line_spread:n { 1.5 }
       },
     top-lines = 1,
     bottom-lines = 1,
@@ -2120,11 +2136,6 @@
 \@@_declare_component_instance:nnn { decl } { auth text }
   {
     content = { \c_@@_auth_decl_text_tl },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
     align = justify,
     bottom-skip = 0.5 cm,
   }
@@ -2150,11 +2161,6 @@
         \tex_par:D
         \clist_item:Nn \c_@@_auth_decl_secr_clist { 4 }
       },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
     align = justify,
     bottom-lines = 1,
   }
@@ -2172,11 +2178,6 @@
             #1
             \tex_par:D
           }
-      },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
       },
     align = justify,
   }
@@ -2238,6 +2239,11 @@
         orig title, orig text, orig sign,
         auth title, auth text, auth secr, auth sign,
       },
+    format =
+      {
+        \zihao { -4 } \rmfamily
+        \@@_line_spread:n { 1.5 }
+      }
   }
 \DeclareDocumentCommand \makedecl { }
   {
@@ -2261,15 +2267,115 @@
 % \end{macro}
 %
 %
-% \section{扉页样式}
+% \section{前言样式}
 %
-% \subsection{答辩委员会页}
+% 定义从摘要到目录的样式，即有页眉页脚，含有大写罗马数字页码页的样式。
 %
-% \subsection{声明页}
+% \begin{macro}{\frontmatter}
+%    \begin{macrocode}
+\@@_appto_cmd:Nn \frontmatter
+  {
+    \pagestyle { fancy }
+    \pagenumbering { Roman }
+    \@@_toc_chapter_frontmatter:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{摘要样式}
 %
 % \subsection{目录样式}
 %
+% 设置目录章节显示深度。
+%    \begin{macrocode}
+\keys_set:nn { ctex }
+  {
+    tocdepth = section,
+  }
+%    \end{macrocode}
+%
+% 设置目录项右边距。
+%    \begin{macrocode}
+\contentsmargin { 0 pt }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_toc_format:nnnn}
+% 设置目录项格式。
+% \begin{arguments}
+%   \item 章节类型
+%   \item 编号与章节名称间距
+%   \item 章节名称样式
+%   \item 章节页码格式（|\thecontentspage|表示页码）
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_toc_format:nnnn #1#2#3#4
+  {
+    \titlecontents
+      { #1 }
+      [ 0 pt ]
+      { #3 }
+      { \thecontentslabel \hspace{#2} #3 }
+      { #3 }
+      { #4 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%  \@@_toc_chapter_frontmatter:
+%  \@@_toc_chapter_mainmatter:
+%  \@@_toc_chapter_appendix:
+% }
+% 设置章的三种样式，分别是在前言部分有虚线，不带括号页码的格式；
+% 正文无虚线，带括号页码的格式；
+% 以及附录部分有虚线，带括号页码的格式。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_toc_chapter_frontmatter:
+  {
+    \@@_toc_format:nnnn
+      { chapter }
+      { 0.5 em}
+      { \zihao{4} \bfseries \rmfamily \heiti }
+      { \mdseries \hfill \thecontentspage }
+    }
+\cs_new_protected:Npn \@@_toc_chapter_mainmatter:
+  {
+    \@@_toc_format:nnnn
+      { chapter }
+      { 0.5 em }
+      { \zihao{4} \bfseries \rmfamily \heiti }
+      { \mdseries \hfill (\thecontentspage) }
+  }
+\cs_new_protected:Npn \@@_toc_chapter_appendix:
+  {
+    \@@_toc_format:nnnn
+      { chapter }
+      { 0.5 em }
+      { \zihao{4} \bfseries \rmfamily \heiti }
+      { \mdseries \dotfill (\thecontentspage) }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置节的样式。
+%    \begin{macrocode}
+\@@_toc_format:nnnn
+  { section }
+  { 0.5 em }
+  { \zihao{4} \rmfamily }
+  { \dotfill\textrm{(\thecontentspage)} }
+%    \end{macrocode}
+%
 % \section{正文样式}
+%
+%    \begin{macrocode}
+\@@_appto_cmd:Nn \mainmatter
+  {
+    \pagestyle { fancy }
+    \pagenumbering { arabic }
+    \@@_toc_chapter_mainmatter:
+  }
+%    \end{macrocode}
 %
 % \subsection{章节样式}
 %
@@ -2282,29 +2388,42 @@
 %    \begin{macrocode}
     chapter =
       {
-        format = \zihao{3} \bfseries \rmfamily \centering,
+        format = \zihao{3} \bfseries \rmfamily \heiti \centering \linespread{1.5},
         name = {},
         beforeskip = 15.5 bp,
-        afterskip = 14 bp,
+        afterskip = 14 bp + \CTEX@chapter@lofskip,
         number = \arabic{ chapter },
         pagestyle = fancy,
+        fixskip = true,
       },
     section =
       {
-        format = \zihao{4} \bfseries \rmfamily \raggedright,
+        format = \zihao{4} \bfseries \rmfamily \heiti \raggedright,
         numberformat = \rmfamily,
         beforeskip = 10 bp,
         afterskip = 7 bp,
       },
     subsection =
       {
-        format = \zihao{-4} \bfseries \rmfamily \raggedright,
+        format = \zihao{-4} \bfseries \rmfamily \heiti \raggedright,
         numberformat = \rmfamily,
         beforeskip = 7 bp,
         afterskip = 4 bp,
       }
   }
 %    \end{macrocode}
+%
+% \begin{macro}{\tocchapter}
+% 对带有星号的章节指令补丁，使得其能够在目录中显示。
+%    \begin{macrocode}
+\NewDocumentCommand \tocchapter { O{} m }
+  {
+    \chapter*{#2}
+    \CTEX@addtocline{chapter}{#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 %
 % \section{篇后样式}
 %
@@ -2313,6 +2432,20 @@
 % \subsection{参考文献}
 %
 % \section{附录样式}
+%
+%    \begin{macrocode}
+\@@_appto_cmd:Nn \appendix
+  {
+    \@@_toc_chapter_appendix:
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\keys_set:nn { ctex / appendix }
+  {
+    number = \arabic{chapter},
+  }
+%    \end{macrocode}
 %
 % \subsection{答辩委员会决议}
 %
@@ -2341,18 +2474,23 @@
 %
 % 文档类初始设置。学校代码默认为 \opt{10487}。
 %    \begin{macrocode}
-\keys_set:nn { hust }
+\keys_set_known:nn { hust }
   {
     info =
       {
         degree = { academic },
-        secret = none,
+        secret = ,
         school-id = { 10487 },
         date =
           {
             \int_use:N \c_sys_year_int -
             \int_use:N \c_sys_month_int -
             \int_use:N \c_sys_day_int
+          },
+        anonymous-list =
+          {
+            author, student_id, supervisor,
+            author_en, supervisor_en,
           },
         committee =
           {
