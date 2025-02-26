@@ -1,22 +1,85 @@
 **/build/*
 
-*.ins
-*.cls
-*.pdf
 *.zip
 
+### (La)TeX auxiliary files
 
-*.aux
-*.fdb_latexmk
-*.fls
-*.glo
-*.synctex.gz
-*.synctex(busy)
-*.hd
-*.idx
-*.ind
-*.log
-*.out
-*.pdf
-*.toc
+## Intermediate files:
+*.bib
+*.ins
+*.cls
+
+## Intermediate documents:
+*.dvi
 *.xdv
+*-converted-to.*
+*.pdf
+
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.bcf-SAVE-ERROR
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+*.rubbercache
+rubber.cache
+
+## Auxiliary and intermediate files from other packages:
+
+# algorithms
+*.alg
+*.loa
+
+# glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+*.slg
+*.slo
+*.sls
+
+# hypdoc
+*.hd
+
+# hyperref
+*.brf
+
+# makeidx
+*.idx
+*.ilg
+*.ind
+
+# TikZ & PGF
+*.dpth
+*.md5
+*.auxlock
