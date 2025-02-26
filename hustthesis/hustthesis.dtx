@@ -94,7 +94,6 @@
 \let\maketitle=\maketitleold
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
-\usepackage[style=hustthesis]{biblatex} % temporary
 \begin{filecontents}[overwrite]{\jobname-fmt.bib}
 @online{zeng2023fduthesis,
   title = {\cls{fduthesis}: 复旦大学论文模板},
@@ -219,13 +218,14 @@
 %</driver>
 % \fi
 %
-% \changes{v2.0.0}{2024-10-01}{使用\cls{useclass}在文档类手册中应用自身}
+% \changes{v2.0.0}{2024-10-01}{使用 \LaTeX3 语法重构}
+% \changes{v2.0.0}{2024-10-01}{使用 \cls{useclass} 在文档类手册中应用自身}
 %
 % \hustsetup {
 %   info =
 %     {
-%       title = { \clsname{}：华中科技大学研究生\\学位论文\LaTeX{}文档类使用说明 },
-%       title* = { \clsname{}: \LaTeX{} Thesis Template for Huazhong University of Science and Technology },
+%       title = { \clsname{} [DEV]：华中科技大学研究生学位论文\LaTeX{}文档类使用说明 }, %^^A [L3BUILD_REPLACED_MARK]
+%       title* = { \clsname{} [DEV]: \LaTeX{} Thesis Template for Huazhong University of Science and Technology }, %^^A [L3BUILD_REPLACED_MARK]
 %       degree = { academic },
 %       degree* = { Engineering },
 %       author = { 姓名 },
@@ -237,35 +237,38 @@
 %       supervisor* = { Prof.~ Supervisor },
 %     },
 % }
-% \title{The \clsname.cls Class}
-% \author
-%   {
-%     Huang Yuxi^^A
-%     \thanks{
-%       \textit{Huang} is his surname.
-%     }
-%     <^^A
-%     \href
-%       {mailto:hustthesis@hyxi.dev}
-%       {hustthesis@hyxi.dev}^^A
-%     >
-%   }
-% \date{[LATEST] \quad Version [DEV]} ^^A [L3BUILD_REPLACED_MARK]
 %
 % \maketitle
 % \frontmatter
 % \begin{abstract}
-%   \clsname{} 是华中科技大学研究生学位论文\LaTeX{}文档类，基于 \cls{ctexbook} 文档类。
-%   2.0.0 版使用 \LaTeX3 语法重构。
+%   \clsname{} 是华中科技大学研究生学位论文\LaTeX{}\emph{非官方}文档类。
+%   2.0.0 起版使用 \LaTeX3 语法重构，并且不再兼容之前的版本。
+%   目前仅支持\emph{中文理工科硕士和博士}学位论文。
 %
-%   \keywords 学位论文模板；\LaTeX3
+%   本模板遵循 \LaTeX 项目公共许可证 1.3c（\LaTeX Project Public License 1.3c 版）的相关规定进行分发和修改。
+%   使用本模板即表示您已知悉并同意该许可证的条款。
+%   本模板按“原样”提供，不附带任何明示或暗示的保证，包括但不限于适销性或特定用途的适用性。
+%   作者不对因使用本模板导致的任何直接或间接损失承担责任。
+%   请在修改和分发本模板时遵循许可证的相关要求，以确保其完整性和可维护性。
+%
+%   \keywords 华中科技大学；学位论文模板；\LaTeX；\LaTeX3
 % \end{abstract}
 %
 % \begin{abstract*}
-%   \clsname{} is a \LaTeX{} thesis template for Huazhong University of Science and Technology, based on the \cls{ctexbook} document class.
-%   Version 2.0.0 is rewritten in \LaTeX3.
+%   \clsname{} is an Unofficial \LaTeX{} thesis template for Huazhong University of Science and Technology.
+%   Version 2.0.0 and later are written in \LaTeX3 and are not compatible with previous versions.
+%   Currently, it only supports Science and Engineering master's and doctoral theses in Chinese.
+%
+%   This template is distributed and modified under the terms of the \LaTeX Project Public License 1.3c.
+%   By using this template, you acknowledge and agree to the terms of this license.
+%   This template is provided ``as is'' without any express or implied warranty, including but not limited to
+%   merchantability or fitness for a particular purpose.
+%   The author is not responsible for any direct or indirect losses arising from the use of this template.
+%   Please follow the relevant requirements of the license when modifying and distributing this template
+%   to ensure its integrity and maintainability.
 
-%   \keywords* Dissertation Template, \LaTeX3
+%
+%   \keywords* Huazhong University of Science and Technology, Dissertation Template, \LaTeX, \LaTeX3
 % \end{abstract*}
 %
 % \tableofcontents
@@ -273,24 +276,127 @@
 %
 % \begin{documentation}
 %
-% \chapter{引言}
+% \chapter{介绍}
+%
+% \clsname{} 是华中科技大学研究生学位论文\LaTeX{}文档类，
+% 旨在为华科学生提供一个简单上手，易于使用的学位论文模板。
+%
+% \section{版本号}
+%
+% 更新版本往往会带来新功能和修复问题，
+% 但有时也会不可避免地带来不向后兼容的修改。
+% 为了清晰地传达版本之间的变化，
+% 本文档类的版本号使用类似语义化版本控制（Semantic Versioning）规范\footnote{\url{https://semver.org/}}用以标识。
+% 在本文档类中，版本号 |MAJOR.MINOR.PATCH|，递增相应的部分所表示的含义如下：
+% \begin{itemize}
+%   \item MAJOR：递增大版本号，通常表示已在正文文档化的公有接口上存在不向后兼容编译的修改；
+%   \item MINOR：递增小版本号，表示未在正文文档化的私有接口上存在不向后兼容的修改，或者文档样式发生比较明显的变化，通常对代码不作修改或者只需小幅修改就可以正常编译；
+%   \item PATCH：递增补丁版本号，表示新版本含有向后兼容的 bug 修复，新功能，或者文档样式的细微变化。
+% \end{itemize}
+% 用户在更新文档类时，可以根据版本号的变化来判断是否需要修改自己的文档。
+%
+% \chapter{安装}
 %
 %
-% \chapter{测试1}
-% \chapter*{测试2\addcontentsline{toc}{chapter}{测试2}}
-% \section{测试}
-% 123
-% \subsection{测试}
-% 321
-% \chapter{测试}
-% 123
-% \chapter*{测试123}
-% 321
-% \chapter{参考文献测试}
+%
+% \chapter{使用}
+%
+% \section{太长不读（TL;DR）}
+%
+% 本节将展示两段精简程度不一的代码示例，
+% 可用于快速了解本模板类的使用方法，
+% 或者在编译失败的调试阶段作为参考。
+%
+% \paragraph{最小可用示例}
+% 以下代码包含了本模板类的最小可用示例（Minimal Working Example），
+% 用于展现模板使用的主体结构。
+% \begin{latexcode}
+%   \documentclass{hustthesis}
+%   % \hustsetup{} % 设置
+%   \begin{document}
+%     \maketitle
+%     \frontmatter
+%     摘要部分
+%     \tableofcontents
+%     \mainmatter
+%     正文部分
+%     \backmatter
+%     致谢以及参考文献
+%     \appendix
+%     附录部分
+%   \end{document}
+% \end{latexcode}
+%
+% \paragraph{核心示例}
+% 本示例包含了模板的核心命令和环境，
+% 更多进阶用法请参考后续章节。
+% \begin{latexcode}[emph={[1]hustsetup}]
+%   \documentclass[level=doctor]{hustthesis} % 博士学位论文: doctor, 硕士学位论文: master
+%   \hustsetup { % 设置之间一定不能有空行
+%     info =
+%       {
+%         title = { 中文标题 },
+%         title* = { English Title },
+%         degree = { academic }, % 学术型: academic, 专业型: professional
+%         degree* = { Engineering }, % 英文学科
+%         author = { 姓名 },
+%         author* = { Author },
+%         student-id = { D201234567 },
+%         major = { 专业 },
+%         major* = { Major },
+%         supervisor = { 指导老师\quad{} 教授 },
+%         supervisor* = { Prof.~ Supervisor },
+%         date = { 2025-02-26 }, % 不写这行的话会自动生成，写的话一定要按照这个格式
+%       },
+%   }
+%   \addbibresource{references.bib} % % biblatex 参考文献文件名
+%   \begin{document}
+%     \maketitle
+%     \frontmatter
+%     \begin{abstract}
+%       中文摘要
+%       \keywords 关键词1；关键词2；关键词3
+%     \end{abstract}
+%     \begin{abstract*}
+%       English Abstract
+%       \keywords* keyword1, keyword2, keyword3
+%     \end{abstract*}
+%     \tableofcontents
+%     \mainmatter
+%     \chapter{第一章}
+%     \section{第一节}
+%     ...
+%     \backmatter
+%     \begin{acknowledgements} % 致谢
+%       感谢 hustthesis 文档类。
+%     \end{acknowledgements}
+%     \printbibliography
+%     \appendix
+%     \chapter{附录}
+%   \end{document}
+% \end{latexcode}
+%
+% \section{文档类选项}
+%
+% 本节介绍的选项仅可在如下文档类选项（中括号中）中使用。
+% \begin{latexcode}
+%   \documentclass[...]{hustthesis}
+% \end{latexcode}
+%
+% \section{文档设置}
+%
+% 本节介绍的设置选项只可在 \tn{hustsetup} 命令中使用。
+%
+% \section{文档命令}
+%
+% \section{文档环境}
+%
+% \section{参考文献}
 % \citeauthor{YanMingLi2006CFGZhuang}
 % \cite{chalfi1998GreenFluo, ZhanXiangHong2004ZhongYiY}
 % \parencite{lein2007Genomewide,bouxse2010Guidelines,yamaki2018Performanc,yao2017BuildingE,LiuJiaLin1993DuoGongN,LiQingQuan1998JiYuHun}
 %
+% \backmatter
 % \begin{acknowledgements}
 %   感谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}，
 %   \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，
@@ -525,7 +631,7 @@
 \dim_new:N \l_@@_ul_dim
 \cs_new_protected:Npn \@@_ul_to_wd:nnn #1#2#3
   {
-    \hbox_overlap_right:n { \rule [ - 0.5 ex - #1 / 2 ] { #2 } { #1 } }
+    \hbox_overlap_right:n { \rule [ - 0.5 ex ] { #2 } { #1 } }
     \hbox_to_wd:nn { #2 } { \tex_hfil:D #3 \tex_hfil:D }
   }
 %    \end{macrocode}
@@ -596,6 +702,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=option/]{anonymous}
+% \changes{v2.0.0}{2025-02-18}{支持盲审模式}
 % 是否启用盲审模式。默认为 \opt{false}，即显示作者信息。\key[option]{anonymous}
 %    \begin{macrocode}
     anonymous .choice:,
@@ -767,6 +874,11 @@
     caption,
     utfsym,
   }
+%    \end{macrocode}
+%
+% 载入基于 \clsname{} 样式的 \pkg{biblatex} 宏包。
+%    \begin{macrocode}
+\RequirePackage[style=hustthesis]{biblatex}
 %    \end{macrocode}
 %
 %
@@ -2030,7 +2142,7 @@
         \zihao { -3 } \bfseries \rmfamily
         \@@_line_spread:n { 1.5 }
       },
-    bottom-skip = 5 cm,
+    bottom-skip = 5.5 cm,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2047,7 +2159,7 @@
         \@@_line_spread:n { 1.5 }
       },
     height = 3 cm,
-    bottom-skip = 1.2 cm,
+    bottom-skip = 3 cm,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2420,9 +2532,9 @@
       { \@@_keywords:nw { en } }
       { \@@_keywords:nw { zh } }
   }
-\cs_new_nopar:Npn \@@_keywords:nw #1 #2 \par
+\cs_new_nopar:Npn \@@_keywords:nw #1 #2
   {
-    \zihao{4} \rmfamily
+    \zihao{-4} \rmfamily
     \tex_par:D
     \skip_horizontal:n \c_zero_skip
     \tex_par:D
@@ -2431,6 +2543,7 @@
       \bfseries \heiti
       \tl_use:c { c_@@_name_keywords_ #1 _tl }
     \group_end:
+    \c_space_tl
     #2
   }
 %    \end{macrocode}
@@ -2490,7 +2603,7 @@
 % \begin{macro}{
 %  \@@_toc_chapter_frontmatter:
 %  \@@_toc_chapter_mainmatter:
-%  \@@_toc_chapter_appendix:
+%  \@@_toc_chapter_backmatter:
 % }
 % 设置章的三种样式，分别是在前言部分有虚线，不带括号页码的格式；
 % 正文无虚线，带括号页码的格式；
@@ -2500,7 +2613,7 @@
   {
     \@@_toc_format:nnnn
       { chapter }
-      { 0.5 em}
+      { 1 em}
       { \zihao{4} \bfseries \rmfamily \heiti }
       { \mdseries \ddotfill \thecontentspage }
     }
@@ -2508,15 +2621,15 @@
   {
     \@@_toc_format:nnnn
       { chapter }
-      { 0.5 em }
+      { 1 em }
       { \zihao{4} \bfseries \rmfamily \heiti }
       { \mdseries \hfill (\thecontentspage) }
   }
-\cs_new_protected:Npn \@@_toc_chapter_appendix:
+\cs_new_protected:Npn \@@_toc_chapter_backmatter:
   {
     \@@_toc_format:nnnn
       { chapter }
-      { 0.5 em }
+      { 1 em }
       { \zihao{4} \bfseries \rmfamily \heiti }
       { \mdseries \ddotfill (\thecontentspage) }
   }
@@ -2527,7 +2640,7 @@
 %    \begin{macrocode}
 \@@_toc_format:nnnn
   { section }
-  { 0.5 em }
+  { 2 em }
   { \zihao{4} \rmfamily }
   { \ddotfill (\thecontentspage) }
 %    \end{macrocode}
@@ -2609,8 +2722,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%
 % \section{篇后样式}
+%
+% \begin{macro}{\backmatter}
+%    \begin{macrocode}
+\@@_appto_cmd:Nn \backmatter
+  {
+    \@@_toc_chapter_backmatter:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 %
 % \subsection{致谢页}
 %
@@ -2618,7 +2740,6 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgements } { }
   {
-    \@@_toc_chapter_appendix:
     \chapter**{致\hspace{1em}谢}
   }
   { }
@@ -2627,12 +2748,23 @@
 %
 % \subsection{参考文献}
 %
+% \begin{macro}{\printbibliography}
+% 在使用 \tn{printbibliography} 的同时添加目录项。
+%    \begin{macrocode}
+\cs_if_exist:NT \printbibliography
+  {
+    \defbibheading{bibliography}[\refname]{%
+      \chapter**{#1}%
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \section{附录样式}
 %
 %    \begin{macrocode}
 \@@_appto_cmd:Nn \appendix
   {
-    \@@_toc_chapter_appendix:
   }
 %    \end{macrocode}
 %
@@ -2704,6 +2836,7 @@
 %
 % \begin{macro}{\hustsetup}
 % 用户设置接口。
+% \changes{v2.0.0}{2025-02-11}{实现统一用户接口配置选项}
 %    \begin{macrocode}
 \NewDocumentCommand \hustsetup { m }
   { \keys_set:nn { hust } {#1} }
@@ -3362,6 +3495,7 @@
     ulem,
     xcolor-material,
     zref-base,
+    listings,
   }
 %    \end{macrocode}
 %
@@ -3503,6 +3637,54 @@
 \def\TikZ{Ti\emph{k}Z}
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{文档样式}
+%
+% \begin{environment}{bashecode, latexcode}
+%    \begin{macrocode}
+\lstdefinestyle{style@base}
+  {
+    basewidth = 0.5 em,
+    gobble = 3,
+    lineskip = 3 pt,
+    frame = l,
+    framerule = 1 pt,
+    framesep = 0 pt,
+    xleftmargin = 2 em,
+    xrightmargin = 3 em,
+    escapeinside = {(*}{*)},
+    breaklines = true,
+    basicstyle = \small\ttfamily,
+    keywordstyle = \bfseries\color{purple},
+    commentstyle = \itshape\color{white!50!gray},
+    stringstyle = \color{red},
+    backgroundcolor = \color{white!95!gray}
+  }
+\lstdefinestyle{style@bash}
+  {
+    style = style@base,
+    rulecolor = \color{pink},
+    language = bash,
+    alsoletter = {-},
+    emphstyle = \color{green}
+  }
+\lstdefinestyle{style@latex}
+  {
+    style = style@base,
+    rulecolor = \color{blue},
+    language = [LaTeX]TeX,
+    alsoletter = {*, -, .},
+    texcsstyle = *\color{purple},
+    emphstyle = [1]\color{orange},
+    emphstyle = [2]\color{green},
+    emphstyle = [3]\bfseries\color{yellow}
+  }
+\lstnewenvironment{bashecode}[1][]{%
+  \lstset{style=style@bash, #1}}{}
+\lstnewenvironment{latexcode}[1][]{%
+  \lstset{style=style@latex, #1}}{}
+%    \end{macrocode}
+% \end{environment}
 %
 % \subsection{\env{macrocode}环境}
 %
