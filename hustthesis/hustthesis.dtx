@@ -94,8 +94,8 @@
 \let\maketitle=\maketitleold
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
-\usepackage[style=hustthesis,gbnamefmt=givenhead,gbtype=false]{biblatex} % temporary
-\begin{filecontents}[overwrite]{\jobname.bib}
+\usepackage[style=hustthesis]{biblatex} % temporary
+\begin{filecontents}[overwrite]{\jobname-fmt.bib}
 @online{zeng2023fduthesis,
   title = {\cls{fduthesis}: 复旦大学论文模板},
   author = {曾, 祥东},
@@ -120,7 +120,92 @@
   day = {05},
   url = {https://github.com/nju-lug/NJUThesis},
 }
+
+@book{YanMingLi2006CFGZhuang,
+  title = {CFG桩复合地基技术及工程实践},
+  author = {{闫明礼} and {张东刚}},
+  date = {2006},
+  edition = {2},
+  publisher = {中国水利水电出版社},
+  location = {北京}
+}
+@book{chalfi1998GreenFluo,
+  title = {Green fluorescent protein: properties, applications, and protocols},
+  editor = {Chalfie, Martin and {Steven R. Kain}},
+  date = {1998},
+  publisher = {Wiley-interscience},
+  location = {Hoboken, New Jersey},
+  pagetotal = {385}
+}
+@article{ZhanXiangHong2004ZhongYiY,
+  title = {中医药防治阿尔茨海默病实验研究述要},
+  author = {{詹向红} and {李德新}},
+  date = {2004},
+  journaltitle = {中医药学刊},
+  volume = {22},
+  number = {11},
+  pages = {2094--2096}
+}
+@article{lein2007Genomewide,
+  title = {Genome-wide atlas of gene expression in the adult mouse brain},
+  author = {Lein, Ed S. and Hawrylycz, Michael J. and Ao, Nancy and Ayres, Mikael and Bensinger, Amy and Bernard, Amy and Boe, Andrew F., et al.},
+  date = {2007-01},
+  journaltitle = {Nature},
+  volume = {445},
+  number = {7124},
+  pages = {168--176},
+  publisher = {Nature Publishing Group}
+}
+@article{bouxse2010Guidelines,
+  title = {Guidelines for Assessment of bone microstructure in rodents using micro--computed tomography},
+  author = {Bouxsein, Mary L and Boyd, Stephen K and Christiansen, Blaine A and Guldberg, Robert E and Jepsen, Karl J and M\"uller, Ralph},
+  date = {2010},
+  journaltitle = {Journal of Bone and Mineral Research},
+  volume = {25},
+  number = {7},
+  pages = {1468--1486}
+}
+@inproceedings{yamaki2018Performanc,
+  title = {Performance evaluation of phase-only correlation functions from the viewpoint of correlation {{Filters}}},
+  booktitle = {2018 {{Asia-Pacific Signal}} and {{Information Processing Association Annual Summit}} and {{Conference}} ({{APSIPA ASC}})},
+  author = {Yamaki, Shunsuke and Abet, Masahide and Kawamata, Masayuki and Yoshizawa, Makoto},
+  date = {2019},
+  pages = {1361--1364},
+  publisher = {Proceedings of the IEEE},
+  location = {Honolulu, HI, USA, 12-15 Nov. 2018}
+}
+@article{yao2017BuildingE,
+  title = {Building efficient key-value stores via a lightweight compaction tree},
+  author = {Yao, Ting and Wan, Jiguang and Huang, Ping and He, Xubin and Wu, Fei and Xie, Changsheng},
+  date = {2017-11-24},
+  journaltitle = {ACM Trans. Storage},
+  volume = {13},
+  number = {4},
+  pages = {1--28}
+}
 \end{filecontents}
+\begin{filecontents}[overwrite]{\jobname.bib}
+@patent{LiuJiaLin1993DuoGongN,
+  type = {patent},
+  title = {多功能一次性压舌板},
+  author = {刘加林},
+  holder = {{Individual}},
+  date = {1993-04-14},
+  number = {ZL92214985. 2},
+  location = {中国}
+}
+@thesis{LiQingQuan1998JiYuHun,
+  type = {博士学位论文},
+  title = {基于混合结构的三维GIS数据模型与空间分析研究},
+  author = {{李清泉}},
+  namea = {{李德仁}},
+  nameatype = {collaborator},
+  date = {1998},
+  location = {武汉},
+  institution = {武汉大学武汉测绘科技大学}
+}
+\end{filecontents}
+\addbibresource{\jobname-fmt.bib}
 \addbibresource{\jobname.bib}
 
 \providecommand{\name}{\jobname}
@@ -201,8 +286,10 @@
 % 123
 % \chapter*{测试123}
 % 321
-% \chapter**{测试123}
-% 12345
+% \chapter{参考文献测试}
+% \citeauthor{YanMingLi2006CFGZhuang}
+% \cite{chalfi1998GreenFluo, ZhanXiangHong2004ZhongYiY}
+% \parencite{lein2007Genomewide,bouxse2010Guidelines,yamaki2018Performanc,yao2017BuildingE,LiuJiaLin1993DuoGongN,LiQingQuan1998JiYuHun}
 %
 % \begin{acknowledgements}
 %   感谢 \cls{fduthesis} 文档类\cite{zeng2023fduthesis}，
@@ -2391,7 +2478,7 @@
 % \end{macro}
 %
 % \begin{macro}{\ddotfill}
-% 实现更密的虚线。
+% 实现更密的虚线。该命令仅可使用 \LaTeXe 命令实现。
 %    \begin{macrocode}
 \cs_new:Npn \ddotfill
   {
@@ -2876,13 +2963,15 @@
 
 % \section{文献样式}
 %
+% \changes{v2.0.0}{2025-02-26}{实现基于\pkg{biblatex}的文献样式}
+%
 % \subsection{标注样式}
 %
 %    \begin{macrocode}
 %<*cbx>
 %    \end{macrocode}
 %
-% 临时占位测试。
+% 无须修改标注样式。
 %    \begin{macrocode}
 \RequireCitationStyle{gb7714-2015}
 %    \end{macrocode}
@@ -2897,9 +2986,364 @@
 %<*bbx>
 %    \end{macrocode}
 %
-% 临时占位测试。
+% 基于 \pkg{biblatex-gb7714-2015} 的著录样式。
 %    \begin{macrocode}
 \RequireBibliographyStyle{gb7714-2015}
+%    \end{macrocode}
+%
+% 设置 \pkg{biblatex-gb7714-2015} 通用著录样式选项。
+%    \begin{macrocode}
+\ExecuteBibliographyOptions
+  {
+    isbn = false,
+    url = false,
+    doi = false,
+    gbnamefmt = givenahead,
+    gbtype = false,
+    gbpunctin = false,
+    maxbibnames = 6,
+    minbibnames = 6,
+  }
+%    \end{macrocode}
+%
+% 删除著录项末尾的标点符号。
+%    \begin{macrocode}
+\renewcommand{\finentrypunct}{}
+%    \end{macrocode}
+%
+% \subsubsection{专著}
+%
+% 设置专著版本样式，并使用 \pkg{zhnumber} 将中文专著的阿拉伯数字版本号自动转换为中文数字。
+%    \begin{macrocode}
+\newcommand\HUST@bib@zhedition[1]{（#1）}
+\newcommand\HUST@bib@enedition[1]{(#1)}
+\DeclareFieldFormat{edition}{\bibtitlefont%源来自biblatex.DEF
+    \testCJKfirst{userd}%
+    \iftoggle{ifCJKforgbt}%
+      {\ifinteger{#1}
+        {%
+          \ifnumgreater{#1}{1}{\printtext{
+            %#1\str@edition
+            \HUST@bib@zhedition{第\zhnumber{#1}版}
+          }}{}
+        }%
+        %{#1\isdot}}%
+        {\HUST@bib@zhedition{#1}}
+        \addspace
+      }%
+      {\ifinteger{#1}%
+        {\ifnumgreater{#1}{1}{
+           %\mkbibordedition{#1}~\bibstring{edition}
+           \HUST@bib@enedition{\mkbibordedition{#1}~\bibstring{edition}}
+          }{}
+        }%
+        %{#1\isdot}}%
+        {\HUST@bib@enedition{#1}\isdot}
+      }
+}
+\DeclareBibliographyDriver{book}{%源来自standard.bbx文件
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+%    \end{macrocode}
+% 删除版本前的标点符号。
+%    \begin{macrocode}
+  \if false
+  \usebibmacro{maintitle+title}%
+  \iftoggle{bbx:gbstrict}{}{%
+    \newunit
+    \printlist{language}%
+    \newunit\newblock%
+    \usebibmacro{byauthor}%
+    \newunit\newblock
+  }%
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \fi
+  \printfield[titlecase]{title}%
+  \printfield{edition}%
+  \newunit\newblock%%
+  \iftoggle{bbx:gbstrict}{}{%
+  \iffieldundef{maintitle}%
+  {%\printfield{volume}%
+  \printfield{part}}%
+  {}%
+  \newunit%
+  \printfield{volumes}%
+  \newunit\newblock%
+  \usebibmacro{series+number}}%
+  \newunit\newblock%
+  %\printfield{note}%
+  %\newunit\newblock%
+  \usebibmacro{publisher+location+date}%
+  %\newunit\newblock %这里标点去掉
+  \usebibmacro{chapter+pages}%
+    \iffieldundef{url}{}{%当没有网址时也不输出
+    \usebibmacro{modifydate}}%带括号的修改或更新日期，
+  \usebibmacro{doi+eprint+url}%从下面移动到上面来，因为gbt2015的url需直接放在页码后面。
+%    \end{macrocode}
+% 删除专著的页码。
+%    \begin{macrocode}
+  \if false
+  \newunit\newblock%
+  \printfield{pagetotal}%
+  \fi
+  \newunit\newblock%
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  %\usebibmacro{doi+eprint+url}%
+  %\newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}
+}
+%    \end{macrocode}
+%
+% \subsubsection{析出文献}
+%
+% 设置包括会议论文在内的析出文献著录样式。
+% 修改 Driver: inbook $\rightarrow$ macro: |inbook:parent|
+% $\rightarrow$ |publisher+location+date|。
+% 将会议论文析出文献中的会议地址（含会议日期）后面的冒号改为逗号。
+%    \begin{macrocode}
+\newbibmacro*{HUSTinbook_publisher+location+date}{\bibpubfont%
+  \iftoggle{bbx:gbpub}%
+    {\testCJKfirst{userd}%
+      \ifboolexpr{ test {\iflistundef{location}} and test {\iflistundef{publisher}} }%
+        {\iffieldequalstr{entrysubtype}{standard}{}
+          {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress}\space :\space\str@nopublisher\gbrightbracket}
+              {\printtext{\gbleftbracket S.l.\space :\space s.n.\adddot\gbrightbracket}}}
+        }%
+        {
+          \iflistundef{location}{%\adddot
+            \iffieldequalstr{entrysubtype}{standard}{}%%从gbt7714-2015标准第19页看到，标准存在出版项时输出，没有时完全省略。
+            {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress\gbrightbracket}\addcolon\addspace}%
+                {\printtext{\gbleftbracket S.l.\adddot\gbrightbracket}\publocpunct}}
+          }%  \bibstring{noaddress}
+          {\printlist{location}\publocpunct}%%\addcolon\addspace%
+          \iflistundef{publisher}{%
+            \iffieldequalstr{entrysubtype}{standard}{}%
+            {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@nopublisher\gbrightbracket}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}%
+            {\printtext{\mkbibbrackets{s.n.}}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}}}%
+            {\printlist{publisher}}
+        }%
+      \pubdatadelim%\addcomma\addspace%
+      \usebibmacro{date}%%\newunit %去掉这个标点
+    }%
+    {\printlist{location}%
+      \iflistundef{publisher}
+        {\locnopubdelim}
+%    \end{macrocode}
+% 始终使用逗号。
+%    \begin{macrocode}
+        %{\setunit*{\publocpunct}}%
+        {\locnopubdelim}
+      \printlist{publisher}%
+      \pubdatadelim%
+      \usebibmacro{date}%%\newunit
+    }%
+}
+\newbibmacro*{inbook:parent}{%
+  \usebibmacro{bybookauthor}%
+    \ifnameundef{bookauthor}{%
+    \ifnameundef{editor}{}{\newunit}%
+    }{\newunit}%替换下一句
+    %\newunit\newblock
+  \iffieldundef{series}{}
+    {\usebibmacro{series+number}\setunit{\addcolon\addspace}}%为处理一些存在series的情况而增加
+    \usebibmacro{maintitle+booktitle}%
+  \iffieldundef{volume}{}{\setunit{\addcolon\addspace}\printfield{volume}}%
+  \iffieldundef{number}{}{\setunit{\addcolon\addspace}\printfield{number}}%增加卷和册信息
+    \newunit\newblock%
+  %  \usebibmacro{byeditor+others}%
+  %  \newunit\newblock
+    \printfield{edition}%
+    \newunit
+    \iftoggle{bbx:gbstrict}{}{%
+  %  \iffieldundef{maintitle}
+  %    {\printfield{volume}%
+  %     \printfield{part}}
+  %    {}%
+  %  \newunit
+  %  \printfield{volumes}%
+  %  \newunit\newblock
+  %  \usebibmacro{series+number}
+    }%
+    \newunit\newblock
+    %\printfield{note}%
+    %\newunit\newblock
+%    \end{macrocode}
+% 由于 |publisher+location+date| 在不只这里使用，
+% 因此将其移植到宏 |HUSTinbook_publisher+location+date| 中。
+%    \begin{macrocode}
+    %\usebibmacro{publisher+location+date}
+    \usebibmacro{HUSTinbook_publisher+location+date}%
+}
+%    \end{macrocode}
+%
+% \subsubsection{期刊}
+%
+% 暂时没发现需要修改的。
+%
+% \subsubsection{专利}
+%
+% 设置专利著录样式。
+%    \begin{macrocode}
+\DeclareFieldFormat[book]{title}{#1}
+\renewbibmacro*{patenttitle}{%原输出来自biblatex.def文件
+  \ifboolexpr{%
+    test{\iffieldundef{title}}%
+    and%
+    test{\iffieldundef{subtitle}}%
+  }%
+  {}%
+  { \printtext[title]{\bibtitlefont%
+      \printfield[titlecase]{title}%
+      \newunit
+      \ifboolexpr{test {\iffieldundef{subtitle}}}%这里增加了对子标题的判断，解决不判断多一个点的问题
+        {}%
+        {\setunit{\subtitlepunct}\printfield[titlecase]{subtitle}}%
+      \iffieldundef{titleaddon}{}%判断一下titleaddon，否则直接加可能多一个空格
+        {\setunit{\subtitlepunct}\printfield{titleaddon}}%
+%    \end{macrocode}
+% 修改标题后面标点；将地点，专利号移植到标题中；并强制显示 GB/T 7714-2015 中的文献类型（|[P]|）。
+%    \begin{macrocode}
+      \if false
+      \setunit{\subtitlepunct}\printfield{number}%写专利号
+      \iftoggle{bbx:gbtype}{\printfield[gbtypeflag]{usera}}{}%
+      %\iffieldundef{booktitle}{\newunit}{}%当title是析出时，不要标点
+      %\newunit
+      \fi
+      \iflistundef{location}
+        {}
+        %{\setunit*{\addspace}%
+        {\setunit*{\subtitlepunct}
+        \printtext{%[parens]
+          \printlist[][-\value{listtotal}]{location}}}%
+      \setunit{\addcomma\space}\printfield{number}%写专利号
+      \setunit{\addspace}\printfield[gbtypeflag]{usera}
+    }%
+  }%
+  \setunit{\subtitlepunct}%
+}
+\DeclareBibliographyDriver{patent}{%源来自standard.BBX
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+  %\usebibmacro{title}%
+  \usebibmacro{patenttitle}%给出专利专用的标题输出
+  \iftoggle{bbx:gbstrict}{}{%
+    \newunit%
+    \printlist{language}%
+    \newunit\newblock
+    \usebibmacro{byauthor}
+  }%
+  \newunit\newblock
+%    \end{macrocode}
+% 以下部分，抑或移除，抑或移至标题块 |patenttitle| 中。
+%    \begin{macrocode}
+  \if false
+  \printfield{type}%
+  \setunit*{\addspace}%
+  %\printfield{number}%已放到patenttitle中处理
+  \iflistundef{location}
+    {}
+    {\setunit*{\addspace}%
+    \printtext{%[parens]
+      \printlist[][-\value{listtotal}]{location}}}%
+  \newunit\newblock
+  \usebibmacro{byholder}%
+  \newunit\newblock
+  \fi
+  \printfield{note}%
+  \newunit\newblock
+%    \end{macrocode}
+% 日期只显示到年。
+%    \begin{macrocode}
+  %\usebibmacro{newsdate}%
+  \usebibmacro{date}%
+  %\newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+    \usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}
+}
+%    \end{macrocode}
+%
+% \subsubsection{学位论文}
+%
+% 覆盖原 |manual| 的别名。
+%    \begin{macrocode}
+\DeclareBibliographyDriver{thesis}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+%    \end{macrocode}
+% 增加学位论文类型的显示。
+%    \begin{macrocode}
+  %\usebibmacro{title}%
+  \printfield[titlecase]{title}%
+  \printfield[gbtypeflag]{type}
+  \iftoggle{bbx:gbstrict}{}{%
+  \newunit%
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%增加的译者信息
+  \newunit\newblock
+  \iftoggle{bbx:gbfieldtype}{%
+    \printfield{type}%
+    \setunit*{\addspace}}{}%
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{institution+location+date}%
+  %\newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \iffieldundef{url}{}{%当没有网址时也不输出修改或更新日期
+    \usebibmacro{modifydate}}%修改或更新日期为带括号的时间
+  \usebibmacro{doi+eprint+url}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isrn}}
+    {}%
+  \newunit\newblock
+%  \usebibmacro{doi+eprint+url}%
+%  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}
+}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
