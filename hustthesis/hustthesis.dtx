@@ -94,7 +94,7 @@
 \let\maketitle=\maketitleold
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
-\begin{filecontents}[overwrite]{\jobname-fmt.bib}
+\begin{filecontents}[overwrite]{\jobname.bib}
 @online{zeng2023fduthesis,
   title = {\cls{fduthesis}: 复旦大学论文模板},
   author = {曾, 祥东},
@@ -119,7 +119,16 @@
   day = {05},
   url = {https://github.com/nju-lug/NJUThesis},
 }
-
+@online{huzz2024bib,
+  title = {符合 GB/T 7714-2015 标准的 biblatex 参考文献样式},
+  author = {胡振震},
+  year = {2024},
+  month = {nov},
+  day = {15},
+  url = {https://github.com/hushidong/biblatex-gb7714-2015},
+}
+\end{filecontents}
+\begin{filecontents}[overwrite]{\jobname-fmt.bib}
 @book{YanMingLi2006CFGZhuang,
   title = {CFG桩复合地基技术及工程实践},
   author = {{闫明礼} and {张东刚}},
@@ -182,8 +191,6 @@
   number = {4},
   pages = {1--28}
 }
-\end{filecontents}
-\begin{filecontents}[overwrite]{\jobname.bib}
 @patent{LiuJiaLin1993DuoGongN,
   type = {patent},
   title = {多功能一次性压舌板},
@@ -228,13 +235,12 @@
 %       title* = { \clsname{} [DEV]: \LaTeX{} Thesis Template for Huazhong University of Science and Technology }, %^^A [L3BUILD_REPLACED_MARK]
 %       degree = { academic },
 %       degree* = { Engineering },
-%       author = { 姓名 },
-%       author* = { Author },
-%       student-id = { D201234567 },
-%       major = { 专业 },
-%       major* = { Major },
-%       supervisor = { 指导老师\quad{} 教授 },
-%       supervisor* = { Prof.~ Supervisor },
+%       author = { 黄宇希 },
+%       author* = { HUANG Yuxi },
+%       major = { \LaTeX{} 文档类设计 },
+%       major* = { \LaTeX{} Template Design },
+%       supervisor = { \TeX{}Book\quad{} 教授 },
+%       supervisor* = { Prof.~ \TeX{}Book },
 %     },
 % }
 %
@@ -243,15 +249,19 @@
 % \begin{abstract}
 %   \clsname{} 是华中科技大学研究生学位论文\LaTeX{}\emph{非官方}文档类。
 %   2.0.0 起版使用 \LaTeX3 语法重构，并且不再兼容之前的版本。
-%   目前仅支持\emph{中文理工科硕士和博士}学位论文。
+%   目前仅支持\emph{中文硕士和博士}学位论文。
 %
-%   本模板遵循 \LaTeX 项目公共许可证 1.3c（\LaTeX Project Public License 1.3c 版）的相关规定进行分发和修改。
-%   使用本模板即表示您已知悉并同意该许可证的条款。
-%   本模板按“原样”提供，不附带任何明示或暗示的保证，包括但不限于适销性或特定用途的适用性。
-%   作者不对因使用本模板导致的任何直接或间接损失承担责任。
-%   请在修改和分发本模板时遵循许可证的相关要求，以确保其完整性和可维护性。
+%   本文档类遵循 \LaTeX{} 项目公共许可证 1.3c（\LaTeX Project Public License 1.3c 版）的相关规定进行分发和修改。
+%   使用本文档类即表示您已知悉并同意该许可证的条款。
+%   本文档类按“原样”提供，不附带任何明示或暗示的保证，包括但不限于适销性或特定用途的适用性。
+%   作者不对因使用本文档类导致的任何直接或间接损失承担责任。
+%   请在修改和分发本文档类时遵循许可证的相关要求，以确保其完整性和可维护性。
 %
-%   \keywords 华中科技大学；学位论文模板；\LaTeX；\LaTeX3
+%   本项目代码托管在 GitHub \url{https://github.com/hust-latex/hustthesis}，
+%   最新版的 \clsname{} 文档类手册请访问
+%   \url{https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf}。
+%
+%   \keywords 华中科技大学；学位论文文档类；\LaTeX；\LaTeX3
 % \end{abstract}
 %
 % \begin{abstract*}
@@ -266,7 +276,11 @@
 %   The author is not responsible for any direct or indirect losses arising from the use of this template.
 %   Please follow the relevant requirements of the license when modifying and distributing this template
 %   to ensure its integrity and maintainability.
-
+%
+%   This project is hosted on GitHub
+%   \url{github.com/hust-latex/hustthesis},
+%   and the latest version of the \clsname{} documentation can be found at
+%   \url{github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf}.
 %
 %   \keywords* Huazhong University of Science and Technology, Dissertation Template, \LaTeX, \LaTeX3
 % \end{abstract*}
@@ -276,40 +290,103 @@
 %
 % \begin{documentation}
 %
-% \chapter{介绍}
+% \chapter{\clsname{} 介绍}
 %
 % \clsname{} 是华中科技大学研究生学位论文\LaTeX{}文档类，
-% 旨在为华科学生提供一个简单上手，易于使用的学位论文模板。
+% 旨在为华科学生提供一个简单上手，易于使用的学位论文文档类。
 %
-% \section{版本号}
+% \section{\clsname{} 历史}
+%
+% 本文档类 |v1.x| 版本由华中科技大学电子信息学院2014届本科生许铖博士
+% \footnote{\url{https://github.com/xu-cheng}}开发并维护，
+% 支持中英文的本科、硕士和博士学位论文撰写。
+% 作为一个设计精良的 \LaTeXe{} 文档类，自2013年6月1日 |v1.0| 初版
+% 以 \LaTeX 项目公共许可证 1.3c（\LaTeX{} Project Public License 1.3c 版）发布以来，
+% 该文档类已为无数华科学子提供了优质的服务。
+%
+% 然而，随着学校学位论文格式要求的不断更新，
+% 原有的文档类逐渐难以满足新的格式要求。
+% 加之原作者移居海外，难以及时响应日益增多的用户需求。
+% 同时，随着 \LaTeX3 技术和 C\TeX{} 宏集的逐渐成熟与普及，
+% 与之相比的 \LaTeXe{} 语法显得难以维护。
+% 因此，自2024年文档类 |v2.x.x| 版本开始交由华中科技大学博士生黄宇希
+% \footnote{\url{https://github.com/huangyxi}}接手维护，
+% 并基于 \LaTeX3 技术和 C\TeX{} 宏集进行了全面重构。
+%
+% 当前\clsname{} 代码在 GitHub
+% \url{https://github.com/hust-latex/hustthesis} 上托管，
+% 欢迎各位同学提出意见和建议。
+%
+% \section{学位论文格式规范}
+%
+% 目前华中科技大学对于硕士和博士的学位论文格式主要由以下文件规范：
+% \begin{itemize}
+%   \item \href{http://gs.hust.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1022&wbnewsid=1027}{华中科技大学博士、硕士学位论文撰写规定， 校研〔2009〕39号}
+%   \item \href{http://gs.hust.edu.cn/info/1041/5462.htm}{学位申请相关文档下载}，
+%     发布时间2023-02-10
+% \end{itemize}
+%
+% 由于其中如“参考文献著录作者最多数量”等部分规范尚未统一，
+% 文档类作者在此仅根据过往已通过的学位论文的格式择取其一实现，
+% 供同学们参考。
+% 具体的格式要求请以学校最新的通知为准。
+%
+% \section{\clsname{} 发行版本号\label{sec:version}}
 %
 % 更新版本往往会带来新功能和修复问题，
 % 但有时也会不可避免地带来不向后兼容的修改。
 % 为了清晰地传达版本之间的变化，
-% 本文档类的版本号使用类似语义化版本控制（Semantic Versioning）规范\footnote{\url{https://semver.org/}}用以标识。
-% 在本文档类中，版本号 |MAJOR.MINOR.PATCH|，递增相应的部分所表示的含义如下：
+% 本文档类发行的版本号使用类似但不完全同于语义化版本控制（Semantic Versioning）规范
+% \footnote{\url{https://semver.org/}}用以标识。
+% 在本文档类中，对于版本号 |MAJOR.MINOR.PATCH|，递增相应的部分所表示的含义如下：
 % \begin{itemize}
-%   \item MAJOR：递增大版本号，通常表示已在正文文档化的公有接口上存在不向后兼容编译的修改；
-%   \item MINOR：递增小版本号，表示未在正文文档化的私有接口上存在不向后兼容的修改，或者文档样式发生比较明显的变化，通常对代码不作修改或者只需小幅修改就可以正常编译；
-%   \item PATCH：递增补丁版本号，表示新版本含有向后兼容的 bug 修复，新功能，或者文档样式的细微变化。
+%   \item |MAJOR|：递增大版本号，
+%     表示已在正文文档化的公开接口上存在不向后兼容（backward compatibility）的修改，
+%     一般对文档代码不经修改无法正常编译；
+%   \item |MINOR|：递增小版本号，
+%     表示已在正文文档化的非实验性公开接口上\emph{不}存在不向后兼容编译的修改，
+%     但在实验性公开接口上存在不向后兼容的修改；
+%     或者文档样式发生比较明显的变化。
+%     一般对文档代码不作修改或者只需小幅修改就可以正常编译；
+%   \item |PATCH|：递增补丁版本号，
+%     表示新版本含有向后兼容的 bug 修复，新功能，或者文档样式的细微变化，
+%     其中未文档化的私有接口可能会发生变化。
 % \end{itemize}
-% 用户在更新文档类时，可以根据版本号的变化来判断是否需要修改自己的文档。
-%
-% \chapter{安装}
+% 用户在更新文档类时，可以根据版本号的变化以及更新日志来判断是否需要修改自己的文档。
 %
 %
+% \chapter{获取途径}
 %
-% \chapter{使用}
+% 获取最新版本的 \clsname{} 文档类主要有两种途径：
+% 从 CTAN 上下载，或者从 GitHub Releases 页面下载。
+%
+% \section{CTAN}
+%
+% CTAN \url{https://ctan.org/pkg/hustthesis}
+% 上的 \clsname{} 文档类是经过打包的版本，
+% 其中包含了文档类、和文档类手册。
+%
+% \section{GitHub Release}
+%
+% \cls{hustthesis} 的源码托管在 GitHub
+% \url{https://github.com/hust-latex/hustthesis} 上，
+% 其中包含了最新的开发版本。
+% 由于源码是以 Doc\TeX{} 格式编写，
+% 对于初学者来说，安装和使用都比较麻烦。
+% 因此，建议初学者可以直接从 Releases 页面下载打包好的版本。
+%
+% \chapter{使用说明}
 %
 % \section{太长不读（TL;DR）}
 %
-% 本节将展示两段精简程度不一的代码示例，
-% 可用于快速了解本模板类的使用方法，
+% 本节将展示两段简化程度不一的代码示例，
+% 可用于快速了解本文档类的使用方法，
 % 或者在编译失败的调试阶段作为参考。
 %
-% \paragraph{最小可用示例}
-% 以下代码包含了本模板类的最小可用示例（Minimal Working Example），
-% 用于展现模板使用的主体结构。
+% \subsection{最小可用示例}
+%
+% 以下代码包含了本文档类的最小可用示例（Minimal Working Example），
+% 用于展现文档类使用的主体结构。
 % \begin{latexcode}
 %   \documentclass{hustthesis}
 %   % \hustsetup{} % 设置
@@ -327,11 +404,12 @@
 %   \end{document}
 % \end{latexcode}
 %
-% \paragraph{核心示例}
-% 本示例包含了模板的核心命令和环境，
-% 更多进阶用法请参考后续章节。
+% \subsection{核心示例}
+%
+% 本示例包含了较长的一段文档类核心命令和环境，
+% 更多进阶用法请参考后续小节。
 % \begin{latexcode}[emph={[1]hustsetup}]
-%   \documentclass[level=doctor]{hustthesis} % 博士学位论文: doctor, 硕士学位论文: master
+%   \documentclass[type=doctor]{hustthesis} % 博士学位论文: doctor, 硕士学位论文: master
 %   \hustsetup { % 设置之间一定不能有空行
 %     info =
 %       {
@@ -376,22 +454,355 @@
 %   \end{document}
 % \end{latexcode}
 %
-% \section{文档类选项}
+% \section{编译说明}
 %
-% 本节介绍的选项仅可在如下文档类选项（中括号中）中使用。
+% 本文档类仅可使用 \XeLaTeX{} 或者 \LuaLaTeX{} 编译。
+%
+% \section{如何阅读本章使用说明}
+%
+% 是的，说明文档本身也需要说明文档来说明如何阅读说明文档。
+%
+% \subsection{实验性内容}
+%
+% 本文档类说明部分的名字含有 “\rexpstar{}” 的键值对选项，设置，命令或环境，
+% 表示该内容为实验性内容。
+% 关于实验性内容的更新带来潜在不向后兼容修改的说明，
+% 请参考 \ref{sec:version} 节。
+%
+% \subsection{单选键值对设置}
+%
+% \key{key} = <\opt{option},\opt*{default}>,
+%
+% 其等号右边的选项 \opt{option}，和 \opt*{default} 均表示可选的单选项，
+% 其中加粗选项 \opt*{default} 表示默认选项。
+%
+% 最后的逗号是为了提醒读者，
+% 如果存在多个键值对，其之间需由半角（英文）逗号分隔。（以下如未特殊说明，逗号均指半角逗号）
+%
+% \subsection{自定义键值对设置}
+%
+% \key{key} = \marg{value},
+%
+% 其等号右边的值 \marg{value} 表示可以自定义的值。
+%
+% \section{文档类选项\label{sec:option}}
+%
+% 本节介绍的选项仅可在如下文档类选项（中括号中|type=doctor|）中使用。
+% 多个选项之间也是由逗号分隔。
 % \begin{latexcode}
-%   \documentclass[...]{hustthesis}
+%   \documentclass[type=doctor]{hustthesis}
 % \end{latexcode}
 %
-% \section{文档设置}
+% \begin{function}[module=option/]{type}
+%   \begin{syntax}
+%     \key{type} = <\opt*{doctor},\opt{master}>,
+%   \end{syntax}
+%   \begin{arguments}
+%     \item[\opt*{doctor}] 博士学位论文
+%     \item[\opt{master}] 硕士学位论文
+%   \end{arguments}
+%   \key{type} 选项用于设置学位论文类型。
+% \end{function}
 %
-% 本节介绍的设置选项只可在 \tn{hustsetup} 命令中使用。
+% \begin{function}[rEXP, module=option/]{anonymous}
+%   \begin{syntax}
+%     \key{anonymous} = <\opt*{false},\opt{true}>,
+%   \end{syntax}
+%   \begin{arguments}
+%     \item[\opt*{false}] 关闭盲审模式
+%     \item[\opt{true}] 开启盲审模式
+%   \end{arguments}
+%   \key{anonymous} 选项用于设置是否开启盲审模式。
+%   盲审模式下，\key{anonymous-list} 中的所有信息均会被隐藏。
+% \end{function}
 %
-% \section{文档命令}
+% \begin{function}[rEXP, module=option/]{anonymous-list}
+%   \begin{syntax}
+%     \key{anonymous-list} = \marg{盲审模式隐藏条目列表},
+%   \end{syntax}
+%  \key{anonymous-list} 选项用于设置在开启盲审模式下需要隐藏的条目。
+%  \marg{匿名条目列表} 是一组由半角（英文）逗号隔开的选项列表。
+%  |info/| 下键值对键名的连接符（|-|）需手动替换为下划线（|_|），
+%  星号（|*|）需手动替换为|_en|。
+%  默认值为 \texttt{\{author, student_id, supervisor, author_en, supervisor_en\}}。
+% \end{function}
 %
-% \section{文档环境}
+% \section{文档信息设置}
 %
-% \section{参考文献}
+% 本节介绍的文档信息设置选项只可在 \tn{hustsetup} 命令的\marg{键值列表}中使用，
+% 主要用于封面和扉页的标题、作者等信息的输出。
+%
+% \begin{function}{\hustsetup}
+%   \begin{syntax}
+%      \tn{hustsetup}\marg{键值列表}
+%   \end{syntax}
+%   \tn{hustsetup} 的参数是一组由半角（英文）逗号隔开的选项列表，
+%   列表中的选项通常是
+%   \meta{key}|=|\meta{value}的形式。
+%   对于相同键，后面的值会覆盖前面的值。
+%   “|=|”左右的空格不影响实际设置，
+%   但需注意，参数列表中不能有空行。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/degree}
+%   \begin{syntax}
+%     \key[info]{degree} = <\opt*{academic},\opt{professional}>,
+%   \end{syntax}
+%    设置中文学位类型，仅可选学术型或专业型。
+%   \begin{arguments}
+%     \item[\opt*{academic}] 学术型
+%     \item[\opt{professional}] 专业型
+%   \end{arguments}
+% \end{function}
+%
+% \begin{function}[module=info/]{info/degree*}
+%   \begin{syntax}
+%     \key[info]{degree*} = <\opt{Arts},\opt{Science},\opt{Education},\opt*{Engineering},\opt{Law},\opt{Medicine},...>,
+%   \end{syntax}
+%   设置英文学科门类，
+%   可选项有：
+%   \begin{arguments}
+%     \item[\opt{Arts}] 文学学位
+%     \item[\opt{Science}] 理学学位
+%     \item[\opt{Education}] 教育学学位
+%     \item[\opt*{Engineering}] 工学学位
+%     \item[\opt{Law}] 法学学位
+%     \item[\opt{Medicine}] 医学学位
+%     \item[...] 其他学科可自行设置
+%   \end{arguments}
+% \end{function}
+%
+% \begin{function}[module=info/]{info/title, info/title*}
+%   \begin{syntax}
+%     \key[info]{title} = \marg{中文标题},
+%     \key[info]{title*} = \marg{英文标题},
+%   \end{syntax}
+%   设置论文标题。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/author, info/author*}
+%   \begin{syntax}
+%     \key[info]{author} = \marg{姓名中文},
+%     \key[info]{author*} = \marg{姓名英文},
+%   \end{syntax}
+%   设置学位申请人姓名。
+%   根据学校要求，英文姓名应该按照中文习惯，
+%   为姓在前名在后，且姓全部大写。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/major, info/major*}
+%   \begin{syntax}
+%     \key[info]{major} = \marg{专业名称中文},
+%     \key[info]{major*} = \marg{专业名称英文},
+%   \end{syntax}
+%   设置专业名称。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/supervisor, info/supervisor*}
+%   \begin{syntax}
+%     \key[info]{supervisor} = \marg{指导老师中文姓名},
+%     \key[info]{supervisor*} = \marg{指导老师英文姓名},
+%   \end{syntax}
+%   设置指导老师姓名。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/date}
+%   \begin{syntax}
+%     \key[info]{date} = \marg{日期},
+%   \end{syntax}
+%   设置论文提交日期。
+%   日期格式为 |YYYY-MM-DD|。
+%   如果不设置该选项，文档类会自动生成日期。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/clc}
+%   \begin{syntax}
+%     \key[info]{clc} = \marg{中图分类号},
+%   \end{syntax}
+%   设置中图分类号。
+% \end{function}
+
+% \begin{function}[module=info/]{info/student-id}
+%   \begin{syntax}
+%     \key[info]{student-id} = \marg{学号},
+%   \end{syntax}
+%   设置学号。
+% \end{function}
+%
+% \begin{function}[rEXP, module=info/]{info/secret}
+%   \begin{syntax}
+%     \key[info]{secret} = \marg{密级},
+%   \end{syntax}
+%   实验性内容，设置密级。当前仅影响中文封面的显示，默认为空。
+% \end{function}
+%
+% \begin{function}[module=info/]{info/committee}
+%   \begin{syntax}
+%     \key[info]{committee} = \marg{答辩委员会成员},
+%   \end{syntax}
+%   设置答辩委员会成员。
+%   该选项的值是一个逗号分隔委员会成员的列表，
+%   其中每个成员的姓名，职称和单位之间用 |&| 分割。
+%   第一个成员为主席，其余成员为委员。
+%   由于文档类内部实现原因，如果设置该选项，请至少设置3名成员。
+%   例如：
+%   \begin{latexcode}
+%   \hustsetup {
+%     info/committee =
+%       { 张三 & 教授 & 华中科技大学 , 李四 & 教授 & 武汉大学 , 王五 & 教授 & 武汉理工大学 },
+%   }
+%   \end{latexcode}
+%   如果不设置该选项，文档类会自动生成7行空白的答辩委员会成员。
+%
+%   另外，该选项所对应的页面仅在博士学位论文中会自动生成。
+%   如果需要手动生成页面，可以使用命令 \tn{makecommittee}。
+% \end{function}
+%
+% \section{内容编写}
+%
+% 以下内容须在 |\begin{document}| 和 |\end{document}| 之间编写。
+%
+% \subsection{封面扉页}
+%
+% \begin{function}{\maketitle}
+%   \begin{syntax}
+%     \tn{maketitle}
+%   \end{syntax}
+%   \tn{maketitle} 命令用于生成中英文封面。
+%   仅当文档类类型为博士学位论文时，
+%   在中文和英文封面之间会自动插入答辩委员会成员。
+% \end{function}
+%
+% \begin{function}[rEXP]{\makezhtitle, \makeentitle}
+%   \begin{syntax}
+%     \tn{makezhtitle}
+%     \tn{makeentitle}
+%   \end{syntax}
+%   \tn{makezhtitle} 和 \tn{makeentitle} 命令分别用于生成中文和英文封面。
+%   一般不需要手动调用这两个命令。
+% \end{function}
+%
+% \begin{function}[rEXP]{\makecommittee}
+%   \begin{syntax}
+%     \tn{makecommittee}
+%   \end{syntax}
+%   \tn{makecommittee} 命令用于生成答辩委员会成员。
+%   一般也不需要手动调用该命令。
+% \end{function}
+%
+% \subsection{前文}
+%
+% \begin{function}{\frontmatter}
+%   \begin{syntax}
+%     \tn{frontmatter}
+%   \end{syntax}
+%   \tn{frontmatter} 命令用于修改页码格式为罗马数字，
+%   增加页眉和页脚，
+%   以及设置目录中虚线样式。
+%   该命令一般需要在 \tn{maketitle} 命令之后，摘要之前调用。
+% \end{function}
+%
+% \begin{environment}{abstract, abstract*}
+%   \begin{latexcode}
+%   \begin{abstract}
+%     中文摘要
+%     \keywords 关键词1；关键词2；关键词3
+%   \end{abstract}
+%
+%   \begin{abstract*}
+%     English abstract
+%     \keywords* keyword1, keyword2, keyword3
+%   \end{abstract*}
+%   \end{latexcode}
+%   |abstract| 和 |abstract*| 环境分别用于生成中文和英文摘要。
+% \end{environment}
+%
+% \begin{function}{keywords, keywords*}
+%   \begin{syntax}
+%     \tn{keywords} 关键词1；关键词2；关键词3
+%     \tn{keywords*} Keyword1, Keyword2, Keyword3
+%   \end{syntax}
+%   \tn{keywords} 和 \tn{keywords*} 命令分别用于生成中文和英文关键词。
+%   一般需要在相应的 |abstract| 和 |abstract*| 环境中的最后一行调用。
+% \end{function}
+%
+% \begin{function}{\tableofcontents}
+%   \begin{syntax}
+%     \tn{tableofcontents}
+%   \end{syntax}
+%   \tn{tableofcontents} 命令用于生成目录。
+% \end{function}
+%
+% \subsection{正文}
+%
+% \begin{function}{\mainmatter}
+%   \begin{syntax}
+%     \tn{mainmatter}
+%   \end{syntax}
+%   \tn{mainmatter} 命令用于修改页码格式为阿拉伯数字，
+%   以及设置目录中虚线样式。
+%   该命令一般需要在目录之后，正文之前调用。
+% \end{function}
+%
+% \begin{function}{\chapter, \chapter*, \chapter**}
+%   \begin{syntax}
+%     \tn{chapter}\marg{标题名}
+%     \tn{chapter*}\marg{标题名}
+%     \tn{chapter**}\marg{标题名}
+%   \end{syntax}
+%   \tn{chapter} 和 \tn{chapter*} 命令与标准 \LaTeXe-\pkg{book} 文档类中的命令功能相同，
+%   用于生成章标题。
+%   前者为有编号的章标题，会在目录中生成对应的条目；
+%   后者为无编号的章标题，不会在目录中生成对应的条目。
+%
+%   \tn{chapter**} 命令是本文档类新增的章节标题生成的命令，
+%   用于生成无编号章节标题，但会在目录中生成对应的条目。
+%   一般可用于在附录中生成无编号的章节标题。
+% \end{function}
+%
+% \subsection{后文}
+%
+% \begin{function}{\backmatter}
+%   \begin{syntax}
+%     \tn{backmatter}
+%   \end{syntax}
+%   \tn{backmatter} 命令用于修改目录中虚线样式。
+%   该命令一般需要在正文之后，致谢之前调用。
+% \end{function}
+%
+% \begin{environment}{acknowledgements}
+%   \begin{syntax}
+%     |\begin{acknowledgements}|
+%       致谢
+%     |\end{acknowledgements}|
+%   \end{syntax}
+%   |acknowledgements| 环境用于生成致谢。
+% \end{environment}
+%
+% \begin{function}{\printbibliography}
+%   \begin{syntax}
+%     \tn{printbibliography}
+%   \end{syntax}
+%   \tn{printbibliography} 命令用于生成 \pkg{biblatex} 宏包的参考文献。
+% \end{function}
+%
+% \subsection{附录}
+%
+% \begin{function}{\appendix}
+%   \begin{syntax}
+%     \tn{appendix}
+%   \end{syntax}
+%   \tn{appendix} 命令用于修改章节标题格式，
+%   该命令一般需要在参考文献之后调用。
+% \end{function}
+%
+% 附录的章节如答辩委员会决议等，可以根据需要使用 \tn{chapter} 命令生成有编号的标题，
+% 也可以使用 \tn{chapter**} 命令生成无编号的标题。
+%
+% \section{参考文献说明}
+%
+% 这里列举了在学位论文规范文档中的参考文献。
+% 可以在正文后参考文献列表中查看生成的样式。
 % \citeauthor{YanMingLi2006CFGZhuang}
 % \cite{chalfi1998GreenFluo, ZhanXiangHong2004ZhongYiY}
 % \parencite{lein2007Genomewide,bouxse2010Guidelines,yamaki2018Performanc,yao2017BuildingE,LiuJiaLin1993DuoGongN,LiQingQuan1998JiYuHun}
@@ -402,6 +813,9 @@
 %   \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，
 %   和 \cls{njuthesis} 文档类\cite{njulug2023njuthesis}，
 %   本文档类的许多设计和实现都是参考了上述代码。
+%   并且特别感谢 \pkg{biblatex-gb7714-2015} 宏包\cite{huzz2024bib}及其作者胡振震，
+%   本人在之前的文档类设计中得到了其很多热情的帮助，
+%   收获的经验也为本文档类的设计奠定了基础。
 % \end{acknowledgements}
 %
 % \printbibliography
@@ -451,10 +865,10 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_degree_level_tl}
+% \begin{variable}{\g_@@_degree_type_tl}
 % 论文类型。
 %    \begin{macrocode}
-\tl_new:N \g_@@_degree_level_tl
+\tl_new:N \g_@@_degree_type_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -672,14 +1086,14 @@
   {
 %    \end{macrocode}
 %
-% \begin{macro}[module=option/]{level}
+% \begin{macro}[module=option/]{type}
 % 论文类型。目前分为硕士学位论文~\opt{master} 和博士学位论文~\opt{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
-    level .choices:nn =
+    type .choices:nn =
       { master, doctor }
-      { \tl_gset_eq:NN \g_@@_degree_level_tl \l_keys_choice_tl },
-    level .value_required:n = true,
-    level .initial:n = { doctor },
+      { \tl_gset_eq:NN \g_@@_degree_type_tl \l_keys_choice_tl },
+    type .value_required:n = true,
+    type .initial:n = { doctor },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -720,7 +1134,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=option/]{anonymous-list}
-% 在开启盲审模式下需要隐藏的内容。其中下划线（|_|）需替换为连接符（|-|），星号（|*|）需替换为|_en|。
+% 在开启盲审模式下需要隐藏的内容。其中连接符（|-|）需替换为下划线（|_|），星号（|*|）需替换为|_en|。
 %    \begin{macrocode}
     anonymous-list .clist_gset:N = \g_@@_anonymous_clist,
 %    \end{macrocode}
@@ -799,9 +1213,9 @@
 %    \begin{macrocode}
 \tl_if_empty:NTF \g_@@_config_tl
   {
-    \tl_if_eq:NnT \g_@@_degree_level_tl { master }
+    \tl_if_eq:NnT \g_@@_degree_type_tl { master }
       { \file_input:n { hustthesis-m.def } }
-    \tl_if_eq:NnT \g_@@_degree_level_tl { doctor }
+    \tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
       { \file_input:n { hustthesis-d.def } }
   }
   {
@@ -1724,7 +2138,7 @@
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/supervisor, info/supervisor*}
-% 指导老师列表。
+% 指导老师。
 %    \begin{macrocode}
     supervisor .tl_gset:N = \g_@@_info_supervisor_tl,
     supervisor* .tl_gset:N = \g_@@_info_supervisor_en_tl,
@@ -1848,7 +2262,7 @@
 %
 % \subsection{封面模板}
 %
-% \begin{macro}[int, module=hust/component/]{component/}
+% \begin{macro}[int, module=component/]{component/}
 % 封面组件。
 % \begin{arguments}
 %   \item[\opt{content}] 组件主体内容
@@ -2001,7 +2415,7 @@
 %
 % \subsubsection{中文封面}
 %
-% \begin{macro}[int, module=hust/component/]{title zh/identifiers}
+% \begin{macro}[int, module=component/]{title zh/identifiers}
 % 分类号，学号，学校代码，密级。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { identifiers }
@@ -2046,13 +2460,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int, module=hust/component/]{title zh/level}
+% \begin{macro}[int, module=hust/component/]{title zh/type}
 % 学位级别。
 %    \begin{macrocode}
 \__ctex_save_font_size:nn { a } { 45 bp } % 大初号
-\@@_declare_component_instance:nnn { title zh } { level }
+\@@_declare_component_instance:nnn { title zh } { type }
   {
-    content = { \c_@@_name_level_zh_tl },
+    content = { \c_@@_name_type_zh_tl },
     format = { \zihao { a } \bfseries \songti \ziju { 0.1 } },
     bottom-skip = 0.5 cm,
   }
@@ -2131,7 +2545,7 @@
   {
     content =
       {
-        \c_@@_name_level_en_tl
+        \c_@@_name_type_en_tl
         \tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
           { \c_@@_name_academic_en_tl }
           { \c_@@_name_professional_en_tl }
@@ -2414,7 +2828,7 @@
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { title zh }
   {
-    components = { identifiers, logo, level, degree, title, info, },
+    components = { identifiers, logo, type, degree, title, info, },
   }
 \DeclareDocumentCommand \makezhtitle { }
   {
@@ -2438,14 +2852,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\makecomm}
+% \begin{macro}{\makecommittee}
 % 答辩委员会页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { committee }
   {
     components = { title, members, },
   }
-\DeclareDocumentCommand \makecomm { }
+\DeclareDocumentCommand \makecommittee { }
   {
     \UseInstance { hust / page } { committee }
   }
@@ -2481,8 +2895,8 @@
 \DeclareDocumentCommand \maketitle { }
   {
     \makezhtitle
-    \tl_if_eq:NnT \g_@@_degree_level_tl { doctor }
-      { \makecomm }
+    \tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
+      { \makecommittee }
     \makeentitle
     \makedecl
   }
@@ -2490,7 +2904,7 @@
 % \end{macro}
 %
 %
-% \section{前言样式}
+% \section{前文样式}
 %
 % 定义从摘要到目录的样式，即有页眉页脚，含有大写罗马数字页码页的样式。
 %
@@ -2605,7 +3019,7 @@
 %  \@@_toc_chapter_mainmatter:
 %  \@@_toc_chapter_backmatter:
 % }
-% 设置章的三种样式，分别是在前言部分有虚线，不带括号页码的格式；
+% 设置章的三种样式，分别是在前文部分有虚线，不带括号页码的格式；
 % 正文无虚线，带括号页码的格式；
 % 以及附录部分有虚线，带括号页码的格式。
 %    \begin{macrocode}
@@ -2722,7 +3136,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \section{篇后样式}
+% \section{后文样式}
 %
 % \begin{macro}{\backmatter}
 %    \begin{macrocode}
@@ -2959,8 +3373,8 @@
 % \end{variable}
 %
 % \begin{variable}{
-%   \c_@@_name_level_en_tl,
-%   \c_@@_name_level_zh_tl,
+%   \c_@@_name_type_en_tl,
+%   \c_@@_name_type_zh_tl,
 %   \c_@@_name_academic_en_tl,
 %   \c_@@_name_academic_zh_tl,
 %   \c_@@_name_professional_en_tl,
@@ -2976,7 +3390,7 @@
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { level }
+    { type }
       { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
 %<def-m>      the~
 %<def-d>      The~
@@ -3285,7 +3699,7 @@
       \usebibmacro{date}%%\newunit
     }%
 }
-\newbibmacro*{inbook:parent}{%
+\renewbibmacro*{inbook:parent}{%
   \usebibmacro{bybookauthor}%
     \ifnameundef{bookauthor}{%
     \ifnameundef{editor}{}{\newunit}%
@@ -3606,8 +4020,15 @@
 % \begin{macro}[no-user-doc]{\opt}
 % 输出键值对的值。
 %    \begin{macrocode}
-\DeclareDocumentCommand \opt { m }
-  { \texttt{#1} }
+\DeclareDocumentCommand \opt { s m }
+  { \IfBooleanTF {#1} { \texttt{\bfseries \upshape #2} } { \texttt{\upshape #2} } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[no-user-doc]{\expstar, \rexpstar}
+%    \begin{macrocode}
+\newcommand\expstar{$\star$}
+\newcommand\rexpstar{\ding{73}}
 %    \end{macrocode}
 % \end{macro}
 %
