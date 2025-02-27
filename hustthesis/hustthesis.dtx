@@ -95,6 +95,14 @@
 \usepackage{\jobname-doc}
 \usepackage{mdframed}
 \begin{filecontents}[overwrite]{\jobname.bib}
+@online{huang2024useclass,
+  title = {The useclass.sty Package: Load Classes as Packages},
+  author = {Huang, Yuxi},
+  year = {2024},
+  month = {mar},
+  day = {06},
+  url = {https://github.com/huangyxi/useclass},
+}
 @online{zeng2023fduthesis,
   title = {\cls{fduthesis}: 复旦大学论文模板},
   author = {曾, 祥东},
@@ -119,7 +127,7 @@
   day = {05},
   url = {https://github.com/nju-lug/NJUThesis},
 }
-@online{huzz2024bib,
+@online{hu2024bib,
   title = {符合 GB/T 7714-2015 标准的 biblatex 参考文献样式},
   author = {胡振震},
   year = {2024},
@@ -226,13 +234,13 @@
 % \fi
 %
 % \changes{v2.0.0}{2024-10-01}{使用 \LaTeX3 语法重构}
-% \changes{v2.0.0}{2024-10-01}{使用 \cls{useclass} 在文档类手册中应用自身}
+% \changes{v2.0.0}{2024-10-01}{使用 \cls{useclass} 实现文档类“自举”}
 %
 % \hustsetup {
 %   info =
 %     {
-%       title = { \clsname{} [DEV]：华中科技大学研究生学位论文\LaTeX{}文档类使用说明 }, %^^A [L3BUILD_REPLACED_MARK]
-%       title* = { \clsname{} [DEV]: \LaTeX{} Thesis Template for Huazhong University of Science and Technology }, %^^A [L3BUILD_REPLACED_MARK]
+%       title = { \clsname{} v[DEV]：华中科技大学研究生学位论文\LaTeX{}文档类使用说明 }, %^^A [L3BUILD_REPLACED_MARK]
+%       title* = { \clsname{} v[DEV]: \LaTeX{} Thesis Template for Huazhong University of Science and Technology }, %^^A [L3BUILD_REPLACED_MARK]
 %       degree = { academic },
 %       degree* = { Engineering },
 %       author = { 黄宇希 },
@@ -312,6 +320,11 @@
 % 因此，自2024年文档类 |v2.x.x| 版本开始交由华中科技大学博士生黄宇希
 % \footnote{\url{https://github.com/huangyxi}}接手维护，
 % 并基于 \LaTeX3 技术和 C\TeX{} 宏集进行了全面重构。
+%
+% 此外，|v2.0.0|起，文档类说明手册使用 \pkg{useclass}\cite{huang2024useclass}
+% 以宏包的方式载入 \pkg{l3doc} 文档类中的众多命令和环境，
+% 使得 \pkg{l3doc} 文档类能够与 \clsname{} 文档类共存，
+% 实现 \clsname{} 文档类的“自举”。
 %
 % 当前\clsname{} 代码在 GitHub
 % \url{https://github.com/hust-latex/hustthesis} 上托管，
@@ -813,9 +826,12 @@
 %   \cls{SJTU\TeX} 文档类集\cite{sjtug2024SJTUTeX}，
 %   和 \cls{njuthesis} 文档类\cite{njulug2023njuthesis}，
 %   本文档类的许多设计和实现都是参考了上述代码。
-%   并且特别感谢 \pkg{biblatex-gb7714-2015} 宏包\cite{huzz2024bib}及其作者胡振震，
+%   并且特别感谢 \pkg{biblatex-gb7714-2015} 宏包\cite{hu2024bib}及其作者胡振震，
 %   本人在之前的文档类设计中得到了其很多热情的帮助，
 %   收获的经验也为本文档类的设计奠定了基础。
+%
+%   此外本人开发的宏包 \pkg{useclass}\cite{huang2024useclass}
+%   也让本文档类手册的文档类“自举”实现可能。
 % \end{acknowledgements}
 %
 % \printbibliography

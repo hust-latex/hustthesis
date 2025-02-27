@@ -6,8 +6,8 @@ SOURCE := $(PACKAGE).dtx
 TAG ?= $(shell git describe --tags --abbrev=0)
 
 TEX := tex -interaction=nonstopmode -shell-escape
-LATEX := pdflatex -interaction=nonstopmode -shell-escape
-LATEXMK := latexmk -pdf -quiet -outdir=. -auxdir=.
+LATEX := xelatex -interaction=nonstopmode -shell-escape
+LATEXMK := latexmk -xelatex -quiet -outdir=. -auxdir=.
 L3BUILD := l3build
 ZIP := zip
 GIT := git
@@ -60,19 +60,28 @@ tag!: # `make tag! TAG=1.0.0` [WARN: WILL MODIFY SOURCE CODE]
 
 	$(L3BUILD) tag $(TAG)
 
-ctan: tag! build # CTAN currently requires that the .tds.zip file be excluded
+tag!!: # FORCE TAGGING [WARN: WILL MODIFY SOURCE CODE]
+	$(L3BUILD) tag $(TAG)
+
+ctan!: tag! build # CTAN currently requires that the .tds.zip file be excluded
 	$(L3BUILD) ctan
 	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
 	$(GIT) restore $(SOURCE)
+ctan!!: tag!! build # FORCE TAGGING, WON'T restore source
+	$(L3BUILD) ctan
+	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
 
-release!: tag! build ctan # release to GitHub
+release!: tag! build ctan! # generate GitHub release
+release!!: tag!! build ctan!! # FORCE TAGGING
 
 
 clean:
 	$(LATEXMK) -c $(PACKAGE).dtx
-	$(RM) *.aux *.fdb_latexmk *.fls *.glo *.synctex.gz \
-		*.hd *.idx *.ind *.log *.out *.pdf *.toc *.xdv
-	$(RM) *.cls *.ins *.sty *.zip
+	$(RM) *.aux *.bbx *.bcf *.fdb_latexmk *.fls *.glo \
+		*.synctex.gz *.hd *.idx *.ind *.log *.out \
+		 *.toc *.xdv *.run.xml
+	$(RM) *.cls *.ins *.sty *.bib *.def *.cbx *.bbx *.zip
+	$(RM) $(PACKAGE).pdf
 
 cleanall: clean uninstall
 	$(RRM) build/
