@@ -5,7 +5,7 @@ SOURCE := $(PACKAGE).dtx
 
 TAG ?= $(shell git describe --tags --abbrev=0)
 
-TEX := tex -interaction=nonstopmode -shell-escape
+TEX := xetex -interaction=nonstopmode -shell-escape
 LATEX := xelatex -interaction=nonstopmode -shell-escape
 LATEXMK := latexmk -xelatex -quiet -outdir=. -auxdir=.
 L3BUILD := l3build
@@ -71,8 +71,15 @@ ctan!!: tag!! build # FORCE TAGGING, WON'T restore source
 	$(L3BUILD) ctan
 	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
 
-release!: tag! build ctan! # generate GitHub release
-release!!: tag!! build ctan!! # FORCE TAGGING
+user!: tag! build # generate user distribution
+	$(ZIP) $(PACKAGE)-user.zip $(PACKAGE).cls $(PACKAGE)-*.def \
+		$(PACKAGE).cbx $(PACKAGE).bbx hust-title.pdf
+user!!: tag!! build # FORCE TAGGING
+	$(ZIP) $(PACKAGE)-user.zip $(PACKAGE).cls $(PACKAGE)-*.def \
+		$(PACKAGE).cbx $(PACKAGE).bbx hust-title.pdf
+
+release!: tag! build ctan! user! # generate GitHub release
+release!!: tag!! build ctan!! user!! # FORCE TAGGING
 
 
 clean:
