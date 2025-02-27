@@ -1,8 +1,8 @@
 hustthesis
 ==========
 
-[![Latest Document](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=Docs)](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf)
-[![GitHub Release](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=Release)](https://github.com/hust-latex/hustthesis/releases/latest)
+[![Latest Document](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=手册-示例)](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf)
+[![GitHub Release](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=下载)](https://github.com/hust-latex/hustthesis/releases/latest)
 [![CTAN](https://img.shields.io/ctan/v/hustthesis?label=CTAN)](https://www.ctan.org/pkg/hustthesis)
 ![GitHub repo size](https://img.shields.io/github/repo-size/hust-latex/hustthesis)
 
@@ -20,7 +20,7 @@ hustthesis
 
 有以下几种方式可以安装和更新该模板。请选择最适合您的方法。
 
-您可以从 [GitHub 发布页面](https://github.com/hust-latex/hustthesis/releases/latest) 下载该包，并将其解压到合适的目录。
+您可以从 [GitHub Releases](https://github.com/hust-latex/hustthesis/releases/latest) 下载该包，并将其解压到合适的目录。
 
 如果您希望完整安装该模板，可以使用 TeX Live 等 TeX 仓库管理工具。
 这种方式将从 CTAN 下载该模板并将所有必需的文件安装到 TeX 目录结构（TDS）中。
