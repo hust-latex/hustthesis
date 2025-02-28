@@ -1,4 +1,7 @@
-# WARNING: target end with `!` will modify source code
+# WARNING: Targets ending with `!` will modify the source code
+#   Targets ending with `!!` will forcibly modify the source code without checking
+#   Targets starting with `_` should not be called directly
+
 PACKAGE := hustthesis
 EXT := cls
 SOURCE := $(PACKAGE).dtx
@@ -63,20 +66,19 @@ tag!: # `make tag! TAG=1.0.0` [WARN: WILL MODIFY SOURCE CODE]
 tag!!: # FORCE TAGGING [WARN: WILL MODIFY SOURCE CODE]
 	$(L3BUILD) tag $(TAG)
 
-ctan!: tag! build # CTAN currently requires that the .tds.zip file be excluded
+_ctan!!: # CTAN currently requires that the .tds.zip file be excluded
 	$(L3BUILD) ctan
 	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
+ctan!: tag! build _ctan!!
 	$(GIT) restore $(SOURCE)
-ctan!!: tag!! build # FORCE TAGGING, WON'T restore source
-	$(L3BUILD) ctan
-	$(ZIP) -d $(PACKAGE)-ctan.zip $(PACKAGE).tds.zip
+ctan!!: tag!! build _ctan!! # FORCE TAGGING, WON'T restore source
 
-user!: tag! build # generate user distribution
+_user!!:
 	$(ZIP) $(PACKAGE)-user.zip $(PACKAGE).cls $(PACKAGE)-*.def \
 		$(PACKAGE).cbx $(PACKAGE).bbx hust-title.pdf
-user!!: tag!! build # FORCE TAGGING
-	$(ZIP) $(PACKAGE)-user.zip $(PACKAGE).cls $(PACKAGE)-*.def \
-		$(PACKAGE).cbx $(PACKAGE).bbx hust-title.pdf
+	$(ZIP) $(PACKAGE)-user.zip --junk-paths demo/*.tex demo/*.bib
+user!: tag! build _user!! # generate user distribution
+user!!: tag!! build _user!! # FORCE TAGGING
 
 release!: tag! build ctan! user! # generate GitHub release
 release!!: tag!! build ctan!! user!! # FORCE TAGGING

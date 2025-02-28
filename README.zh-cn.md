@@ -13,14 +13,22 @@ hustthesis
 
 ## 要求
 
-为了获得最佳体验，请使用 [TeX Live 2024](https://www.tug.org/texlive/) 或更高版本。
+为了获得最佳体验，请使用 [TeX Live 2025](https://www.tug.org/texlive/) 或更高版本。
 编译文档需要使用 XeLaTeX 或 LuaLaTeX。
 
 ## 安装
 
-有以下几种方式可以安装和更新该模板。请选择最适合您的方法。
+有以下几种方式可以安装和更新该模板，请选择最适合您的方法。
 
-您可以从 [GitHub Releases](https://github.com/hust-latex/hustthesis/releases/latest) 下载该包，并将其解压到合适的目录。
+### 在线使用
+
+您可以直接使用第三方 LaTeX 线上编译平台模板库 [TeXPage](https://www.texpage.com/zh/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf)。
+
+您也可以下载 [hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip)，上传至相应平台。
+
+### 本地安装
+
+您可以从 [GitHub Releases](https://github.com/hust-latex/hustthesis/releases/latest) 下载[hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip)，并解压到合适的目录使用。
 
 如果您希望完整安装该模板，可以使用 TeX Live 等 TeX 仓库管理工具。
 这种方式将从 CTAN 下载该模板并将所有必需的文件安装到 TeX 目录结构（TDS）中。

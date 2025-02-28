@@ -3146,27 +3146,27 @@
 % \begin{macro}{\chapter, \chapter*, \chapter**}
 % 对带有星号的章节指令补丁，使得其能够在目录中显示。
 %    \begin{macrocode}
-\cs_set_eq:NN \@@_chapter:D \chapter
+\NewCommandCopy \@@_chapter:w \chapter
 \RenewDocumentCommand \chapter { s s o m }
   {
     \IfNoValueTF{#3}
       {
         \IfBooleanTF{#1}
           {
-            \@@_chapter:D*{#4}
+            \@@_chapter:w*{#4}
             \IfBooleanT{#2}
               {  \CTEX@addtocline{chapter}{#4} }
           }
-          { \@@_chapter:D{#4} }
+          { \@@_chapter:w{#4} }
       }
       {
         \IfBooleanTF{#1}
           {
-            \@@_chapter:D*{#4}
+            \@@_chapter:w*{#4}
             \IfBooleanT{#2}
               {  \CTEX@addtocline{chapter}{#3} }
           }
-          { \@@_chapter:D[#3]{#4} }
+          { \@@_chapter:w[#3]{#4} }
 
       }
   }

@@ -13,16 +13,22 @@ Before using, please read the [user manual](https://github.com/hust-latex/hustth
 
 ## Requirement
 
-For the best experience, please use the [TeX Live 2024](https://www.tug.org/texlive/) or later.
+For the best experience, please use the [TeX Live 2025](https://www.tug.org/texlive/) or later.
 Compiling the document requires either XeLaTeX or LuaLaTeX.
 
 ## Installation
 
-The following methods are available for installing and updating the package.
+The following methods are available for installing and updating the template.
 Choose the method that best suits your needs.
 
-You can download the package from the [GitHub Release](https://github.com/hust-latex/hustthesis/releases/latest) page and unpack it to a suitable directory.
+### Online Usage
+You can directly use the template from third-party LaTeX online compilation platform template libraries [TeXPage](https://www.texpage.com/en/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf).
 
+You can also download the [hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip), upload it to the corresponding platform.
+
+### Local Installation
+
+You can download the [hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip) from [GitHub Releases](https://github.com/hust-latex/hustthesis/releases/latest) and extract it to a suitable directory.
 
 For a full installation of the package, you can use a TeX repository manager such as TeX Live.
 This method will download the package from CTAN and install all required files to TeX Directory Structure (TDS).

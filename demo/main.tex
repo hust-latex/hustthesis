@@ -1,0 +1,67 @@
+\documentclass[type=doctor]{hustthesis} % 博士学位论文: doctor, 硕士学位论文: master
+
+\hustsetup { % 设置之间一定不能有空行
+  info =
+  {
+    title = { 中文标题 },
+    title* = { English Title },
+    degree = { academic }, % 学术型: academic, 专业型: professional
+    degree* = { Engineering }, % 英文学科
+    author = { 姓名 },
+    author* = { Author },
+    student-id = { D201234567 },
+    clc = { }, % 中图分类号
+    major = { 专业 },
+    major* = { Major },
+    supervisor = { 指导老师\quad{} 教授 },
+    supervisor* = { Prof.~ Supervisor },
+    date = { 2025-02-28 }, % 日期，不写这行的话会自动生成，写的话一定要按照这个格式
+    committee = % 答辩委员会成员,不写的话会自动生成7行空白的答辩委员会成员
+      { 张三 & 教授 & 华中科技大学 , 李四 & 教授 & 武汉大学 , 王五 & 教授 & 武汉理工大学 },
+  },
+}
+
+\addbibresource{ref.bib} % % biblatex 参考文献文件
+
+\begin{document}
+
+\maketitle % 根据学位论文类型自动生成封面，就是下面这几个命令的组合
+% \makezhtitle % 中文标题页
+% \makecommittee % 答辩委员会成员 (硕士默认不生成，但可手动调用)
+% \makeentitle % 英文标题页
+
+\frontmatter
+
+\begin{abstract}
+  中文摘要
+  \keywords 关键词1；关键词2；关键词3
+\end{abstract}
+
+\begin{abstract*}
+  English Abstract
+  \keywords* keyword1, keyword2, keyword3
+\end{abstract*}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{第一章}
+
+\section{第一节}
+
+文献标注示例 \TeX{}Book \cite{knuth1986TeXbook}.
+
+\backmatter
+
+\begin{acknowledgements} % 致谢
+  感谢 hustthesis 文档类。
+\end{acknowledgements}
+
+\printbibliography
+
+\appendix
+
+\chapter{附录}
+
+\end{document}
