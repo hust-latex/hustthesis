@@ -22,7 +22,7 @@ The following methods are available for installing and updating the template.
 Choose the method that best suits your needs.
 
 ### Online Usage
-You can directly use the template from third-party LaTeX online compilation platform template libraries [TeXPage](https://www.texpage.com/en/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf).
+You can directly use the template from third-party LaTeX online compilation platform template libraries [TeXPage](https://www.texpage.com/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf).
 
 You can also download the [hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip), upload it to the corresponding platform.
 
