@@ -22,7 +22,7 @@ hustthesis
 
 ### 在线使用
 
-您可以直接使用第三方 LaTeX 线上编译平台模板库 [TeXPage](https://www.texpage.com/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf)。
+您可以直接使用第三方 LaTeX 线上编译平台模板库 [TeXPage](https://www.texpage.com/template/4d9fefbf-2d5d-4d89-802d-124530cab9cf)，或者[Overleaf](https://www.overleaf.com/latex/templates/hustthesis-hua-zhong-ke-ji-da-xue-yan-jiu-sheng-xue-wei-lun-wen-mo-ban/shkvgmnkhcxc).
 
 您也可以下载 [hustthesis-user.zip](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis-user.zip)，上传至相应平台。
 
