@@ -14,6 +14,8 @@ LATEXMK := latexmk -xelatex -quiet -outdir=. -auxdir=.
 L3BUILD := l3build
 ZIP := zip
 GIT := git
+CURL := curl -s -L -o
+UNZIP := unzip
 
 ifeq ($(OS), Windows_NT)
 	RM := cmd //C del //Q //F
@@ -73,9 +75,14 @@ ctan!: tag! build _ctan!!
 	$(GIT) restore $(SOURCE)
 ctan!!: tag!! build _ctan!! # FORCE TAGGING, WON'T restore source
 
-_user!!:
+_user_depends:
+	$(CURL) hustvisual.tds.zip 'https://github.com/hust-latex/hustvisual/releases/latest/download/hustvisual.tds.zip'
+	$(UNZIP) -j hustvisual.tds.zip 'tex/latex/hustvisual/*'
+
+_user!!: _user_depends
 	$(ZIP) $(PACKAGE)-user.zip $(PACKAGE).cls $(PACKAGE)-*.def \
-		$(PACKAGE).cbx $(PACKAGE).bbx hust-title.pdf
+		$(PACKAGE).cbx $(PACKAGE).bbx \
+		hustvisual.sty hustvisual-*.def
 	$(ZIP) $(PACKAGE)-user.zip --junk-paths demo/*.tex demo/*.bib
 user!: tag! build _user!! # generate user distribution
 user!!: tag!! build _user!! # FORCE TAGGING

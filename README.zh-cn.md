@@ -1,8 +1,8 @@
 hustthesis
 ==========
 
-[![Latest Document](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=手册-示例)](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf)
-[![GitHub Release](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=下载)](https://github.com/hust-latex/hustthesis/releases/latest)
+[![Latest Document](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=Docs)](https://github.com/hust-latex/hustthesis/releases/latest/download/hustthesis.pdf)
+[![GitHub Release](https://img.shields.io/github/v/release/hust-latex/hustthesis?label=Release)](https://github.com/hust-latex/hustthesis/releases/latest)
 [![CTAN](https://img.shields.io/ctan/v/hustthesis?label=CTAN)](https://www.ctan.org/pkg/hustthesis)
 ![GitHub repo size](https://img.shields.io/github/repo-size/hust-latex/hustthesis)
 

@@ -78,7 +78,6 @@
 \Msg{* \space\space \jobname.bbx}
 \Msg{* \space\space \jobname-m.def}
 \Msg{* \space\space \jobname-d.def}
-\Msg{* \space\space hust-title.pdf}
 \Msg{*}
 \Msg{* To produce the documentation run the file \jobname.dtx}
 \Msg{* through LuaLaTeX.}
@@ -1315,6 +1314,7 @@
 %    \begin{macrocode}
 \RequirePackage
   {
+    hustvisual,
     amsmath,
     geometry,
     fancyhdr,
@@ -2490,7 +2490,8 @@
   {
     content =
       {
-        \includegraphics [ height = 1.4 cm ] { hust-title.pdf }
+        \mode_leave_vertical:
+        \hustvi [ height = 1.4 cm, temp = black, ] { name }
       },
     bottom-skip = 0.5 cm,
   }
