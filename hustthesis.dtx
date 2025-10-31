@@ -693,7 +693,7 @@
 %
 % \section{文档样式\rexpstar{}}
 %
-% \begin{function}[module=style/]{style/toc-depth}
+% \begin{function}[added=2025-10-31, module=style/]{style/toc-depth}
 %   \begin{syntax}
 %     \key[style]{toc-depth} = <\opt*{section},\opt{subsection}>,
 %   \end{syntax}
@@ -3016,6 +3016,8 @@
 \tl_set:Nn \contentsname { 目\hspace{1em}录 }
 %    \end{macrocode}
 %
+% \begin{macro}[module=style/]{style/toc-depth}
+% \changes{v2.0.1}{2025-10-31}{支持设置目录章节显示深度}
 % 设置目录章节显示深度。
 %    \begin{macrocode}
 \keys_define:nn { hust / style }
@@ -3027,6 +3029,7 @@
     toc-depth .initial:n = section,
   }
 %    \end{macrocode}
+% \end{macro}
 %
 % 设置目录项右边距。
 %    \begin{macrocode}
