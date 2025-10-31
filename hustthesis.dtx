@@ -9,7 +9,7 @@
 %<*internal>
 \fi
 \begingroup
-  \def\nameofLaTeXe{LaTeX2e}
+	\def\nameofLaTeXe{LaTeX2e}
 \expandafter\endgroup\ifx\fmtname\nameofLaTeXe\else
 \csname fi\endcsname
 %</internal>
@@ -19,54 +19,54 @@
 \askforoverwritefalse
 \preamble
 
-    Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
-                  2014-     by hust-latex <https://github.com/hust-latex>
-                  2024-     by HUANG Yuxi <hustthesis@hyxi.dev>
+		Copyright (C) 2013-2014 by Xu Cheng <xucheng@me.com>
+									2014-     by hust-latex <https://github.com/hust-latex>
+									2024-     by HUANG Yuxi <hustthesis@hyxi.dev>
 
-    This work may be distributed and/or modified under the
-    conditions of the LaTeX Project Public License, either
-    version 1.3c of this license or (at your option) any later
-    version. This version of this license is in
-       https://www.latex-project.org/lppl/lppl-1-3c.txt
-    and the latest version of this license is in
-       https://www.latex-project.org/lppl.txt
-    and version 1.3c or later is part of all distributions of LaTeX
-    version 2008 or later.
+		This work may be distributed and/or modified under the
+		conditions of the LaTeX Project Public License, either
+		version 1.3c of this license or (at your option) any later
+		version. This version of this license is in
+			 https://www.latex-project.org/lppl/lppl-1-3c.txt
+		and the latest version of this license is in
+			 https://www.latex-project.org/lppl.txt
+		and version 1.3c or later is part of all distributions of LaTeX
+		version 2008 or later.
 
-    This work has the LPPL maintenance status "maintained".
+		This work has the LPPL maintenance status "maintained".
 
-    The Current Maintainer of this work is HUANG Yuxi <hustthesis@hyxi.dev>.
+		The Current Maintainer of this work is HUANG Yuxi <hustthesis@hyxi.dev>.
 
 \endpreamble
 \postamble
 
-    This work consists of the files \jobname.dtx
-              and the derived files \jobname.ins,
-                                    \jobname.cls,
-                                    \jobname-doc.sty,
-                                    \jobname-m.def,
-                                    \jobname-d.def,
-                                    \jobname.cbx,
-                                    \jobname.bbx.
+		This work consists of the files \jobname.dtx
+							and the derived files \jobname.ins,
+																		\jobname.cls,
+																		\jobname-doc.sty,
+																		\jobname-m.def,
+																		\jobname-d.def,
+																		\jobname.cbx,
+																		\jobname.bbx.
 
 \endpostamble
 
 \generate
-  {
+	{
 %</install>
 %<*internal>
-    \usedir{source/latex/\jobname}
-    \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+		\usedir{source/latex/\jobname}
+		\file{\jobname.ins}{\from{\jobname.dtx}{install}}
 %</internal>
 %<*install>
-    \usedir{tex/latex/\jobname}
-    \file{\jobname.cls}{\from{\jobname.dtx}{class}}
-    \file{\jobname-doc.sty}{\from{\jobname.dtx}{doc-sty}}
-    \file{\jobname-m.def}{\from{\jobname.dtx}{def-m}}
-    \file{\jobname-d.def}{\from{\jobname.dtx}{def-d}}
-    \file{\jobname.cbx}{\from{\jobname.dtx}{cbx}}
-    \file{\jobname.bbx}{\from{\jobname.dtx}{bbx}}
-  }
+		\usedir{tex/latex/\jobname}
+		\file{\jobname.cls}{\from{\jobname.dtx}{class}}
+		\file{\jobname-doc.sty}{\from{\jobname.dtx}{doc-sty}}
+		\file{\jobname-m.def}{\from{\jobname.dtx}{def-m}}
+		\file{\jobname-d.def}{\from{\jobname.dtx}{def-d}}
+		\file{\jobname.cbx}{\from{\jobname.dtx}{cbx}}
+		\file{\jobname.bbx}{\from{\jobname.dtx}{bbx}}
+	}
 
 \Msg{*********************************************************}
 \Msg{*}
@@ -115,127 +115,127 @@
 \usepackage{mdframed}
 \begin{filecontents}[overwrite]{\jobname.bib}
 @online{huang2024useclass,
-  title = {The useclass.sty Package: Load Classes as Packages},
-  author = {Huang, Yuxi},
-  year = {2024},
-  month = {mar},
-  day = {06},
-  url = {https://github.com/huangyxi/useclass},
+	title = {The useclass.sty Package: Load Classes as Packages},
+	author = {Huang, Yuxi},
+	year = {2024},
+	month = {mar},
+	day = {06},
+	url = {https://github.com/huangyxi/useclass},
 }
 @online{zeng2023fduthesis,
-  title = {\cls{fduthesis}: 复旦大学论文模板},
-  author = {曾, 祥东},
-  year = {2023},
-  month = {may},
-  day = {27},
-  url = {https://github.com/stone-zeng/fduthesis},
+	title = {\cls{fduthesis}: 复旦大学论文模板},
+	author = {曾, 祥东},
+	year = {2023},
+	month = {may},
+	day = {27},
+	url = {https://github.com/stone-zeng/fduthesis},
 }
 @online{sjtug2024SJTUTeX,
-  title = {\cls{SJTU\TeX}: 上海交通大学文档类集},
-  author = {SJTUG},
-  year = {2024},
-  month = {feb},
-  day = {18},
-  url = {https://github.com/sjtug/SJTUTeX},
+	title = {\cls{SJTU\TeX}: 上海交通大学文档类集},
+	author = {SJTUG},
+	year = {2024},
+	month = {feb},
+	day = {18},
+	url = {https://github.com/sjtug/SJTUTeX},
 }
 @online{njulug2023njuthesis,
-  title = {南京大学学位论文模板},
-  author = {南京大学~Linux~用户组},
-  year = {2023},
-  month = {dec},
-  day = {05},
-  url = {https://github.com/nju-lug/NJUThesis},
+	title = {南京大学学位论文模板},
+	author = {南京大学~Linux~用户组},
+	year = {2023},
+	month = {dec},
+	day = {05},
+	url = {https://github.com/nju-lug/NJUThesis},
 }
 @online{hu2024bib,
-  title = {符合 GB/T 7714-2015 标准的 biblatex 参考文献样式},
-  author = {胡振震},
-  year = {2024},
-  month = {nov},
-  day = {15},
-  url = {https://github.com/hushidong/biblatex-gb7714-2015},
+	title = {符合 GB/T 7714-2015 标准的 biblatex 参考文献样式},
+	author = {胡振震},
+	year = {2024},
+	month = {nov},
+	day = {15},
+	url = {https://github.com/hushidong/biblatex-gb7714-2015},
 }
 \end{filecontents}
 \begin{filecontents}[overwrite]{\jobname-fmt.bib}
 @book{YanMingLi2006CFGZhuang,
-  title = {CFG桩复合地基技术及工程实践},
-  author = {{闫明礼} and {张东刚}},
-  date = {2006},
-  edition = {2},
-  publisher = {中国水利水电出版社},
-  location = {北京}
+	title = {CFG桩复合地基技术及工程实践},
+	author = {{闫明礼} and {张东刚}},
+	date = {2006},
+	edition = {2},
+	publisher = {中国水利水电出版社},
+	location = {北京}
 }
 @book{chalfi1998GreenFluo,
-  title = {Green fluorescent protein: properties, applications, and protocols},
-  editor = {Chalfie, Martin and {Steven R. Kain}},
-  date = {1998},
-  publisher = {Wiley-interscience},
-  location = {Hoboken, New Jersey},
-  pagetotal = {385}
+	title = {Green fluorescent protein: properties, applications, and protocols},
+	editor = {Chalfie, Martin and {Steven R. Kain}},
+	date = {1998},
+	publisher = {Wiley-interscience},
+	location = {Hoboken, New Jersey},
+	pagetotal = {385}
 }
 @article{ZhanXiangHong2004ZhongYiY,
-  title = {中医药防治阿尔茨海默病实验研究述要},
-  author = {{詹向红} and {李德新}},
-  date = {2004},
-  journaltitle = {中医药学刊},
-  volume = {22},
-  number = {11},
-  pages = {2094--2096}
+	title = {中医药防治阿尔茨海默病实验研究述要},
+	author = {{詹向红} and {李德新}},
+	date = {2004},
+	journaltitle = {中医药学刊},
+	volume = {22},
+	number = {11},
+	pages = {2094--2096}
 }
 @article{lein2007Genomewide,
-  title = {Genome-wide atlas of gene expression in the adult mouse brain},
-  author = {Lein, Ed S. and Hawrylycz, Michael J. and Ao, Nancy and Ayres, Mikael and Bensinger, Amy and Bernard, Amy and Boe, Andrew F., et al.},
-  date = {2007-01},
-  journaltitle = {Nature},
-  volume = {445},
-  number = {7124},
-  pages = {168--176},
-  publisher = {Nature Publishing Group}
+	title = {Genome-wide atlas of gene expression in the adult mouse brain},
+	author = {Lein, Ed S. and Hawrylycz, Michael J. and Ao, Nancy and Ayres, Mikael and Bensinger, Amy and Bernard, Amy and Boe, Andrew F., et al.},
+	date = {2007-01},
+	journaltitle = {Nature},
+	volume = {445},
+	number = {7124},
+	pages = {168--176},
+	publisher = {Nature Publishing Group}
 }
 @article{bouxse2010Guidelines,
-  title = {Guidelines for Assessment of bone microstructure in rodents using micro--computed tomography},
-  author = {Bouxsein, Mary L and Boyd, Stephen K and Christiansen, Blaine A and Guldberg, Robert E and Jepsen, Karl J and M\"uller, Ralph},
-  date = {2010},
-  journaltitle = {Journal of Bone and Mineral Research},
-  volume = {25},
-  number = {7},
-  pages = {1468--1486}
+	title = {Guidelines for Assessment of bone microstructure in rodents using micro--computed tomography},
+	author = {Bouxsein, Mary L and Boyd, Stephen K and Christiansen, Blaine A and Guldberg, Robert E and Jepsen, Karl J and M\"uller, Ralph},
+	date = {2010},
+	journaltitle = {Journal of Bone and Mineral Research},
+	volume = {25},
+	number = {7},
+	pages = {1468--1486}
 }
 @inproceedings{yamaki2018Performanc,
-  title = {Performance evaluation of phase-only correlation functions from the viewpoint of correlation {{Filters}}},
-  booktitle = {2018 {{Asia-Pacific Signal}} and {{Information Processing Association Annual Summit}} and {{Conference}} ({{APSIPA ASC}})},
-  author = {Yamaki, Shunsuke and Abet, Masahide and Kawamata, Masayuki and Yoshizawa, Makoto},
-  date = {2019},
-  pages = {1361--1364},
-  publisher = {Proceedings of the IEEE},
-  location = {Honolulu, HI, USA, 12-15 Nov. 2018}
+	title = {Performance evaluation of phase-only correlation functions from the viewpoint of correlation {{Filters}}},
+	booktitle = {2018 {{Asia-Pacific Signal}} and {{Information Processing Association Annual Summit}} and {{Conference}} ({{APSIPA ASC}})},
+	author = {Yamaki, Shunsuke and Abet, Masahide and Kawamata, Masayuki and Yoshizawa, Makoto},
+	date = {2019},
+	pages = {1361--1364},
+	publisher = {Proceedings of the IEEE},
+	location = {Honolulu, HI, USA, 12-15 Nov. 2018}
 }
 @article{yao2017BuildingE,
-  title = {Building efficient key-value stores via a lightweight compaction tree},
-  author = {Yao, Ting and Wan, Jiguang and Huang, Ping and He, Xubin and Wu, Fei and Xie, Changsheng},
-  date = {2017-11-24},
-  journaltitle = {ACM Trans. Storage},
-  volume = {13},
-  number = {4},
-  pages = {1--28}
+	title = {Building efficient key-value stores via a lightweight compaction tree},
+	author = {Yao, Ting and Wan, Jiguang and Huang, Ping and He, Xubin and Wu, Fei and Xie, Changsheng},
+	date = {2017-11-24},
+	journaltitle = {ACM Trans. Storage},
+	volume = {13},
+	number = {4},
+	pages = {1--28}
 }
 @patent{LiuJiaLin1993DuoGongN,
-  type = {patent},
-  title = {多功能一次性压舌板},
-  author = {刘加林},
-  holder = {{Individual}},
-  date = {1993-04-14},
-  number = {ZL92214985. 2},
-  location = {中国}
+	type = {patent},
+	title = {多功能一次性压舌板},
+	author = {刘加林},
+	holder = {{Individual}},
+	date = {1993-04-14},
+	number = {ZL92214985. 2},
+	location = {中国}
 }
 @thesis{LiQingQuan1998JiYuHun,
-  type = {博士学位论文},
-  title = {基于混合结构的三维GIS数据模型与空间分析研究},
-  author = {{李清泉}},
-  namea = {{李德仁}},
-  nameatype = {collaborator},
-  date = {1998},
-  location = {武汉},
-  institution = {武汉大学武汉测绘科技大学}
+	type = {博士学位论文},
+	title = {基于混合结构的三维GIS数据模型与空间分析研究},
+	author = {{李清泉}},
+	namea = {{李德仁}},
+	nameatype = {collaborator},
+	date = {1998},
+	location = {武汉},
+	institution = {武汉大学武汉测绘科技大学}
 }
 \end{filecontents}
 \addbibresource{\jobname-fmt.bib}
@@ -245,9 +245,9 @@
 \providecommand{\clsname}{\cls{\name}}
 
 \begin{document}
-  \DocInput{\jobname.dtx}
-  \PrintChanges
-  \PrintIndex
+	\DocInput{\jobname.dtx}
+	\PrintChanges
+	\PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -495,7 +495,7 @@
 %
 % 是的，说明文档本身也需要说明文档来说明如何阅读说明文档。
 %
-% \subsection{实验性内容}
+% \subsection{实验性内容\label{sec:exp}}
 %
 % 本文档类说明部分的名字含有 “\rexpstar{}” 的键值对选项，设置，命令或环境，
 % 表示该内容为实验性内容。
@@ -691,6 +691,15 @@
 %   如果需要手动生成页面，可以使用命令 \tn{makecommittee}。
 % \end{function}
 %
+% \section{文档样式\rexpstar{}}
+%
+% \begin{function}[module=style/]{style/toc-depth}
+%   \begin{syntax}
+%     \key[style]{toc-depth} = <\opt*{section},\opt{subsection}>,
+%   \end{syntax}
+%   设置目录深度。
+% \end{function}
+%
 % \section{内容编写}
 %
 % 以下内容须在 |\begin{document}| 和 |\end{document}| 之间编写。
@@ -703,7 +712,7 @@
 %   \end{syntax}
 %   \tn{maketitle} 命令用于生成中英文封面。
 %   仅当文档类类型为博士学位论文时，
-%   在中文和英文封面之间会自动插入答辩委员会成员。
+%   在中文和英文封面之间会自动插入答辩relrel委员会成员。
 % \end{function}
 %
 % \begin{function}[rEXP]{\makezhtitle, \makeentitle}
@@ -980,15 +989,15 @@
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
-  {
-    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
-      { } { \ctex_patch_failure:N #1 }
-  }
+	{
+		\ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+			{ } { \ctex_patch_failure:N #1 }
+	}
 \cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
-  {
-    \ctex_appto_cmd:NnnTF #1 { } {#2}
-      { } { \ctex_patch_failure:N #1 }
-  }
+	{
+		\ctex_appto_cmd:NnnTF #1 { } {#2}
+			{ } { \ctex_patch_failure:N #1 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -999,16 +1008,16 @@
 % 用来定义脚注样式、标点、默认名称的辅助函数。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_define_fn_style:nn #1#2
-  { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
+	{ \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_punct:nn #1#2
-  { \tl_const:cn { c_@@_ #1 _tl } {#2} }
+	{ \tl_const:cn { c_@@_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nn #1#2
-  { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
+	{ \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nnn #1#2#3
-  {
-    \tl_const:cn { c_@@_name_ #1 _en_tl } {#2}
-    \tl_const:cn { c_@@_name_ #1 _zh_tl } {#3}
-  }
+	{
+		\tl_const:cn { c_@@_name_ #1 _en_tl } {#2}
+		\tl_const:cn { c_@@_name_ #1 _zh_tl } {#3}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1039,19 +1048,19 @@
 % 类似 \LaTeXe{} 中的 \tn{vspace*}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_vspace:N #1
-  {
-    \dim_set_eq:NN \l_@@_tmpa_dim \tex_prevdepth:D
-    \tex_hrule:D height \c_zero_dim
-    \nobreak
-    \skip_vertical:N #1
-    \skip_vertical:N \c_zero_skip
-    \dim_set_eq:NN \tex_prevdepth:D \l_@@_tmpa_dim
-  }
+	{
+		\dim_set_eq:NN \l_@@_tmpa_dim \tex_prevdepth:D
+		\tex_hrule:D height \c_zero_dim
+		\nobreak
+		\skip_vertical:N #1
+		\skip_vertical:N \c_zero_skip
+		\dim_set_eq:NN \tex_prevdepth:D \l_@@_tmpa_dim
+	}
 \cs_new_protected:Npn \@@_vspace:n #1
-  {
-    \skip_set:Nn \l_@@_tmpa_skip {#1}
-    \@@_vspace:N \l_@@_tmpa_skip
-  }
+	{
+		\skip_set:Nn \l_@@_tmpa_skip {#1}
+		\@@_vspace:N \l_@@_tmpa_skip
+	}
 \cs_generate_variant:Nn \@@_vspace:N { c }
 %    \end{macrocode}
 % \end{macro}
@@ -1064,26 +1073,26 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_hrule:nn #1#2
-  {
-    \rule [ -0.5 ex ] { #2 } { #1 }
-    \skip_horizontal:n { -#2 }
-  }
+	{
+		\rule [ -0.5 ex ] { #2 } { #1 }
+		\skip_horizontal:n { -#2 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_ul_to_wd:nnn}
-  % \begin{arguments}
-  %    \item 下划线粗细
-  %    \item 下划线长度
-  %    \item 内容
-  % \end{arguments}
+	% \begin{arguments}
+	%    \item 下划线粗细
+	%    \item 下划线长度
+	%    \item 内容
+	% \end{arguments}
 %    \begin{macrocode}
 \dim_new:N \l_@@_ul_dim
 \cs_new_protected:Npn \@@_ul_to_wd:nnn #1#2#3
-  {
-    \hbox_overlap_right:n { \rule [ - 0.5 ex ] { #2 } { #1 } }
-    \hbox_to_wd:nn { #2 } { \tex_hfil:D #3 \tex_hfil:D }
-  }
+	{
+		\hbox_overlap_right:n { \rule [ - 0.5 ex ] { #2 } { #1 } }
+		\hbox_to_wd:nn { #2 } { \tex_hfil:D #3 \tex_hfil:D }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1094,15 +1103,15 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_line_spread:N #1
-  {
-    \tl_set:Nn \baselinestretch { \fp_use:N #1 }
-    \selectfont
-  }
+	{
+		\tl_set:Nn \baselinestretch { \fp_use:N #1 }
+		\selectfont
+	}
 \cs_new:Npn \@@_line_spread:n #1
-  {
-    \tl_set:Nn \baselinestretch { #1 }
-    \selectfont
-  }
+	{
+		\tl_set:Nn \baselinestretch { #1 }
+		\selectfont
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1110,7 +1119,7 @@
 % 等价于 \LaTeXe{} 中的 \tn{arabic}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_arabic:n #1
-  { \int_to_arabic:v { c@ #1 } }
+	{ \int_to_arabic:v { c@ #1 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1119,35 +1128,35 @@
 % 定义 | hust / option | 键值类，该键值类仅可在文档类选项中使用。
 %    \begin{macrocode}
 \keys_define:nn { hust / option }
-  {
+	{
 %    \end{macrocode}
 %
 % \begin{macro}[module=option/]{type}
 % 论文类型。目前分为硕士学位论文~\opt{master} 和博士学位论文~\opt{doctor}，默认为博士学位论文。
 %    \begin{macrocode}
-    type .choices:nn =
-      { master, doctor }
-      { \tl_gset_eq:NN \g_@@_degree_type_tl \l_keys_choice_tl },
-    type .value_required:n = true,
-    type .initial:n = { doctor },
+		type .choices:nn =
+			{ master, doctor }
+			{ \tl_gset_eq:NN \g_@@_degree_type_tl \l_keys_choice_tl },
+		type .value_required:n = true,
+		type .initial:n = { doctor },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{draft}
 % 是否启用草稿模式。默认为 \opt{false}。
 %    \begin{macrocode}
-    draft .choice:,
-    draft / true .code:n =
-      {
-        \bool_gset_true:N \g_@@_draft_bool
-        \clist_gput_right:Nn \g_@@_to_ctex_class_clist { draft }
-      },
-    draft / false .code:n =
-      {
-        \bool_gset_false:N \g_@@_draft_bool
-      },
-    draft .default:n = { true },
-    draft .initial:n = { false },
+		draft .choice:,
+		draft / true .code:n =
+			{
+				\bool_gset_true:N \g_@@_draft_bool
+				\clist_gput_right:Nn \g_@@_to_ctex_class_clist { draft }
+			},
+		draft / false .code:n =
+			{
+				\bool_gset_false:N \g_@@_draft_bool
+			},
+		draft .default:n = { true },
+		draft .initial:n = { false },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1155,45 +1164,45 @@
 % \changes{v2.0.0}{2025-02-18}{支持盲审模式}
 % 是否启用盲审模式。默认为 \opt{false}，即显示作者信息。\key[option]{anonymous}
 %    \begin{macrocode}
-    anonymous .choice:,
-    anonymous / true .code:n =
-      {
-        \bool_gset_true:N \g_@@_anonymous_bool
-      },
-    anonymous / false .code:n =
-      {
-        \bool_gset_false:N \g_@@_anonymous_bool
-      },
-    anonymous .default:n = { true },
-    anonymous .initial:n = { false },
+		anonymous .choice:,
+		anonymous / true .code:n =
+			{
+				\bool_gset_true:N \g_@@_anonymous_bool
+			},
+		anonymous / false .code:n =
+			{
+				\bool_gset_false:N \g_@@_anonymous_bool
+			},
+		anonymous .default:n = { true },
+		anonymous .initial:n = { false },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{anonymous-list}
 % 在开启盲审模式下需要隐藏的内容。其中连接符（|-|）需替换为下划线（|_|），星号（|*|）需替换为|_en|。
 %    \begin{macrocode}
-    anonymous-list .clist_gset:N = \g_@@_anonymous_clist,
+		anonymous-list .clist_gset:N = \g_@@_anonymous_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{latin-font, cjk-font}
 % 中英文字体选项。\opt{fandol} 和 \opt{gyre} 是等价的。
 %    \begin{macrocode}
-    latin-font .choices:nn =
-      { fandol, gyre, mac, macoffice, win, none, }
-      { \tl_gset:Nn \g_@@_font_latin_tl {#1} },
-    cjk-font .choices:nn =
-      { fandol, founder, mac, macoffice, noto, source, win, none, }
-      { \tl_gset:Nn \g_@@_font_cjk_tl {#1} },
+		latin-font .choices:nn =
+			{ fandol, gyre, mac, macoffice, win, none, }
+			{ \tl_gset:Nn \g_@@_font_latin_tl {#1} },
+		cjk-font .choices:nn =
+			{ fandol, founder, mac, macoffice, noto, source, win, none, }
+			{ \tl_gset:Nn \g_@@_font_cjk_tl {#1} },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{fontset}
 % 中英文字体选项。\opt{fontset} 这个名称和 \pkg{ctex} 中的是一致的。
 %    \begin{macrocode}
-    fontset .choices:nn =
-      { fandol, mac, macoffice, win, none, }
-      { \keys_set:nn { hust / option } { latin-font = #1, cjk-font = #1 } },
+		fontset .choices:nn =
+			{ fandol, mac, macoffice, win, none, }
+			{ \keys_set:nn { hust / option } { latin-font = #1, cjk-font = #1 } },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1201,39 +1210,39 @@
 % 数学字体选项。
 % 由 \pkg{unicode-math} 指定 \XeTeX 和 \LuaTeX 下使用的数学字体。
 %    \begin{macrocode}
-    math-font .choices:nn =
-      {
-        asana, cambria, fira, garamond, lm, libertinus, newcm,
-        stix, bonum, dejavu, pagella, schola, termes, xits, none,
-      }
-      { \tl_gset_eq:NN \g_@@_font_math_tl \l_keys_choice_tl },
-    math-font .initial:n = xits,
+		math-font .choices:nn =
+			{
+				asana, cambria, fira, garamond, lm, libertinus, newcm,
+				stix, bonum, dejavu, pagella, schola, termes, xits, none,
+			}
+			{ \tl_gset_eq:NN \g_@@_font_math_tl \l_keys_choice_tl },
+		math-font .initial:n = xits,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{font-dir}
 % 独立字体文件的路径。
 %    \begin{macrocode}
-    font-dir .code:n =
-      {
-        \bool_gset_true:N \g_@@_font_dir_bool
-        \tl_gset_eq:NN \g_@@_font_dir_tl \l_keys_value_tl
-      },
+		font-dir .code:n =
+			{
+				\bool_gset_true:N \g_@@_font_dir_bool
+				\tl_gset_eq:NN \g_@@_font_dir_tl \l_keys_value_tl
+			},
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=option/]{config}
 % 自定义配置文件名。
 %    \begin{macrocode}
-    config .tl_gset:N = \g_@@_config_tl,
+		config .tl_gset:N = \g_@@_config_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % 将未知选项传给 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
-    unknown .code:n =
-      { \clist_gput_right:No \g_@@_to_ctex_class_clist { \CurrentOption } }
-  }
+		unknown .code:n =
+			{ \clist_gput_right:No \g_@@_to_ctex_class_clist { \CurrentOption } }
+	}
 %    \end{macrocode}
 %
 % \begin{macro}[module=option/, int]{option/}
@@ -1248,18 +1257,18 @@
 % 载入常量定义文件。
 %    \begin{macrocode}
 \tl_if_empty:NTF \g_@@_config_tl
-  {
-    \tl_if_eq:NnT \g_@@_degree_type_tl { master }
-      { \file_input:n { hustthesis-m.def } }
-    \tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
-      { \file_input:n { hustthesis-d.def } }
-  }
-  {
-    \@@_msg_new:nn { load-config-file }
-      { You~ are~ loading~ config~ file~ "#1". }
-    \@@_info:n { load-config-file }
-    \file_input:V { \g_@@_config_tl }
-  }
+	{
+		\tl_if_eq:NnT \g_@@_degree_type_tl { master }
+			{ \file_input:n { hustthesis-m.def } }
+		\tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
+			{ \file_input:n { hustthesis-d.def } }
+	}
+	{
+		\@@_msg_new:nn { load-config-file }
+			{ You~ are~ loading~ config~ file~ "#1". }
+		\@@_info:n { load-config-file }
+		\file_input:V { \g_@@_config_tl }
+	}
 %    \end{macrocode}
 %
 % \subsection{宏包载入}
@@ -1295,36 +1304,36 @@
 % 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
 \PassOptionsToClass
-  {
-    a4paper,
-    UTF8,
-    scheme = chinese,
-    fontset = none,
-    oneside,
-    heading = true,
-    zihao = -4,
-    linespread = \c_@@_line_spread_fp,
-    \g_@@_to_ctex_class_clist,
-  }
-  { ctexbook }
+	{
+		a4paper,
+		UTF8,
+		scheme = chinese,
+		fontset = none,
+		oneside,
+		heading = true,
+		zihao = -4,
+		linespread = \c_@@_line_spread_fp,
+		\g_@@_to_ctex_class_clist,
+	}
+	{ ctexbook }
 \LoadClass { ctexbook }
 %    \end{macrocode}
 %
 % 其中 \pkg{utfsym} 宏包不依赖外部字体，使用 \TikZ{} 宏包绘制 |U+2610|:~☐，|U+2611|:~☑，|U+1F5F9|:~\usym{1F5F9} 等符号。
 %    \begin{macrocode}
 \RequirePackage
-  {
-    hustvisual,
-    amsmath,
-    geometry,
-    fancyhdr,
-    titletoc,
-    graphicx,
-    multirow,
-    longtable,
-    caption,
-    utfsym,
-  }
+	{
+		hustvisual,
+		amsmath,
+		geometry,
+		fancyhdr,
+		titletoc,
+		graphicx,
+		multirow,
+		longtable,
+		caption,
+		utfsym,
+	}
 %    \end{macrocode}
 %
 % 载入基于 \clsname{} 样式的 \pkg{biblatex} 宏包。
@@ -1338,22 +1347,22 @@
 % 隐藏盲审模式下需要隐藏的内容。
 %    \begin{macrocode}
 \clist_map_inline:Nn \g_@@_anonymous_clist
-  {
-    \tl_gset_eq:cN { g_@@_name_ #1 _tl } \c_empty_tl
-  }
+	{
+		\tl_gset_eq:cN { g_@@_name_ #1 _tl } \c_empty_tl
+	}
 %    \end{macrocode}
 %
 % \subsection{页面布局}
 % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
 %    \begin{macrocode}
 \geometry
-  {
-    top = 4.5 cm,
-    bottom = 2.8 cm,
-    left = 2.8 cm,
-    right = 2.8 cm,
-    headheight = 30 pt,
-  }
+	{
+		top = 4.5 cm,
+		bottom = 2.8 cm,
+		left = 2.8 cm,
+		right = 2.8 cm,
+		headheight = 30 pt,
+	}
 %    \end{macrocode}
 %
 % \subsection{字体设置}
@@ -1368,7 +1377,7 @@
 % mac Office 字体路径。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_path_macoffice_tl
-  { /Applications/Microsoft~ Word.app/Contents/Resources/DFonts/ }
+	{ /Applications/Microsoft~ Word.app/Contents/Resources/DFonts/ }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1376,25 +1385,25 @@
 % 额外增加了对 macOS 上 MS Office 的检测。
 %    \begin{macrocode}
 \sys_if_platform_windows:TF
-  { \tl_gset:Nn \g_@@_font_set_tl { win } }
-  {
-    \ctex_if_platform_macos:TF
-      {
-        \file_if_exist:nTF { \c_@@_path_macoffice_tl times.ttf }
-          { \tl_gset:Nn \g_@@_font_set_tl { macoffice } }
-          { \tl_gset:Nn \g_@@_font_set_tl { mac } }
-      }
-      { \tl_gset:Nn \g_@@_font_set_tl { fandol } }
-  }
+	{ \tl_gset:Nn \g_@@_font_set_tl { win } }
+	{
+		\ctex_if_platform_macos:TF
+			{
+				\file_if_exist:nTF { \c_@@_path_macoffice_tl times.ttf }
+					{ \tl_gset:Nn \g_@@_font_set_tl { macoffice } }
+					{ \tl_gset:Nn \g_@@_font_set_tl { mac } }
+			}
+			{ \tl_gset:Nn \g_@@_font_set_tl { fandol } }
+	}
 %    \end{macrocode}
 % 判断用户是否自定义了中英文字体。如果其中任意一种未被定义，
 % 则使用系统预装字体覆盖字体选项。
 % Windows 或 macOS 外的系统被判断为 Linux，一律使用自由字体。
 %    \begin{macrocode}
 \tl_if_empty:NT \g_@@_font_latin_tl
-  { \tl_gset_eq:NN \g_@@_font_latin_tl \g_@@_font_set_tl }
+	{ \tl_gset_eq:NN \g_@@_font_latin_tl \g_@@_font_set_tl }
 \tl_if_empty:NT \g_@@_font_cjk_tl
-  { \tl_gset_eq:NN \g_@@_font_cjk_tl \g_@@_font_set_tl }
+	{ \tl_gset_eq:NN \g_@@_font_cjk_tl \g_@@_font_set_tl }
 %    \end{macrocode}
 %
 %
@@ -1410,36 +1419,36 @@
 % Windows 与 macOS 西文字体的区别主要在于默认等宽字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_latin:n #1
-  {
-    \__fontspec_main_setmainfont:nn { } { Times~New~Roman }
-    \__fontspec_main_setsansfont:nn { } { Arial }
-    \__fontspec_main_setmonofont:nn { Scale = MatchLowercase } {#1}
-  }
+	{
+		\__fontspec_main_setmainfont:nn { } { Times~New~Roman }
+		\__fontspec_main_setsansfont:nn { } { Arial }
+		\__fontspec_main_setmonofont:nn { Scale = MatchLowercase } {#1}
+	}
 \cs_new_protected:Npn \@@_loadfont_latin_win:
-  { \@@_loadfont_latin:n { Courier~New } }
+	{ \@@_loadfont_latin:n { Courier~New } }
 \cs_new_protected:Npn \@@_loadfont_latin_mac:
-  {
-    \@@_loadfont_latin:n { Menlo }
+	{
+		\@@_loadfont_latin:n { Menlo }
 %    \end{macrocode}
 % 检测 Times New Roman 是否具有小型大写字母（small caps）字型。
 % 这是 macOS 预装的字体版本较旧导致的。
 %    \begin{macrocode}
-    \fontspec_if_small_caps:F
-      {
-        \@@_warning:n { no-small-caps }
-        \__fontspec_main_setmainfont:nn
-          { \c_@@_name_gyrefeature_clist } { texgyretermes }
-      }
-  }
+		\fontspec_if_small_caps:F
+			{
+				\@@_warning:n { no-small-caps }
+				\__fontspec_main_setmainfont:nn
+					{ \c_@@_name_gyrefeature_clist } { texgyretermes }
+			}
+	}
 \@@_msg_new:nn { no-small-caps }
-  {
-    I~ am~ using~ TeX~ Gyre~ Termes~ as~ default~ Roman~ font.\\
-    This~ is~ because~ the~ "Times~ New~ Roman"~ font~ in~ your~
-    system~ does~ not~ embed~ glyphs~ for~ small~ capitals.~
-    You~ can~ ignore~ this~ warning~ if~ you~ do~ not~ need~
-    \string\textsc.~ For~ more~ information,~
-    please~ refer~ to~ section~ 3.2.6~ of~ the~ documentation.
-  }
+	{
+		I~ am~ using~ TeX~ Gyre~ Termes~ as~ default~ Roman~ font.\\
+		This~ is~ because~ the~ "Times~ New~ Roman"~ font~ in~ your~
+		system~ does~ not~ embed~ glyphs~ for~ small~ capitals.~
+		You~ can~ ignore~ this~ warning~ if~ you~ do~ not~ need~
+		\string\textsc.~ For~ more~ information,~
+		please~ refer~ to~ section~ 3.2.6~ of~ the~ documentation.
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1447,14 +1456,14 @@
 % mac Office 西文字体。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_latin_macoffice:
-  {
-    \__fontspec_main_setmainfont:nn
-      { \c_@@_name_macofficefeature_clist } { times }
-    \__fontspec_main_setsansfont:nn
-      { \c_@@_name_macofficefeature_clist } { arial }
-    \__fontspec_main_setmonofont:nn
-      { Scale = MatchLowercase } { Menlo }
-  }
+	{
+		\__fontspec_main_setmainfont:nn
+			{ \c_@@_name_macofficefeature_clist } { times }
+		\__fontspec_main_setsansfont:nn
+			{ \c_@@_name_macofficefeature_clist } { arial }
+		\__fontspec_main_setmonofont:nn
+			{ Scale = MatchLowercase } { Menlo }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1462,14 +1471,14 @@
 % 用于 \pkg{fontspec} 的 mac Office 字体特性列表。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_name_macofficefeature_clist
-  {
-    Path = \c_@@_path_macoffice_tl,
-    Extension = .ttf,
-    UprightFont = *,
-    BoldFont = *bd,
-    ItalicFont = *i,
-    BoldItalicFont = *bi,
-  }
+	{
+		Path = \c_@@_path_macoffice_tl,
+		Extension = .ttf,
+		UprightFont = *,
+		BoldFont = *bd,
+		ItalicFont = *i,
+		BoldItalicFont = *bi,
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1477,19 +1486,19 @@
 % 开源的 \TeX Gyre 西文字体。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_latin_gyre:
-  {
-    \__fontspec_main_setmainfont:nn
-      { \c_@@_name_gyrefeature_clist } { texgyretermes }
-    \__fontspec_main_setsansfont:nn
-      { \c_@@_name_gyrefeature_clist } { texgyreheros }
-    \__fontspec_main_setmonofont:nn
-      {
-        \c_@@_name_gyrefeature_clist,
-        Scale = MatchLowercase,
-        Ligatures = CommonOff,
-      }
-      { texgyrecursor }
-  }
+	{
+		\__fontspec_main_setmainfont:nn
+			{ \c_@@_name_gyrefeature_clist } { texgyretermes }
+		\__fontspec_main_setsansfont:nn
+			{ \c_@@_name_gyrefeature_clist } { texgyreheros }
+		\__fontspec_main_setmonofont:nn
+			{
+				\c_@@_name_gyrefeature_clist,
+				Scale = MatchLowercase,
+				Ligatures = CommonOff,
+			}
+			{ texgyrecursor }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1504,13 +1513,13 @@
 % 用于 \pkg{fontspec} 的 \TeX Gyre 字体特性列表。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_name_gyrefeature_clist
-  {
-    Extension = .otf,
-    UprightFont = *-regular,
-    BoldFont = *-bold,
-    ItalicFont = *-italic,
-    BoldItalicFont = *-bolditalic,
-  }
+	{
+		Extension = .otf,
+		UprightFont = *-regular,
+		BoldFont = *-bold,
+		ItalicFont = *-italic,
+		BoldItalicFont = *-bolditalic,
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1521,7 +1530,7 @@
 % 隐藏 |does not contain script "CJK"| 警告。
 %    \begin{macrocode}
 \cs_new:Npn \@@_hide_no_script_msg:
-  { \msg_redirect_name:nnn { fontspec } { no-script } { info } }
+	{ \msg_redirect_name:nnn { fontspec } { no-script } { info } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1529,18 +1538,18 @@
 % Windows 中文字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_cjk_win:N #1
-  {
-    \setCJKmainfont { SimSun } [ #1, ItalicFont = KaiTi ]
-    \setCJKsansfont { SimHei } [#1]
-    \setCJKmonofont { FangSong } [#1]
-    \setCJKfamilyfont { zhsong } { SimSun } [#1]
-    \setCJKfamilyfont { zhhei } { SimHei } [#1]
-    \setCJKfamilyfont { zhfs } { FangSong } [#1]
-    \setCJKfamilyfont { zhkai } { KaiTi } [#1]
-    \@@_define_stzhongs:nn { STZhongsong } {#1}
-  }
+	{
+		\setCJKmainfont { SimSun } [ #1, ItalicFont = KaiTi ]
+		\setCJKsansfont { SimHei } [#1]
+		\setCJKmonofont { FangSong } [#1]
+		\setCJKfamilyfont { zhsong } { SimSun } [#1]
+		\setCJKfamilyfont { zhhei } { SimHei } [#1]
+		\setCJKfamilyfont { zhfs } { FangSong } [#1]
+		\setCJKfamilyfont { zhkai } { KaiTi } [#1]
+		\@@_define_stzhongs:nn { STZhongsong } {#1}
+	}
 \cs_new:Npn \@@_loadfont_cjk_win:
-  { \@@_loadfont_cjk_win:N \c_@@_name_fakebold_tl }
+	{ \@@_loadfont_cjk_win:N \c_@@_name_fakebold_tl }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1549,21 +1558,21 @@
 % ^^A TODO: 修复 macOS 字体支持，实现开箱即用。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_cjk_mac:
-  {
-    \@@_hide_no_script_msg:
-    \setCJKmainfont { Songti~SC~Light }
-      [
-        BoldFont = Songti~SC~Bold,
-        ItalicFont = Kaiti~SC,
-        BoldItalicFont = Kaiti~SC~Bold,
-      ]
-    \setCJKsansfont { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
-    \setCJKmonofont { STFangsong }
-    \setCJKfamilyfont { zhsong } { Songti~SC~Light } [ BoldFont = Songti~SC~Bold ]
-    \setCJKfamilyfont { zhhei } { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
-    \setCJKfamilyfont { zhfs } { STFangsong }
-    \setCJKfamilyfont { zhkai } { Kaiti~SC } [ BoldFont = Kaiti~SC~Bold ]
-  }
+	{
+		\@@_hide_no_script_msg:
+		\setCJKmainfont { Songti~SC~Light }
+			[
+				BoldFont = Songti~SC~Bold,
+				ItalicFont = Kaiti~SC,
+				BoldItalicFont = Kaiti~SC~Bold,
+			]
+		\setCJKsansfont { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
+		\setCJKmonofont { STFangsong }
+		\setCJKfamilyfont { zhsong } { Songti~SC~Light } [ BoldFont = Songti~SC~Bold ]
+		\setCJKfamilyfont { zhhei } { Heiti~SC~Light } [ BoldFont = Heiti~SC~Medium ]
+		\setCJKfamilyfont { zhfs } { STFangsong }
+		\setCJKfamilyfont { zhkai } { Kaiti~SC } [ BoldFont = Kaiti~SC~Bold ]
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1571,21 +1580,21 @@
 % mac Office 中文字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_cjk_macoffice:n #1
-  {
-    \setCJKmainfont { Simsun.ttc } [ ItalicFont = Kaiti.ttf, #1 ]
-    \setCJKsansfont { SimHei.ttf } [#1]
-    \setCJKmonofont { Fangsong.ttf } [#1]
-    \setCJKfamilyfont { zhsong } { Simsun.ttc } [#1]
-    \setCJKfamilyfont { zhhei } { SimHei.ttf } [#1]
-    \setCJKfamilyfont { zhfs } { Fangsong.ttf } [#1]
-    \setCJKfamilyfont { zhkai } { Kaiti.ttf } [#1]
-    \@@_define_stzhongs:nn { \c__hust_path_macoffice_tl STZHONGS.ttf } {#1}
-  }
+	{
+		\setCJKmainfont { Simsun.ttc } [ ItalicFont = Kaiti.ttf, #1 ]
+		\setCJKsansfont { SimHei.ttf } [#1]
+		\setCJKmonofont { Fangsong.ttf } [#1]
+		\setCJKfamilyfont { zhsong } { Simsun.ttc } [#1]
+		\setCJKfamilyfont { zhhei } { SimHei.ttf } [#1]
+		\setCJKfamilyfont { zhfs } { Fangsong.ttf } [#1]
+		\setCJKfamilyfont { zhkai } { Kaiti.ttf } [#1]
+		\@@_define_stzhongs:nn { \c__hust_path_macoffice_tl STZHONGS.ttf } {#1}
+	}
 \cs_new:Npn \@@_loadfont_cjk_macoffice:
-  {
-    \@@_loadfont_cjk_macoffice:n
-      { Path = \c_@@_path_macoffice_tl, \c_@@_name_fakebold_tl }
-  }
+	{
+		\@@_loadfont_cjk_macoffice:n
+			{ Path = \c_@@_path_macoffice_tl, \c_@@_name_fakebold_tl }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1593,36 +1602,36 @@
 % Fandol 字体。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_cjk_fandol:
-  {
-    \@@_hide_no_script_msg:
-    \setCJKmainfont { FandolSong-Regular }
-      [
-        Extension = .otf,
-        BoldFont = FandolSong-Bold,
-        ItalicFont = FandolKai-Regular,
-      ]
-    \setCJKsansfont { FandolHei-Regular }
-      [
-        Extension = .otf,
-        BoldFont = FandolHei-Bold,
-      ]
-    \setCJKmonofont { FandolFang-Regular }
-      [ Extension = .otf ]
-    \setCJKfamilyfont { zhsong } { FandolSong-Regular }
-      [
-        Extension = .otf,
-        BoldFont  = FandolSong-Bold
-      ]
-    \setCJKfamilyfont { zhhei } { FandolHei-Regular }
-      [
-        Extension = .otf,
-        BoldFont = FandolHei-Bold,
-      ]
-    \setCJKfamilyfont { zhfs } { FandolFang-Regular }
-      [ Extension = .otf ]
-    \setCJKfamilyfont { zhkai } { FandolKai-Regular }
-      [ Extension = .otf, \c_@@_name_fakebold_tl ]
-  }
+	{
+		\@@_hide_no_script_msg:
+		\setCJKmainfont { FandolSong-Regular }
+			[
+				Extension = .otf,
+				BoldFont = FandolSong-Bold,
+				ItalicFont = FandolKai-Regular,
+			]
+		\setCJKsansfont { FandolHei-Regular }
+			[
+				Extension = .otf,
+				BoldFont = FandolHei-Bold,
+			]
+		\setCJKmonofont { FandolFang-Regular }
+			[ Extension = .otf ]
+		\setCJKfamilyfont { zhsong } { FandolSong-Regular }
+			[
+				Extension = .otf,
+				BoldFont  = FandolSong-Bold
+			]
+		\setCJKfamilyfont { zhhei } { FandolHei-Regular }
+			[
+				Extension = .otf,
+				BoldFont = FandolHei-Bold,
+			]
+		\setCJKfamilyfont { zhfs } { FandolFang-Regular }
+			[ Extension = .otf ]
+		\setCJKfamilyfont { zhkai } { FandolKai-Regular }
+			[ Extension = .otf, \c_@@_name_fakebold_tl ]
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1630,28 +1639,28 @@
 % 方正字库（简繁扩展）
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_cjk_founder:
-  {
+	{
 %    \end{macrocode}
 % 调整方正字体括号位置。
 % \footnote{\XeTeX 的调整方法来自 \url{https://www.zhihu.com/question/46241367/answer/101660183}。}
 %    \begin{macrocode}
-    \sys_if_engine_xetex:T
-      { \xeCJKEditPunctStyle { quanjiao } { optimize-kerning = true } }
-    \sys_if_engine_luatex:T
-      { \defaultCJKfontfeatures { JFM = { zh_CN / { quanjiao, fzpr } } } }
-    \setCJKmainfont { FZShuSong-Z01 }
-      [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
-    \setCJKsansfont { FZXiHeiI-Z08 } [ BoldFont = FZHei-B01 ]
-    \setCJKmonofont { FZFangSong-Z02 }
-    \setCJKfamilyfont { zhsong } { FZShuSong-Z01 }
-      [ BoldFont = FZXiaoBiaoSong-B05 ]
-    \setCJKfamilyfont { zhhei } { FZHei-B01 }
-      [ \c_@@_name_fakebold_tl ]
-    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
-      [ \c_@@_name_fakebold_tl ]
-    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
-    \defaultCJKfontfeatures { }
-  }
+		\sys_if_engine_xetex:T
+			{ \xeCJKEditPunctStyle { quanjiao } { optimize-kerning = true } }
+		\sys_if_engine_luatex:T
+			{ \defaultCJKfontfeatures { JFM = { zh_CN / { quanjiao, fzpr } } } }
+		\setCJKmainfont { FZShuSong-Z01 }
+			[ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
+		\setCJKsansfont { FZXiHeiI-Z08 } [ BoldFont = FZHei-B01 ]
+		\setCJKmonofont { FZFangSong-Z02 }
+		\setCJKfamilyfont { zhsong } { FZShuSong-Z01 }
+			[ BoldFont = FZXiaoBiaoSong-B05 ]
+		\setCJKfamilyfont { zhhei } { FZHei-B01 }
+			[ \c_@@_name_fakebold_tl ]
+		\setCJKfamilyfont { zhkai } { FZKai-Z03 }
+			[ \c_@@_name_fakebold_tl ]
+		\setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+		\defaultCJKfontfeatures { }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1659,36 +1668,36 @@
 % Noto 思源字体。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_cjk_noto:
-  {
-    \setCJKmainfont [ \c_@@_name_notofeature_clist ]
-      { NotoSerifCJKsc }
-    \setCJKsansfont [ \c_@@_name_notofeature_clist ]
-      { NotoSansCJKsc  }
-    \setCJKmonofont { Noto~Sans~Mono~CJK~SC }
-    \setCJKfamilyfont { zhsong } { Noto~Serif~CJK~SC }
-    \setCJKfamilyfont { zhhei } { Noto~Sans~CJK~SC }
-    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
-    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
-      [ \c_@@_name_fakebold_tl ]
-  }
+	{
+		\setCJKmainfont [ \c_@@_name_notofeature_clist ]
+			{ NotoSerifCJKsc }
+		\setCJKsansfont [ \c_@@_name_notofeature_clist ]
+			{ NotoSansCJKsc  }
+		\setCJKmonofont { Noto~Sans~Mono~CJK~SC }
+		\setCJKfamilyfont { zhsong } { Noto~Serif~CJK~SC }
+		\setCJKfamilyfont { zhhei } { Noto~Sans~CJK~SC }
+		\setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+		\setCJKfamilyfont { zhkai } { FZKai-Z03 }
+			[ \c_@@_name_fakebold_tl ]
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_loadfont_cjk_source:}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont_cjk_source:
-  {
-    \setCJKmainfont [ \c_@@_name_notofeature_clist ]
-      { SourceHanSerifSC }
-    \setCJKsansfont [ \c_@@_name_notofeature_clist ]
-      { SourceHanSansSC  }
-    \setCJKmonofont { FZFangSong-Z02 }
-    \setCJKfamilyfont { zhsong } { Source~Han~Serif~SC }
-    \setCJKfamilyfont { zhhei } { Source~Han~Sans~SC }
-    \setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
-    \setCJKfamilyfont { zhkai } { FZKai-Z03 }
-      [ \c_@@_name_fakebold_tl ]
-  }
+	{
+		\setCJKmainfont [ \c_@@_name_notofeature_clist ]
+			{ SourceHanSerifSC }
+		\setCJKsansfont [ \c_@@_name_notofeature_clist ]
+			{ SourceHanSansSC  }
+		\setCJKmonofont { FZFangSong-Z02 }
+		\setCJKfamilyfont { zhsong } { Source~Han~Serif~SC }
+		\setCJKfamilyfont { zhhei } { Source~Han~Sans~SC }
+		\setCJKfamilyfont { zhfs } { FZFangSong-Z02 }
+		\setCJKfamilyfont { zhkai } { FZKai-Z03 }
+			[ \c_@@_name_fakebold_tl ]
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1702,15 +1711,15 @@
 % 用于 \pkg{fontspec} 的思源字体特性列表。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_name_notofeature_clist
-  {
-    Extension = .otf,
-    UprightFont = *-Regular,
-    BoldFont = *-Bold,
-    ItalicFont = *-Regular,
-    BoldItalicFont = *-Bold,
-    ItalicFeatures = FakeSlant,
-    BoldItalicFeatures = FakeSlant,
-  }
+	{
+		Extension = .otf,
+		UprightFont = *-Regular,
+		BoldFont = *-Bold,
+		ItalicFont = *-Regular,
+		BoldItalicFont = *-Bold,
+		ItalicFeatures = FakeSlant,
+		BoldItalicFeatures = FakeSlant,
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1727,10 +1736,10 @@
 %    \begin{macrocode}
 \tl_new:N \l_@@_name_stzhongsfile_tl
 \cs_new:Npn \@@_define_stzhongs:nn #1#2
-  {
-    \tl_set:Nn \l_@@_name_stzhongsfile_tl {#1}
-    \tl_set:Nn \l_@@_name_stzhongsopts_tl {#2}
-  }
+	{
+		\tl_set:Nn \l_@@_name_stzhongsfile_tl {#1}
+		\tl_set:Nn \l_@@_name_stzhongsopts_tl {#2}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1739,34 +1748,34 @@
 % 研究生封面额外需要的华文中宋。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_stzhongs:
-  {
-    \@@_loadfont_stzhongs:V \l_@@_name_stzhongsfile_tl
-  }
+	{
+		\@@_loadfont_stzhongs:V \l_@@_name_stzhongsfile_tl
+	}
 \cs_new_protected:Npn \@@_loadfont_stzhongs:n #1
-  {
-    \fontspec_font_if_exist:nTF { #1 }
-      {
-        \newCJKfontfamily \@@_stzhongs: { #1 }
-          [ \l_@@_name_stzhongsopts_tl ]
-      }
-      {
-        \bool_if:NTF \g_@@_font_dir_bool
-          {
-            \newCJKfontfamily \@@_stzhongs: { #1 }
-              [ Path = \g_@@_font_dir_tl, \c_@@_name_fakebold_tl ]
-          }
-          {
-            \cs_set_eq:NN \@@_stzhongs: \rmfamily
-            \@@_warning:n { missing-stzhongs }
-          }
-      }
-  }
+	{
+		\fontspec_font_if_exist:nTF { #1 }
+			{
+				\newCJKfontfamily \@@_stzhongs: { #1 }
+					[ \l_@@_name_stzhongsopts_tl ]
+			}
+			{
+				\bool_if:NTF \g_@@_font_dir_bool
+					{
+						\newCJKfontfamily \@@_stzhongs: { #1 }
+							[ Path = \g_@@_font_dir_tl, \c_@@_name_fakebold_tl ]
+					}
+					{
+						\cs_set_eq:NN \@@_stzhongs: \rmfamily
+						\@@_warning:n { missing-stzhongs }
+					}
+			}
+	}
 \@@_msg_new:nn { missing-stzhongs }
-  {
-    "STZHONGS.TTF"~ is~ not~ found~ in~ your~ system.\\
-    The~ font~ is~ normally~ distributed~ with~ MS~ Windows.~
-    I~ have~ used~ songti~ for~ substitution.
-  }
+	{
+		"STZHONGS.TTF"~ is~ not~ found~ in~ your~ system.\\
+		The~ font~ is~ normally~ distributed~ with~ MS~ Windows.~
+		I~ have~ used~ songti~ for~ substitution.
+	}
 \cs_generate_variant:Nn \@@_loadfont_stzhongs:n { V }
 %    \end{macrocode}
 % \end{macro}
@@ -1779,10 +1788,10 @@
 % 批量定义数学字体配置。
 %    \begin{macrocode}
 \cs_new:Npn \@@_define_math_font:nn #1#2
-  {
-    \cs_new:cpn { @@_loadfont_math_ #1 : }
-      { \__um_setmathfont:nn { } {#2} }
-  }
+	{
+		\cs_new:cpn { @@_loadfont_math_ #1 : }
+			{ \__um_setmathfont:nn { } {#2} }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1803,20 +1812,20 @@
 % 批量定义若干数学字体的载入命令。
 %    \begin{macrocode}
 \clist_map_inline:nn
-  {
-    { asana } { Asana-Math.otf },
-    { fira } { FiraMath-Regular.otf },
-    { garamond } { Garamond-Math.otf },
-    { lm } { latinmodern-math.otf },
-    { libertinus } { LibertinusMath-Regular.otf },
-    { stix } { STIXMath-Regular.otf },
-    { bonum } { texgyrebonum-math.otf },
-    { dejavu } { texgyredejavu-math.otf },
-    { pagella } { texgyrepagella-math.otf },
-    { schola } { texgyreschola-math.otf },
-    { termes } { texgyretermes-math.otf },
-  }
-  { \@@_define_math_font:nn #1 }
+	{
+		{ asana } { Asana-Math.otf },
+		{ fira } { FiraMath-Regular.otf },
+		{ garamond } { Garamond-Math.otf },
+		{ lm } { latinmodern-math.otf },
+		{ libertinus } { LibertinusMath-Regular.otf },
+		{ stix } { STIXMath-Regular.otf },
+		{ bonum } { texgyrebonum-math.otf },
+		{ dejavu } { texgyredejavu-math.otf },
+		{ pagella } { texgyrepagella-math.otf },
+		{ schola } { texgyreschola-math.otf },
+		{ termes } { texgyretermes-math.otf },
+	}
+	{ \@@_define_math_font:nn #1 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1824,15 +1833,15 @@
 % Cambria Math 字体配置。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_math_cambria:
-  {
-    \bool_if:NTF \g_@@_font_dir_bool
-      {
-        \__um_setmathfont:nn
-          { Path = \g_@@_font_dir_tl/, FontIndex = 1 }
-          { cambria.ttc }
-      }
-      { \__um_setmathfont:nn { } { Cambria~Math } }
-  }
+	{
+		\bool_if:NTF \g_@@_font_dir_bool
+			{
+				\__um_setmathfont:nn
+					{ Path = \g_@@_font_dir_tl/, FontIndex = 1 }
+					{ cambria.ttc }
+			}
+			{ \__um_setmathfont:nn { } { Cambria~Math } }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1840,25 +1849,25 @@
 % XITS Math 字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_math_xits:
-  {
-    \bool_if:NTF \g_@@_opt_math_int_bool
-      { \tl_set:Nn \l_@@_tmpa_tl { 8 } }
-      { \tl_clear:N \l_@@_tmpa_tl }
-    \__um_setmathfont:nn
-      {
-        Extension = .otf,
-        StylisticSet = \l_@@_tmpa_tl,
-        BoldFont = XITSMath-Bold,
-      }
-      { XITSMath-Regular }
-    \__um_setmathfont:nn
-      {
-        Extension = .otf,
-        StylisticSet = 1,
-        range = {cal, bfcal},
-      }
-      { XITSMath-Regular }
-  }
+	{
+		\bool_if:NTF \g_@@_opt_math_int_bool
+			{ \tl_set:Nn \l_@@_tmpa_tl { 8 } }
+			{ \tl_clear:N \l_@@_tmpa_tl }
+		\__um_setmathfont:nn
+			{
+				Extension = .otf,
+				StylisticSet = \l_@@_tmpa_tl,
+				BoldFont = XITSMath-Bold,
+			}
+			{ XITSMath-Regular }
+		\__um_setmathfont:nn
+			{
+				Extension = .otf,
+				StylisticSet = 1,
+				range = {cal, bfcal},
+			}
+			{ XITSMath-Regular }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1866,51 +1875,51 @@
 % New Computer Modern Math 字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_loadfont_math_newcm:
-  {
-    \bool_if:NTF \g_@@_opt_math_int_bool
-      { \tl_set:Nn \l_@@_tmpa_tl { 2 } }
-      { \tl_clear:N \l_@@_tmpa_tl }
-    \__um_setmathfont:nn
-      {
-        Extension = .otf,
-        StylisticSet = \l_@@_tmpa_tl,
-      }
-      { NewCMMath-Book }
-    \__um_setmathfont:nn
-      {
-        Extension = .otf,
-        StylisticSet = 1,
-        range = {scr,bfscr},
-      }
-      { NewCMMath-Book }
-    \__fontspec_main_setmathrm:nn
-      {
-        Extension = .otf,
-        UprightFont = *-Book,
-        BoldFont = *-Bold,
-        ItalicFont = *-BookItalic,
-        BoldItalicFont = *-BoldItalic,
-      }
-      { NewCM10 }
-    \__fontspec_main_setmathsf:nn
-      {
-        Extension = .otf,
-        UprightFont = *-Book,
-        BoldFont = *-Bold,
-        ItalicFont = *-BookOblique,
-        BoldItalicFont = *-BoldOblique,
-      }
-      { NewCMSans10 }
-    \__fontspec_main_setmathtt:nn
-      {
-        Extension = .otf,
-        UprightFont = *-Book,
-        ItalicFont = *-BookItalic,
-        BoldFont = *-Bold,
-        BoldItalicFont = *-BoldOblique,
-      }
-      { NewCMMono10 }
-  }
+	{
+		\bool_if:NTF \g_@@_opt_math_int_bool
+			{ \tl_set:Nn \l_@@_tmpa_tl { 2 } }
+			{ \tl_clear:N \l_@@_tmpa_tl }
+		\__um_setmathfont:nn
+			{
+				Extension = .otf,
+				StylisticSet = \l_@@_tmpa_tl,
+			}
+			{ NewCMMath-Book }
+		\__um_setmathfont:nn
+			{
+				Extension = .otf,
+				StylisticSet = 1,
+				range = {scr,bfscr},
+			}
+			{ NewCMMath-Book }
+		\__fontspec_main_setmathrm:nn
+			{
+				Extension = .otf,
+				UprightFont = *-Book,
+				BoldFont = *-Bold,
+				ItalicFont = *-BookItalic,
+				BoldItalicFont = *-BoldItalic,
+			}
+			{ NewCM10 }
+		\__fontspec_main_setmathsf:nn
+			{
+				Extension = .otf,
+				UprightFont = *-Book,
+				BoldFont = *-Bold,
+				ItalicFont = *-BookOblique,
+				BoldItalicFont = *-BoldOblique,
+			}
+			{ NewCMSans10 }
+		\__fontspec_main_setmathtt:nn
+			{
+				Extension = .otf,
+				UprightFont = *-Book,
+				ItalicFont = *-BookItalic,
+				BoldFont = *-Bold,
+				BoldItalicFont = *-BoldOblique,
+			}
+			{ NewCMMono10 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1928,17 +1937,17 @@
 % 载入字体命令。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_loadfont:
-  {
-    \use:c { @@_loadfont_latin_ \g_@@_font_latin_tl : }
-    \use:c { @@_loadfont_cjk_ \g_@@_font_cjk_tl : }
+	{
+		\use:c { @@_loadfont_latin_ \g_@@_font_latin_tl : }
+		\use:c { @@_loadfont_cjk_ \g_@@_font_cjk_tl : }
 %    \end{macrocode}
 % 自行定义 \pkg{ctex} 中的四类字体命令。
 %    \begin{macrocode}
-    \NewDocumentCommand \songti { } { \CJKfamily { zhsong } }
-    \NewDocumentCommand \heiti { } { \CJKfamily { zhhei } }
-    \NewDocumentCommand \fangsong { } { \CJKfamily { zhfs } }
-    \NewDocumentCommand \kaishu { } { \CJKfamily { zhkai } }
-  }
+		\NewDocumentCommand \songti { } { \CJKfamily { zhsong } }
+		\NewDocumentCommand \heiti { } { \CJKfamily { zhhei } }
+		\NewDocumentCommand \fangsong { } { \CJKfamily { zhfs } }
+		\NewDocumentCommand \kaishu { } { \CJKfamily { zhkai } }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1974,9 +1983,9 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_draw_hf_hline:n #1
-  {
-    { \color_select:n { headfoot } \tex_hrule:D height #1 }
-  }
+	{
+		{ \color_select:n { headfoot } \tex_hrule:D height #1 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1984,23 +1993,23 @@
 %    \begin{macrocode}
 %\bool_if:NF \g_@@_anonymous_bool
 %  {
-    \chead
-      {
-        \zihao{3} \ziju{0.75} \bfseries \kaishu
-        \color_group_begin:
-        \color_select:n { headfoot }
-        \c_@@_header_tl
-        \color_group_end:
-      }
+		\chead
+			{
+				\zihao{3} \ziju{0.75} \bfseries \kaishu
+				\color_group_begin:
+				\color_select:n { headfoot }
+				\c_@@_header_tl
+				\color_group_end:
+			}
 %  }
 \tl_set:Nn { \headrulewidth } { 1 pt }
 \tl_set:Nn { \headrule }
-  {
-    \skip_vertical:n { 3 pt }
-    \@@_draw_hf_hline:n \headrulewidth
-    \skip_vertical:n \headrulewidth
-    \@@_draw_hf_hline:n \headrulewidth
-  }
+	{
+		\skip_vertical:n { 3 pt }
+		\@@_draw_hf_hline:n \headrulewidth
+		\skip_vertical:n \headrulewidth
+		\@@_draw_hf_hline:n \headrulewidth
+	}
 %    \end{macrocode}
 %
 % 设置页脚格式。
@@ -2008,10 +2017,10 @@
 \cfoot { \zihao{-5} \thepage }
 \tl_set:Nn { \footrulewidth } { 0.5 pt }
 \tl_set:Nn { \footrule }
-  {
-    \@@_draw_hf_hline:n \footrulewidth
-    \skip_vertical:n { 3 pt }
-  }
+	{
+		\@@_draw_hf_hline:n \footrulewidth
+		\skip_vertical:n { 3 pt }
+	}
 %    \end{macrocode}
 %
 % \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式设置为 |headings|。
@@ -2092,17 +2101,17 @@
 % 设置论文标题，并删除其中的 |\\| 和汉字间的空格。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_set_title:nn #1#2
-  {
-    \tl_gset:cn { g_@@_info_ #1 _tl } { #2 }
-    \tl_set:cn { l_@@_info_ #1 _sanitized_tl } { #2 }
-    \tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
-    \regex_replace_all:nnc
-      { \s+ } { \ }
-      { l_@@_info_ #1 _sanitized_tl }
-    \regex_replace_all:nnc
-      { ([\x{4e00}-\x{9fff}]) \s+ ([\x{4e00}-\x{9fff}]) } { \1 \2 }
-      { l_@@_info_ #1 _sanitized_tl }
-  }
+	{
+		\tl_gset:cn { g_@@_info_ #1 _tl } { #2 }
+		\tl_set:cn { l_@@_info_ #1 _sanitized_tl } { #2 }
+		\tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
+		\regex_replace_all:nnc
+			{ \s+ } { \ }
+			{ l_@@_info_ #1 _sanitized_tl }
+		\regex_replace_all:nnc
+			{ ([\x{4e00}-\x{9fff}]) \s+ ([\x{4e00}-\x{9fff}]) } { \1 \2 }
+			{ l_@@_info_ #1 _sanitized_tl }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2110,34 +2119,34 @@
 % 设置论文提交日期。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_date:n #1
-  {
-    \@@_set_date_aux:w #1 \q_stop
-  }
+	{
+		\@@_set_date_aux:w #1 \q_stop
+	}
 \cs_new_protected:Npn \@@_set_date_aux:w #1 - #2 - #3 \q_stop
-  {
-    \tl_gset:Nn \g_@@_info_date_tl { {#1} 年 {#2} 月 {#3} 日 }
-    \tl_gset:Nn \g_@@_info_date_en_tl
-      { \clist_item:Nn \c_@@_month_clist {#2},~ {#1} }
-  }
+	{
+		\tl_gset:Nn \g_@@_info_date_tl { {#1} 年 {#2} 月 {#3} 日 }
+		\tl_gset:Nn \g_@@_info_date_en_tl
+			{ \clist_item:Nn \c_@@_month_clist {#2},~ {#1} }
+	}
 \clist_const:Nn \c_@@_month_clist
-  {
-    January, February, March, April, May, June,
-    July, August, September, October, November, December,
-  }
+	{
+		January, February, March, April, May, June,
+		July, August, September, October, November, December,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % 定义 |hust/info| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { hust / info }
-  {
+	{
 %    \end{macrocode}
 %
 % \begin{macro}[module=info/]{info/title, info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
-    title .tl_gset:N = \g_@@_info_title_tl,
-    title* .tl_gset:N = \g_@@_info_title_en_tl,
+		title .tl_gset:N = \g_@@_info_title_tl,
+		title* .tl_gset:N = \g_@@_info_title_en_tl,
 %    title .code:n = { \@@_set_title:nn { title } { #1 } },
 %    title* .code:n = { \@@_set_title:nn { title_en } { #1 } },
 %    \end{macrocode}
@@ -2148,81 +2157,81 @@
 % 中文类型~\key[info]{degree} 分为学术型~\opt{academic}，和专业型~\opt{professional}；
 % 英文学科~\key[info]{degree*}\footnote{为保持命名一致性，学科 degree discipline 在此处仍使用键名 |degree*|} 包括文学~\opt{Arts}，理学~\opt{Science}，教育学~\opt{Education}，工学~\opt{Engineering}，法学~\opt{Laws}，医学~\opt{Medicine}，以及其他~\opt{XXX}。
 %    \begin{macrocode}
-    degree .choices:nn =
-      { academic, professional }
-      {
-        \tl_gset_eq:NN \g_@@_info_degree_tl \l_keys_choice_tl
-      },
-    degree .default:n = { academic },
-    degree* .tl_gset:N = \g_@@_info_degree_en_tl,
+		degree .choices:nn =
+			{ academic, professional }
+			{
+				\tl_gset_eq:NN \g_@@_info_degree_tl \l_keys_choice_tl
+			},
+		degree .default:n = { academic },
+		degree* .tl_gset:N = \g_@@_info_degree_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/author, info/author*}
 % 学位申请人姓名。
 %    \begin{macrocode}
-    author .tl_gset:N = \g_@@_info_author_tl,
-    author* .tl_gset:N = \g_@@_info_author_en_tl,
+		author .tl_gset:N = \g_@@_info_author_tl,
+		author* .tl_gset:N = \g_@@_info_author_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/major, info/major*}
 % 专业名称。
 %    \begin{macrocode}
-    major .tl_gset:N = \g_@@_info_major_tl,
-    major* .tl_gset:N = \g_@@_info_major_en_tl,
+		major .tl_gset:N = \g_@@_info_major_tl,
+		major* .tl_gset:N = \g_@@_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/supervisor, info/supervisor*}
 % 指导老师。
 %    \begin{macrocode}
-    supervisor .tl_gset:N = \g_@@_info_supervisor_tl,
-    supervisor* .tl_gset:N = \g_@@_info_supervisor_en_tl,
+		supervisor .tl_gset:N = \g_@@_info_supervisor_tl,
+		supervisor* .tl_gset:N = \g_@@_info_supervisor_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/date}
 % 论文提交日期。
 %    \begin{macrocode}
-    date .code:n = { \@@_set_date:n { #1 } },
+		date .code:n = { \@@_set_date:n { #1 } },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/clc}
 % 中图分类号。
 %    \begin{macrocode}
-    clc .tl_gset:N = \g_@@_info_clc_tl,
+		clc .tl_gset:N = \g_@@_info_clc_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/student-id, info/school-id}
 % 学号和学校代码。
 %    \begin{macrocode}
-    student-id .tl_gset:N = \g_@@_info_student_id_tl,
-    school-id .tl_gset:N = \g_@@_info_school_id_tl,
+		student-id .tl_gset:N = \g_@@_info_student_id_tl,
+		school-id .tl_gset:N = \g_@@_info_school_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/secret}
 % 密级。
 %    \begin{macrocode}
-    secret .tl_gset:N = \g_@@_info_secret_tl,
+		secret .tl_gset:N = \g_@@_info_secret_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[module=info/]{info/committee}
 % 答辩委员会成员列表。
 %    \begin{macrocode}
-    committee .code:n =
-      {
-        \seq_gset_from_clist:Nn \g_@@_info_committee_seq { #1 }
-      },
+		committee .code:n =
+			{
+				\seq_gset_from_clist:Nn \g_@@_info_committee_seq { #1 }
+			},
 %    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
-  }
+	}
 %    \end{macrocode}
 %
 % \subsubsection{定义内部函数}
@@ -2237,10 +2246,10 @@
 % 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_spread_box:nn #1#2
-  {
-    \mode_leave_vertical:
-    \hbox_to_wd:nn {#1} { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
-  }
+	{
+		\mode_leave_vertical:
+		\hbox_to_wd:nn {#1} { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
+	}
 \cs_generate_variant:Nn \@@_spread_box:nn { no }
 %    \end{macrocode}
 % \end{macro}
@@ -2249,10 +2258,10 @@
 % 居中对齐的水平盒子。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_center_box:nn #1#2
-  {
-    \mode_leave_vertical:
-    \hbox_to_wd:nn {#1} { \tex_hfil:D #2 \tex_hfil:D }
-  }
+	{
+		\mode_leave_vertical:
+		\hbox_to_wd:nn {#1} { \tex_hfil:D #2 \tex_hfil:D }
+	}
 \cs_generate_variant:Nn \@@_center_box:nn { Vn }
 %    \end{macrocode}
 % \end{macro}
@@ -2261,7 +2270,7 @@
 % 限宽盒子（允许换行）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fixed_width_box:nn #1#2
-  { \parbox {#1} {#2} }
+	{ \parbox {#1} {#2} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2269,7 +2278,7 @@
 % 居中对齐的限宽盒子（允许换行）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fixed_width_center_box:nn #1#2
-  { \parbox {#1} { \centering #2 } }
+	{ \parbox {#1} { \centering #2 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2281,10 +2290,10 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_get_text_width:Nn #1#2
-  {
-    \hbox_set:Nn \l_@@_tmpa_box {#2}
-    \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
-  }
+	{
+		\hbox_set:Nn \l_@@_tmpa_box {#2}
+		\dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
+	}
 \cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
@@ -2293,7 +2302,7 @@
 % 下划线占位符。|#1|: 长度。
 %    \begin{macrocode}
 \cs_new:Npn \@@_blank_underline:n #1
-  { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
+	{ \rule [ -0.5 ex ] {#1} { 0.4 pt } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2315,71 +2324,71 @@
 \NewTemplateType { hust / component } { 0 }
 \DeclareTemplateInterface { hust / component } { plain } { 0 }
 {
-  content : tokenlist = \c_empty_tl,
-  format : tokenlist = \c_empty_tl,
-  width: skip = \c_zero_skip,
-  height: skip = \c_zero_skip,
-  top-lines : integer = \c_zero_int,
-  top-skip : skip = \c_zero_skip,
-  bottom-skip : skip = \c_zero_skip,
-  bottom-lines : integer = \c_zero_int,
-  align : choice { left, right, center, justify } = center,
+	content : tokenlist = \c_empty_tl,
+	format : tokenlist = \c_empty_tl,
+	width: skip = \c_zero_skip,
+	height: skip = \c_zero_skip,
+	top-lines : integer = \c_zero_int,
+	top-skip : skip = \c_zero_skip,
+	bottom-skip : skip = \c_zero_skip,
+	bottom-lines : integer = \c_zero_int,
+	align : choice { left, right, center, justify } = center,
 }
 \DeclareTemplateCode { hust / component } { plain } { 0 }
 {
-  content = \l_@@_component_content_tl,
-  format = \l_@@_component_format_tl,
-  width = \l_@@_component_width_skip,
-  height = \l_@@_component_height_skip,
-  top-lines = \l_@@_component_top_lines_int,
-  top-skip = \l_@@_component_top_skip,
-  bottom-skip = \l_@@_component_bottom_skip,
-  bottom-lines = \l_@@_component_bottom_lines_int,
-  align =
-    {
-      left =
-        \cs_set_eq:NN \l_@@_component_align: \raggedright,
-      right =
-        \cs_set_eq:NN \l_@@_component_align: \raggedleft,
-      center =
-        \cs_set_eq:NN \l_@@_component_align: \centering,
-      justify =
-        \cs_set_eq:NN \l_@@_component_align: \prg_do_nothing:,
-    }
+	content = \l_@@_component_content_tl,
+	format = \l_@@_component_format_tl,
+	width = \l_@@_component_width_skip,
+	height = \l_@@_component_height_skip,
+	top-lines = \l_@@_component_top_lines_int,
+	top-skip = \l_@@_component_top_skip,
+	bottom-skip = \l_@@_component_bottom_skip,
+	bottom-lines = \l_@@_component_bottom_lines_int,
+	align =
+		{
+			left =
+				\cs_set_eq:NN \l_@@_component_align: \raggedright,
+			right =
+				\cs_set_eq:NN \l_@@_component_align: \raggedleft,
+			center =
+				\cs_set_eq:NN \l_@@_component_align: \centering,
+			justify =
+				\cs_set_eq:NN \l_@@_component_align: \prg_do_nothing:,
+		}
 }
 {
-  \AssignTemplateKeys
-  \l_@@_component_format_tl
-  \int_step_inline:nn { \l_@@_component_top_lines_int }
-    {
-      \mode_leave_vertical:
-      \tex_par:D
-    }
-  \dim_compare:nNnTF { \l_@@_component_height_skip } > { \c_zero_skip }
-    {
-      \box_clear_new:N \l_@@_component_box
-      \vbox_set_to_ht:Nnn \l_@@_component_box { \l_@@_component_height_skip }
-        {
-          \skip_vertical:N \l_@@_component_top_skip
-          \l_@@_component_align:
-          \l_@@_component_content_tl
-          \tex_vfill:D
-        }
-      \box_use:N \l_@@_component_box
-    }
-    {
-      \skip_vertical:N \l_@@_component_top_skip
-      \l_@@_component_align:
-      \l_@@_component_content_tl
-      \tex_par:D
-    }
-  \int_step_inline:nn { \l_@@_component_bottom_lines_int }
-    {
-      \mode_leave_vertical:
-      \tex_par:D
-    }
-  \skip_vertical:N \l_@@_component_bottom_skip
-  \skip_vertical:N \c_zero_skip
+	\AssignTemplateKeys
+	\l_@@_component_format_tl
+	\int_step_inline:nn { \l_@@_component_top_lines_int }
+		{
+			\mode_leave_vertical:
+			\tex_par:D
+		}
+	\dim_compare:nNnTF { \l_@@_component_height_skip } > { \c_zero_skip }
+		{
+			\box_clear_new:N \l_@@_component_box
+			\vbox_set_to_ht:Nnn \l_@@_component_box { \l_@@_component_height_skip }
+				{
+					\skip_vertical:N \l_@@_component_top_skip
+					\l_@@_component_align:
+					\l_@@_component_content_tl
+					\tex_vfill:D
+				}
+			\box_use:N \l_@@_component_box
+		}
+		{
+			\skip_vertical:N \l_@@_component_top_skip
+			\l_@@_component_align:
+			\l_@@_component_content_tl
+			\tex_par:D
+		}
+	\int_step_inline:nn { \l_@@_component_bottom_lines_int }
+		{
+			\mode_leave_vertical:
+			\tex_par:D
+		}
+	\skip_vertical:N \l_@@_component_bottom_skip
+	\skip_vertical:N \c_zero_skip
 }
 %    \end{macrocode}
 % \end{macro}
@@ -2396,36 +2405,36 @@
 %    \begin{macrocode}
 \NewTemplateType { hust / page } { 0 }
 \DeclareTemplateInterface { hust / page } { title } { 0 }
-  {
-    prefix : tokenlist,
-    components : commalist,
-    style : tokenlist = empty,
-    format : tokenlist = \linespread { } \selectfont,
-    top-skip : skip = \c_zero_skip,
-  }
+	{
+		prefix : tokenlist,
+		components : commalist,
+		style : tokenlist = empty,
+		format : tokenlist = \linespread { } \selectfont,
+		top-skip : skip = \c_zero_skip,
+	}
 \DeclareTemplateCode { hust / page } { title } { 0 }
-  {
-    prefix = \l_@@_page_prefix_tl,
-    components = \l_@@_page_components_clist,
-    style = \l_@@_page_style_tl,
-    format = \l_@@_page_format_tl,
-    top-skip = \l_@@_page_top_skip,
-  }
-  {
-    \AssignTemplateKeys
-    \skip_vertical:N \l_@@_page_top_skip
-    \group_begin:
-      \exp_args:No \thispagestyle { \l_@@_page_style_tl }
-      \l_@@_page_format_tl
-      \clist_map_inline:Nn \l_@@_page_components_clist
-        {
-          \group_begin:
-          \UseInstance { hust / component } { \l_@@_page_prefix_tl / ##1 }
-          \group_end:
-        }
-    \group_end:
-    \clearpage
-  }
+	{
+		prefix = \l_@@_page_prefix_tl,
+		components = \l_@@_page_components_clist,
+		style = \l_@@_page_style_tl,
+		format = \l_@@_page_format_tl,
+		top-skip = \l_@@_page_top_skip,
+	}
+	{
+		\AssignTemplateKeys
+		\skip_vertical:N \l_@@_page_top_skip
+		\group_begin:
+			\exp_args:No \thispagestyle { \l_@@_page_style_tl }
+			\l_@@_page_format_tl
+			\clist_map_inline:Nn \l_@@_page_components_clist
+				{
+					\group_begin:
+					\UseInstance { hust / component } { \l_@@_page_prefix_tl / ##1 }
+					\group_end:
+				}
+		\group_end:
+		\clearpage
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2436,15 +2445,15 @@
 % 声明模板实例的辅助函数。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_declare_component_instance:nnn #1#2#3
-  { \DeclareInstance { hust / component } { #1/#2 } { plain } {#3} }
+	{ \DeclareInstance { hust / component } { #1/#2 } { plain } {#3} }
 \cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
-  {
-    \DeclareInstance { hust / page } {#1} { title }
-    {
-      prefix = #1,
-      #2,
-    }
-  }
+	{
+		\DeclareInstance { hust / page } {#1} { title }
+		{
+			prefix = #1,
+			#2,
+		}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2456,30 +2465,30 @@
 % 分类号，学号，学校代码，密级。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { identifiers }
-  {
-    content =
-      {
-        \@@_title_zh_ids_aux:nn { 6em } { clc } % 3 em
-        \skip_horizontal:n { \linewidth - 19em }
-        \@@_title_zh_ids_aux:nn { 8em } { student_id } % 4 em
-        \tex_par:D
-        \@@_title_zh_ids_aux:nn { 5em } { school_id } % 4 em
-        \skip_horizontal:n { \linewidth - 19em }
-        \@@_title_zh_ids_aux:nn { 8em } { secret } % 4 em
-      },
-    format =
-      {
-        \zihao{-4} \bfseries \rmfamily \songti
-        \@@_line_spread:n { 1.5 }
-      },
-    bottom-skip = 2 cm,
-  }
+	{
+		content =
+			{
+				\@@_title_zh_ids_aux:nn { 6em } { clc } % 3 em
+				\skip_horizontal:n { \linewidth - 19em }
+				\@@_title_zh_ids_aux:nn { 8em } { student_id } % 4 em
+				\tex_par:D
+				\@@_title_zh_ids_aux:nn { 5em } { school_id } % 4 em
+				\skip_horizontal:n { \linewidth - 19em }
+				\@@_title_zh_ids_aux:nn { 8em } { secret } % 4 em
+			},
+		format =
+			{
+				\zihao{-4} \bfseries \rmfamily \songti
+				\@@_line_spread:n { 1.5 }
+			},
+		bottom-skip = 2 cm,
+	}
 \cs_new:Npn \@@_title_zh_ids_aux:nn #1#2
-  {
-    \tl_use:c { c_@@_name_ #2 _tl }
-    \@@_ul_to_wd:nnn { 1 pt } { #1 }
-      { \tl_use:c { g_@@_info_ #2 _tl } }
-  }
+	{
+		\tl_use:c { c_@@_name_ #2 _tl }
+		\@@_ul_to_wd:nnn { 1 pt } { #1 }
+			{ \tl_use:c { g_@@_info_ #2 _tl } }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2487,14 +2496,14 @@
 % 校名图片。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { logo }
-  {
-    content =
-      {
-        \mode_leave_vertical:
-        \hustvi [ height = 1.4 cm, temp = black, ] { name }
-      },
-    bottom-skip = 0.5 cm,
-  }
+	{
+		content =
+			{
+				\mode_leave_vertical:
+				\hustvi [ height = 1.4 cm, temp = black, ] { name }
+			},
+		bottom-skip = 0.5 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2503,11 +2512,11 @@
 %    \begin{macrocode}
 \__ctex_save_font_size:nn { a } { 45 bp } % 大初号
 \@@_declare_component_instance:nnn { title zh } { type }
-  {
-    content = { \c_@@_name_type_zh_tl },
-    format = { \zihao { a } \bfseries \songti \ziju { 0.1 } },
-    bottom-skip = 0.5 cm,
-  }
+	{
+		content = { \c_@@_name_type_zh_tl },
+		format = { \zihao { a } \bfseries \songti \ziju { 0.1 } },
+		bottom-skip = 0.5 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2515,24 +2524,24 @@
 % 学位类型。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { degree }
-  {
-    content =
-      {
-        （
-        \c_@@_name_academic_zh_tl
-        \tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
-          { \c_@@_checkbox_tl }
-          { \c_@@_emptybox_tl }
-        \skip_horizontal:n { 2.5 em }
-        \c_@@_name_professional_zh_tl
-        \tl_if_eq:NnTF \g_@@_info_degree_tl { professional }
-          { \c_@@_checkbox_tl }
-          { \c_@@_emptybox_tl }
-        ）
-      },
-    format = { \zihao { -3 } \c_@@_name_degree_font_tl },
-    bottom-skip = 1.5 cm,
-  }
+	{
+		content =
+			{
+				（
+				\c_@@_name_academic_zh_tl
+				\tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
+					{ \c_@@_checkbox_tl }
+					{ \c_@@_emptybox_tl }
+				\skip_horizontal:n { 2.5 em }
+				\c_@@_name_professional_zh_tl
+				\tl_if_eq:NnTF \g_@@_info_degree_tl { professional }
+					{ \c_@@_checkbox_tl }
+					{ \c_@@_emptybox_tl }
+				）
+			},
+		format = { \zihao { -3 } \c_@@_name_degree_font_tl },
+		bottom-skip = 1.5 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2540,16 +2549,16 @@
 % 论文题目。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { title }
-  {
-    content = { \g_@@_info_title_tl },
-    format =
-      {
-        \zihao { 1 } \bfseries \songti
-        \@@_line_spread:n { 1.5 }
-      },
-    height = 4.8 cm,
-    bottom-skip = 1 cm,
-  }
+	{
+		content = { \g_@@_info_title_tl },
+		format =
+			{
+				\zihao { 1 } \bfseries \songti
+				\@@_line_spread:n { 1.5 }
+			},
+		height = 4.8 cm,
+		bottom-skip = 1 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2557,20 +2566,20 @@
 % 信息表格。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title zh } { info }
-  {
-    content =
-      {
-        \tl_set:Nn \arraystretch { 2 }
-        \begin{tabular}{p{5em}@{：\hspace{1em}}l}
-          \c_@@_name_author_zh_tl & \g_@@_info_author_tl \\
-          \c_@@_name_major_zh_tl & \g_@@_info_major_tl \\
-          \c_@@_name_supervisor_zh_tl & \g_@@_info_supervisor_tl \\
-          \c_@@_name_date_tl & \g_@@_info_date_tl \\
-        \end{tabular}
-      },
-    format = { \zihao { -3 } \bfseries \rmfamily \songti },
-    bottom-skip = 30 pt,
-  }
+	{
+		content =
+			{
+				\tl_set:Nn \arraystretch { 2 }
+				\begin{tabular}{p{5em}@{：\hspace{1em}}l}
+					\c_@@_name_author_zh_tl & \g_@@_info_author_tl \\
+					\c_@@_name_major_zh_tl & \g_@@_info_major_tl \\
+					\c_@@_name_supervisor_zh_tl & \g_@@_info_supervisor_tl \\
+					\c_@@_name_date_tl & \g_@@_info_date_tl \\
+				\end{tabular}
+			},
+		format = { \zihao { -3 } \bfseries \rmfamily \songti },
+		bottom-skip = 30 pt,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2580,22 +2589,22 @@
 % 学位级别和学科。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { degree }
-  {
-    content =
-      {
-        \c_@@_name_type_en_tl
-        \tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
-          { \c_@@_name_academic_en_tl }
-          { \c_@@_name_professional_en_tl }
-        \g_@@_info_degree_en_tl
-      },
-    format =
-      {
-        \zihao { -3 } \bfseries \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
-    bottom-skip = 5.5 cm,
-  }
+	{
+		content =
+			{
+				\c_@@_name_type_en_tl
+				\tl_if_eq:NnTF \g_@@_info_degree_tl { academic }
+					{ \c_@@_name_academic_en_tl }
+					{ \c_@@_name_professional_en_tl }
+				\g_@@_info_degree_en_tl
+			},
+		format =
+			{
+				\zihao { -3 } \bfseries \rmfamily
+				\@@_line_spread:n { 1.5 }
+			},
+		bottom-skip = 5.5 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2603,16 +2612,16 @@
 % 论文题目。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { title }
-  {
-    content = { \g_@@_info_title_en_tl },
-    format =
-      {
-        \zihao { -2 } \bfseries \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
-    height = 3 cm,
-    bottom-skip = 3 cm,
-  }
+	{
+		content = { \g_@@_info_title_en_tl },
+		format =
+			{
+				\zihao { -2 } \bfseries \rmfamily
+				\@@_line_spread:n { 1.5 }
+			},
+		height = 3 cm,
+		bottom-skip = 3 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2620,22 +2629,22 @@
 % 信息表格。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { info }
-  {
-    content =
-      {
-        \begin{tabular}{l@{\hspace{0.5em}:\hspace{0.5em}}l}
-          \c_@@_name_author_en_tl & \g_@@_info_author_en_tl \\
-          \c_@@_name_major_en_tl & \g_@@_info_major_en_tl \\
-          \c_@@_name_supervisor_en_tl & \g_@@_info_supervisor_en_tl \\
-        \end{tabular}
-      },
-    format =
-      {
-        \zihao { -3 } \bfseries \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
-    bottom-skip = 4 cm,
-  }
+	{
+		content =
+			{
+				\begin{tabular}{l@{\hspace{0.5em}:\hspace{0.5em}}l}
+					\c_@@_name_author_en_tl & \g_@@_info_author_en_tl \\
+					\c_@@_name_major_en_tl & \g_@@_info_major_en_tl \\
+					\c_@@_name_supervisor_en_tl & \g_@@_info_supervisor_en_tl \\
+				\end{tabular}
+			},
+		format =
+			{
+				\zihao { -3 } \bfseries \rmfamily
+				\@@_line_spread:n { 1.5 }
+			},
+		bottom-skip = 4 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2643,28 +2652,28 @@
 % 学校名称和地址。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { address }
-  {
-    content = { \c_@@_address_tl },
-    format =
-      {
-        \zihao { -3 } \bfseries \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
-  }
+	{
+		content = { \c_@@_address_tl },
+		format =
+			{
+				\zihao { -3 } \bfseries \rmfamily
+				\@@_line_spread:n { 1.5 }
+			},
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[int, module=hust/component/]{title en/date}
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { title en } { date }
-  {
-    content = { \tl_use:N \g_@@_info_date_en_tl },
-    format =
-      {
-        \zihao { -3 } \bfseries \rmfamily
-        \@@_line_spread:n { 1.5 }
-      },
-  }
+	{
+		content = { \tl_use:N \g_@@_info_date_en_tl },
+		format =
+			{
+				\zihao { -3 } \bfseries \rmfamily
+				\@@_line_spread:n { 1.5 }
+			},
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2674,15 +2683,15 @@
 % 答辩委员会标题。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { committee } { title }
-  {
-    content = { \c_@@_name_committee_tl },
-    format =
-      {
-        \zihao { 3 } \bfseries \sffamily
-        \@@_line_spread:n { 1.5 }
-      },
-    bottom-lines = 1,
-  }
+	{
+		content = { \c_@@_name_committee_tl },
+		format =
+			{
+				\zihao { 3 } \bfseries \sffamily
+				\@@_line_spread:n { 1.5 }
+			},
+		bottom-lines = 1,
+	}
 \tl_const:Nn \c_@@_name_committee_tl { 答辩委员会 }
 %    \end{macrocode}
 % \end{macro}
@@ -2691,53 +2700,53 @@
 % 答辩委员会成员列表。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { committee } { members }
-  {
-    content =
-      {
-        \tl_set:Nn \arraystretch { 1.5 }
-        \begin{tabular}
-          { |c|c|c|c| }
-          \hline
-          \c_@@_committee_header_tl \\
-          \hline
-          \int_const:Nn \l_@@_info_committee_count_int
-            { \seq_count:N \g_@@_info_committee_seq }
-          \seq_map_indexed_inline:Nn \g_@@_info_committee_seq
-            {
-              \int_case:nnF { #1 }
-                {
-                  { 1 }
-                    {
-                      \clist_item:Nn \c_@@_committee_role_clist { 1 }
-                      & #2 \\ \hline
-                    }
-                  { 2 }
-                    {
-                      \multirow
-                        { \int_eval:n { \l_@@_info_committee_count_int - 1 } }
-                        { * }
-                        { \clist_item:Nn \c_@@_committee_role_clist { 2 } }
-                      & #2 \\ \cline{2-4}
-                    }
-                  { \l_@@_info_committee_count_int }
-                    { & #2 }
-                }
-                { & #2 \\ \cline{2-4} }
-            }
-            \\ \hline
-        \end{tabular}
-      },
-    format =
-      {
-        \zihao { 4 } \sffamily
-        \@@_line_spread:n { 1.5 }
-      },
-    top-lines = 1,
-  }
+	{
+		content =
+			{
+				\tl_set:Nn \arraystretch { 1.5 }
+				\begin{tabular}
+					{ |c|c|c|c| }
+					\hline
+					\c_@@_committee_header_tl \\
+					\hline
+					\int_const:Nn \l_@@_info_committee_count_int
+						{ \seq_count:N \g_@@_info_committee_seq }
+					\seq_map_indexed_inline:Nn \g_@@_info_committee_seq
+						{
+							\int_case:nnF { #1 }
+								{
+									{ 1 }
+										{
+											\clist_item:Nn \c_@@_committee_role_clist { 1 }
+											& #2 \\ \hline
+										}
+									{ 2 }
+										{
+											\multirow
+												{ \int_eval:n { \l_@@_info_committee_count_int - 1 } }
+												{ * }
+												{ \clist_item:Nn \c_@@_committee_role_clist { 2 } }
+											& #2 \\ \cline{2-4}
+										}
+									{ \l_@@_info_committee_count_int }
+										{ & #2 }
+								}
+								{ & #2 \\ \cline{2-4} }
+						}
+						\\ \hline
+				\end{tabular}
+			},
+		format =
+			{
+				\zihao { 4 } \sffamily
+				\@@_line_spread:n { 1.5 }
+			},
+		top-lines = 1,
+	}
 \tl_const:Nn \c_@@_committee_header_tl
-  { \makebox[3em]{} & \makebox[4em][c]{姓名} & \makebox[4em][c]{职称} & \makebox[12em][c]{单位} }
+	{ \makebox[3em]{} & \makebox[4em][c]{姓名} & \makebox[4em][c]{职称} & \makebox[12em][c]{单位} }
 \clist_const:Nn \c_@@_committee_role_clist
-  { 主席, 委员, }
+	{ 主席, 委员, }
 \tl_new:N \l_@@_committee_member_tl
 %    \end{macrocode}
 % \end{macro}
@@ -2748,14 +2757,14 @@
 % 独创性声明标题。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { orig title }
-  {
-    content = { \c_@@_orig_decl_title_tl },
-    format =
-      {
-        \zihao { 3 } \bfseries \heiti
-      },
-      bottom-lines = 1,
-  }
+	{
+		content = { \c_@@_orig_decl_title_tl },
+		format =
+			{
+				\zihao { 3 } \bfseries \heiti
+			},
+			bottom-lines = 1,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2763,11 +2772,11 @@
 % 独创性声明正文。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { orig text }
-  {
-    content = { \c_@@_orig_decl_text_tl },
-    align = justify,
-    bottom-lines = 1,
-  }
+	{
+		content = { \c_@@_orig_decl_text_tl },
+		align = justify,
+		bottom-lines = 1,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2775,17 +2784,17 @@
 % 独创性声明签名。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { orig sign }
-  {
-    content =
-      {
-        \clist_map_inline:Nn \c_@@_orig_decl_sign_clist
-          {
-            #1 \\
-          }
-      },
-    align = right,
-    bottom-lines = 3,
-  }
+	{
+		content =
+			{
+				\clist_map_inline:Nn \c_@@_orig_decl_sign_clist
+					{
+						#1 \\
+					}
+			},
+		align = right,
+		bottom-lines = 3,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2793,15 +2802,15 @@
 % 学位论文版权使用授权书标题。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { auth title }
-  {
-    content = { \c_@@_auth_decl_title_tl },
-    format =
-      {
-        \zihao { 3 } \bfseries \heiti
-      },
-    top-lines = 1,
-    bottom-lines = 1,
-  }
+	{
+		content = { \c_@@_auth_decl_title_tl },
+		format =
+			{
+				\zihao { 3 } \bfseries \heiti
+			},
+		top-lines = 1,
+		bottom-lines = 1,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2809,11 +2818,11 @@
 % 学位论文版权使用授权书正文。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { auth text }
-  {
-    content = { \c_@@_auth_decl_text_tl },
-    align = justify,
-    bottom-skip = 0.5 cm,
-  }
+	{
+		content = { \c_@@_auth_decl_text_tl },
+		align = justify,
+		bottom-skip = 0.5 cm,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2821,41 +2830,41 @@
 % 学位论文保密使用保密选项。
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { auth secr }
-  {
-    content =
-      {
-        \mode_leave_vertical:
-        \hbox_overlap_right:n
-          { \clist_item:Nn \c_@@_auth_decl_secr_clist { 1 } }
-        \skip_vertical:n { -1.2 cm }
-        \skip_horizontal:n { 6 em }
-        \clist_item:Nn \c_@@_auth_decl_secr_clist { 2 }
-        \tex_par:D
-        \skip_horizontal:n { 6 em }
-        \clist_item:Nn \c_@@_auth_decl_secr_clist { 3 }
-        \tex_par:D
-        \clist_item:Nn \c_@@_auth_decl_secr_clist { 4 }
-      },
-    align = justify,
-    bottom-lines = 1,
-  }
+	{
+		content =
+			{
+				\mode_leave_vertical:
+				\hbox_overlap_right:n
+					{ \clist_item:Nn \c_@@_auth_decl_secr_clist { 1 } }
+				\skip_vertical:n { -1.2 cm }
+				\skip_horizontal:n { 6 em }
+				\clist_item:Nn \c_@@_auth_decl_secr_clist { 2 }
+				\tex_par:D
+				\skip_horizontal:n { 6 em }
+				\clist_item:Nn \c_@@_auth_decl_secr_clist { 3 }
+				\tex_par:D
+				\clist_item:Nn \c_@@_auth_decl_secr_clist { 4 }
+			},
+		align = justify,
+		bottom-lines = 1,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[int, module=hust/component/]{decl/auth sign}
 %    \begin{macrocode}
 \@@_declare_component_instance:nnn { decl } { auth sign }
-  {
-    content =
-      {
-        \clist_map_inline:Nn \c_@@_auth_decl_sign_clist
-          {
-            #1
-            \tex_par:D
-          }
-      },
-    align = justify,
-  }
+	{
+		content =
+			{
+				\clist_map_inline:Nn \c_@@_auth_decl_sign_clist
+					{
+						#1
+						\tex_par:D
+					}
+			},
+		align = justify,
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2865,13 +2874,13 @@
 % 中文标题页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { title zh }
-  {
-    components = { identifiers, logo, type, degree, title, info, },
-  }
+	{
+		components = { identifiers, logo, type, degree, title, info, },
+	}
 \DeclareDocumentCommand \makezhtitle { }
-  {
-    \UseInstance { hust / page } { title zh }
-  }
+	{
+		\UseInstance { hust / page } { title zh }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2880,13 +2889,13 @@
 % 英文标题页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { title en }
-  {
-    components = { degree, title, info, address, date, },
-  }
+	{
+		components = { degree, title, info, address, date, },
+	}
 \DeclareDocumentCommand \makeentitle { }
-  {
-    \UseInstance { hust / page } { title en }
-  }
+	{
+		\UseInstance { hust / page } { title en }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2894,13 +2903,13 @@
 % 答辩委员会页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { committee }
-  {
-    components = { title, members, },
-  }
+	{
+		components = { title, members, },
+	}
 \DeclareDocumentCommand \makecommittee { }
-  {
-    \UseInstance { hust / page } { committee }
-  }
+	{
+		\UseInstance { hust / page } { committee }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2908,22 +2917,22 @@
 % 声明页。
 %    \begin{macrocode}
 \@@_declare_page_instance:nn { decl }
-  {
-    components =
-      {
-        orig title, orig text, orig sign,
-        auth title, auth text, auth secr, auth sign,
-      },
-    format =
-      {
-        \zihao { -4 } \rmfamily
-        \@@_line_spread:n { 1.5 }
-      }
-  }
+	{
+		components =
+			{
+				orig title, orig text, orig sign,
+				auth title, auth text, auth secr, auth sign,
+			},
+		format =
+			{
+				\zihao { -4 } \rmfamily
+				\@@_line_spread:n { 1.5 }
+			}
+	}
 \DeclareDocumentCommand \makedecl { }
-  {
-    \UseInstance { hust / page } { decl }
-  }
+	{
+		\UseInstance { hust / page } { decl }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2931,13 +2940,13 @@
 % 封面。
 %    \begin{macrocode}
 \DeclareDocumentCommand \maketitle { }
-  {
-    \makezhtitle
-    \tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
-      { \makecommittee }
-    \makeentitle
-    \makedecl
-  }
+	{
+		\makezhtitle
+		\tl_if_eq:NnT \g_@@_degree_type_tl { doctor }
+			{ \makecommittee }
+		\makeentitle
+		\makedecl
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2949,11 +2958,11 @@
 % \begin{macro}{\frontmatter}
 %    \begin{macrocode}
 \@@_appto_cmd:Nn \frontmatter
-  {
-    \pagestyle { fancy }
-    \pagenumbering { Roman }
-    \@@_toc_chapter_frontmatter:
-  }
+	{
+		\pagestyle { fancy }
+		\pagenumbering { Roman }
+		\@@_toc_chapter_frontmatter:
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2963,15 +2972,15 @@
 % 摘要环境。
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { }
-  {
-    \chapter**{\c_@@_name_abstract_zh_tl}
-  }
-  { }
+	{
+		\chapter**{\c_@@_name_abstract_zh_tl}
+	}
+	{ }
 \NewDocumentEnvironment { abstract* } { }
-  {
-    \chapter**{\c_@@_name_abstract_en_tl}
-  }
-  { }
+	{
+		\chapter**{\c_@@_name_abstract_en_tl}
+	}
+	{ }
 %    \end{macrocode}
 % \end{environment}
 %
@@ -2979,25 +2988,25 @@
 % 关键词命令。
 %    \begin{macrocode}
 \NewDocumentCommand \keywords { s }
-  {
-    \IfBooleanTF { #1 }
-      { \@@_keywords:nw { en } }
-      { \@@_keywords:nw { zh } }
-  }
+	{
+		\IfBooleanTF { #1 }
+			{ \@@_keywords:nw { en } }
+			{ \@@_keywords:nw { zh } }
+	}
 \cs_new_nopar:Npn \@@_keywords:nw #1 #2
-  {
-    \zihao{-4} \rmfamily
-    \tex_par:D
-    \skip_horizontal:n \c_zero_skip
-    \tex_par:D
-    \tex_noindent:D
-    \group_begin:
-      \bfseries \heiti
-      \tl_use:c { c_@@_name_keywords_ #1 _tl }
-    \group_end:
-    \c_space_tl
-    #2
-  }
+	{
+		\zihao{-4} \rmfamily
+		\tex_par:D
+		\skip_horizontal:n \c_zero_skip
+		\tex_par:D
+		\tex_noindent:D
+		\group_begin:
+			\bfseries \heiti
+			\tl_use:c { c_@@_name_keywords_ #1 _tl }
+		\group_end:
+		\c_space_tl
+		#2
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3009,9 +3018,13 @@
 %
 % 设置目录章节显示深度。
 %    \begin{macrocode}
-\keys_set:nn { ctex }
+\keys_define:nn { hust / style }
   {
-    tocdepth = section,
+    toc-depth .choices:nn = { section, subsection }
+      {
+        \keys_set:nn { ctex } { tocdepth = \tl_use:N \l_keys_choice_tl }
+      },
+    toc-depth .initial:n = section,
   }
 %    \end{macrocode}
 %
@@ -3030,15 +3043,15 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_toc_format:nnnn #1#2#3#4
-  {
-    \titlecontents
-      { #1 }
-      [ 0 pt ]
-      { #3 }
-      { \thecontentslabel \hspace{#2} #3 }
-      { #3 }
-      { #4 }
-  }
+	{
+		\titlecontents
+			{ #1 }
+			[ 0 pt ]
+			{ #3 }
+			{ \thecontentslabel \hspace{#2} #3 }
+			{ #3 }
+			{ #4 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3046,9 +3059,9 @@
 % 实现更密的虚线。该命令仅可使用 \LaTeXe 命令实现。
 %    \begin{macrocode}
 \cs_new:Npn \ddotfill
-  {
-    \leavevmode \leaders \hbox to .22em {\hss .\hss } \hfill \kern 0pt
-  }
+	{
+		\leavevmode \leaders \hbox to .22em {\hss .\hss } \hfill \kern 0pt
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3062,86 +3075,91 @@
 % 以及附录部分有虚线，带括号页码的格式。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_toc_chapter_frontmatter:
-  {
-    \@@_toc_format:nnnn
-      { chapter }
-      { 1 em}
-      { \zihao{4} \bfseries \rmfamily \heiti }
-      { \mdseries \ddotfill \thecontentspage }
-    }
+	{
+		\@@_toc_format:nnnn
+			{ chapter }
+			{ 1 em}
+			{ \zihao{4} \bfseries \rmfamily \heiti }
+			{ \mdseries \ddotfill \thecontentspage }
+		}
 \cs_new_protected:Npn \@@_toc_chapter_mainmatter:
-  {
-    \@@_toc_format:nnnn
-      { chapter }
-      { 1 em }
-      { \zihao{4} \bfseries \rmfamily \heiti }
-      { \mdseries \hfill (\thecontentspage) }
-  }
+	{
+		\@@_toc_format:nnnn
+			{ chapter }
+			{ 1 em }
+			{ \zihao{4} \bfseries \rmfamily \heiti }
+			{ \mdseries \hfill (\thecontentspage) }
+	}
 \cs_new_protected:Npn \@@_toc_chapter_backmatter:
-  {
-    \@@_toc_format:nnnn
-      { chapter }
-      { 1 em }
-      { \zihao{4} \bfseries \rmfamily \heiti }
-      { \mdseries \ddotfill (\thecontentspage) }
-  }
+	{
+		\@@_toc_format:nnnn
+			{ chapter }
+			{ 1 em }
+			{ \zihao{4} \bfseries \rmfamily \heiti }
+			{ \mdseries \ddotfill (\thecontentspage) }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % 设置节的样式。
 %    \begin{macrocode}
 \@@_toc_format:nnnn
-  { section }
-  { 2 em }
-  { \zihao{4} \rmfamily }
-  { \ddotfill (\thecontentspage) }
+	{ section }
+	{ 2 em }
+	{ \zihao{4} \rmfamily }
+	{ \ddotfill (\thecontentspage) }
+\@@_toc_format:nnnn
+	{ subsection }
+	{ 2 em }
+	{ \zihao{4} \rmfamily }
+	{ \ddotfill (\thecontentspage) }
 %    \end{macrocode}
 %
 % \section{正文样式}
 %
 %    \begin{macrocode}
 \@@_appto_cmd:Nn \mainmatter
-  {
-    \pagestyle { fancy }
-    \pagenumbering { arabic }
-    \@@_toc_chapter_mainmatter:
-  }
+	{
+		\pagestyle { fancy }
+		\pagenumbering { arabic }
+		\@@_toc_chapter_mainmatter:
+	}
 %    \end{macrocode}
 %
 % \subsection{章节样式}
 %
 %    \begin{macrocode}
 \keys_set:nn { ctex }
-  {
+	{
 %    \end{macrocode}
 % 设置章（chapter）、节（section）与小节（sub-section）标题样式。
 
 %    \begin{macrocode}
-    chapter =
-      {
-        format = \zihao{3} \bfseries \rmfamily \heiti \centering \linespread{1.5},
-        name = {},
-        beforeskip = 15.5 bp,
-        afterskip = 14 bp + \CTEX@chapter@lofskip,
-        number = \arabic{ chapter },
-        pagestyle = fancy,
-        fixskip = true,
-      },
-    section =
-      {
-        format = \zihao{4} \bfseries \rmfamily \heiti \raggedright,
-        numberformat = \rmfamily,
-        beforeskip = 10 bp,
-        afterskip = 7 bp,
-      },
-    subsection =
-      {
-        format = \zihao{-4} \bfseries \rmfamily \heiti \raggedright,
-        numberformat = \rmfamily,
-        beforeskip = 7 bp,
-        afterskip = 4 bp,
-      }
-  }
+		chapter =
+			{
+				format = \zihao{3} \bfseries \rmfamily \heiti \centering \linespread{1.5},
+				name = {},
+				beforeskip = 15.5 bp,
+				afterskip = 14 bp + \CTEX@chapter@lofskip,
+				number = \arabic{ chapter },
+				pagestyle = fancy,
+				fixskip = true,
+			},
+		section =
+			{
+				format = \zihao{4} \bfseries \rmfamily \heiti \raggedright,
+				numberformat = \rmfamily,
+				beforeskip = 10 bp,
+				afterskip = 7 bp,
+			},
+		subsection =
+			{
+				format = \zihao{-4} \bfseries \rmfamily \heiti \raggedright,
+				numberformat = \rmfamily,
+				beforeskip = 7 bp,
+				afterskip = 4 bp,
+			}
+	}
 %    \end{macrocode}
 %
 % \begin{macro}{\chapter, \chapter*, \chapter**}
@@ -3149,28 +3167,28 @@
 %    \begin{macrocode}
 \NewCommandCopy \@@_chapter:w \chapter
 \RenewDocumentCommand \chapter { s s o m }
-  {
-    \IfNoValueTF{#3}
-      {
-        \IfBooleanTF{#1}
-          {
-            \@@_chapter:w*{#4}
-            \IfBooleanT{#2}
-              {  \CTEX@addtocline{chapter}{#4} }
-          }
-          { \@@_chapter:w{#4} }
-      }
-      {
-        \IfBooleanTF{#1}
-          {
-            \@@_chapter:w*{#4}
-            \IfBooleanT{#2}
-              {  \CTEX@addtocline{chapter}{#3} }
-          }
-          { \@@_chapter:w[#3]{#4} }
+	{
+		\IfNoValueTF{#3}
+			{
+				\IfBooleanTF{#1}
+					{
+						\@@_chapter:w*{#4}
+						\IfBooleanT{#2}
+							{  \CTEX@addtocline{chapter}{#4} }
+					}
+					{ \@@_chapter:w{#4} }
+			}
+			{
+				\IfBooleanTF{#1}
+					{
+						\@@_chapter:w*{#4}
+						\IfBooleanT{#2}
+							{  \CTEX@addtocline{chapter}{#3} }
+					}
+					{ \@@_chapter:w[#3]{#4} }
 
-      }
-  }
+			}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3179,9 +3197,9 @@
 % \begin{macro}{\backmatter}
 %    \begin{macrocode}
 \@@_appto_cmd:Nn \backmatter
-  {
-    \@@_toc_chapter_backmatter:
-  }
+	{
+		\@@_toc_chapter_backmatter:
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3191,10 +3209,10 @@
 % \begin{environment}{acknowledgements}
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgements } { }
-  {
-    \chapter**{致\hspace{1em}谢}
-  }
-  { }
+	{
+		\chapter**{致\hspace{1em}谢}
+	}
+	{ }
 %    \end{macrocode}
 % \end{environment}
 %
@@ -3204,10 +3222,10 @@
 % 在使用 \tn{printbibliography} 的同时添加目录项。
 %    \begin{macrocode}
 \cs_if_exist:NT \printbibliography
-  {
-    \defbibheading{bibliography}[\refname]{%
-      \chapter**{#1}%
-    }
+	{
+		\defbibheading{bibliography}[\refname]{%
+			\chapter**{#1}%
+		}
 }
 %    \end{macrocode}
 % \end{macro}
@@ -3216,15 +3234,15 @@
 %
 %    \begin{macrocode}
 \@@_appto_cmd:Nn \appendix
-  {
-  }
+	{
+	}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
 \keys_set:nn { ctex / appendix }
-  {
-    number = \arabic{chapter},
-  }
+	{
+		number = \arabic{chapter},
+	}
 %    \end{macrocode}
 %
 % \subsection{答辩委员会决议}
@@ -3244,10 +3262,10 @@
 % 定义元（meta）键值对。
 %    \begin{macrocode}
 \keys_define:nn { hust }
-  {
-    info .meta:nn = { hust / info } {#1},
-    style .meta:nn = { hust / style } {#1}
-  }
+	{
+		info .meta:nn = { hust / info } {#1},
+		style .meta:nn = { hust / style } {#1}
+	}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -3255,35 +3273,35 @@
 % 文档类初始设置。学校代码默认为 \opt{10487}。
 %    \begin{macrocode}
 \keys_set_known:nn { hust }
-  {
-    info =
-      {
-        degree = { academic },
-        secret = ,
-        school-id = { 10487 },
-        date =
-          {
-            \int_use:N \c_sys_year_int -
-            \int_use:N \c_sys_month_int -
-            \int_use:N \c_sys_day_int
-          },
-        anonymous-list =
-          {
-            author, student_id, supervisor,
-            author_en, supervisor_en,
-          },
-        committee =
-          {
-            { &~&~ },
-            { &~&~ },
-            { &~&~ },
-            { &~&~ },
-            { &~&~ },
-            { &~&~ },
-            { &~&~ },
-          }
-      }
-  }
+	{
+		info =
+			{
+				degree = { academic },
+				secret = ,
+				school-id = { 10487 },
+				date =
+					{
+						\int_use:N \c_sys_year_int -
+						\int_use:N \c_sys_month_int -
+						\int_use:N \c_sys_day_int
+					},
+				anonymous-list =
+					{
+						author, student_id, supervisor,
+						author_en, supervisor_en,
+					},
+				committee =
+					{
+						{ &~&~ },
+						{ &~&~ },
+						{ &~&~ },
+						{ &~&~ },
+						{ &~&~ },
+						{ &~&~ },
+						{ &~&~ },
+					}
+			}
+	}
 %    \end{macrocode}
 %
 % \begin{macro}{\hustsetup}
@@ -3291,7 +3309,7 @@
 % \changes{v2.0.0}{2025-02-11}{实现统一用户接口配置选项}
 %    \begin{macrocode}
 \NewDocumentCommand \hustsetup { m }
-  { \keys_set:nn { hust } {#1} }
+	{ \keys_set:nn { hust } {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3312,24 +3330,24 @@
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_name_school_zh_tl { 华中科技大学 }
 \tl_const:Nn \c_@@_name_school_en_tl { Huazhong~ University~ of~ Science~
-  and~ Technology }
+	and~ Technology }
 %    \end{macrocode}
 % \end{variable}
 %
 % 常用标点符号，见表~\ref{tab:punctuations}，定义为 |\c_@@_ #1 _tl|。
 %    \begin{macrocode}
 \clist_map_inline:nn
-  {
-    { ideo_comma       } { ^^^^3001 },
-    { ideo_full_stop   } { ^^^^3002 },
-    { fwid_comma       } { ^^^^ff0c },
-    { fwid_full_stop   } { ^^^^ff0e },
-    { fwid_colon       } { ^^^^ff1a },
-    { fwid_semicolon   } { ^^^^ff1b },
-    { fwid_left_paren  } { ^^^^ff08 },
-    { fwid_right_paren } { ^^^^ff09 }
-  }
-  { \@@_define_punct:nn #1 }
+	{
+		{ ideo_comma       } { ^^^^3001 },
+		{ ideo_full_stop   } { ^^^^3002 },
+		{ fwid_comma       } { ^^^^ff0c },
+		{ fwid_full_stop   } { ^^^^ff0e },
+		{ fwid_colon       } { ^^^^ff1a },
+		{ fwid_semicolon   } { ^^^^ff1b },
+		{ fwid_left_paren  } { ^^^^ff08 },
+		{ fwid_right_paren } { ^^^^ff09 }
+	}
+	{ \@@_define_punct:nn #1 }
 %    \end{macrocode}
 %
 % \begin{table}[ht]
@@ -3383,16 +3401,16 @@
 % 中文封面页常量。
 %    \begin{macrocode}
 \clist_map_inline:nn
-  {
+	{
 %<def-m>    { degree_font } { \bfseries \songti },
 %<def-d>    { degree_font } { \heiti },
-    { date } { 答\hfill 辩\hfill 日\hfill 期 },
-    { clc } { 分类号 },
-    { student_id } { 学号 },
-    { school_id } { 学校代码 },
-    { secret } { 密级 },
-  }
-  { \@@_define_name:nn #1 }
+		{ date } { 答\hfill 辩\hfill 日\hfill 期 },
+		{ clc } { 分类号 },
+		{ student_id } { 学号 },
+		{ school_id } { 学校代码 },
+		{ secret } { 密级 },
+	}
+	{ \@@_define_name:nn #1 }
 \tl_const:Nn \c_@@_school_id_tl { 10487 }
 %    \end{macrocode}
 % \end{variable}
@@ -3403,10 +3421,10 @@
 % 英文封面页常量。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_address_tl
-  {
-    Huazhong~ University~ of~ Science~ and~ Technology\\
-    Wuhan~ 430074,~ P.~ R.~ China
-  }
+	{
+		Huazhong~ University~ of~ Science~ and~ Technology\\
+		Wuhan~ 430074,~ P.~ R.~ China
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3427,28 +3445,28 @@
 % 中英文页共用常量。
 %    \begin{macrocode}
 \clist_map_inline:nn
-  {
-    { type }
-      { A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
+	{
+		{ type }
+			{ A~ Dissertation~ Submitted~ in~ Partial~ Fulfillment~ of~
 %<def-m>      the~
 %<def-d>      The~
-      Requirements~ for~ }
+			Requirements~ for~ }
 %<def-m>      { 硕士学位论文 },
 %<def-d>      { 博士学位论文 },
 %<*def-m>
-    { academic } { the~ Master~ Degree~ in } { 学术型 },
-    { professional } { the~ Professional~ Master~ Degree~ in }  { 专业型 },
-    { author } { Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
+		{ academic } { the~ Master~ Degree~ in } { 学术型 },
+		{ professional } { the~ Professional~ Master~ Degree~ in }  { 专业型 },
+		{ author } { Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
 %</def-m>
 %<*def-d>
-    { academic } { The~ Degree~ of~ Doctor~ of } { 学术型 },
-    { professional } { The~ Degree~ of~ Doctor~ of } { 专业型 }, % no diff in English
-    { author } { Ph.D.~ Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
+		{ academic } { The~ Degree~ of~ Doctor~ of } { 学术型 },
+		{ professional } { The~ Degree~ of~ Doctor~ of } { 专业型 }, % no diff in English
+		{ author } { Ph.D.~ Candidate } { 学\hfill 位\hfill 申\hfill 请\hfill 人 },
 %</def-d>
-    { major } { Major } { 学\hfill 科\hfill 专\hfill 业 },
-    { supervisor } { Supervisor } { 指\hfill 导\hfill 老\hfill 师 },
-  }
-  { \@@_define_name:nnn #1 }
+		{ major } { Major } { 学\hfill 科\hfill 专\hfill 业 },
+		{ supervisor } { Supervisor } { 指\hfill 导\hfill 老\hfill 师 },
+	}
+	{ \@@_define_name:nnn #1 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3459,12 +3477,12 @@
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_orig_decl_title_tl { 独创性声明 }
 \tl_const:Nn \c_@@_orig_decl_text_tl
-  {
-    本人声明所呈交的学位论文是我个人在导师指导下进行的研究工作及取得的研
-    究成果。尽我所知，除文中已经标明引用的内容外，本论文不包含任何其他个人或
-    集体已经发表或撰写过的研究成果。对本文的研究做出贡献的个人和集体，均已在
-    文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
-  }
+	{
+		本人声明所呈交的学位论文是我个人在导师指导下进行的研究工作及取得的研
+		究成果。尽我所知，除文中已经标明引用的内容外，本论文不包含任何其他个人或
+		集体已经发表或撰写过的研究成果。对本文的研究做出贡献的个人和集体，均已在
+		文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3472,10 +3490,10 @@
 % 独创性声明签名项目。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_orig_decl_sign_clist
-  {
-    学位论文作者签名：\hspace{2em}\mbox{},
-    日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
-  }
+	{
+		学位论文作者签名：\hspace{2em}\mbox{},
+		日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3484,12 +3502,12 @@
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_auth_decl_title_tl { 学位论文版权使用授权书 }
 \tl_const:Nn \c_@@_auth_decl_text_tl
-  {
-    本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权
-    保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。
-    本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检
-    索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
-  }
+	{
+		本学位论文作者完全了解学校有关保留、使用学位论文的规定，即：学校有权
+		保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。
+		本人授权华中科技大学可以将本学位论文的全部或部分内容编入有关数据库进行检
+		索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3497,18 +3515,18 @@
 % 学位论文版权使用授权书填写项目：保密与签名。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_auth_decl_secr_clist
-  {
-    本论文属于,
-    保\hspace{1em}密□，在\underline{\hspace{3em}}年解密后适用本授权书。,
-    不保密□。,
-    （请在以上方框内打“√”）
-  }
+	{
+		本论文属于,
+		保\hspace{1em}密□，在\underline{\hspace{3em}}年解密后适用本授权书。,
+		不保密□。,
+		（请在以上方框内打“√”）
+	}
 \clist_const:Nn \c_@@_auth_decl_sign_clist
-  {
-    学位论文作者签名：\hfill{} 指导教师签名：\hspace*{5em} \mbox{},
-    日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日 \hfill{}
-    日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日\hspace*{1em} \mbox{}
-  }
+	{
+		学位论文作者签名：\hfill{} 指导教师签名：\hspace*{5em} \mbox{},
+		日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日 \hfill{}
+		日期：\hspace*{2em}年\hspace*{1.5em}月\hspace*{1.5em}日\hspace*{1em} \mbox{}
+	}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -3523,11 +3541,11 @@
 % }
 %    \begin{macrocode}
 \clist_map_inline:nn
-  {
-    { abstract } { Abstract } { 摘\hspace{1em}要 },
-    { keywords } { Key~ words: } { 关键词： },
-  }
-  { \@@_define_name:nnn #1 }
+	{
+		{ abstract } { Abstract } { 摘\hspace{1em}要 },
+		{ keywords } { Key~ words: } { 关键词： },
+	}
+	{ \@@_define_name:nnn #1 }
 \tl_const:Nn \c_@@_sep_keywords_zh_tl { ； }
 \tl_const:Nn \c_@@_sep_keywords_en_tl { , }
 %    \end{macrocode}
@@ -3579,16 +3597,16 @@
 % 设置 \pkg{biblatex-gb7714-2015} 通用著录样式选项。
 %    \begin{macrocode}
 \ExecuteBibliographyOptions
-  {
-    isbn = false,
-    url = false,
-    doi = false,
-    gbnamefmt = givenahead,
-    gbtype = false,
-    gbpunctin = false,
-    maxbibnames = 6,
-    minbibnames = 6,
-  }
+	{
+		isbn = false,
+		url = false,
+		doi = false,
+		gbnamefmt = givenahead,
+		gbtype = false,
+		gbpunctin = false,
+		maxbibnames = 6,
+		minbibnames = 6,
+	}
 %    \end{macrocode}
 %
 % 删除著录项末尾的标点符号。
@@ -3603,93 +3621,93 @@
 \newcommand\HUST@bib@zhedition[1]{（#1）}
 \newcommand\HUST@bib@enedition[1]{(#1)}
 \DeclareFieldFormat{edition}{\bibtitlefont%源来自biblatex.DEF
-    \testCJKfirst{userd}%
-    \iftoggle{ifCJKforgbt}%
-      {\ifinteger{#1}
-        {%
-          \ifnumgreater{#1}{1}{\printtext{
-            %#1\str@edition
-            \HUST@bib@zhedition{第\zhnumber{#1}版}
-          }}{}
-        }%
-        %{#1\isdot}}%
-        {\HUST@bib@zhedition{#1}}
-        \addspace
-      }%
-      {\ifinteger{#1}%
-        {\ifnumgreater{#1}{1}{
-           %\mkbibordedition{#1}~\bibstring{edition}
-           \HUST@bib@enedition{\mkbibordedition{#1}~\bibstring{edition}}
-          }{}
-        }%
-        %{#1\isdot}}%
-        {\HUST@bib@enedition{#1}\isdot}
-      }
+		\testCJKfirst{userd}%
+		\iftoggle{ifCJKforgbt}%
+			{\ifinteger{#1}
+				{%
+					\ifnumgreater{#1}{1}{\printtext{
+						%#1\str@edition
+						\HUST@bib@zhedition{第\zhnumber{#1}版}
+					}}{}
+				}%
+				%{#1\isdot}}%
+				{\HUST@bib@zhedition{#1}}
+				\addspace
+			}%
+			{\ifinteger{#1}%
+				{\ifnumgreater{#1}{1}{
+					 %\mkbibordedition{#1}~\bibstring{edition}
+					 \HUST@bib@enedition{\mkbibordedition{#1}~\bibstring{edition}}
+					}{}
+				}%
+				%{#1\isdot}}%
+				{\HUST@bib@enedition{#1}\isdot}
+			}
 }
 \DeclareBibliographyDriver{book}{%源来自standard.bbx文件
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor+others/translator+others}%
-  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/editor+others/translator+others}%
+	\ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
 %    \end{macrocode}
 % 删除版本前的标点符号。
 %    \begin{macrocode}
-  \if false
-  \usebibmacro{maintitle+title}%
-  \iftoggle{bbx:gbstrict}{}{%
-    \newunit
-    \printlist{language}%
-    \newunit\newblock%
-    \usebibmacro{byauthor}%
-    \newunit\newblock
-  }%
-  \usebibmacro{byeditor+others}%
-  \newunit
-  \fi
-  \printfield[titlecase]{title}%
-  \printfield{edition}%
-  \newunit\newblock%%
-  \iftoggle{bbx:gbstrict}{}{%
-  \iffieldundef{maintitle}%
-  {%\printfield{volume}%
-  \printfield{part}}%
-  {}%
-  \newunit%
-  \printfield{volumes}%
-  \newunit\newblock%
-  \usebibmacro{series+number}}%
-  \newunit\newblock%
-  %\printfield{note}%
-  %\newunit\newblock%
-  \usebibmacro{publisher+location+date}%
-  %\newunit\newblock %这里标点去掉
-  \usebibmacro{chapter+pages}%
-    \iffieldundef{url}{}{%当没有网址时也不输出
-    \usebibmacro{modifydate}}%带括号的修改或更新日期，
-  \usebibmacro{doi+eprint+url}%从下面移动到上面来，因为gbt2015的url需直接放在页码后面。
+	\if false
+	\usebibmacro{maintitle+title}%
+	\iftoggle{bbx:gbstrict}{}{%
+		\newunit
+		\printlist{language}%
+		\newunit\newblock%
+		\usebibmacro{byauthor}%
+		\newunit\newblock
+	}%
+	\usebibmacro{byeditor+others}%
+	\newunit
+	\fi
+	\printfield[titlecase]{title}%
+	\printfield{edition}%
+	\newunit\newblock%%
+	\iftoggle{bbx:gbstrict}{}{%
+	\iffieldundef{maintitle}%
+	{%\printfield{volume}%
+	\printfield{part}}%
+	{}%
+	\newunit%
+	\printfield{volumes}%
+	\newunit\newblock%
+	\usebibmacro{series+number}}%
+	\newunit\newblock%
+	%\printfield{note}%
+	%\newunit\newblock%
+	\usebibmacro{publisher+location+date}%
+	%\newunit\newblock %这里标点去掉
+	\usebibmacro{chapter+pages}%
+		\iffieldundef{url}{}{%当没有网址时也不输出
+		\usebibmacro{modifydate}}%带括号的修改或更新日期，
+	\usebibmacro{doi+eprint+url}%从下面移动到上面来，因为gbt2015的url需直接放在页码后面。
 %    \end{macrocode}
 % 删除专著的页码。
 %    \begin{macrocode}
-  \if false
-  \newunit\newblock%
-  \printfield{pagetotal}%
-  \fi
-  \newunit\newblock%
-  \iftoggle{bbx:isbn}
-    {\printfield{isbn}}
-    {}%
-  \newunit\newblock
-  %\usebibmacro{doi+eprint+url}%
-  %\newunit\newblock
-  \usebibmacro{addendum+pubstate}%
-  \setunit{\bibpagerefpunct}\newblock
-  \usebibmacro{pageref}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{annotation}\usebibmacro{finentry}
+	\if false
+	\newunit\newblock%
+	\printfield{pagetotal}%
+	\fi
+	\newunit\newblock%
+	\iftoggle{bbx:isbn}
+		{\printfield{isbn}}
+		{}%
+	\newunit\newblock
+	%\usebibmacro{doi+eprint+url}%
+	%\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{annotation}\usebibmacro{finentry}
 }
 %    \end{macrocode}
 %
@@ -3701,77 +3719,77 @@
 % 将会议论文析出文献中的会议地址（含会议日期）后面的冒号改为逗号。
 %    \begin{macrocode}
 \newbibmacro*{HUSTinbook_publisher+location+date}{\bibpubfont%
-  \iftoggle{bbx:gbpub}%
-    {\testCJKfirst{userd}%
-      \ifboolexpr{ test {\iflistundef{location}} and test {\iflistundef{publisher}} }%
-        {\iffieldequalstr{entrysubtype}{standard}{}
-          {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress}\space :\space\str@nopublisher\gbrightbracket}
-              {\printtext{\gbleftbracket S.l.\space :\space s.n.\adddot\gbrightbracket}}}
-        }%
-        {
-          \iflistundef{location}{%\adddot
-            \iffieldequalstr{entrysubtype}{standard}{}%%从gbt7714-2015标准第19页看到，标准存在出版项时输出，没有时完全省略。
-            {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress\gbrightbracket}\addcolon\addspace}%
-                {\printtext{\gbleftbracket S.l.\adddot\gbrightbracket}\publocpunct}}
-          }%  \bibstring{noaddress}
-          {\printlist{location}\publocpunct}%%\addcolon\addspace%
-          \iflistundef{publisher}{%
-            \iffieldequalstr{entrysubtype}{standard}{}%
-            {\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@nopublisher\gbrightbracket}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}%
-            {\printtext{\mkbibbrackets{s.n.}}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}}}%
-            {\printlist{publisher}}
-        }%
-      \pubdatadelim%\addcomma\addspace%
-      \usebibmacro{date}%%\newunit %去掉这个标点
-    }%
-    {\printlist{location}%
-      \iflistundef{publisher}
-        {\locnopubdelim}
+	\iftoggle{bbx:gbpub}%
+		{\testCJKfirst{userd}%
+			\ifboolexpr{ test {\iflistundef{location}} and test {\iflistundef{publisher}} }%
+				{\iffieldequalstr{entrysubtype}{standard}{}
+					{\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress}\space :\space\str@nopublisher\gbrightbracket}
+							{\printtext{\gbleftbracket S.l.\space :\space s.n.\adddot\gbrightbracket}}}
+				}%
+				{
+					\iflistundef{location}{%\adddot
+						\iffieldequalstr{entrysubtype}{standard}{}%%从gbt7714-2015标准第19页看到，标准存在出版项时输出，没有时完全省略。
+						{\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@noaddress\gbrightbracket}\addcolon\addspace}%
+								{\printtext{\gbleftbracket S.l.\adddot\gbrightbracket}\publocpunct}}
+					}%  \bibstring{noaddress}
+					{\printlist{location}\publocpunct}%%\addcolon\addspace%
+					\iflistundef{publisher}{%
+						\iffieldequalstr{entrysubtype}{standard}{}%
+						{\iftoggle{ifCJKforgbt}{\printtext{\gbleftbracket\str@nopublisher\gbrightbracket}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}%
+						{\printtext{\mkbibbrackets{s.n.}}\setunit{\adddot\addspace}\setunit*{\addcomma\addspace}}}}%
+						{\printlist{publisher}}
+				}%
+			\pubdatadelim%\addcomma\addspace%
+			\usebibmacro{date}%%\newunit %去掉这个标点
+		}%
+		{\printlist{location}%
+			\iflistundef{publisher}
+				{\locnopubdelim}
 %    \end{macrocode}
 % 始终使用逗号。
 %    \begin{macrocode}
-        %{\setunit*{\publocpunct}}%
-        {\locnopubdelim}
-      \printlist{publisher}%
-      \pubdatadelim%
-      \usebibmacro{date}%%\newunit
-    }%
+				%{\setunit*{\publocpunct}}%
+				{\locnopubdelim}
+			\printlist{publisher}%
+			\pubdatadelim%
+			\usebibmacro{date}%%\newunit
+		}%
 }
 \renewbibmacro*{inbook:parent}{%
-  \usebibmacro{bybookauthor}%
-    \ifnameundef{bookauthor}{%
-    \ifnameundef{editor}{}{\newunit}%
-    }{\newunit}%替换下一句
-    %\newunit\newblock
-  \iffieldundef{series}{}
-    {\usebibmacro{series+number}\setunit{\addcolon\addspace}}%为处理一些存在series的情况而增加
-    \usebibmacro{maintitle+booktitle}%
-  \iffieldundef{volume}{}{\setunit{\addcolon\addspace}\printfield{volume}}%
-  \iffieldundef{number}{}{\setunit{\addcolon\addspace}\printfield{number}}%增加卷和册信息
-    \newunit\newblock%
-  %  \usebibmacro{byeditor+others}%
-  %  \newunit\newblock
-    \printfield{edition}%
-    \newunit
-    \iftoggle{bbx:gbstrict}{}{%
-  %  \iffieldundef{maintitle}
-  %    {\printfield{volume}%
-  %     \printfield{part}}
-  %    {}%
-  %  \newunit
-  %  \printfield{volumes}%
-  %  \newunit\newblock
-  %  \usebibmacro{series+number}
-    }%
-    \newunit\newblock
-    %\printfield{note}%
-    %\newunit\newblock
+	\usebibmacro{bybookauthor}%
+		\ifnameundef{bookauthor}{%
+		\ifnameundef{editor}{}{\newunit}%
+		}{\newunit}%替换下一句
+		%\newunit\newblock
+	\iffieldundef{series}{}
+		{\usebibmacro{series+number}\setunit{\addcolon\addspace}}%为处理一些存在series的情况而增加
+		\usebibmacro{maintitle+booktitle}%
+	\iffieldundef{volume}{}{\setunit{\addcolon\addspace}\printfield{volume}}%
+	\iffieldundef{number}{}{\setunit{\addcolon\addspace}\printfield{number}}%增加卷和册信息
+		\newunit\newblock%
+	%  \usebibmacro{byeditor+others}%
+	%  \newunit\newblock
+		\printfield{edition}%
+		\newunit
+		\iftoggle{bbx:gbstrict}{}{%
+	%  \iffieldundef{maintitle}
+	%    {\printfield{volume}%
+	%     \printfield{part}}
+	%    {}%
+	%  \newunit
+	%  \printfield{volumes}%
+	%  \newunit\newblock
+	%  \usebibmacro{series+number}
+		}%
+		\newunit\newblock
+		%\printfield{note}%
+		%\newunit\newblock
 %    \end{macrocode}
 % 由于 |publisher+location+date| 在不只这里使用，
 % 因此将其移植到宏 |HUSTinbook_publisher+location+date| 中。
 %    \begin{macrocode}
-    %\usebibmacro{publisher+location+date}
-    \usebibmacro{HUSTinbook_publisher+location+date}%
+		%\usebibmacro{publisher+location+date}
+		\usebibmacro{HUSTinbook_publisher+location+date}%
 }
 %    \end{macrocode}
 %
@@ -3785,90 +3803,90 @@
 %    \begin{macrocode}
 \DeclareFieldFormat[book]{title}{#1}
 \renewbibmacro*{patenttitle}{%原输出来自biblatex.def文件
-  \ifboolexpr{%
-    test{\iffieldundef{title}}%
-    and%
-    test{\iffieldundef{subtitle}}%
-  }%
-  {}%
-  { \printtext[title]{\bibtitlefont%
-      \printfield[titlecase]{title}%
-      \newunit
-      \ifboolexpr{test {\iffieldundef{subtitle}}}%这里增加了对子标题的判断，解决不判断多一个点的问题
-        {}%
-        {\setunit{\subtitlepunct}\printfield[titlecase]{subtitle}}%
-      \iffieldundef{titleaddon}{}%判断一下titleaddon，否则直接加可能多一个空格
-        {\setunit{\subtitlepunct}\printfield{titleaddon}}%
+	\ifboolexpr{%
+		test{\iffieldundef{title}}%
+		and%
+		test{\iffieldundef{subtitle}}%
+	}%
+	{}%
+	{ \printtext[title]{\bibtitlefont%
+			\printfield[titlecase]{title}%
+			\newunit
+			\ifboolexpr{test {\iffieldundef{subtitle}}}%这里增加了对子标题的判断，解决不判断多一个点的问题
+				{}%
+				{\setunit{\subtitlepunct}\printfield[titlecase]{subtitle}}%
+			\iffieldundef{titleaddon}{}%判断一下titleaddon，否则直接加可能多一个空格
+				{\setunit{\subtitlepunct}\printfield{titleaddon}}%
 %    \end{macrocode}
 % 修改标题后面标点；将地点，专利号移植到标题中；并强制显示 GB/T 7714-2015 中的文献类型（|[P]|）。
 %    \begin{macrocode}
-      \if false
-      \setunit{\subtitlepunct}\printfield{number}%写专利号
-      \iftoggle{bbx:gbtype}{\printfield[gbtypeflag]{usera}}{}%
-      %\iffieldundef{booktitle}{\newunit}{}%当title是析出时，不要标点
-      %\newunit
-      \fi
-      \iflistundef{location}
-        {}
-        %{\setunit*{\addspace}%
-        {\setunit*{\subtitlepunct}
-        \printtext{%[parens]
-          \printlist[][-\value{listtotal}]{location}}}%
-      \setunit{\addcomma\space}\printfield{number}%写专利号
-      \setunit{\addspace}\printfield[gbtypeflag]{usera}
-    }%
-  }%
-  \setunit{\subtitlepunct}%
+			\if false
+			\setunit{\subtitlepunct}\printfield{number}%写专利号
+			\iftoggle{bbx:gbtype}{\printfield[gbtypeflag]{usera}}{}%
+			%\iffieldundef{booktitle}{\newunit}{}%当title是析出时，不要标点
+			%\newunit
+			\fi
+			\iflistundef{location}
+				{}
+				%{\setunit*{\addspace}%
+				{\setunit*{\subtitlepunct}
+				\printtext{%[parens]
+					\printlist[][-\value{listtotal}]{location}}}%
+			\setunit{\addcomma\space}\printfield{number}%写专利号
+			\setunit{\addspace}\printfield[gbtypeflag]{usera}
+		}%
+	}%
+	\setunit{\subtitlepunct}%
 }
 \DeclareBibliographyDriver{patent}{%源来自standard.BBX
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author}%
-  \ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
-  %\usebibmacro{title}%
-  \usebibmacro{patenttitle}%给出专利专用的标题输出
-  \iftoggle{bbx:gbstrict}{}{%
-    \newunit%
-    \printlist{language}%
-    \newunit\newblock
-    \usebibmacro{byauthor}
-  }%
-  \newunit\newblock
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author}%
+	\ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+	%\usebibmacro{title}%
+	\usebibmacro{patenttitle}%给出专利专用的标题输出
+	\iftoggle{bbx:gbstrict}{}{%
+		\newunit%
+		\printlist{language}%
+		\newunit\newblock
+		\usebibmacro{byauthor}
+	}%
+	\newunit\newblock
 %    \end{macrocode}
 % 以下部分，抑或移除，抑或移至标题块 |patenttitle| 中。
 %    \begin{macrocode}
-  \if false
-  \printfield{type}%
-  \setunit*{\addspace}%
-  %\printfield{number}%已放到patenttitle中处理
-  \iflistundef{location}
-    {}
-    {\setunit*{\addspace}%
-    \printtext{%[parens]
-      \printlist[][-\value{listtotal}]{location}}}%
-  \newunit\newblock
-  \usebibmacro{byholder}%
-  \newunit\newblock
-  \fi
-  \printfield{note}%
-  \newunit\newblock
+	\if false
+	\printfield{type}%
+	\setunit*{\addspace}%
+	%\printfield{number}%已放到patenttitle中处理
+	\iflistundef{location}
+		{}
+		{\setunit*{\addspace}%
+		\printtext{%[parens]
+			\printlist[][-\value{listtotal}]{location}}}%
+	\newunit\newblock
+	\usebibmacro{byholder}%
+	\newunit\newblock
+	\fi
+	\printfield{note}%
+	\newunit\newblock
 %    \end{macrocode}
 % 日期只显示到年。
 %    \begin{macrocode}
-  %\usebibmacro{newsdate}%
-  \usebibmacro{date}%
-  %\newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \newunit\newblock
-  \usebibmacro{addendum+pubstate}%
-  \setunit{\bibpagerefpunct}\newblock
-  \usebibmacro{pageref}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-    \usebibmacro{related}}
-    {}%
-  \usebibmacro{annotation}\usebibmacro{finentry}
+	%\usebibmacro{newsdate}%
+	\usebibmacro{date}%
+	%\newunit\newblock
+	\usebibmacro{doi+eprint+url}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		\usebibmacro{related}}
+		{}%
+	\usebibmacro{annotation}\usebibmacro{finentry}
 }
 %    \end{macrocode}
 %
@@ -3877,57 +3895,57 @@
 % 覆盖原 |manual| 的别名。
 %    \begin{macrocode}
 \DeclareBibliographyDriver{thesis}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/editor+others/translator+others}%
-  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/editor+others/translator+others}%
+	\ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%这一段用于去除作者不存在时多出的标点
 %    \end{macrocode}
 % 增加学位论文类型的显示。
 %    \begin{macrocode}
-  %\usebibmacro{title}%
-  \printfield[titlecase]{title}%
-  \printfield[gbtypeflag]{type}
-  \iftoggle{bbx:gbstrict}{}{%
-  \newunit%
-  \printlist{language}%
-  \newunit\newblock
-  \usebibmacro{byauthor}}%
-  \newunit\newblock
-  \usebibmacro{byeditor+others}%增加的译者信息
-  \newunit\newblock
-  \iftoggle{bbx:gbfieldtype}{%
-    \printfield{type}%
-    \setunit*{\addspace}}{}%
-  \printfield{number}%
-  \newunit\newblock
-  \printfield{version}%
-  \newunit
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{institution+location+date}%
-  %\newunit\newblock
-  \usebibmacro{chapter+pages}%
-  \iffieldundef{url}{}{%当没有网址时也不输出修改或更新日期
-    \usebibmacro{modifydate}}%修改或更新日期为带括号的时间
-  \usebibmacro{doi+eprint+url}%
-  \newunit
-  \printfield{pagetotal}%
-  \newunit\newblock
-  \iftoggle{bbx:isbn}
-    {\printfield{isrn}}
-    {}%
-  \newunit\newblock
+	%\usebibmacro{title}%
+	\printfield[titlecase]{title}%
+	\printfield[gbtypeflag]{type}
+	\iftoggle{bbx:gbstrict}{}{%
+	\newunit%
+	\printlist{language}%
+	\newunit\newblock
+	\usebibmacro{byauthor}}%
+	\newunit\newblock
+	\usebibmacro{byeditor+others}%增加的译者信息
+	\newunit\newblock
+	\iftoggle{bbx:gbfieldtype}{%
+		\printfield{type}%
+		\setunit*{\addspace}}{}%
+	\printfield{number}%
+	\newunit\newblock
+	\printfield{version}%
+	\newunit
+	\printfield{note}%
+	\newunit\newblock
+	\usebibmacro{institution+location+date}%
+	%\newunit\newblock
+	\usebibmacro{chapter+pages}%
+	\iffieldundef{url}{}{%当没有网址时也不输出修改或更新日期
+		\usebibmacro{modifydate}}%修改或更新日期为带括号的时间
+	\usebibmacro{doi+eprint+url}%
+	\newunit
+	\printfield{pagetotal}%
+	\newunit\newblock
+	\iftoggle{bbx:isbn}
+		{\printfield{isrn}}
+		{}%
+	\newunit\newblock
 %  \usebibmacro{doi+eprint+url}%
 %  \newunit\newblock
-  \usebibmacro{addendum+pubstate}%
-  \setunit{\bibpagerefpunct}\newblock
-  \usebibmacro{pageref}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{annotation}\usebibmacro{finentry}
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{annotation}\usebibmacro{finentry}
 }
 %    \end{macrocode}
 %
@@ -3943,12 +3961,12 @@
 %<*doc-sty>
 %<@@=hustdoc>
 \RequirePackage
-  {
-    ulem,
-    xcolor-material,
-    zref-base,
-    listings,
-  }
+	{
+		ulem,
+		xcolor-material,
+		zref-base,
+		listings,
+	}
 %    \end{macrocode}
 %
 % \subsection{内部函数}
@@ -3957,20 +3975,20 @@
 % 补丁工具。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
-  {
-    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
-      { } { \ctex_patch_failure:N #1 }
-  }
+	{
+		\ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+			{ } { \ctex_patch_failure:N #1 }
+	}
 \cs_new_protected:Npn \@@_preto_cmd:Nn #1#2
-  {
-    \ctex_preto_cmd:NnnTF #1 { } {#2}
-      { } { \ctex_patch_failure:N #1 }
-  }
+	{
+		\ctex_preto_cmd:NnnTF #1 { } {#2}
+			{ } { \ctex_patch_failure:N #1 }
+	}
 \cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
-  {
-    \ctex_appto_cmd:NnnTF #1 { } {#2}
-      { } { \ctex_patch_failure:N #1 }
-  }
+	{
+		\ctex_appto_cmd:NnnTF #1 { } {#2}
+			{ } { \ctex_patch_failure:N #1 }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3984,7 +4002,7 @@
 % 减少展开标记（用来表明中英文模板中的不同用法）前的空格。
 %    \begin{macrocode}
 \__hustdoc_patch_cmd:Nnn \@@_typeset_expandability:
-  { & } { & \skip_horizontal:n { -0.5em } }
+	{ & } { & \skip_horizontal:n { -0.5em } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3993,11 +4011,11 @@
 % 左侧边注的函数列表采用单倍行距。
 %    \begin{macrocode}
 \__hustdoc_preto_cmd:Nn \@@_typeset_functions:
-  { \MacroFont }
+	{ \MacroFont }
 \__hustdoc_patch_cmd:Nnn \@@_macro_init:
-  { \hbox:n } { \MacroFont \hbox:n }
+	{ \hbox:n } { \MacroFont \hbox:n }
 \__hustdoc_patch_cmd:Nnn \@@_macro_dump:
-  { \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
+	{ \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4007,32 +4025,32 @@
 % 盒子的手段使得长命令也可正常显示。
 %    \begin{macrocode}
 \cs_set_protected:Npn \@@_macro_typeset_one:nN #1#2
-  {
-    \vbox_set:Nn \l_@@_macro_box
-      {
-        \MacroFont
-        \vbox_unpack_drop:N \l_@@_macro_box
-        \hbox_set:Nn \l_tmpa_box
-          { \@@_print_macroname:nN {#1} #2 }
+	{
+		\vbox_set:Nn \l_@@_macro_box
+			{
+				\MacroFont
+				\vbox_unpack_drop:N \l_@@_macro_box
+				\hbox_set:Nn \l_tmpa_box
+					{ \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
 % \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到版心的距离，
 % \tn{labelsep} 则是编号盒子右端与条目首行文本之间的距离。
 %    \begin{macrocode}
-        \dim_set:Nn \l_tmpa_dim
-          { \marginparwidth - \labelsep - \marginparsep }
-        \dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
-          {
-            \box_resize_to_wd_and_ht:Nnn \l_tmpa_box
-              { \l_tmpa_dim } { \box_ht:N \l_tmpa_box }
-          }
-        \hbox_overlap_left:n
-          {
-            \box_use:N \l_tmpa_box
-            \skip_horizontal:n { \marginparsep - \labelsep }
-          }
-      }
-    \int_incr:N \l_@@_macro_int
-  }
+				\dim_set:Nn \l_tmpa_dim
+					{ \marginparwidth - \labelsep - \marginparsep }
+				\dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
+					{
+						\box_resize_to_wd_and_ht:Nnn \l_tmpa_box
+							{ \l_tmpa_dim } { \box_ht:N \l_tmpa_box }
+					}
+				\hbox_overlap_left:n
+					{
+						\box_use:N \l_tmpa_box
+						\skip_horizontal:n { \marginparsep - \labelsep }
+					}
+			}
+		\int_incr:N \l_@@_macro_int
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4047,11 +4065,11 @@
 %  \end{arguments}
 %    \begin{macrocode}
 \DeclareDocumentCommand \key { O{option} m }
-  {
-    \tl_if_eq:nnTF { #1 } { option }
-      { \cmd[module=#1/]{#2} }
-      { \cmd[module=#1/]{#1/#2} }
-  }
+	{
+		\tl_if_eq:nnTF { #1 } { option }
+			{ \cmd[module=#1/]{#2} }
+			{ \cmd[module=#1/]{#1/#2} }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4059,14 +4077,14 @@
 % 输出键值对的值。
 %    \begin{macrocode}
 \DeclareDocumentCommand \opt { s m }
-  { \IfBooleanTF {#1} { \texttt{\bfseries \upshape #2} } { \texttt{\upshape #2} } }
+	{ \IfBooleanTF {#1} { \texttt{\bfseries \upshape #2} } { \texttt{\upshape #2} } }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[no-user-doc]{\expstar, \rexpstar}
 %    \begin{macrocode}
-\newcommand\expstar{$\star$}
-\newcommand\rexpstar{\ding{73}}
+\newcommand\expstar{\hyperref[sec:exp]{$\star$}}
+\newcommand\rexpstar{\hyperref[sec:exp]{\ding{73}}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4102,46 +4120,46 @@
 % \begin{environment}{bashecode, latexcode}
 %    \begin{macrocode}
 \lstdefinestyle{style@base}
-  {
-    basewidth = 0.5 em,
-    gobble = 3,
-    lineskip = 3 pt,
-    frame = l,
-    framerule = 1 pt,
-    framesep = 0 pt,
-    xleftmargin = 2 em,
-    xrightmargin = 3 em,
-    escapeinside = {(*}{*)},
-    breaklines = true,
-    basicstyle = \small\ttfamily,
-    keywordstyle = \bfseries\color{purple},
-    commentstyle = \itshape\color{white!50!gray},
-    stringstyle = \color{red},
-    backgroundcolor = \color{white!95!gray}
-  }
+	{
+		basewidth = 0.5 em,
+		gobble = 3,
+		lineskip = 3 pt,
+		frame = l,
+		framerule = 1 pt,
+		framesep = 0 pt,
+		xleftmargin = 2 em,
+		xrightmargin = 3 em,
+		escapeinside = {(*}{*)},
+		breaklines = true,
+		basicstyle = \small\ttfamily,
+		keywordstyle = \bfseries\color{purple},
+		commentstyle = \itshape\color{white!50!gray},
+		stringstyle = \color{red},
+		backgroundcolor = \color{white!95!gray}
+	}
 \lstdefinestyle{style@bash}
-  {
-    style = style@base,
-    rulecolor = \color{pink},
-    language = bash,
-    alsoletter = {-},
-    emphstyle = \color{green}
-  }
+	{
+		style = style@base,
+		rulecolor = \color{pink},
+		language = bash,
+		alsoletter = {-},
+		emphstyle = \color{green}
+	}
 \lstdefinestyle{style@latex}
-  {
-    style = style@base,
-    rulecolor = \color{blue},
-    language = [LaTeX]TeX,
-    alsoletter = {*, -, .},
-    texcsstyle = *\color{purple},
-    emphstyle = [1]\color{orange},
-    emphstyle = [2]\color{green},
-    emphstyle = [3]\bfseries\color{yellow}
-  }
+	{
+		style = style@base,
+		rulecolor = \color{blue},
+		language = [LaTeX]TeX,
+		alsoletter = {*, -, .},
+		texcsstyle = *\color{purple},
+		emphstyle = [1]\color{orange},
+		emphstyle = [2]\color{green},
+		emphstyle = [3]\bfseries\color{yellow}
+	}
 \lstnewenvironment{bashecode}[1][]{%
-  \lstset{style=style@bash, #1}}{}
+	\lstset{style=style@bash, #1}}{}
 \lstnewenvironment{latexcode}[1][]{%
-  \lstset{style=style@latex, #1}}{}
+	\lstset{style=style@latex, #1}}{}
 %    \end{macrocode}
 % \end{environment}
 %
@@ -4154,36 +4172,36 @@
 % 处理。后者会将空格显示为“\verb*| |”。
 %    \begin{macrocode}
 \cs_set_protected_nopar:Npn \xmacro@code
-  { \@@_marco_code:w }
+	{ \@@_marco_code:w }
 \cs_set_protected_nopar:Npn \sxmacro@code
-  {
-    \fontspec_print_visible_spaces:
-    \xmacro@code
-  }
+	{
+		\fontspec_print_visible_spaces:
+		\xmacro@code
+	}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_marco_code:w}
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_marco_code:w
-  {
+	{
 %    \end{macrocode}
 % 根据 \tn{codeline@index} 是否为 |true| 选择是否显示行号。
 %    \begin{macrocode}
-    \ifcodeline@index
-      \@@_marco_code_every_par:n { \@@_code_line_no: }
-    \else:
-      \@@_marco_code_every_par:n { }
-    \fi:
+		\ifcodeline@index
+			\@@_marco_code_every_par:n { \@@_code_line_no: }
+		\else:
+			\@@_marco_code_every_par:n { }
+		\fi:
 %    \end{macrocode}
 % 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
 %    \begin{macrocode}
-    \@@_make_finish_tag:x { \@currenvir }
+		\@@_make_finish_tag:x { \@currenvir }
 %    \end{macrocode}
 % 开始 \env{macrocode}。
 %    \begin{macrocode}
-    \@@_macro_code_start:w
-  }
+		\@@_macro_code_start:w
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4191,17 +4209,17 @@
 % 在每段之前插入内容。这里每段即相当于每行。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_marco_code_every_par:n #1
-  {
-    \everypar
-      {
-        \everypar {#1}
-        \if@inlabel
-          \global \@inlabelfalse \@noparlistfalse
-          \llap { \box \@labels \hskip \leftskip }
-        \fi
-        #1
-      }
-  }
+	{
+		\everypar
+			{
+				\everypar {#1}
+				\if@inlabel
+					\global \@inlabelfalse \@noparlistfalse
+					\llap { \box \@labels \hskip \leftskip }
+				\fi
+				#1
+			}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4209,18 +4227,18 @@
 % 插入注释符 |%|）。
 %    \begin{macrocode}
 \group_begin:
-  \int_set:Nn \tex_endlinechar:D { -1 }
+	\int_set:Nn \tex_endlinechar:D { -1 }
 %    \end{macrocode}
 %
 % \begin{variable}{\c_@@_active_space_tl}
 % 活动字符类的空格（ASCII 码为 32）。
 %    \begin{macrocode}
-  \use:n
-    {
-      \char_set_catcode_active:n { 32 }
-      \tl_const:Nn \c_@@_active_space_tl
-    }
-    { }
+	\use:n
+		{
+			\char_set_catcode_active:n { 32 }
+			\tl_const:Nn \c_@@_active_space_tl
+		}
+		{ }
 \group_end:
 %    \end{macrocode}
 % \end{variable}
@@ -4228,37 +4246,37 @@
 % ASCII 码 13 是回车符 |^^M|。将其设置为活动字符。
 %    \begin{macrocode}
 \group_begin:
-  \char_set_catcode_active:n { 13 }
+	\char_set_catcode_active:n { 13 }
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_make_finish_tag:n,\@@_make_finish_tag:x}
 % \env{macrocode} 结尾标记。展开后变成“\verb*|%    \end{#1}^^M|”。
 %    \begin{macrocode}
-  \cs_new_protected:Npx \@@_make_finish_tag:n #1
-    {
-      \tl_set:Nn \exp_not:N \l_@@_macro_code_finish_tl
-        {
-          \c_percent_str
-          \prg_replicate:nn { 4 }
-            { \exp_not:o { \c_@@_active_space_tl } }
-          \exp_not:o { \active@escape@char } end
-          \c_left_brace_str #1 \c_right_brace_str
-          \exp_not:N ^^M
-        }
-    }
-  \cs_generate_variant:Nn \@@_make_finish_tag:n { x }
+	\cs_new_protected:Npx \@@_make_finish_tag:n #1
+		{
+			\tl_set:Nn \exp_not:N \l_@@_macro_code_finish_tl
+				{
+					\c_percent_str
+					\prg_replicate:nn { 4 }
+						{ \exp_not:o { \c_@@_active_space_tl } }
+					\exp_not:o { \active@escape@char } end
+					\c_left_brace_str #1 \c_right_brace_str
+					\exp_not:N ^^M
+				}
+		}
+	\cs_generate_variant:Nn \@@_make_finish_tag:n { x }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_macro_code_start:w}
 % 开始代码环境。此命令主要是为了防止 |\begin{macrocode}| 后出现多余的空行。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_macro_code_start:w #1
-    {
-      \str_if_eq:nnTF {#1} { ^^M }
-        { \@@_macro_code_read_line:w }
-        { \@@_macro_code_read_line:w #1 }
-    }
+	\cs_new_protected:Npn \@@_macro_code_start:w #1
+		{
+			\str_if_eq:nnTF {#1} { ^^M }
+				{ \@@_macro_code_read_line:w }
+				{ \@@_macro_code_read_line:w #1 }
+		}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4267,40 +4285,40 @@
 % 与结束标记“\verb*|%    \end{macrocode}^^M|”相同，则结束此 \env{macrocode}；
 % 否则继续处理该行代码。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_macro_code_read_line:w #1 ^^M
-    {
-      \tl_set:Nn \l_@@_macro_code_line_tl { #1 ^^M }
-      \tl_if_eq:NNTF
-        \l_@@_macro_code_line_tl \l_@@_macro_code_finish_tl
-        { \exp_args:Nx \end { \@currenvir } }
-        {
-          \@@_macro_code_process_line:
-          \@@_macro_code_read_line:w
-        }
-    }
+	\cs_new_protected:Npn \@@_macro_code_read_line:w #1 ^^M
+		{
+			\tl_set:Nn \l_@@_macro_code_line_tl { #1 ^^M }
+			\tl_if_eq:NNTF
+				\l_@@_macro_code_line_tl \l_@@_macro_code_finish_tl
+				{ \exp_args:Nx \end { \@currenvir } }
+				{
+					\@@_macro_code_process_line:
+					\@@_macro_code_read_line:w
+				}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_swap_cr:,\@@_swap_cr_aux:w}
 % 把 \cs{l_@@_macro_code_line_tl} 中的回车符 |^^M| 挪到外面。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_swap_cr:
-    {
-      \exp_after:wN
-        \@@_swap_cr_aux:w \l_@@_macro_code_line_tl
-    }
-  \cs_new_protected:Npn \@@_swap_cr_aux:w #1 ^^M
-    {
-      \group_insert_after:N ^^M
-      \tl_set:Nn \l_@@_macro_code_line_tl {#1}
-    }
+	\cs_new_protected:Npn \@@_swap_cr:
+		{
+			\exp_after:wN
+				\@@_swap_cr_aux:w \l_@@_macro_code_line_tl
+		}
+	\cs_new_protected:Npn \@@_swap_cr_aux:w #1 ^^M
+		{
+			\group_insert_after:N ^^M
+			\tl_set:Nn \l_@@_macro_code_line_tl {#1}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{variable}{\c_@@_active_cr_tl}
 % 活动字符类的回车符。
 %    \begin{macrocode}
-  \tl_const:Nn \c_@@_active_cr_tl { ^^M }
+	\tl_const:Nn \c_@@_active_cr_tl { ^^M }
 \group_end:
 %    \end{macrocode}
 % \end{variable}
@@ -4320,29 +4338,29 @@
 % 普通代码行根据开头字符分别处理。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
-  {
-    \str_case_e:nnF
-      { \str_head:N \l_@@_macro_code_line_tl }
-      {
+	{
+		\str_case_e:nnF
+			{ \str_head:N \l_@@_macro_code_line_tl }
+			{
 %    \end{macrocode}
 % 以 |%| 开头的行先由 \cs{tl_tail:N} 去掉 |%|，之后再检查 |<|。
 %    \begin{macrocode}
-        { \c_percent_str }
-        {
-          \@@_check_angle:x
-            { \tl_tail:N \l_@@_macro_code_line_tl }
-        }
+				{ \c_percent_str }
+				{
+					\@@_check_angle:x
+						{ \tl_tail:N \l_@@_macro_code_line_tl }
+				}
 %    \end{macrocode}
 % 以 |#| 开头的行按注释的格式输出。
 %    \begin{macrocode}
-        { \c_hash_str }
-        { \@@_output_comment_line: }
-      }
+				{ \c_hash_str }
+				{ \@@_output_comment_line: }
+			}
 %    \end{macrocode}
 % 其余正常输出。
 %    \begin{macrocode}
-      { \@@_output_line: }
-  }
+			{ \@@_output_line: }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4350,31 +4368,31 @@
 % 处理抄录代码行（不检查 |%| 与 |<|）。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_verbatim_line:
-  {
+	{
 %    \end{macrocode}
 % 将该行与抄录停止标记进行比较。
 %    \begin{macrocode}
-    \tl_if_eq:NNTF \l_@@_macro_code_line_tl
-        \g_@@_macro_code_verbatim_stop_tl
+		\tl_if_eq:NNTF \l_@@_macro_code_line_tl
+				\g_@@_macro_code_verbatim_stop_tl
 %    \end{macrocode}
 % 若相同，则结束抄录环境，清空抄录停止标记，并输出该标记；
 %    \begin{macrocode}
-      {
-        \tl_gclear:N \g_@@_macro_code_verbatim_stop_tl
-        \cs_gset_eq:NN \@@_macro_code_process_line:
-          \@@_process_normal_line:
-        \@@_output_module:nn
-          { \color { verb@guard } }
-          {
-            \@@_swap_cr:
-            \@@_module_pop:n { \l_@@_macro_code_line_tl }
-          }
-      }
+			{
+				\tl_gclear:N \g_@@_macro_code_verbatim_stop_tl
+				\cs_gset_eq:NN \@@_macro_code_process_line:
+					\@@_process_normal_line:
+				\@@_output_module:nn
+					{ \color { verb@guard } }
+					{
+						\@@_swap_cr:
+						\@@_module_pop:n { \l_@@_macro_code_line_tl }
+					}
+			}
 %    \end{macrocode}
 % 否则直接输出抄录代码。
 %    \begin{macrocode}
-      { \tl_use:N \l_@@_macro_code_line_tl }
-  }
+			{ \tl_use:N \l_@@_macro_code_line_tl }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4389,7 +4407,7 @@
 % \end{itemize}
 %    \begin{macrocode}
 \cs_new_eq:NN \@@_macro_code_process_line:
-  \@@_process_normal_line:
+	\@@_process_normal_line:
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4399,15 +4417,15 @@
 % 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，此处重新声明。
 %    \begin{macrocode}
 \DeclareDocumentCommand \CheckModules { }
-  {
-    \cs_set_eq:NN \@@_macro_code_process_line:
-      \@@_process_normal_line:
-  }
+	{
+		\cs_set_eq:NN \@@_macro_code_process_line:
+			\@@_process_normal_line:
+	}
 \DeclareDocumentCommand \DontCheckModules { }
-  {
-    \cs_set_eq:NN \@@_macro_code_process_line:
-      \@@_output_line:
-  }
+	{
+		\cs_set_eq:NN \@@_macro_code_process_line:
+			\@@_output_line:
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4416,11 +4434,11 @@
 % 该函数的参数不带 |%|。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_angle:n #1
-  {
-    \str_if_eq:eeTF { \str_head:n {#1} } { < }
-      { \@@_check_module:x { \tl_tail:n {#1} } }
-      { \@@_output_comment_line: }
-  }
+	{
+		\str_if_eq:eeTF { \str_head:n {#1} } { < }
+			{ \@@_check_module:x { \tl_tail:n {#1} } }
+			{ \@@_output_comment_line: }
+	}
 \cs_generate_variant:Nn \@@_check_angle:n { x }
 %    \end{macrocode}
 % \end{macro}
@@ -4436,20 +4454,20 @@
 % 若不是这几种情况，则为单独一行的独立模块（|%<|\meta{module}|>|）。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
-  {
-    \str_case_e:nnF { \str_head:n {#1} }
-      {
-        { * } { \@@_module_star:w }
-        { / } { \@@_module_slash:w }
-        { @ } { \@@_module_at:w }
-        { < } { \@@_module_verb:w }
-      }
-      { \@@_module_pm:w }
+	{
+		\str_case_e:nnF { \str_head:n {#1} }
+			{
+				{ * } { \@@_module_star:w }
+				{ / } { \@@_module_slash:w }
+				{ @ } { \@@_module_at:w }
+				{ < } { \@@_module_verb:w }
+			}
+			{ \@@_module_pm:w }
 %    \end{macrocode}
 % 参数 |#1| 将被上面几个 |:w| 型函数吃掉。
 %    \begin{macrocode}
-    #1 \q_stop
-  }
+		#1 \q_stop
+	}
 \cs_generate_variant:Nn \@@_check_module:n { x }
 %    \end{macrocode}
 % \end{macro}
@@ -4457,7 +4475,7 @@
 % 设置 |>| 为活动字符。
 %    \begin{macrocode}
 \group_begin:
-  \char_set_catcode_active:N \>
+	\char_set_catcode_active:N \>
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_module_star:w}
@@ -4467,40 +4485,40 @@
 %   \item 之后的代码
 % \end{arguments}
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
-    {
+	\cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
+		{
 %    \end{macrocode}
 % 临时变量 \cs{l_@@_tmpa_tl} 保存 |<*|\meta{module}|>| 之后的部分，即真实代码。
 %    \begin{macrocode}
-      \tl_set:Nn \l_@@_tmpa_tl {#2}
+			\tl_set:Nn \l_@@_tmpa_tl {#2}
 %    \end{macrocode}
 % 判断该行是否为空（只含一个回车符 |^^M|）。
 %    \begin{macrocode}
-      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+			\tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
 %    \end{macrocode}
 % 若是，则将 |<|\meta{module}|>| 放在行号的右侧；
 %    \begin{macrocode}
-        {
-          \@@_output_module:nn
-            { \@@_star_color: }
-            {
-              \@@_module_push:n
-                { \@@_module_angle:n {#1} }
-            }
-        }
+				{
+					\@@_output_module:nn
+						{ \@@_star_color: }
+						{
+							\@@_module_push:n
+								{ \@@_module_angle:n {#1} }
+						}
+				}
 %    \end{macrocode}
 % 否则放在左侧，并输出相应代码。
 %    \begin{macrocode}
-        {
-          \@@_output_module_left:nn
-            { \@@_star_color: }
-            {
-              \@@_module_push:n
-                { \@@_module_angle:n {#1} }
-            }
-        }
-      \@@_output_line:n {#2}
-    }
+				{
+					\@@_output_module_left:nn
+						{ \@@_star_color: }
+						{
+							\@@_module_push:n
+								{ \@@_module_angle:n {#1} }
+						}
+				}
+			\@@_output_line:n {#2}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4511,28 +4529,28 @@
 %   \item 之后的代码
 % \end{arguments}
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
-    {
-      \tl_set:Nn \l_@@_tmpa_tl {#2}
-      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
-        {
-          \@@_output_module:nn
-            { \@@_slash_color: }
-            {
-              \@@_module_pop:n
-                { \@@_module_angle:n {#1} }
-            }
-        }
-        {
-          \@@_output_module_left:nn
-            { \@@_slash_color: }
-            {
-              \@@_module_pop:n
-                { \@@_module_angle:n {#1} }
-            }
-        }
-      \@@_output_line:n {#2}
-    }
+	\cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
+		{
+			\tl_set:Nn \l_@@_tmpa_tl {#2}
+			\tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+				{
+					\@@_output_module:nn
+						{ \@@_slash_color: }
+						{
+							\@@_module_pop:n
+								{ \@@_module_angle:n {#1} }
+						}
+				}
+				{
+					\@@_output_module_left:nn
+						{ \@@_slash_color: }
+						{
+							\@@_module_pop:n
+								{ \@@_module_angle:n {#1} }
+						}
+				}
+			\@@_output_line:n {#2}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4543,18 +4561,18 @@
 %   \item 之后的代码
 % \end{arguments}
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
-    {
-      \@@_output_module:nn
-        { \color { at@guard } }
-        { \@@_module_angle:n { @ @ = #1 } }
+	\cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
+		{
+			\@@_output_module:nn
+				{ \color { at@guard } }
+				{ \@@_module_angle:n { @ @ = #1 } }
 %    \end{macrocode}
 % 设置名字空间为 |#1|。\cls{l3doc} 中将名字空间称为“模块”（module），
 % 注意不要混淆。
 %    \begin{macrocode}
-      \tl_gset:Nn \g__codedoc_module_name_tl {#1}
-      \@@_output_line:n {#2}
-    }
+			\tl_gset:Nn \g__codedoc_module_name_tl {#1}
+			\@@_output_line:n {#2}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4562,28 +4580,28 @@
 % 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。\meta{end-tag} 的最后会
 % 带有一个回车符 |^^M|。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
-    {
+	\cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
+		{
 %    \end{macrocode}
 % 重定义 \cs{@@_macro_code_process_line:}，用以输出抄录行。
 %    \begin{macrocode}
-      \cs_gset_eq:NN \@@_macro_code_process_line:
-        \@@_process_verbatim_line:
+			\cs_gset_eq:NN \@@_macro_code_process_line:
+				\@@_process_verbatim_line:
 %    \end{macrocode}
 % 设置抄录停止标记。用 \cs{tl_tail:n} 去掉开头的 |<|。
 %    \begin{macrocode}
-      \tl_gset:Nx \g_@@_macro_code_verbatim_stop_tl
-        { \c_percent_str \tl_tail:n {#1} }
+			\tl_gset:Nx \g_@@_macro_code_verbatim_stop_tl
+				{ \c_percent_str \tl_tail:n {#1} }
 %    \end{macrocode}
 % 输出 |%<<|\meta{end-tag}。
 %    \begin{macrocode}
-      \@@_output_module:nn
-        { \color { verb@guard } }
-        {
-          \@@_swap_cr:
-          \@@_module_push:n { \l_@@_macro_code_line_tl }
-        }
-    }
+			\@@_output_module:nn
+				{ \color { verb@guard } }
+				{
+					\@@_swap_cr:
+					\@@_module_push:n { \l_@@_macro_code_line_tl }
+				}
+		}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4594,13 +4612,13 @@
 %   \item 之后的代码
 % \end{arguments}
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
-    {
-      \@@_output_module_left:nn
-        { \@@_pm_color: }
-        { \@@_module_angle:n {#1} }
-      \@@_output_line:n {#2}
-    }
+	\cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
+		{
+			\@@_output_module_left:nn
+				{ \@@_pm_color: }
+				{ \@@_module_angle:n {#1} }
+			\@@_output_line:n {#2}
+		}
 \group_end:
 %    \end{macrocode}
 % \end{macro}
@@ -4610,32 +4628,32 @@
 % 再由不带参数的版本调用。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_line:n #1
-  {
-    \tl_set:Nn \l_@@_macro_code_line_tl {#1}
+	{
+		\tl_set:Nn \l_@@_macro_code_line_tl {#1}
 %    \end{macrocode}
 % 若为空行（只含一个 |^^M|），则直接输出（换行）。
 %    \begin{macrocode}
-    \tl_if_eq:NNTF
-      \l_@@_macro_code_line_tl \c_@@_active_cr_tl
-      { \tl_use:N \l_@@_macro_code_line_tl }
-      {
+		\tl_if_eq:NNTF
+			\l_@@_macro_code_line_tl \c_@@_active_cr_tl
+			{ \tl_use:N \l_@@_macro_code_line_tl }
+			{
 %    \end{macrocode}
 % 检查开头是否为 |%|，据此分别处理。
 %    \begin{macrocode}
-        \str_if_eq:eeTF
-          { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
-          { \@@_output_comment_line: } { \@@_output_line: }
-      }
-  }
+				\str_if_eq:eeTF
+					{ \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
+					{ \@@_output_comment_line: } { \@@_output_line: }
+			}
+	}
 \cs_new_protected_nopar:Npn \@@_output_line:
-  {
-    \tex_noindent:D
+	{
+		\tex_noindent:D
 %    \end{macrocode}
 % 此处将把 |@@| 替换为相应的名字空间。
 %    \begin{macrocode}
-    \@@_replace_at_at:N \l_@@_macro_code_line_tl
-    \tl_use:N \l_@@_macro_code_line_tl
-  }
+		\@@_replace_at_at:N \l_@@_macro_code_line_tl
+		\tl_use:N \l_@@_macro_code_line_tl
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4643,13 +4661,13 @@
 % 输出注释代码行。用灰色、斜体显示。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_comment_line:
-  {
-    \tex_noindent:D
-    \group_begin:
-      \__hustdoc_swap_cr:
-      \color { code@gray } \slshape \@@_output_line:
-    \group_end:
-  }
+	{
+		\tex_noindent:D
+		\group_begin:
+			\__hustdoc_swap_cr:
+			\color { code@gray } \slshape \@@_output_line:
+		\group_end:
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4659,12 +4677,12 @@
 % \cs{g__codedoc_module_name_tl} 中。它为空时（|%<@@=>|），不做替换。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_replace_at_at:N #1
-  {
-    \tl_if_empty:NF \g__codedoc_module_name_tl
-      { \@@_replace_at_at_aux:No #1 \g__codedoc_module_name_tl }
-  }
+	{
+		\tl_if_empty:NF \g__codedoc_module_name_tl
+			{ \@@_replace_at_at_aux:No #1 \g__codedoc_module_name_tl }
+	}
 \cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
-  {
+	{
 %    \end{macrocode}
 % 以下代码分别对应两种名字空间的替换：
 % \begin{itemize}
@@ -4674,9 +4692,9 @@
 %     |\__|\meta{namespace}|_|\meta{name}”）。
 % \end{itemize}
 %    \begin{macrocode}
-    \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
-    \tl_replace_all:Nnn #1 { @ @ } { _ _ #2 }
-  }
+		\tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
+		\tl_replace_all:Nnn #1 { @ @ } { _ _ #2 }
+	}
 \cs_generate_variant:Nn \@@_replace_at_at_aux:Nn { No }
 %    \end{macrocode}
 % \end{macro}
@@ -4686,14 +4704,14 @@
 % 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）之间的超链接。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
-  { \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
+	{ \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
 \cs_new_protected:Npn \@@_module_push_aux:nn #1
-  {
-    \seq_gpush:Nn \g_@@_module_dest_seq {#1}
-    \hypersetup { hidelinks }
-    \exp_args:Nx \hdclindex
-      { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
-  }
+	{
+		\seq_gpush:Nn \g_@@_module_dest_seq {#1}
+		\hypersetup { hidelinks }
+		\exp_args:Nx \hdclindex
+			{ \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
+	}
 \cs_generate_variant:Nn \@@_module_push_aux:nn { on }
 %    \end{macrocode}
 % \end{macro}
@@ -4703,17 +4721,17 @@
 % 将模块名释放出栈。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_pop:n
-  {
-    \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
-      { \@@_module_pop_aux:on { \l_@@_tmpa_tl } }
-      { \BOOM \use:n }
-  }
+	{
+		\seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
+			{ \@@_module_pop_aux:on { \l_@@_tmpa_tl } }
+			{ \BOOM \use:n }
+	}
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
-  {
-    \zref@labelbylist { HD.#1 } { hustdoc }
-    \hypersetup { hidelinks }
-    \hdclindex {#1} { }
-  }
+	{
+		\zref@labelbylist { HD.#1 } { hustdoc }
+		\hypersetup { hidelinks }
+		\hdclindex {#1} { }
+	}
 \cs_generate_variant:Nn \@@_module_pop_aux:nn { on }
 %    \end{macrocode}
 % \end{macro}
@@ -4729,7 +4747,7 @@
 %    \begin{macrocode}
 \zref@newlist { hustdoc }
 \zref@newprop { guard@end } [ 1 ]
-  { \int_eval:n { \c@HD@hypercount - 1 } }
+	{ \int_eval:n { \c@HD@hypercount - 1 } }
 \zref@addprop { hustdoc } { guard@end }
 %    \end{macrocode}
 %
@@ -4739,10 +4757,10 @@
 % 代码部分的字体。
 %    \begin{macrocode}
 \cs_set_protected:Npn \MacroFont
-  {
-    \linespread { 1.05 }
-    \small \ttfamily \mdseries \upshape
-  }
+	{
+		\linespread { 1.05 }
+		\small \ttfamily \mdseries \upshape
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4754,22 +4772,22 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_module:nn #1#2
-  {
-    \tex_noindent:D
-    \group_begin:
-      #1
-      \footnotesize \normalfont \sffamily #2
-    \group_end:
-  }
+	{
+		\tex_noindent:D
+		\group_begin:
+			#1
+			\footnotesize \normalfont \sffamily #2
+		\group_end:
+	}
 \cs_new_protected:Npn \@@_output_module_left:nn #1#2
-  {
-    \tex_noindent:D
-    \hbox_overlap_left:n
-      {
-        \@@_output_module:nn {#1} {#2}
-        \skip_horizontal:n { \leftskip + \smallskipamount }
-      }
-  }
+	{
+		\tex_noindent:D
+		\hbox_overlap_left:n
+			{
+				\@@_output_module:nn {#1} {#2}
+				\skip_horizontal:n { \leftskip + \smallskipamount }
+			}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4777,31 +4795,31 @@
 % 选择模块标记的颜色。模块标记的颜色会根据嵌套层次而改变。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_star_color:
-  {
-    \seq_gpop:NNTF \g_@@_star_color_seq \current@color
-      { \set@color }
-      { \@@_select_color: }
-    \seq_gpush:No \g_@@_slash_color_seq { \current@color }
-  }
+	{
+		\seq_gpop:NNTF \g_@@_star_color_seq \current@color
+			{ \set@color }
+			{ \@@_select_color: }
+		\seq_gpush:No \g_@@_slash_color_seq { \current@color }
+	}
 \cs_new_protected_nopar:Npn \@@_slash_color:
-  {
-    \seq_gpop:NNTF \g_@@_slash_color_seq \current@color
-      {
-        \set@color
-        \seq_gpush:No \g_@@_star_color_seq { \current@color }
-      }
+	{
+		\seq_gpop:NNTF \g_@@_slash_color_seq \current@color
+			{
+				\set@color
+				\seq_gpush:No \g_@@_star_color_seq { \current@color }
+			}
 % TODO: 需要报错：star 与 slash 没有匹配
-      { \BOOM }
-  }
+			{ \BOOM }
+	}
 \cs_new_protected_nopar:Npn \@@_pm_color:
-  {
-    \seq_get:NNTF \g_@@_star_color_seq \current@color
-      { \set@color }
-      {
-        \@@_select_color:
-        \seq_gpush:No \g_@@_star_color_seq { \current@color }
-      }
-  }
+	{
+		\seq_get:NNTF \g_@@_star_color_seq \current@color
+			{ \set@color }
+			{
+				\@@_select_color:
+				\seq_gpush:No \g_@@_star_color_seq { \current@color }
+			}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4818,9 +4836,9 @@
 % 设置模块标记的色系。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_select_color:
-  { \color { guard@series!!+ } }
+	{ \color { guard@series!!+ } }
 \definecolorseries { guard@series }
-  { cmyk } { last } { blue } { purple }
+	{ cmyk } { last } { blue } { purple }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -4844,7 +4862,7 @@
 % 输出“$\langle\cdots\rangle$”。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_module_angle:n #1
-  { < #1 > }
+	{ < #1 > }
 %   { \textlangle #1 \textrangle }
 %   { \ensuremath \langle #1 \ensuremath \rangle }
 %    \end{macrocode}
@@ -4854,20 +4872,20 @@
 % 行号。设置为阿拉伯数字。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no:
-  {
-    \int_gincr:N \c@CodelineNo
-    \hbox_overlap_left:n
-      {
-        \hbox_to_wd:nn
-          { \MacroIndent }
-          {
-            \HD@target
-            \tex_hss:D \@@_code_line_no_style:
-            \theCodelineNo \enspace
-          }
-        \tex_kern:D \@totalleftmargin
-      }
-  }
+	{
+		\int_gincr:N \c@CodelineNo
+		\hbox_overlap_left:n
+			{
+				\hbox_to_wd:nn
+					{ \MacroIndent }
+					{
+						\HD@target
+						\tex_hss:D \@@_code_line_no_style:
+						\theCodelineNo \enspace
+					}
+				\tex_kern:D \@totalleftmargin
+			}
+	}
 \tl_set:Nn \theCodelineNo { \arabic { CodelineNo } }
 %    \end{macrocode}
 % \end{macro}
@@ -4876,7 +4894,7 @@
 % 行号格式。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no_style:
-  { \color { code@gray } \normalfont \sffamily \tiny }
+	{ \color { code@gray } \normalfont \sffamily \tiny }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4885,17 +4903,17 @@
 % 以便在二次编译时确定最大行号宽度。
 %    \begin{macrocode}
 \cs_set_protected:Npn \HD@SetMacroIndent #1
-  {
-    \group_begin:
-      \settowidth \MacroIndent
-        {
-          \@@_code_line_no_style:
-          \prg_replicate:nn { \tl_count:n {#1} } { 0 }
-          \enspace
-        }
-      \dim_gset_eq:NN \MacroIndent \MacroIndent
-    \group_end:
-  }
+	{
+		\group_begin:
+			\settowidth \MacroIndent
+				{
+					\@@_code_line_no_style:
+					\prg_replicate:nn { \tl_count:n {#1} } { 0 }
+					\enspace
+				}
+			\dim_gset_eq:NN \MacroIndent \MacroIndent
+		\group_end:
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4913,10 +4931,10 @@
 % 重定义 \tn{changes@}，在版本号一行显示修改日期。
 %    \begin{macrocode}
 \cs_set_protected:Npn \changes@ #1#2
-  {
-    \@@_save_version_date:nn {#1} {#2}
-    \@@_ltx_changes:nnn {#1} {#2}
-  }
+	{
+		\@@_save_version_date:nn {#1} {#2}
+		\@@_ltx_changes:nnn {#1} {#2}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4937,19 +4955,19 @@
 % 它们分别对应 \tn{change} 的前两个参数（第三个是说明文字）。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date:nn #1#2
-  {
-    \prop_get:NnNTF \g_@@_version_date_prop
-      {#1} \l_@@_tmpa_tl
-      {
+	{
+		\prop_get:NnNTF \g_@@_version_date_prop
+			{#1} \l_@@_tmpa_tl
+			{
 %    \end{macrocode}
 % \cs{l_@@_tmpa_tl} 相当于两个参数（开始日期、结束日期），因此需要提前展开。
 %    \begin{macrocode}
-        \exp_after:wN
-          \@@_save_version_date_aux:nnnn \l_@@_tmpa_tl
-        {#2} {#1}
-      }
-      { \@@_save_version_date_aux:nnn {#1} {#2} {#2} }
-  }
+				\exp_after:wN
+					\@@_save_version_date_aux:nnnn \l_@@_tmpa_tl
+				{#2} {#1}
+			}
+			{ \@@_save_version_date_aux:nnn {#1} {#2} {#2} }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4964,14 +4982,14 @@
 % 如果 |#3| > |#2|，则读入日期 |#1|、|#3|。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date_aux:nnnn #1#2#3#4
-  {
-    \@@_if_date_later:nnTF {#1} {#3}
-      { \@@_save_version_date_aux:nnn {#4} {#3} {#2} }
-      {
-        \@@_if_date_later:nnT {#3} {#2}
-          { \@@_save_version_date_aux:nnn {#4} {#1} {#3} }
-      }
-  }
+	{
+		\@@_if_date_later:nnTF {#1} {#3}
+			{ \@@_save_version_date_aux:nnn {#4} {#3} {#2} }
+			{
+				\@@_if_date_later:nnT {#3} {#2}
+					{ \@@_save_version_date_aux:nnn {#4} {#1} {#3} }
+			}
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4984,7 +5002,7 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date_aux:nnn #1#2#3
-  { \prop_gput:Nnn \g_@@_version_date_prop {#1} { {#2} {#3} } }
+	{ \prop_gput:Nnn \g_@@_version_date_prop {#1} { {#2} {#3} } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4995,17 +5013,17 @@
 % 所以月、日前的 0 不可以省略。
 %    \begin{macrocode}
 \prg_new_conditional:Npnn \@@_if_date_later:nn #1#2 { TF, T }
-  {
-    \if_int_compare:w
-        \@@_parse_date:w #1 / / / 0 \q_stop >
-        \@@_parse_date:w #2 / / / 0 \q_stop \exp_stop_f:
-      \prg_return_true:
-    \else:
-      \prg_return_false:
-    \fi:
-  }
+	{
+		\if_int_compare:w
+				\@@_parse_date:w #1 / / / 0 \q_stop >
+				\@@_parse_date:w #2 / / / 0 \q_stop \exp_stop_f:
+			\prg_return_true:
+		\else:
+			\prg_return_false:
+		\fi:
+	}
 \cs_new:Npn \@@_parse_date:w #1-#2-#3/ #4 \q_stop
-  { #1#2#3 }
+	{ #1#2#3 }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -5015,17 +5033,17 @@
 % 则利用未定义的 \cs{BOOM} 报错。
 %    \begin{macrocode}
 \cs_new_protected:Npn \CTEX@versionitem #1 \efill
-  {
-    \@idxitem
-    \prop_get:NnNTF \g_@@_version_date_prop
-      {#1} \l_@@_tmpa_tl
-      {
-        \exp_after:wN
-          \@@_print_version_date:nnn \l_@@_tmpa_tl
-        {#1}
-      }
-      { \BOOM }
-  }
+	{
+		\@idxitem
+		\prop_get:NnNTF \g_@@_version_date_prop
+			{#1} \l_@@_tmpa_tl
+			{
+				\exp_after:wN
+					\@@_print_version_date:nnn \l_@@_tmpa_tl
+				{#1}
+			}
+			{ \BOOM }
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5038,18 +5056,18 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_print_version_date:nnn #1#2#3
-  {
-    \noindent
-    \Hy@raisedlink { \belowpdfbookmark {#3} { HD.#3 } }
-    \textbf {#3} \hfill
-    \hbox:n
-      {
-        \footnotesize
-        \str_if_eq:nnTF {#1} {#2}
-          { ( #1 ) } { ( #1 \c_space_tl \c_tilde_str \c_space_tl #2 ) }
-      }
-    \par \nopagebreak
-  }
+	{
+		\noindent
+		\Hy@raisedlink { \belowpdfbookmark {#3} { HD.#3 } }
+		\textbf {#3} \hfill
+		\hbox:n
+			{
+				\footnotesize
+				\str_if_eq:nnTF {#1} {#2}
+					{ ( #1 ) } { ( #1 \c_space_tl \c_tilde_str \c_space_tl #2 ) }
+			}
+		\par \nopagebreak
+	}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5058,8 +5076,8 @@
 % \tn{theindex} 命令。此处的补丁将在版本号一行最后加上修改日期。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \HDorg@theglossary
-  { \let \item \@idxitem }
-  { \let \item \CTEX@versionitem }
+	{ \let \item \@idxitem }
+	{ \let \item \CTEX@versionitem }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5068,14 +5086,14 @@
 % 此处的补丁使得修订记录条目的页码能够指向对应行。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \@wrglossary
-  { hdpindex }
-  {
-    \ifnum \c@HD@hypercount = \z@
-      hdpindex
-    \else
-      hdclindex { \the \c@HD@hypercount }
-    \fi
-  }
+	{ hdpindex }
+	{
+		\ifnum \c@HD@hypercount = \z@
+			hdpindex
+		\else
+			hdclindex { \the \c@HD@hypercount }
+		\fi
+	}
 %    \end{macrocode}
 % \end{macro}
 %
