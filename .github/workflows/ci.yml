@@ -7,7 +7,7 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - master
     tags:
       - 'v[0-9]+.*'
   workflow_dispatch:
