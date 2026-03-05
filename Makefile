@@ -34,7 +34,7 @@ endif
 
 .DEFAULT_GOAL = build
 
-.PHONY: all build install full-install uninstall doc tag! ctan! release! clean cleanall
+.PHONY: all build install full-install uninstall doc tag! ctan! release! github! clean cleanall
 
 all: build doc full-install
 
@@ -90,6 +90,7 @@ user!!: tag!! build _user!! # FORCE TAGGING
 release!: tag! build ctan! user! # generate GitHub release
 release!!: tag!! build ctan!! user!! # FORCE TAGGING
 
+github!: tag! install build ctan! user! # used by GitHub Workflow
 
 clean:
 	$(LATEXMK) -c $(PACKAGE).dtx

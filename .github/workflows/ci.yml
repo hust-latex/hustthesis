@@ -1,0 +1,31 @@
+name: Check and Package
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v[0-9]+.*'
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check and Test
+    uses: ./.github/workflows/_check.yml
+    secrets: inherit
+
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    uses: ./.github/workflows/_release.yml

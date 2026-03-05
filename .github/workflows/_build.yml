@@ -1,0 +1,46 @@
+name: Build
+
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest-full
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install build dependencies
+        run: apt-get update && apt-get install -y make curl zip unzip jq fonts-noto-cjk-extra
+      - name: Build and package
+        run: make github!
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ vars.PACKAGE_NAME }}.pdf
+          path: ${{ vars.PACKAGE_NAME }}.pdf
+          archive: false
+      - name: Upload CTAN artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ vars.PACKAGE_NAME }}-ctan.zip
+          path: ${{ vars.PACKAGE_NAME }}-ctan.zip
+          archive: false
+      - name: Upload User artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ vars.PACKAGE_NAME }}-user.zip
+          path: ${{ vars.PACKAGE_NAME }}-user.zip
+          archive: false
+      - name: Upload TDS artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ vars.PACKAGE_NAME }}-tds.zip
+          path: ${{ vars.PACKAGE_NAME }}-tds.zip
+          archive: false

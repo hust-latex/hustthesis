@@ -1,0 +1,26 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  workflow_call:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          skip-decompress: true
+      - name: Release to GitHub
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            ${{ vars.PACKAGE_NAME }}.pdf
+            ${{ vars.PACKAGE_NAME }}-user.zip
+            ${{ vars.PACKAGE_NAME }}-ctan.zip
+            ${{ vars.PACKAGE_NAME }}-tds.zip

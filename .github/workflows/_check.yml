@@ -1,0 +1,33 @@
+name: Check
+
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        texlive:
+          - latest-full
+          - TL2026-historic-full
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:${{ matrix.texlive }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install build dependencies
+        run: apt-get update && apt-get install -y make curl zip unzip jq qpdf fonts-noto-cjk-extra
+      - name: Build and package
+        run: make github!
+      - name: Verify PDF is not empty
+        run: |
+          pages=$(qpdf --show-npages ${{ vars.PACKAGE_NAME }}.pdf)
+          echo "PDF has $pages pages"
+          if [ "$pages" -eq 0 ]; then
+            echo "Error: PDF is empty"
+            exit 1
+          fi

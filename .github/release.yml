@@ -1,0 +1,11 @@
+changelog:
+  categories:
+    - title: What's Changed
+      labels:
+        - '*'
+      exclude:
+        authors:
+          - dependabot[bot]
+    - title: Dependencies
+      labels:
+        - '*'
