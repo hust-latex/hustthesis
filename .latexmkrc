@@ -18,7 +18,7 @@ $makeindex = "makeindex -s gind.ist %O -o %D %S";
 
 # Process glossary (change history)
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
-$makeglossaries = makeglossaries;
+$makeglossaries = "makeglossaries";
 sub makeglo2gls {
 	system("makeindex -s gglo.ist -o \"$_[0].gls\" -t \"$_[0].glg\" \"$_[0].glo\"");
 }
