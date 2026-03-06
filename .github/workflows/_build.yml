@@ -10,7 +10,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     container:
-      image: texlive/texlive:latest-full
+      image: registry.gitlab.com/islandoftex/images/texlive:latest-full
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -18,6 +18,8 @@ jobs:
           fetch-depth: 0
       - name: Install build dependencies
         run: apt-get update && apt-get install -y make curl zip unzip jq fonts-noto-cjk-extra
+      - name: Configure git safe directory
+        run: git config --global --add safe.directory "${GITHUB_WORKSPACE}"
       - name: Build and package
         run: make github!
       - name: Upload PDF artifact
