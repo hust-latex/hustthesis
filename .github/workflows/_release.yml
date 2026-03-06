@@ -13,6 +13,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v8
         with:
+          merge-multiple: true
           skip-decompress: true
       - name: Release to GitHub
         id: release
@@ -23,4 +24,4 @@ jobs:
             ${{ vars.PACKAGE_NAME }}.pdf
             ${{ vars.PACKAGE_NAME }}-user.zip
             ${{ vars.PACKAGE_NAME }}-ctan.zip
-            ${{ vars.PACKAGE_NAME }}-tds.zip
+            ${{ vars.PACKAGE_NAME }}.tds.zip
