@@ -12,15 +12,17 @@ jobs:
       matrix:
         texlive:
           - latest-full
-          - TL2026-historic-full
+          - TL2026-2026-03-01-full
     runs-on: ubuntu-latest
     container:
-      image: texlive/texlive:${{ matrix.texlive }}
+      image: registry.gitlab.com/islandoftex/images/texlive:${{ matrix.texlive }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Install build dependencies
         run: apt-get update && apt-get install -y make curl zip unzip jq qpdf fonts-noto-cjk-extra
+      - name: Configure git safe directory
+        run: git config --global --add safe.directory ${{ github.workspace }}
       - name: Build and package
         run: make github!
       - name: Verify PDF is not empty
