@@ -19,7 +19,7 @@ jobs:
       - name: Install build dependencies
         run: apt-get update && apt-get install -y make curl zip unzip jq fonts-noto-cjk-extra
       - name: Configure git safe directory
-        run: git config --global --add safe.directory /__w/${{ github.repository }}
+        run: git config --global --add safe.directory "${GITHUB_WORKSPACE}"
       - name: Build and package
         run: make github!
       - name: Upload PDF artifact
