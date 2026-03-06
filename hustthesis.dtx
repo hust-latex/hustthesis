@@ -1026,7 +1026,7 @@
 % \begin{macro}{\@@_msg_new:nn,
 %   \@@_error:n, \@@_error:nn, \@@_error:nx, \@@_error:nnn, \@@_error:nnnn,
 %   \@@_warning:n, \@@_warning:nn, \@@_warning:nxx,
-%   \@@_info:nx
+%   \@@_info:n
 %}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
@@ -1039,7 +1039,7 @@
 \cs_new:Npn \@@_warning:n { \msg_warning:nn { hustthesis } }
 \cs_new:Npn \@@_warning:nn { \msg_warning:nnn { hustthesis } }
 \cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { hustthesis } }
-\cs_new:Npn \@@_info:nx { \msg_info:nnx { hustthesis } }
+\cs_new:Npn \@@_info:n { \msg_info:nn { hustthesis } }
 %    \end{macrocode}
 % \end{macro}
 %
