@@ -13,7 +13,8 @@ Before using, please read the [user manual](https://github.com/hust-latex/hustth
 
 ## Requirement
 
-For the best experience, please use the [TeX Live 2025](https://www.tug.org/texlive/) or later.
+For the best experience, please use the [TeX Live 2026](https://www.tug.org/texlive/) or later.
+If your TeX distribution is earlier than TeX Live 2026, please see [PR #49](https://github.com/hust-latex/hustthesis/pull/49).
 Compiling the document requires either XeLaTeX or LuaLaTeX.
 
 ## Installation

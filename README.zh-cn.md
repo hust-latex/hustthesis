@@ -13,7 +13,8 @@ hustthesis
 
 ## 要求
 
-为了获得最佳体验，请使用 [TeX Live 2025](https://www.tug.org/texlive/) 或更高版本。
+为了获得最佳体验，请使用 [TeX Live 2026](https://www.tug.org/texlive/) 或更高版本。
+如果您的 TeX 发行版早于 TeX Live 2026，请参阅 [PR #49](https://github.com/hust-latex/hustthesis/pull/49)。
 编译文档需要使用 XeLaTeX 或 LuaLaTeX。
 
 ## 安装
