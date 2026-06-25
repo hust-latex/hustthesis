@@ -13,7 +13,7 @@ jobs:
       image: registry.gitlab.com/islandoftex/images/texlive:latest-full
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Install build dependencies
